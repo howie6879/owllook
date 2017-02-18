@@ -1,4 +1,50 @@
 .navbar {
     border-radius: 0 !important;
-    min-height: 80px !important;
+    min-height: 65px !important;
+}
+
+.result {
+    margin-right: 0 !important;
+}
+
+.form-control {
+    width: 90% !important;
+    height: 35px !important;
+    line-height: 35px !important;
+    margin-top: 15px;
+    margin-left: 5%;
+    border-radius: 0 !important;
+}
+
+div.item > li {
+    margin-top: 15px;
+}
+
+div.item > li > a {
+    color: #38556A;
+    font-size: 16px;
+}
+
+.netloc {
+    display: block;
+    color: #006621;
+}
+
+.result_item {
+    width: 35em;
+    height: 95px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tags {
+    position: relative;
+    margin-top: 5px;
+}
+
+.label {
+    padding: 0.3em .6em .3em !important;
+    position: absolute;
+    right: 10px;
 }

@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {% block header %}
-<title>{{ title }}</title>
+<title>{{ name }} - 搜索结果</title>
 <link rel="stylesheet" href="static/css/result.css">
 {% endblock %}
 
@@ -9,13 +9,52 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid center-block">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <img alt="Brand" src="...">
+            <a class="navbar-brand" href="/">
+                <img alt="Owllook" src="">
             </a>
         </div>
+        <form action="/search" method="get">
+            <div class="col-xs-6 search">
+                <input type="text" name="wd" class="form-control" value="{{name}}">
+            </div>
+        </form>
     </div>
 </nav>
-<div class="container">
-    {{result}}
+<div class="container result">
+    <p style="color: #868383;font-size: 13px; ">找到 {{count}} 条结果（用时{{time}}s）</p>
+    <div class="list-unstyled item">
+        {%for item in result%}
+        <div class="result_item">
+            <li>
+                <a target="_blank" href="{{item.url}}">{{item.title}}</a>
+                <div class="netloc">
+                    <i>{{item.netloc}}</i>
+                    <i><a target="_blank" href="{{item.url}}">查看源网址</a></i>
+                </div>
+                <div class="tags">
+                    <span>{{item.time}}</span>
+                    <span class="label label-primary">已解析</span>
+                </div>
+            </li>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+<div class="footer">
+    <nav class="navbar navbar-default">
+        <div class="message">
+            <div class="right">
+                <span>
+                    <a target="_blank" href="/feedback">反馈</a>
+                    <a target="_blank" href="/donate">捐赠</a>
+                    <a data-container="body" data-toggle="popover"
+                       data-placement="top"
+                       data-content="本站是一个小说搜索引擎，提供且仅提供百度搜索提供的小说检索结果。本站只负责展示搜索结果，展示内容与本站无关。">免责声明</a>
+                    <a href="#">关于</a>
+                </span>
+            </div>
+        </div>
+    </nav>
 </div>
 {% endblock %}

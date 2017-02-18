@@ -5,6 +5,7 @@ import async_timeout
 import re
 from bs4 import BeautifulSoup
 import arrow
+from urllib.parse import urlparse
 from pprint import pprint
 
 from novels_search.config import URL_PC, URL_PHONE, LOGGER, USER_AGENT
@@ -48,6 +49,7 @@ async def data_extraction_for_web(html):
             url = html.find('a').get('href', None)
             if not url or 'baidu' in url:
                 return None
+            netloc = urlparse(url).netloc
             title = html.select('font[size="3"]')[0].get_text()
             source = html.select('font[color="#008000"]')[0].get_text()
             time = re.findall(r'\d+-\d+-\d+', source)
@@ -56,7 +58,7 @@ async def data_extraction_for_web(html):
             if time:
                 time_list = [int(i) for i in time.split('-')]
                 timestamp = arrow.get(time_list[0], time_list[1], time_list[2]).timestamp
-            return {'title': title, 'url': url, 'time': time, 'timestamp': timestamp}
+            return {'title': title, 'url': url, 'time': time, 'timestamp': timestamp, 'netloc': netloc}
         except Exception as e:
             LOGGER.exception(e)
             return None

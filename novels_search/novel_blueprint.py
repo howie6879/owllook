@@ -29,11 +29,12 @@ async def donate(request):
     if not name:
         return redirect('/')
     else:
-        name = '{name} 小说 阅读'.format(name=name)
+        keyword = 'intitle:{name} 小说 阅读'.format(name=name)
     is_web = int(request.args.get('is_web', 1))
-    result = await search(name, is_web)
+    result = await search(keyword, is_web)
     parse_result = [i for i in result if i]
-    return template('result.html', title=name + '-搜索结果', time=time.time() - start, result=parse_result)
+    return template('result.html', name=name, time='%.2f' % (time.time() - start), result=parse_result,
+                    count=len(parse_result))
 
 
 @bp.route("/donate")
