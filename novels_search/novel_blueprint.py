@@ -3,7 +3,7 @@ from sanic import Blueprint
 from sanic.response import redirect, json, html
 from sanic.exceptions import ServerError
 from jinja2 import Environment, PackageLoader, select_autoescape
-from novels_search.fetcher.novel import search
+from novels_search.fetcher.novels import search
 import time
 
 bp = Blueprint('novel_blueprint')
