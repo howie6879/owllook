@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import logging
+from collections import namedtuple
 
 # Search engine
 # eg:
@@ -18,3 +19,10 @@ LOGGER = logging.getLogger('root')
 # DOMAIN
 BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', 'yunqi.qq.com', 'chuangshi.qq.com',
                 'book.qidian.com', 'www.soduso.com', 'pages.book.qq.com']
+
+# Rules
+Rules = namedtuple('Rules', 'url selector')
+RULES = {
+    # demo  'name': Rules('netloc', [selector])
+    'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'})
+}

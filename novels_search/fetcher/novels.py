@@ -8,20 +8,26 @@ import arrow
 from urllib.parse import urlparse
 from pprint import pprint
 
-from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, USER_AGENT
+from novels_search.fetcher.function import get_random_user_agent
+from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN
 
 
 async def fetch(client, url, name, is_web):
     with async_timeout.timeout(10):
-        if is_web:
-            params = {'wd': name, 'ie': 'utf-8', 'tn': 'baidulocal', 'rn': 50}
-        else:
-            params = {'word': name}
-        async with client.get(url, params=params) as response:
-            assert response.status == 200
-            LOGGER.info('Task url: {}'.format(response.url))
-            text = await response.text()
-            return text
+        try:
+            headers = {'user-agent': get_random_user_agent()}
+            if is_web:
+                params = {'wd': name, 'ie': 'utf-8', 'tn': 'baidulocal', 'rn': 50}
+            else:
+                params = {'word': name}
+            async with client.get(url, params=params, headers=headers) as response:
+                assert response.status == 200
+                LOGGER.info('Task url: {}'.format(response.url))
+                text = await response.text()
+                return text
+        except Exception as e:
+            LOGGER.exception(e)
+            return None
 
 
 async def data_extraction_for_phone(html):
@@ -47,7 +53,6 @@ async def data_extraction_for_web(html):
     with async_timeout.timeout(10):
         try:
             url = html.find('a').get('href', None)
-            pprint(urlparse(url).path)
             if not url or 'baidu' in url or urlparse(url).netloc in BLACK_DOMAIN:
                 return None
             netloc = urlparse(url).netloc
@@ -69,15 +74,27 @@ async def search(name, is_web=1):
     url = URL_PC if is_web else URL_PHONE
     async with aiohttp.ClientSession() as client:
         html = await fetch(client=client, url=url, name=name, is_web=is_web)
-        soup = BeautifulSoup(html, 'html5lib')
-        if is_web:
-            result = soup.find_all(class_='f')
-            extra_tasks = [data_extraction_for_web(i) for i in result]
-            tasks = [asyncio.ensure_future(i) for i in extra_tasks]
-        else:
-            result = soup.find_all(class_='result c-result c-clk-recommend')
-            extra_tasks = [data_extraction_for_phone(i) for i in result]
-            tasks = [asyncio.ensure_future(i) for i in extra_tasks]
-        return await asyncio.gather(*tasks)
+        if html:
+            soup = BeautifulSoup(html, 'html5lib')
+            if is_web:
+                result = soup.find_all(class_='f')
+                extra_tasks = [data_extraction_for_web(i) for i in result]
+                tasks = [asyncio.ensure_future(i) for i in extra_tasks]
+            else:
+                result = soup.find_all(class_='result c-result c-clk-recommend')
+                extra_tasks = [data_extraction_for_phone(i) for i in result]
+                tasks = [asyncio.ensure_future(i) for i in extra_tasks]
+            return await asyncio.gather(*tasks)
 
-pprint(urlparse('http://pages.book.qq.com/activity/zetianji'))
+async def target_fetch(client, url):
+    with async_timeout.timeout(10):
+        try:
+            headers = {'user-agent': get_random_user_agent()}
+            async with client.get(url, headers=headers) as response:
+                assert response.status == 200
+                LOGGER.info('Task url: {}'.format(response.url))
+                text = await response.text()
+                return text
+        except Exception as e:
+            LOGGER.exception(e)
+            return None

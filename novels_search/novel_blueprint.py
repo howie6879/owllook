@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 from sanic import Blueprint
-from sanic.response import redirect, json, html
+from sanic.response import redirect, html, text, json
 from sanic.exceptions import ServerError
 from jinja2 import Environment, PackageLoader, select_autoescape
-from novels_search.fetcher.novels import search
 import time
+import aiohttp
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+
+from novels_search.fetcher.novels import search, target_fetch
+from novels_search.config import RULES
 
 bp = Blueprint('novel_blueprint')
 bp.static('/static', './static')
@@ -35,6 +40,24 @@ async def donate(request):
     parse_result = [i for i in result if i]
     return template('result.html', name=name, time='%.2f' % (time.time() - start), result=parse_result,
                     count=len(parse_result))
+
+
+@bp.route("/list")
+async def list(request):
+    url = request.args.get('url', None)
+    name = request.args.get('name', None)
+    netloc = urlparse(url).netloc
+    if netloc not in RULES.keys():
+        return redirect(url)
+    async with aiohttp.ClientSession() as client:
+        html = await target_fetch(client=client, url=url)
+        if html:
+            soup = BeautifulSoup(html, 'html5lib')
+            selector = RULES[netloc].selector
+            list = soup.find_all(class_=selector['class'])
+        else:
+            return text('解析失败')
+    return template('list.html', name=name, soup=list)
 
 
 @bp.route("/donate")

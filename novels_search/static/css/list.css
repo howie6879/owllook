@@ -1,0 +1,27 @@
+.con_top {
+    display: none;
+}
+
+#info {
+    padding: 10px;
+    margin: 10px;
+    font-size: 15px;
+}
+
+#info h1 {
+    font-size: 28px;
+    font-weight: 700;
+    overflow: hidden;
+    margin: auto;
+    padding: 1px;
+}
+
+#info p {
+    height: 25px;
+    line-height: 25px;
+    padding-top: 2px;
+    width: 350px;
+    margin: auto;
+    overflow: hidden;
+    float: left;
+}
