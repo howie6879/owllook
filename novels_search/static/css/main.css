@@ -1,0 +1,24 @@
+/*style for footer*/
+div.footer {
+
+}
+
+div.footer > .navbar {
+    min-height: 40px !important;
+}
+
+.message > .right{
+    position: absolute;
+    right: 5%;
+}
+
+.message > .right > span {
+    text-align: center !important;
+    line-height: 40px !important;
+    height: 40px;
+}
+
+.right > span > a {
+    color: #666;
+    margin-left: 25px;
+}

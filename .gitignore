@@ -1,0 +1,10 @@
+# file
+*.pyc
+tags
+.DS_Store
+# dir
+__pycache__/
+.vscode/
+build/
+dist/
+*.egg-info/

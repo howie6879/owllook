@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>feedback-owllook</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <br>
+    <pre>
+
+        您好，如果您对本站有什么建议，请输入您的意见，本站一定慎重考虑，最后，感谢您对本站的反馈。
+    </pre>
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="1" data-title="feedback" data-url="owllook.net/feedback"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name: "howie6879"};
+        (function () {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+            || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="static/css/result.css">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid center-block">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" src="...">
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {{result}}
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+aiohttp
+async_timeout
+uvloop
+bs4
+sanic
+Jinja2>=2.9.5
+arrow
