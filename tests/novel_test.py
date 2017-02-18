@@ -3,7 +3,7 @@ import uvloop
 import asyncio
 import time
 from pprint import pprint
-from novel_search.fetcher.novel import search
+from novels_search.fetcher.novels import search
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 

@@ -8,7 +8,7 @@ import arrow
 from urllib.parse import urlparse
 from pprint import pprint
 
-from novels_search.config import URL_PC, URL_PHONE, LOGGER, USER_AGENT
+from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, USER_AGENT
 
 
 async def fetch(client, url, name, is_web):
@@ -47,7 +47,8 @@ async def data_extraction_for_web(html):
     with async_timeout.timeout(10):
         try:
             url = html.find('a').get('href', None)
-            if not url or 'baidu' in url:
+            pprint(urlparse(url).path)
+            if not url or 'baidu' in url or urlparse(url).netloc in BLACK_DOMAIN:
                 return None
             netloc = urlparse(url).netloc
             title = html.select('font[size="3"]')[0].get_text()
@@ -78,3 +79,5 @@ async def search(name, is_web=1):
             extra_tasks = [data_extraction_for_phone(i) for i in result]
             tasks = [asyncio.ensure_future(i) for i in extra_tasks]
         return await asyncio.gather(*tasks)
+
+pprint(urlparse('http://pages.book.qq.com/activity/zetianji'))
