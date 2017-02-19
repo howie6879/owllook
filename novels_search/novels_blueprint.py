@@ -11,9 +11,9 @@ from urllib.parse import urlparse
 from novels_search.fetcher.novels import search, target_fetch
 from novels_search.config import RULES
 
-bp = Blueprint('novel_blueprint')
+bp = Blueprint('novels_blueprint')
 bp.static('/static', './static')
-env = Environment(loader=PackageLoader('novel_blueprint', 'template'),
+env = Environment(loader=PackageLoader('novels_blueprint', 'template'),
                   autoescape=select_autoescape(['html', 'xml', 'tpl']))
 
 
@@ -53,7 +53,7 @@ async def list(request):
         html = await target_fetch(client=client, url=url)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
-            selector = RULES[netloc].selector
+            selector = RULES[netloc].list
             list = soup.find_all(class_=selector['class'])
         else:
             return text('解析失败')

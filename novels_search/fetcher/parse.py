@@ -3,6 +3,7 @@ import asyncio
 import aiohttp
 import async_timeout
 from bs4 import BeautifulSoup
+import chardet
 from urllib.parse import urlparse
 from pprint import pprint
 
@@ -24,7 +25,7 @@ async def fetch(client, url):
             return None
 
 
-async def novel_search(url):
+async def novels_search(url):
     pprint(url)
     async with aiohttp.ClientSession() as client:
         html = await fetch(client=client, url=url)

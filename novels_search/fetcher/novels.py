@@ -2,6 +2,7 @@
 import asyncio
 import aiohttp
 import async_timeout
+import cchardet
 import re
 from bs4 import BeautifulSoup
 import arrow
@@ -9,7 +10,7 @@ from urllib.parse import urlparse
 from pprint import pprint
 
 from novels_search.fetcher.function import get_random_user_agent
-from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN
+from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES
 
 
 async def fetch(client, url, name, is_web):
@@ -56,6 +57,7 @@ async def data_extraction_for_web(html):
             if not url or 'baidu' in url or urlparse(url).netloc in BLACK_DOMAIN:
                 return None
             netloc = urlparse(url).netloc
+            is_parse = 1 if netloc in RULES.keys() else 0
             title = html.select('font[size="3"]')[0].get_text()
             source = html.select('font[color="#008000"]')[0].get_text()
             time = re.findall(r'\d+-\d+-\d+', source)
@@ -64,7 +66,8 @@ async def data_extraction_for_web(html):
             if time:
                 time_list = [int(i) for i in time.split('-')]
                 timestamp = arrow.get(time_list[0], time_list[1], time_list[2]).timestamp
-            return {'title': title, 'url': url, 'time': time, 'timestamp': timestamp, 'netloc': netloc}
+            return {'title': title, 'url': url, 'time': time, 'is_parse': is_parse, 'timestamp': timestamp,
+                    'netloc': netloc}
         except Exception as e:
             LOGGER.exception(e)
             return None
@@ -85,6 +88,7 @@ async def search(name, is_web=1):
                 extra_tasks = [data_extraction_for_phone(i) for i in result]
                 tasks = [asyncio.ensure_future(i) for i in extra_tasks]
             return await asyncio.gather(*tasks)
+
 
 async def target_fetch(client, url):
     with async_timeout.timeout(10):
