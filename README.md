@@ -1,10 +1,10 @@
 ### 
 
-### 网络小说搜索引擎（novel-search）
+### 网络小说搜索引擎（novels-search）
 
 ### 1.说明
 
-`novel-search`是一个基于其他网站的垂直小说搜索引擎，至于为什么写这个，一个是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统。
+`novels-search`是一个基于其他网站的垂直小说搜索引擎，至于为什么写这个，一个是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统。
 
 - sanic：基于Python 3.5+的异步web服务器，快快快。
 - vloop：sanic默认使用uvloop，替代asyncio本身的loop
@@ -21,7 +21,7 @@
 
 **运行：**
 
-`python novel_search/server.py`
+`python novels_search/server.py`
 
 ### 2.demo
 
