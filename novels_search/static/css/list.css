@@ -1,3 +1,77 @@
-.con_top, #sidebar, #listtj, #info > p > a {
+body {
+    background-color: #f8f8f8 !important;
+}
+
+.con_top, #sidebar, #listtj, #intro > p:last-child {
     display: none;
+}
+
+#maininfo {
+    background-color: #ffffff;
+    border-radius: 15px;
+}
+
+#info {
+    height: 140px;
+}
+
+#info > h1 {
+    text-align: center;
+    padding-top: 20px;
+    color: rgba(50, 68, 84, 0.61);
+}
+
+#info > p {
+    float: left;
+    margin-top: 25px;
+    margin-left: 6%;
+}
+
+#intro {
+    margin-left: 5%;
+    width: 90%;
+    padding-bottom: 20px;
+    color: #7b7b61;
+}
+
+#list dl {
+    float: left;
+    overflow: hidden;
+    padding-bottom: 1px;
+    margin: auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+}
+
+#list {
+    margin-top: 35px;
+}
+
+#list dt {
+    background: none repeat scroll 0 0 rgba(113, 201, 206, 0.82);
+    display: inline;
+    float: left;
+    font-size: 14px;
+    line-height: 28px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    margin: auto auto 5px;
+    padding: 5px 10px;
+}
+
+#list dd {
+    border-bottom: 1px dashed #CCC;
+    display: inline;
+    float: left;
+    height: 25px;
+    line-height: 200%;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-align: left;
+    text-indent: 10px;
+    vertical-align: middle;
+    width: 26%;
+    margin-left: 5%;
 }
