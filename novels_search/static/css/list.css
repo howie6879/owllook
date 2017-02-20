@@ -2,7 +2,7 @@ body {
     background-color: #f8f8f8 !important;
 }
 
-.con_top, #sidebar, #fmimg, #listtj, #intro > p:last-child {
+.con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
     display: none !important;
 }
 
@@ -10,10 +10,10 @@ body {
     background-color: #ffffff;
     border-radius: 15px;
     margin-top: 35px;
-}
-
-#info {
-    height: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-bottom: 25px;
 }
 
 #info > h1 {
@@ -28,14 +28,23 @@ body {
     margin-left: 6%;
 }
 
-#intro {
-    margin-left: 5%;
-    width: 90%;
-    padding-bottom: 20px;
-    color: #7b7b61;
-}
+/*#intro > p {*/
+/*display: block;*/
+/*float: right;*/
+/*margin-left: 6%;*/
+/*margin-top: 20px;*/
+/*overflow: auto;*/
+/*}*/
 
-#list dl {
+/*#intro {*/
+/*display: block;*/
+/*float: right;*/
+/*width: 90%;*/
+/*padding-bottom: 20px;*/
+/*color: #7b7b61;*/
+/*}*/
+
+#list dl, .chapterlist, tbody {
     float: left;
     overflow: hidden;
     padding-bottom: 1px;
@@ -48,7 +57,7 @@ body {
     margin-top: 35px;
 }
 
-#list dt {
+#list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss {
     background: none repeat scroll 0 0 rgba(113, 201, 206, 0.82);
     display: inline;
     float: left;
@@ -62,7 +71,7 @@ body {
     padding: 5px 10px;
 }
 
-#list dd {
+#list dd, .panel li, .chapterlist > dd, td.ccss {
     border-bottom: 1px dashed #CCC;
     display: inline;
     float: left;
@@ -74,9 +83,42 @@ body {
     text-indent: 10px;
     vertical-align: middle;
     width: 26%;
-    margin-left: 5%;
+    margin-left: 5% !important;
+}
+
+.TabCss dd.col4 {
+    float: right;
+    margin-right: 4px;
+}
+
+.TabCss dd {
+    width: 228px !important;
+    width: 226px;
+    height: 28px;
+    line-height: 28px;
+    vertical-align: middle;
+    text-indent: 10px;
+    font-size: 12px;
+    background: #E7F4F4;
+    text-align: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    float: left;
+    display: inline;
+    border: 1px solid #9FBFE2;
+    overflow: hidden;
 }
 
 dd > a {
     cursor: pointer;
 }
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #f8f8f8 !important;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+

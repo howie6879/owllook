@@ -38,7 +38,8 @@ async def donate(request):
     is_web = int(request.args.get('is_web', 1))
     result = await search(keyword, is_web)
     parse_result = [i for i in result if i]
-    return template('result.html', name=name, time='%.2f' % (time.time() - start), result=parse_result,
+    result_sorted = sorted(parse_result, reverse=True, key=lambda res: res['timestamp'])
+    return template('result.html', name=name, time='%.2f' % (time.time() - start), result=result_sorted,
                     count=len(parse_result))
 
 
@@ -53,8 +54,11 @@ async def list(request):
         html = await target_fetch(client=client, url=url)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
-            selector = RULES[netloc].list
-            list = soup.find_all(class_=selector['class'])
+            selector = RULES[netloc].dict
+            if selector.get('id', None):
+                list = soup.find_all(id=selector['id'])
+            else:
+                list = soup.find_all(class_=selector['class'])
         else:
             return text('解析失败')
     return template('list.html', name=name, soup=list)
