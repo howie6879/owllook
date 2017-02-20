@@ -5,6 +5,13 @@
 
 .result {
     margin-right: 0 !important;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 6%;
+}
+
+.result > p {
+    padding-left: 4%;
 }
 
 .form-control {
@@ -12,7 +19,7 @@
     height: 35px !important;
     line-height: 35px !important;
     margin-top: 15px;
-    margin-left: 5%;
+    margin-left: 4%;
     border-radius: 0 !important;
 }
 
@@ -36,6 +43,8 @@ div.item > li > a {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-left: 5%;
+    font-size: 15px;
 }
 
 .tags {

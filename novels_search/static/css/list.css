@@ -2,13 +2,14 @@ body {
     background-color: #f8f8f8 !important;
 }
 
-.con_top, #sidebar, #listtj, #intro > p:last-child {
-    display: none;
+.con_top, #sidebar, #fmimg, #listtj, #intro > p:last-child {
+    display: none !important;
 }
 
 #maininfo {
     background-color: #ffffff;
     border-radius: 15px;
+    margin-top: 35px;
 }
 
 #info {
@@ -74,4 +75,8 @@ body {
     vertical-align: middle;
     width: 26%;
     margin-left: 5%;
+}
+
+dd > a {
+    cursor: pointer;
 }

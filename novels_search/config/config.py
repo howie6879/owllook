@@ -26,6 +26,7 @@ Rules = namedtuple('Rules', 'url list')
 RULES = {
     # demo  'name': Rules('netloc', [selector])
     'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'}),
+    # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'}),
     'www.xxbiquge.com': Rules('www.xxbiquge.com', {'class': 'box_con'}),
     'www.37zw.com': Rules('www.37zw.com', {'class': 'box_con'}),
     'www.00ksw.net': Rules('www.00ksw.net', {'class': 'box_con'}),
@@ -34,4 +35,8 @@ RULES = {
     'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}),
     'www.biquge.tw': Rules('www.biquge.tw', {'class': 'box_con'}),
     'www.shuge.net': Rules('www.shuge.net', {'class': 'box_con'}),
+    'www.booktxt.net': Rules('www.booktxt.net', {'class': 'box_con'}),
+    'www.fs23.com': Rules('www.fs23.com', {'class': 'box_con'}),
+    'www.fhxiaoshuo.com': Rules('www.fhxiaoshuo.com', {'class': 'box_con'}),
+    'www.yikanxiaoshuo.com': Rules('www.yikanxiaoshuo.com', {'class': 'box_con'}),
 }
