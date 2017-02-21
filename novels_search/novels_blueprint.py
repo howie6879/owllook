@@ -28,7 +28,7 @@ async def index(request):
 
 
 @bp.route("/search", methods=['GET'])
-async def donate(request):
+async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', None)
     if not name:
@@ -52,24 +52,33 @@ async def list(request):
         return redirect(url)
     async with aiohttp.ClientSession() as client:
         html = await target_fetch(client=client, url=url)
+        content_url = RULES[netloc].content_url
         if html:
             soup = BeautifulSoup(html, 'html5lib')
-            selector = RULES[netloc].dict
+            selector = RULES[netloc].chapter_selector
             if selector.get('id', None):
                 list = soup.find_all(id=selector['id'])
             else:
                 list = soup.find_all(class_=selector['class'])
         else:
             return text('解析失败')
-    return template('list.html', name=name, soup=list)
+    return template('list.html', name=name, url=url, content_url=content_url, soup=list)
 
 
-@bp.route("/donate")
+@bp.route("/owllook_content")
+async def owllook_content(request):
+    url = request.args.get('url', None)
+    name = request.args.get('name', None)
+    netloc = urlparse(url).netloc
+    return redirect(url)
+
+
+@bp.route("/owllook_donate")
 async def donate(request):
     return template('donate.html')
 
 
-@bp.route("/feedback")
+@bp.route("/owllook_feedback")
 async def feedback(request):
     return template('feedback.html')
 

@@ -24,3 +24,9 @@ div.footer > .navbar {
     color: #666;
     margin-left: 25px;
 }
+
+.donate {
+    width: 60%;
+    margin-top: 5%;
+    margin-left: 20%;
+}

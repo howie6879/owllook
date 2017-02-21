@@ -24,9 +24,9 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org']
 
 # Rules
-Rules = namedtuple('Rules', 'content_url dict')
+Rules = namedtuple('Rules', 'content_url chapter_selector')
 RULES = {
-    # demo  'name': Rules('content_url', [selector])
+    # demo  'name': Rules('content_url', {list_selector})
     'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'}),
     'www.biqugex.com': Rules('www.biqugex.com', {'class': 'box_con'}),
     # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'}),
@@ -54,7 +54,7 @@ RULES = {
     'www.23us.la': Rules('www.23us.la', {'class': 'inner'}),
     'www.23us.cc': Rules('www.23us.cc', {'class': 'inner'}),
     'www.sosoxiaoshuo.cc': Rules('www.sosoxiaoshuo.cc', {'class': 'box_con'}),
-    'www.ciluke.com': Rules('www.ciluke.com', {'id': 'list'}),
+    'www.ciluke.com': Rules('http://www.ciluke.com/0/2/2900/', {'id': 'list'}),
     'www.555zw.com': Rules('www.555zw.com', {'class': 'dir'}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'}),
 }
