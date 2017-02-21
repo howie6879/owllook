@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="container list">
+<div class="container alllist">
     {% for item in soup -%}
     {{item|safe}}
     {%- endfor %}
@@ -15,7 +15,7 @@
 </div>
 
 <div class="footer">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="message">
             <div class="right">
                 <span>

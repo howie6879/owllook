@@ -2,7 +2,11 @@ body {
     background-color: #f8f8f8 !important;
 }
 
-.con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
+.alllist {
+    margin-bottom: 50px;
+}
+
+#list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
     display: none !important;
 }
 

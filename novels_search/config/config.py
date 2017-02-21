@@ -20,12 +20,13 @@ LOGGER = logging.getLogger('root')
 BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', 'yunqi.qq.com', 'chuangshi.qq.com',
                 'book.qidian.com', 'www.soduso.com', 'pages.book.qq.com', 'book.km.com', 'www.lread.net',
                 'www.0dsw.com', 'www.5200xsb.com', 'www.80txt.com', 'www.sodu.tw', 'www.shuquge.com',
-                'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net']
+                'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net',
+                'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org']
 
 # Rules
-Rules = namedtuple('Rules', 'url dict')
+Rules = namedtuple('Rules', 'content_url dict')
 RULES = {
-    # demo  'name': Rules('netloc', [selector])
+    # demo  'name': Rules('content_url', [selector])
     'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'}),
     'www.biqugex.com': Rules('www.biqugex.com', {'class': 'box_con'}),
     # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'}),
@@ -37,10 +38,12 @@ RULES = {
     'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}),
     'www.biquge.tw': Rules('www.biquge.tw', {'class': 'box_con'}),
     'www.shuge.net': Rules('www.shuge.net', {'class': 'box_con'}),
+    'www.09xs.com': Rules('www.09xs.com', {'class': 'box_con'}),
     'www.booktxt.net': Rules('www.booktxt.net', {'class': 'box_con'}),
     'www.fs23.com': Rules('www.fs23.com', {'class': 'box_con'}),
     'www.fhxiaoshuo.com': Rules('www.fhxiaoshuo.com', {'class': 'box_con'}),
     'www.yikanxiaoshuo.com': Rules('www.yikanxiaoshuo.com', {'class': 'box_con'}),
+    'www.13xs.com': Rules('www.13xs.com', {'class': 'box_con'}),
     'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}),
     'www.1xiaoshuo.com': Rules('www.1xiaoshuo.com', {'class': 'box_con'}),
     'www.kanshu.la': Rules('www.kanshu.la', {'class': 'box_con'}),
@@ -49,6 +52,7 @@ RULES = {
     'zetianjiba.net': Rules('zetianjiba.net', {'class': 'bg'}),
     'www.bxwx9.org': Rules('www.bxwx9.org', {'class': 'TabCss'}),
     'www.23us.la': Rules('www.23us.la', {'class': 'inner'}),
+    'www.23us.cc': Rules('www.23us.cc', {'class': 'inner'}),
     'www.sosoxiaoshuo.cc': Rules('www.sosoxiaoshuo.cc', {'class': 'box_con'}),
     'www.ciluke.com': Rules('www.ciluke.com', {'id': 'list'}),
     'www.555zw.com': Rules('www.555zw.com', {'class': 'dir'}),
