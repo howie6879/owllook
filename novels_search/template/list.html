@@ -9,9 +9,15 @@
 
 <div class="container alllist">
     <input id="content_url" type="hidden" value="{{content_url}}">
+    <input id="url" type="hidden" value="{{url}}">
     {% for item in soup -%}
     {{item|safe}}
     {%- endfor %}
 
 </div>
 {% endblock %}
+{% block script %}
+<script src="static/js/list.js"></script>
+{% endblock %}
+
+

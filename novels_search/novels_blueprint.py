@@ -68,6 +68,7 @@ async def list(request):
 @bp.route("/owllook_content")
 async def owllook_content(request):
     url = request.args.get('url', None)
+    print(url)
     name = request.args.get('name', None)
     netloc = urlparse(url).netloc
     return redirect(url)

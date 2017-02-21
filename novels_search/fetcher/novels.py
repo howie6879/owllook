@@ -65,7 +65,8 @@ async def data_extraction_for_web(html):
             if time:
                 time_list = [int(i) for i in time.split('-')]
                 timestamp = arrow.get(time_list[0], time_list[1], time_list[2]).timestamp
-            return {'title': title, 'url': url, 'time': time, 'is_parse': is_parse, 'timestamp': timestamp,
+            return {'title': title, 'url': url.replace('index.html', ''), 'time': time, 'is_parse': is_parse,
+                    'timestamp': timestamp,
                     'netloc': netloc}
         except Exception as e:
             LOGGER.exception(e)

@@ -61,7 +61,7 @@ body {
     margin-top: 35px;
 }
 
-#list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss {
+#list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss, .chapter_list_chapter_title {
     background: none repeat scroll 0 0 rgba(113, 201, 206, 0.82);
     display: inline;
     float: left;
@@ -75,7 +75,7 @@ body {
     padding: 5px 10px;
 }
 
-#list dd, .panel li, .chapterlist > dd, td.ccss {
+#list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter {
     border-bottom: 1px dashed #CCC;
     display: inline;
     float: left;
@@ -124,5 +124,9 @@ dd > a {
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+tr > td.ccss {
+    width: 18% !important;
 }
 
