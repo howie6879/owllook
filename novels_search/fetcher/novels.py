@@ -2,7 +2,6 @@
 import asyncio
 import aiohttp
 import async_timeout
-import cchardet
 import re
 from bs4 import BeautifulSoup
 import arrow
