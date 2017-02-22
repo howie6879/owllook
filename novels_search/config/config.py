@@ -24,52 +24,52 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org']
 
 # Rules
-Rules = namedtuple('Rules', 'content_url chapter_selector')
+Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
 RULES = {
-    # demo  'name': Rules('content_url', {list_selector})
+    # demo  'name': Rules('content_url', {chapter_selector}, {content_selector})
     # 已解析
-    'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'}),
+    'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'}, {}),
     # 已解析
-    'www.biqugex.com': Rules('0', {'class': 'box_con'}),
-    # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'}),
+    'www.biqugex.com': Rules('0', {'class': 'box_con'}, {}),
+    # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'},{}),
     # 已解析
-    'www.xxbiquge.com': Rules('http://www.xxbiquge.com', {'class': 'box_con'}),
-    'www.37zw.com': Rules('www.37zw.com', {'class': 'box_con'}),
+    'www.xxbiquge.com': Rules('http://www.xxbiquge.com', {'class': 'box_con'}, {}),
+    'www.37zw.com': Rules('www.37zw.com', {'class': 'box_con'}, {}),
     # 已解析
-    'www.00ksw.net': Rules('0', {'class': 'box_con'}),
-    'www.81zw.com': Rules('www.81zw.com', {'class': 'box_con'}),
-    'www.qu.la': Rules('www.qu.la', {'class': 'box_con'}),
-    'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}),
-    'www.biquge.tw': Rules('www.biquge.tw', {'class': 'box_con'}),
-    'www.shuge.net': Rules('www.shuge.net', {'class': 'box_con'}),
-    'www.09xs.com': Rules('www.09xs.com', {'class': 'box_con'}),
+    'www.00ksw.net': Rules('0', {'class': 'box_con'}, {}),
+    'www.81zw.com': Rules('www.81zw.com', {'class': 'box_con'}, {}),
+    'www.qu.la': Rules('www.qu.la', {'class': 'box_con'}, {}),
+    'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}, {}),
+    'www.biquge.tw': Rules('www.biquge.tw', {'class': 'box_con'}, {}),
+    'www.shuge.net': Rules('www.shuge.net', {'class': 'box_con'}, {}),
+    'www.09xs.com': Rules('www.09xs.com', {'class': 'box_con'}, {}),
     # 已解析
-    'www.booktxt.net': Rules('http://www.booktxt.net', {'class': 'box_con'}),
-    'www.fs23.com': Rules('www.fs23.com', {'class': 'box_con'}),
-    'www.fhxiaoshuo.com': Rules('www.fhxiaoshuo.com', {'class': 'box_con'}),
-    'www.yikanxiaoshuo.com': Rules('www.yikanxiaoshuo.com', {'class': 'box_con'}),
-    'www.13xs.com': Rules('www.13xs.com', {'class': 'box_con'}),
-    'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}),
-    'www.1xiaoshuo.com': Rules('www.1xiaoshuo.com', {'class': 'box_con'}),
-    'www.kanshu.la': Rules('www.kanshu.la', {'class': 'box_con'}),
+    'www.booktxt.net': Rules('http://www.booktxt.net', {'class': 'box_con'}, {}),
+    'www.fs23.com': Rules('www.fs23.com', {'class': 'box_con'}, {}),
+    'www.fhxiaoshuo.com': Rules('www.fhxiaoshuo.com', {'class': 'box_con'}, {}),
+    'www.yikanxiaoshuo.com': Rules('www.yikanxiaoshuo.com', {'class': 'box_con'}, {}),
+    'www.13xs.com': Rules('www.13xs.com', {'class': 'box_con'}, {}),
+    'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
+    'www.1xiaoshuo.com': Rules('www.1xiaoshuo.com', {'class': 'box_con'}, {}),
+    'www.kanshu.la': Rules('www.kanshu.la', {'class': 'box_con'}, {}),
     # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
-    'wanmeishijiexiaoshuo.org': Rules('1', {'class': 'bg'}),
+    'wanmeishijiexiaoshuo.org': Rules('1', {'class': 'bg'}, {}),
     # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
-    'www.jueshitangmen.info': Rules('1', {'class': 'bg'}),
+    'www.jueshitangmen.info': Rules('1', {'class': 'bg'}, {}),
     # 已解析
-    'zetianjiba.net': Rules('1', {'class': 'bg'}),
+    'zetianjiba.net': Rules('1', {'class': 'bg'}, {}),
     # 已解析 content_url=0表示章节网页需要当前页面url拼接
-    'www.bxwx9.org': Rules('0', {'class': 'TabCss'}),
+    'www.bxwx9.org': Rules('0', {'class': 'TabCss'}, {}),
     # 已解析
-    'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}),
+    'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}, {}),
     # 已解析
-    'www.23us.cc': Rules('http://www.23us.cc', {'class': 'inner'}),
-    'www.sosoxiaoshuo.cc': Rules('www.sosoxiaoshuo.cc', {'class': 'box_con'}),
-    'www.ciluke.com': Rules('http://www.ciluke.com/0/2/2900/', {'id': 'list'}),
-    'www.555zw.com': Rules('www.555zw.com', {'class': 'dir'}),
-    # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'}),
+    'www.23us.cc': Rules('http://www.23us.cc', {'class': 'inner'}, {}),
+    'www.sosoxiaoshuo.cc': Rules('www.sosoxiaoshuo.cc', {'class': 'box_con'}, {}),
+    'www.ciluke.com': Rules('http://www.ciluke.com/0/2/2900/', {'id': 'list'}, {}),
+    'www.555zw.com': Rules('www.555zw.com', {'class': 'dir'}, {}),
+    # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析 content_url=0表示章节网页需要当前页面url拼接
-    'www.23zw.com': Rules('0', {'id': 'chapter_list'}),
+    'www.23zw.com': Rules('0', {'id': 'chapter_list'}, {}),
     # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
-    'www.baoliny.com': Rules('1', {'class': 'readerListShow'}),
+    'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {}),
 }

@@ -13,7 +13,14 @@
     {% for item in soup -%}
     {{item|safe}}
     {%- endfor %}
-
+    <div class="move">
+        <div class="move_up">
+            <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+        </div>
+        <div class="move_down">
+            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block script %}

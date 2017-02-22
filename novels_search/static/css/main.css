@@ -30,3 +30,42 @@ div.footer > .navbar {
     margin-top: 5%;
     margin-left: 20%;
 }
+
+.move {
+    position: fixed;
+    bottom: 60px;
+    right: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+}
+
+.move > .move_up, .move > .move_down {
+    width: 48px;
+    height: 48px;
+    line-height: 40px;
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+    transition: .1s ease-in;
+    -webkit-transition: .1s ease-in;
+    -moz-transition: .1s ease-in;
+    -o-transition: .1s ease-in;
+    -ms-transition: .1s ease-in;
+    cursor: pointer;
+}
+
+.move_up > span, .move_down > span {
+    width: 45px;
+    height: 43px;
+    line-height: 43px;
+    text-align: center;
+    font-size: 20px;
+    color: rgba(72, 70, 70, 0.71);
+}
+
+.move > .move_up:hover, .move > .move_down:hover {
+    background-color: #f9f9f9;
+}
+
+.move > .move_up > span:hover, .move > .move_down > span:hover {
+    color: #434343;
+}
