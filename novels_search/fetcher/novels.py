@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from pprint import pprint
 
 from novels_search.fetcher.function import get_random_user_agent
-from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES
+from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES, BAIDU_RN
 
 
 async def fetch(client, url, name, is_web):
@@ -17,7 +17,7 @@ async def fetch(client, url, name, is_web):
         try:
             headers = {'user-agent': get_random_user_agent()}
             if is_web:
-                params = {'wd': name, 'ie': 'utf-8', 'tn': 'baidulocal', 'rn': 50}
+                params = {'wd': name, 'ie': 'utf-8', 'tn': 'baidulocal', 'rn': BAIDU_RN}
             else:
                 params = {'word': name}
             async with client.get(url, params=params, headers=headers) as response:

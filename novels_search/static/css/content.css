@@ -1,0 +1,62 @@
+body {
+    background-color: #E5E4DB !important;
+    color: #333 !important;
+    font-family: "Microsoft YaHei" !important;
+}
+
+.all-content {
+    width: 75% !important;
+    box-shadow: 0 0 15px 0 #CCC;
+    background: #F6F4EC;
+    margin: 0 auto 30px;
+    border-radius: 3px;
+    padding-bottom: 40px;
+}
+
+.title {
+    position: relative;
+}
+
+.title > a.bookMark {
+    position: absolute;
+    background: url(../img/bookMark.png) no-repeat;
+    width: 20px;
+    height: 36px;
+    right: 30px;
+    top: -30px;
+    cursor: pointer;
+}
+
+.title > a.bookMarkAct {
+    position: absolute;
+    background: url(../img/bookMark.png) no-repeat -20px 0;
+    width: 22px;
+    height: 39px;
+    right: 30px;
+    top: -30px;
+    cursor: pointer;
+}
+
+.title > h2 {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.show-content {
+    width: 90%;
+    line-height: 1.8;
+    font-size: 16px;
+    padding-top: 16px;
+    min-height: 360px;
+    margin-left: 5%;
+    word-break: break-all;
+    font-family: "Microsoft YaHei";
+}
+
+.move {
+    right: 5% !important;
+}

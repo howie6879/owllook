@@ -5,3 +5,4 @@ bs4
 sanic
 Jinja2>=2.9.5
 arrow
+html5lib

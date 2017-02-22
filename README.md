@@ -26,3 +26,14 @@ BTW，sanic写界面确实不是很方便。
 ### 2.demo
 
 具体效果图请看下面：
+
+目录解析：
+
+![chapter](./docs/chapter.png)
+
+
+
+章节内容解析：
+
+![chapter](./docs/content.png)
+

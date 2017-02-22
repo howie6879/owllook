@@ -43,8 +43,8 @@ async def owllook_search(request):
                     count=len(parse_result))
 
 
-@bp.route("/list")
-async def list(request):
+@bp.route("/chapter")
+async def chapter(request):
     url = request.args.get('url', None)
     name = request.args.get('name', None)
     netloc = urlparse(url).netloc
@@ -62,16 +62,29 @@ async def list(request):
                 list = soup.find_all(class_=selector['class'])
         else:
             return text('解析失败')
-    return template('list.html', name=name, url=url, content_url=content_url, soup=list)
+    return template('chapter.html', name=name, url=url, content_url=content_url, soup=list)
 
 
 @bp.route("/owllook_content")
 async def owllook_content(request):
     url = request.args.get('url', None)
-    print(url)
     name = request.args.get('name', None)
     netloc = urlparse(url).netloc
-    return redirect(url)
+    if netloc not in RULES.keys():
+        return redirect(url)
+    async with aiohttp.ClientSession() as client:
+        html = await target_fetch(client=client, url=url)
+        content_url = RULES[netloc].content_url
+        if html:
+            soup = BeautifulSoup(html, 'html5lib')
+            selector = RULES[netloc].content_selector
+            if selector.get('id', None):
+                content = soup.find_all(id=selector['id'])
+            else:
+                content = soup.find_all(class_=selector['class'])
+        else:
+            return text('解析失败')
+    return template('content.html', name=name, url=url, content_url=content_url, soup=content)
 
 
 @bp.route("/owllook_donate")

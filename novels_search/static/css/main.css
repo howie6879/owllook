@@ -34,7 +34,7 @@ div.footer > .navbar {
 .move {
     position: fixed;
     bottom: 60px;
-    right: 15px;
+    right: 5px;
     border: 1px solid #dcdcdc;
     border-radius: 5px;
 }

@@ -10,6 +10,7 @@ from collections import namedtuple
 # https://www.baidu.com/s?wd=python&ie=utf-8&tn=baidulocal&ct=2097152&si=cnblogs.com&rn=50
 URL_PHONE = 'https://m.baidu.com/s'
 URL_PC = 'http://www.baidu.com/s'
+BAIDU_RN = 50
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36'
 
 # logging
@@ -21,7 +22,8 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'book.qidian.com', 'www.soduso.com', 'pages.book.qq.com', 'book.km.com', 'www.lread.net',
                 'www.0dsw.com', 'www.5200xsb.com', 'www.80txt.com', 'www.sodu.tw', 'www.shuquge.com',
                 'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net',
-                'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org']
+                'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org', 'www.360doc.com',
+                'www.ishuo.cn']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -36,7 +38,7 @@ RULES = {
     'www.xxbiquge.com': Rules('http://www.xxbiquge.com', {'class': 'box_con'}, {}),
     'www.37zw.com': Rules('www.37zw.com', {'class': 'box_con'}, {}),
     # 已解析
-    'www.00ksw.net': Rules('0', {'class': 'box_con'}, {}),
+    'www.00ksw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     'www.81zw.com': Rules('www.81zw.com', {'class': 'box_con'}, {}),
     'www.qu.la': Rules('www.qu.la', {'class': 'box_con'}, {}),
     'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}, {}),
@@ -60,6 +62,7 @@ RULES = {
     'zetianjiba.net': Rules('1', {'class': 'bg'}, {}),
     # 已解析 content_url=0表示章节网页需要当前页面url拼接
     'www.bxwx9.org': Rules('0', {'class': 'TabCss'}, {}),
+    'www.bxwx.org': Rules('0', {'class': 'TabCss'}, {}),
     # 已解析
     'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}, {}),
     # 已解析
@@ -72,4 +75,7 @@ RULES = {
     'www.23zw.com': Rules('0', {'id': 'chapter_list'}, {}),
     # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
     'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {}),
+    # 已解析
+    'www.lingyu.org': Rules('http://www.lingyu.org', {'class': 'mt10'}, {}),
+    'www.kbiquge.com': Rules('http://www.kbiquge.com', {'class': 'box_con'}, {}),
 }

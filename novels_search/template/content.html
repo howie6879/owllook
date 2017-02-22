@@ -1,18 +1,24 @@
 {% extends "main.html" %}
 
 {% block header %}
-<title>{{ name }} - 目录</title>
-<link rel="stylesheet" href="static/css/list.css">
+<title>{{ name }} - 目录 - owllook</title>
+<link rel="stylesheet" href="static/css/content.css">
 {% endblock %}
 
 {% block content %}
 
-<div class="container alllist">
+<div class="container all-content">
     <input id="content_url" type="hidden" value="{{content_url}}">
     <input id="url" type="hidden" value="{{url}}">
-    {% for item in soup -%}
-    {{item|safe}}
-    {%- endfor %}
+    <div class="title">
+        <a id="bookMark" title="书签" class="bookMark"></a>
+        <h2>{{name}}</h2>
+    </div>
+    <div class="show-content">
+        {% for item in soup -%}
+        {{item|safe}}
+        {%- endfor %}
+    </div>
     <div class="move">
         <div class="move_up">
             <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
@@ -24,7 +30,6 @@
 </div>
 {% endblock %}
 {% block script %}
-<script src="static/js/list.js"></script>
 {% endblock %}
 
 
