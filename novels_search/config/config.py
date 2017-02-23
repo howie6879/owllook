@@ -23,7 +23,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'www.0dsw.com', 'www.5200xsb.com', 'www.80txt.com', 'www.sodu.tw', 'www.shuquge.com',
                 'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net',
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org', 'www.360doc.com',
-                'www.ishuo.cn']
+                'www.ishuo.cn', 'read.qidian.com']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -66,6 +66,7 @@ RULES = {
     # 已解析
     'www.lingyu.org': Rules('http://www.lingyu.org', {'class': 'mt10'}, {}),
     'www.kbiquge.com': Rules('http://www.kbiquge.com', {'class': 'box_con'}, {}),
+
     # 已解析
     'www.00ksw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -84,5 +85,23 @@ RULES = {
     'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {'id': 'content'}),
     # 已解析
     'www.biquge.tw': Rules('http://www.biquge.tw', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.is028.cn': Rules('http://www.biquge.com.tw', {'class': 'box_con'}, {'id': 'content'}),
+    # www.is028.cn会跳转到http://www.biquge.com.tw
+    'www.biquge.com.tw': Rules('http://www.biquge.com.tw', {'class': 'box_con'}, {'id': 'content'}),
     # 'www.xs82.com': Rules('-1', {'class': 'chapterlist'}, {'id': 'content'}),
+    # 已解析
+    'www.shuqizw.com': Rules('http://www.shuqizw.com', {'class': 'article_texttitleb'}, {'id': 'book_text'}),
+    # 已解析
+    'read.ixdzs.com': Rules('0', {'class': 'catalog'}, {'class': 'content'}),
+    # 已解析
+    'www.shumilou.net': Rules('0', {'class': 'chapterlist'}, {'id': 'BookText'}),
+    # 已解析
+    # 'www.ttshu.com': Rules('http://www.ttshu.com', {'class': 'border'}, {'id': 'content'}),
+    # 已解析
+    'www.heiyan.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.bbsa5.com': Rules('1', {'class': 'panel'}, {'class': 'content-body'}),
+    # 已解析
+    'www.tycqxs.com': Rules('http://www.tycqxs.com', {'class': 'box_con'}, {'id': 'content'}),
 }

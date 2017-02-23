@@ -6,7 +6,7 @@ body {
     margin-bottom: 50px;
 }
 
-#list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
+li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
     display: none !important;
 }
 
@@ -48,7 +48,7 @@ body {
 /*color: #7b7b61;*/
 /*}*/
 
-#list dl, .chapterlist, tbody, .mt10 {
+#list dl, .chapterlist, tbody, .mt10, .catalog {
     float: left;
     overflow: hidden;
     padding-bottom: 1px;
@@ -75,7 +75,7 @@ body {
     padding: 5px 10px;
 }
 
-#cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
+.catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
     border-bottom: 1px dashed #CCC;
     display: inline;
     float: left;
@@ -97,7 +97,6 @@ body {
 
 .TabCss dd {
     width: 228px !important;
-    width: 226px;
     height: 28px;
     line-height: 28px;
     vertical-align: middle;
