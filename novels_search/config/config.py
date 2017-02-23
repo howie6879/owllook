@@ -39,7 +39,6 @@ RULES = {
     'www.37zw.com': Rules('www.37zw.com', {'class': 'box_con'}, {}),
     'www.qu.la': Rules('www.qu.la', {'class': 'box_con'}, {}),
     'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}, {}),
-    'www.biquge.tw': Rules('www.biquge.tw', {'class': 'box_con'}, {}),
     'www.shuge.net': Rules('www.shuge.net', {'class': 'box_con'}, {}),
     'www.09xs.com': Rules('www.09xs.com', {'class': 'box_con'}, {}),
     'www.fs23.com': Rules('www.fs23.com', {'class': 'box_con'}, {}),
@@ -84,5 +83,6 @@ RULES = {
     # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
     'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {'id': 'content'}),
     # 已解析
+    'www.biquge.tw': Rules('http://www.biquge.tw', {'class': 'box_con'}, {'id': 'content'}),
     # 'www.xs82.com': Rules('-1', {'class': 'chapterlist'}, {'id': 'content'}),
 }
