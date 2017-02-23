@@ -23,7 +23,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'www.0dsw.com', 'www.5200xsb.com', 'www.80txt.com', 'www.sodu.tw', 'www.shuquge.com',
                 'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net',
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org', 'www.360doc.com',
-                'www.ishuo.cn', 'read.qidian.com']
+                'www.ishuo.cn', 'read.qidian.com', 'www.yunlaige.com', 'www.qidian.com']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -44,7 +44,6 @@ RULES = {
     'www.fs23.com': Rules('www.fs23.com', {'class': 'box_con'}, {}),
     'www.fhxiaoshuo.com': Rules('www.fhxiaoshuo.com', {'class': 'box_con'}, {}),
     'www.yikanxiaoshuo.com': Rules('www.yikanxiaoshuo.com', {'class': 'box_con'}, {}),
-    'www.13xs.com': Rules('www.13xs.com', {'class': 'box_con'}, {}),
     'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
     'www.1xiaoshuo.com': Rules('www.1xiaoshuo.com', {'class': 'box_con'}, {}),
     'www.kanshu.la': Rules('www.kanshu.la', {'class': 'box_con'}, {}),
@@ -55,14 +54,8 @@ RULES = {
     # 已解析 content_url=0表示章节网页需要当前页面url拼接
     'www.bxwx9.org': Rules('0', {'class': 'TabCss'}, {}),
     'www.bxwx.org': Rules('0', {'class': 'TabCss'}, {}),
-    # 已解析
-    'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}, {}),
-    # 已解析
-    'www.23us.cc': Rules('http://www.23us.cc', {'class': 'inner'}, {}),
     'www.555zw.com': Rules('www.555zw.com', {'class': 'dir'}, {}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
-    # 已解析 content_url=0表示章节网页需要当前页面url拼接
-    'www.23zw.com': Rules('0', {'id': 'chapter_list'}, {}),
     # 已解析
     'www.lingyu.org': Rules('http://www.lingyu.org', {'class': 'mt10'}, {}),
     'www.kbiquge.com': Rules('http://www.kbiquge.com', {'class': 'box_con'}, {}),
@@ -104,4 +97,19 @@ RULES = {
     'www.bbsa5.com': Rules('1', {'class': 'panel'}, {'class': 'content-body'}),
     # 已解析
     'www.tycqxs.com': Rules('http://www.tycqxs.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.miaobige.com': Rules('0', {'id': 'readerlists'}, {'id': 'content'}),
+    # 已解析
+    'www.dashubao.net': Rules('0', {'class': 'ml_main'}, {'class': 'yd_text2'}),
+    # 已解析 content_url=0表示章节网页需要当前页面url拼接
+    'www.23zw.com': Rules('0', {'id': 'chapter_list'}, {'id': 'text_area'}),
+    # 已解析
+    'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}, {'id': 'content'}),
+    # 已解析
+    'www.23us.cc': Rules('0', {'class': 'inner'}, {'id': 'content'}),
+    # 已解析
+    'www.13xs.com': Rules('0', {'class': 'box_con'}, {'id': 'booktext'}),
+    # 已解析
+    'www.tsxsw.com': Rules('0', {'class': 'bdsub'}, {'id': 'contents'}),
+
 }

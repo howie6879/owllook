@@ -6,11 +6,11 @@ body {
     margin-bottom: 50px;
 }
 
-li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
+.bdsub > dl > dt, .all_ad, li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .tjlist, #listtj, #intro > p:last-child, #intro, .star_title, .starlist {
     display: none !important;
 }
 
-#maininfo {
+#maininfo, .bdsub dd h1 {
     background: #F6F4EC;
     border-radius: 15px;
     margin-top: 35px;
@@ -18,6 +18,11 @@ li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .t
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-bottom: 25px;
+}
+
+.bdsub dd h1 {
+    text-align: center;
+    padding-top: 20px;
 }
 
 #info > h1 {
@@ -48,7 +53,7 @@ li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .t
 /*color: #7b7b61;*/
 /*}*/
 
-#list dl, .chapterlist, tbody, .mt10, .catalog {
+.ml_main > dl, #list dl, #chapter_list, .chapterlist, tbody, .mt10, .catalog, #readerlists {
     float: left;
     overflow: hidden;
     padding-bottom: 1px;
@@ -61,7 +66,7 @@ li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .t
     margin-top: 35px;
 }
 
-#cl_content > dl > dt, #list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss, .chapter_list_chapter_title, .mt10 > .title > h2 {
+.bdsub tr th, #readerlists > ul > h3, #cl_content > dl > dt, #list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss, .chapter_list_chapter_title, .mt10 > .title > h2 {
     background: none repeat scroll 0 0 rgba(214, 212, 200, 0.89);
     display: inline;
     float: left;
@@ -75,7 +80,7 @@ li.volume, #list > .notice, .cover, #new_chapter, .con_top, #sidebar, #fmimg, .t
     padding: 5px 10px;
 }
 
-.catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
+.L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
     border-bottom: 1px dashed #CCC;
     display: inline;
     float: left;
@@ -123,7 +128,11 @@ dd > a {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
-tr > td.ccss {
-    width: 18% !important;
+tr > td.ccss, .L {
+    width: 19% !important;
+}
+
+.bdsub dd h3, .bdsub .tags, .bdsub .tips {
+    display: none !important;
 }
 
