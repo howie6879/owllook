@@ -15,6 +15,10 @@ $(document).ready(function () {
                     // content_url=0表示章节网页需要当前url拼接
                     content_url = $("#url").val();
                     show_url = "owllook_content?url=" + content_url + url + "&name=" + name;
+                } else if (content_url == '-1') {
+                    // content_url=-1 表示特殊情况
+                    content_url = $("#url").val();
+                    show_url = "owllook_content?url=" + content_url + url + "&name=" + name;
                 } else {
                     show_url = "owllook_content?url=" + content_url + url + "&name=" + name;
 
