@@ -37,3 +37,6 @@ BTW，sanic写界面确实不是很方便。
 
 ![chapter](./docs/content.png)
 
+### License
+
+`novels-search` is offered under the Apache 2 license.
