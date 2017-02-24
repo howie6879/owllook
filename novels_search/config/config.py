@@ -23,32 +23,39 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'www.0dsw.com', 'www.5200xsb.com', 'www.80txt.com', 'www.sodu.tw', 'www.shuquge.com',
                 'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net',
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org', 'www.360doc.com',
-                'www.ishuo.cn', 'read.qidian.com', 'www.yunlaige.com', 'www.qidian.com', 'www.sodu888.com']
+                'www.ishuo.cn', 'read.qidian.com', 'www.yunlaige.com', 'www.qidian.com', 'www.sodu888.com',
+                'www.siluke.cc', 'read.10086.cn', 'www.pbtxt.com', 'c4txt.com', 'www.bokon.net']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
 RULES = {
     # demo  'name': Rules('content_url', {chapter_selector}, {content_selector})
     # 已解析
-    'www.biquge.com': Rules('www.biquge.com', {'class': 'box_con'}, {}),
-    # 已解析
-    'www.biqugex.com': Rules('0', {'class': 'box_con'}, {}),
     # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'},{}),
-    'www.qu.la': Rules('www.qu.la', {'class': 'box_con'}, {}),
-    'www.siluke.tw': Rules('www.siluke.tw', {'class': 'box_con'}, {}),
-    'www.shuge.net': Rules('www.shuge.net', {'class': 'box_con'}, {}),
-    'www.09xs.com': Rules('www.09xs.com', {'class': 'box_con'}, {}),
-    'www.fhxiaoshuo.com': Rules('www.fhxiaoshuo.com', {'class': 'box_con'}, {}),
-    'www.yikanxiaoshuo.com': Rules('www.yikanxiaoshuo.com', {'class': 'box_con'}, {}),
-    'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
-    'www.1xiaoshuo.com': Rules('www.1xiaoshuo.com', {'class': 'box_con'}, {}),
-    'www.kanshu.la': Rules('www.kanshu.la', {'class': 'box_con'}, {}),
-    'www.bxwx.org': Rules('0', {'class': 'TabCss'}, {}),
+    # 'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
-    'www.lingyu.org': Rules('http://www.lingyu.org', {'class': 'mt10'}, {}),
-    'www.kbiquge.com': Rules('http://www.kbiquge.com', {'class': 'box_con'}, {}),
-
+    'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.dishuge.com': Rules('1', {'class': 'update'}, {'tag': 'p'}),
+    # 已解析
+    'www.qu.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.shuge.net': Rules('http://www.shuge.net', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.09xs.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.fhxiaoshuo.com': Rules('1', {'class': 'box_con'}, {'class': 'zhangjieTXT'}),
+    # 已解析
+    'www.yikanxiaoshuo.com': Rules('http://www.yikanxiaoshuo.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.1xiaoshuo.com': Rules('http://www.1xiaoshuo.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.kanshu.la': Rules('http://www.kanshu.la', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.kbiquge.com': Rules('http://www.kbiquge.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.bxwx.org': Rules('0', {'class': 'TabCss'}, {'id': 'content'}),
     # 已解析
     'www.00ksw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -114,5 +121,20 @@ RULES = {
     'www.xxbiquge.com': Rules('http://www.xxbiquge.com', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.fs23.com': Rules('http://www.fs23.com', {'class': 'box_con'}, {'id': 'content'}),
-
+    # 已解析
+    'www.longtengx.com': Rules('http://www.longtengx.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.lingyu.org': Rules('http://www.lingyu.org', {'class': 'mt10'}, {'id': 'htmlContent'}),
+    # 已解析
+    'www.aszw8.com': Rules('0', {'id': 'at'}, {'id': 'contents'}),
+    # 已解析
+    'www.biquge.lu': Rules('http://www.biquge.lu', {'class': 'listmain'}, {'id': 'content'}),
+    # 已解析
+    'www.3zm.net': Rules('http://www.3zm.net', {'class': 'listmain'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.com': Rules('http://www.biquge.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.kanshuzhong.com': Rules('0', {'class': 'bookcontent'}, {'class': 'textcontent'}),
+    # 已解析
+    'www.siluke.tw': Rules('http://www.siluke.tw', {'class': 'box_con'}, {'id': 'content'}),
 }

@@ -7,6 +7,21 @@
 
 {% block content %}
 
+<nav class="navbar navbar-default nav-search">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <img alt="Owllook" src="">
+            </a>
+        </div>
+        <form action="/search" method="get">
+            <div class="col-xs-3 search">
+                <input type="text" name="wd" placeholder="search" value="">
+            </div>
+        </form>
+    </div>
+</nav>
+
 <div class="container all-content">
     <input id="content_url" type="hidden" value="{{content_url}}">
     <input id="url" type="hidden" value="{{url}}">

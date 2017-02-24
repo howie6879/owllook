@@ -42,7 +42,7 @@ BTW，sanic写界面确实不是很方便。
 
 章节内容解析：
 
-![chapter](./docs/content.png)
+![content](./docs/content.png)
 
 ### License
 

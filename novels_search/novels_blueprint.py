@@ -58,8 +58,10 @@ async def chapter(request):
             selector = RULES[netloc].chapter_selector
             if selector.get('id', None):
                 list = soup.find_all(id=selector['id'])
-            else:
+            elif selector.get('class', None):
                 list = soup.find_all(class_=selector['class'])
+            else:
+                list = soup.find_all(selector.get('tag'))
         else:
             return text('解析失败')
     return template('chapter.html', name=name, url=url, content_url=content_url, soup=list)
@@ -80,8 +82,10 @@ async def owllook_content(request):
             selector = RULES[netloc].content_selector
             if selector.get('id', None):
                 content = soup.find_all(id=selector['id'])
-            else:
+            elif selector.get('class', None):
                 content = soup.find_all(class_=selector['class'])
+            else:
+                content = soup.find_all(selector.get('tag'))
         else:
             return text('解析失败')
     return template('content.html', name=name, url=url, content_url=content_url, soup=content)
