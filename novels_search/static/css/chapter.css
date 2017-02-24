@@ -31,10 +31,14 @@ body {
     color: rgba(50, 68, 84, 0.61);
 }
 
-#info > p {
+#info p {
     float: left;
     margin-top: 25px;
+    width: 25%;
     margin-left: 6%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /*#intro > p {*/
@@ -135,4 +139,5 @@ tr > td.ccss, .L {
 .bdsub dd h3, .bdsub .tags, .bdsub .tips {
     display: none !important;
 }
+
 

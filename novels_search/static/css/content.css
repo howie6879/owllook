@@ -55,12 +55,23 @@ body {
     margin-left: 5%;
     word-break: break-all;
     font-family: "Microsoft YaHei";
+    text-align: left;
 }
 
 .show-content > p {
     font-size: 16px !important;
 }
 
+.show-content > #content {
+    text-align: left !important;
+}
+
 .move {
     right: 5% !important;
+}
+
+/*原网页上一章下一章等隐藏*/
+
+.content > center, .content p > strong, .content p > a {
+    display: none !important;
 }
