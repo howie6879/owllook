@@ -17,6 +17,6 @@ def novel_task(url):
 
 
 start = time.time()
-result = novel_task('http://www.23us.la/html/0/42/')
+result = novel_task('http://www.shuge.net/html/98/98044')
 pprint(result)
 print(time.time() - start)

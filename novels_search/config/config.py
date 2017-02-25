@@ -25,7 +25,8 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org', 'www.360doc.com',
                 'www.ishuo.cn', 'read.qidian.com', 'www.yunlaige.com', 'www.qidian.com', 'www.sodu888.com',
                 'www.siluke.cc', 'read.10086.cn', 'www.pbtxt.com', 'c4txt.com', 'www.bokon.net', 'www.sikushu.net',
-                'www.is028.cn', 'www.tadu.com', 'www.kudu8.com', 'www.bmwen.com', 'www.5858xs.com', 'www.yiwan.com']
+                'www.is028.cn', 'www.tadu.com', 'www.kudu8.com', 'www.bmwen.com', 'www.5858xs.com', 'www.yiwan.com',
+                'www.x81zw.com', 'www.123du.cc', 'www.chashu.cc']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -37,6 +38,14 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.22zw.com': Rules('0', {'class': 'acss'}, {'id': 'content'}),
+    # 已解析
+    'www.126shu.com': Rules('http://www.126shu.com', {'id': 'list'}, {'id': 'content'}),
+    # 已解析
+    'www.kooxs.com': Rules('0', {'class': 'list'}, {'id': 'content'}),
+    # 已解析
+    'www.shubaotxt.com': Rules('0', {'class': 'list'}, {'id': 'content'}),
     # 已解析
     'www.muyuge.com': Rules('1', {'id': 'xslist'}, {'id': 'content'}),
     # 已解析
@@ -54,11 +63,15 @@ RULES = {
     # 已解析
     'www.biqule.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.33yq.com': Rules('1', {'class': 'box_con'}, {'class': 'zhangjieTXT'}),
+    # 已解析
     'www.dishuge.com': Rules('1', {'class': 'update'}, {'tag': 'p'}),
     # 已解析
     'www.qu.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.shuge.net': Rules('http://www.shuge.net', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.daomengren.com': Rules('http://www.daomengren.com', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.81zw.net': Rules('http://www.81zw.net', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
