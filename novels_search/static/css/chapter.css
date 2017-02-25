@@ -57,7 +57,7 @@ body {
 /*color: #7b7b61;*/
 /*}*/
 
-.update, #list .box, .bookcontent > dl, .listmain > dl, .ml_main > dl, #list dl, #chapter_list, .chapterlist, tbody, .mt10, .catalog, #readerlists {
+#xslist ul, .dirlist, .list-chapter, .list_box ul, #defaulthtml4 table, .article-list > dl, .update, #list .box, .bookcontent > dl, .listmain > dl, .ml_main > dl, #list dl, #chapter_list, .chapterlist, tbody, .mt10, .catalog, #readerlists {
     float: left;
     overflow: hidden;
     padding-bottom: 1px;
@@ -66,11 +66,11 @@ body {
     border-radius: 15px;
 }
 
-#list {
+#list, .article-list {
     margin-top: 35px;
 }
 
-.update .hd > #list .box-head, .bookcontent dt, .listmain dt, .bdsub tr th, #readerlists > ul > h3, #cl_content > dl > dt, #list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss, .chapter_list_chapter_title, .mt10 > .title > h2 {
+#xslist ul span, .article-list > dl > dt, .update .hd > #list .box-head, .bookcontent dt, .listmain dt, .bdsub tr th, #readerlists > ul > h3, #cl_content > dl > dt, #list dt, .panel > h2, .TabCss dt, .chapterlist > dt, .vcss, .chapter_list_chapter_title, .mt10 > .title > h2 {
     background: none repeat scroll 0 0 rgba(214, 212, 200, 0.89);
     display: inline;
     float: left;
@@ -84,19 +84,21 @@ body {
     padding: 5px 10px;
 }
 
-.update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
+#xslist ul li, .dirlist li, .list-chapter > li, .list_box ul li, #defaulthtml4 table .dccss, .article-list > dl > dd, .update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
     border-bottom: 1px dashed #CCC;
     display: inline;
     float: left;
     height: 25px;
     line-height: 200%;
     margin-bottom: 5px;
-    overflow: hidden;
     text-align: left;
     text-indent: 10px;
     vertical-align: middle;
     width: 26%;
     margin-left: 5% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .TabCss dd.col4 {
@@ -136,8 +138,17 @@ tr > td.ccss, .L {
     width: 19% !important;
 }
 
-.update h2, .bdsub dd h3, .bdsub .tags, .bdsub .tips {
+.zuixin10, .update h2, .bdsub dd h3, .bdsub .tags, .bdsub .tips {
     display: none !important;
+}
+
+.book_list > ul > li {
+    width: 20% !important;
+    float: right !important;
+}
+
+#defaulthtml4 table .dccss {
+    width: 100% !important;
 }
 
 

@@ -24,7 +24,8 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'www.shenmanhua.com', 'xiaoshuo.sogou.com', 'www.999wx.com', 'zetianji8.com', 'www.bookso.net',
                 'm.23us.com', 'www.qbxsw.com', 'www.zhuzhudao.com', 'www.shengyan.org', 'www.360doc.com',
                 'www.ishuo.cn', 'read.qidian.com', 'www.yunlaige.com', 'www.qidian.com', 'www.sodu888.com',
-                'www.siluke.cc', 'read.10086.cn', 'www.pbtxt.com', 'c4txt.com', 'www.bokon.net']
+                'www.siluke.cc', 'read.10086.cn', 'www.pbtxt.com', 'c4txt.com', 'www.bokon.net', 'www.sikushu.net',
+                'www.is028.cn', 'www.tadu.com', 'www.kudu8.com', 'www.bmwen.com', 'www.5858xs.com', 'www.yiwan.com']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -37,11 +38,29 @@ RULES = {
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.muyuge.com': Rules('1', {'id': 'xslist'}, {'id': 'content'}),
+    # 已解析
+    # 'www.daizhuzai.com': Rules('http://www.daizhuzai.com', {'class': 'dirlist'}, {'class': 'content'}),
+    # 已解析
+    'www.biqu.la': Rules('0', {'class': 'book_list'}, {'id': 'htmlContent'}),
+    # 已解析
+    'www.37yue.com': Rules('0', {'class': 'list-chapter'}, {'class': 'chapter'}),
+    # 已解析
+    'www.35zw.com': Rules('0', {'class': 'book_list'}, {'id': 'htmlContent'}),
+    # 已解析
+    'www.xinshu.in': Rules('http://www.xinshu.in', {'class': 'list_box'}, {'class': 'box_box'}),
+    # 已解析
+    'www.lwxs.la': Rules('http://www.lwxs.la', {'id': 'defaulthtml4'}, {'id': 'content'}),
+    # 已解析
+    'www.biqule.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
     'www.dishuge.com': Rules('1', {'class': 'update'}, {'tag': 'p'}),
     # 已解析
     'www.qu.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.shuge.net': Rules('http://www.shuge.net', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.81zw.net': Rules('http://www.81zw.net', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.09xs.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -74,8 +93,8 @@ RULES = {
     'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {'id': 'content'}),
     # 已解析
     'www.biquge.tw': Rules('http://www.biquge.tw', {'class': 'box_con'}, {'id': 'content'}),
-    # 已解析
-    'www.is028.cn': Rules('http://www.biquge.com.tw', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析 经常跳到无法预料的网站  故禁止
+    # 'www.is028.cn': Rules('http://www.biquge.com.tw', {'class': 'box_con'}, {'id': 'content'}),
     # www.is028.cn会跳转到http://www.biquge.com.tw
     'www.biquge.com.tw': Rules('http://www.biquge.com.tw', {'class': 'box_con'}, {'id': 'content'}),
     # 'www.xs82.com': Rules('-1', {'class': 'chapterlist'}, {'id': 'content'}),
@@ -137,4 +156,7 @@ RULES = {
     'www.kanshuzhong.com': Rules('0', {'class': 'bookcontent'}, {'class': 'textcontent'}),
     # 已解析
     'www.siluke.tw': Rules('http://www.siluke.tw', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    # 'www.ttshu.com': Rules('http://www.ttshu.com', {'class': 'border'}, {'id': 'content'}),
+
 }
