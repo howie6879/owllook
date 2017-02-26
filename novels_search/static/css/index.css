@@ -13,8 +13,8 @@ div.search > .form-control {
 div.search > .btn-default {
     width: 110px;
     height: 35px;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#f1f1f1));
-    background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#f1f1f1));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
     -webkit-border-radius: 2px;
     -webkit-user-select: none;
     background-color: #f2f2f2;
@@ -30,10 +30,21 @@ div.search > .btn-default {
     text-align: center;
 }
 
-div.search > .btn-default:hover{
+div.search > .btn-default:hover {
     border: 1px solid #c8c8c8;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#ffffff),to(#f3f3f3));
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f3f3f3));
     background-image: -webkit-linear-gradient(top, #ffffff, #f4f4f4);
     background-color: #ffffff;
     color: #474747;
+}
+
+.login > .pull-right {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    border: 1px solid #4285f4;
+    font-weight: bold;
+    outline: none;
+    background: #4285f4;
+    background: -webkit-linear-gradient(top, #4387fd, #4683ea);
 }

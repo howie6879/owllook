@@ -58,3 +58,16 @@ div.item > li > a {
     position: absolute;
     right: 10px;
 }
+
+.login {
+    min-height: 65px;
+    text-align: center;
+}
+
+.login > a {
+    margin-top: 15px;
+}          
+
+.modal-dialog .form-control {
+    margin-top: 0 !important;
+}

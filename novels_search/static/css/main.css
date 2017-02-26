@@ -31,6 +31,10 @@ div.footer > .navbar {
     margin-left: 20%;
 }
 
+.alert {
+    margin-bottom: 0 !important;
+}
+
 .move {
     position: fixed;
     bottom: 60px;
@@ -68,4 +72,15 @@ div.footer > .navbar {
 
 .move > .move_up > span:hover, .move > .move_down > span:hover {
     color: #434343;
+}
+
+.modal-dialog {
+    margin-top: 15% !important;
+}
+
+.modal-dialog .modal-content {
+    width: 420px;
+    height: 290px;
+    margin-left: auto;
+    margin-right: auto;
 }

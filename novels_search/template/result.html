@@ -7,7 +7,7 @@
 
 {% block content %}
 <nav class="navbar navbar-default">
-    <div class="container-fluid center-block">
+    <div class="container-fluid center-block result-header">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
                 <img alt="Owllook" src="">
@@ -18,6 +18,9 @@
                 <input type="text" name="wd" class="form-control" value="{{name}}">
             </div>
         </form>
+        <div class="login">
+            <a class="btn btn-primary pull-right" href="#" role="button" data-toggle="modal" data-target="#login">登录</a>
+        </div>
     </div>
 </nav>
 <div class="result">

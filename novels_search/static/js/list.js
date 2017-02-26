@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     var content_url = $("#content_url").val();
-    $("a").each(function () {
+    $(".container a").each(function () {
         var url = $(this).attr('href');
         if (typeof(url) != "undefined") {
             if (url.indexOf("owllook") < 0) {
