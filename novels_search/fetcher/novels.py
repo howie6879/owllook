@@ -88,17 +88,3 @@ async def search(name, is_web=1):
                 extra_tasks = [data_extraction_for_phone(i) for i in result]
                 tasks = [asyncio.ensure_future(i) for i in extra_tasks]
             return await asyncio.gather(*tasks)
-
-
-async def target_fetch(client, url):
-    with async_timeout.timeout(10):
-        try:
-            headers = {'user-agent': get_random_user_agent()}
-            async with client.get(url, headers=headers) as response:
-                assert response.status == 200
-                LOGGER.info('Task url: {}'.format(response.url))
-                text = await response.text()
-                return text
-        except Exception as e:
-            LOGGER.exception(e)
-            return None

@@ -1,20 +1,24 @@
 #!/usr/bin/env python
+import time
+
 from sanic import Blueprint
 from sanic.response import redirect, html, text, json
 from sanic.exceptions import ServerError
 from jinja2 import Environment, PackageLoader, select_autoescape
-import time
-import aiohttp
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
-from novels_search.fetcher.novels import search, target_fetch
+from novels_search.fetcher.novels import search
+from novels_search.fetcher.function import cache_owllook_novels_content, cache_owllook_novels_chapter
 from novels_search.config import RULES
 
 bp = Blueprint('novels_blueprint')
+
+# jinjia2 config
 bp.static('/static', './static')
-env = Environment(loader=PackageLoader('novels_blueprint', 'template'),
-                  autoescape=select_autoescape(['html', 'xml', 'tpl']))
+env = Environment(
+    loader=PackageLoader('novels_blueprint', 'template'),
+    autoescape=select_autoescape(['html', 'xml', 'tpl']))
 
 
 def template(tpl, **kwargs):
@@ -38,9 +42,14 @@ async def owllook_search(request):
     is_web = int(request.args.get('is_web', 1))
     result = await search(keyword, is_web)
     parse_result = [i for i in result if i]
-    result_sorted = sorted(parse_result, reverse=True, key=lambda res: res['timestamp'])
-    return template('result.html', name=name, time='%.2f' % (time.time() - start), result=result_sorted,
-                    count=len(parse_result))
+    result_sorted = sorted(
+        parse_result, reverse=True, key=lambda res: res['timestamp'])
+    return template(
+        'result.html',
+        name=name,
+        time='%.2f' % (time.time() - start),
+        result=result_sorted,
+        count=len(parse_result))
 
 
 @bp.route("/chapter")
@@ -50,21 +59,14 @@ async def chapter(request):
     netloc = urlparse(url).netloc
     if netloc not in RULES.keys():
         return redirect(url)
-    async with aiohttp.ClientSession() as client:
-        html = await target_fetch(client=client, url=url)
-        content_url = RULES[netloc].content_url
-        if html:
-            soup = BeautifulSoup(html, 'html5lib')
-            selector = RULES[netloc].chapter_selector
-            if selector.get('id', None):
-                list = soup.find_all(id=selector['id'])
-            elif selector.get('class', None):
-                list = soup.find_all(class_=selector['class'])
-            else:
-                list = soup.find_all(selector.get('tag'))
-        else:
-            return text('解析失败')
-    return template('chapter.html', name=name, url=url, content_url=content_url, soup=list)
+    content_url = RULES[netloc].content_url
+    content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
+    if content:
+        content = str(content).replace('[', '').replace(']', '')
+        return template(
+            'chapter.html', name=name, url=url, content_url=content_url, soup=content)
+    else:
+        return text('failed')
 
 
 @bp.route("/owllook_content")
@@ -74,21 +76,18 @@ async def owllook_content(request):
     netloc = urlparse(url).netloc
     if netloc not in RULES.keys():
         return redirect(url)
-    async with aiohttp.ClientSession() as client:
-        html = await target_fetch(client=client, url=url)
-        content_url = RULES[netloc].content_url
-        if html:
-            soup = BeautifulSoup(html, 'html5lib')
-            selector = RULES[netloc].content_selector
-            if selector.get('id', None):
-                content = soup.find_all(id=selector['id'])
-            elif selector.get('class', None):
-                content = soup.find_all(class_=selector['class'])
-            else:
-                content = soup.find_all(selector.get('tag'))
-        else:
-            return text('解析失败')
-    return template('content.html', name=name, url=url, content_url=content_url, soup=content)
+    content_url = RULES[netloc].content_url
+    content = await cache_owllook_novels_content(url=url, netloc=netloc)
+    if content:
+        content = str(content).replace('[', '').replace(']', '')
+        return template(
+            'content.html',
+            name=name,
+            url=url,
+            content_url=content_url,
+            soup=content)
+    else:
+        return text('failed')
 
 
 @bp.route("/owllook_donate")
@@ -103,4 +102,9 @@ async def feedback(request):
 
 @bp.exception(ServerError)
 async def test(request, exception):
-    return json({"exception": "{}".format(exception), "status": exception.status_code}, status=exception.status_code)
+    return json(
+        {
+            "exception": "{}".format(exception),
+            "status": exception.status_code
+        },
+        status=exception.status_code)

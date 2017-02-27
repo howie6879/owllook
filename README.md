@@ -12,6 +12,7 @@
 - motor：异步的mongodb驱动
 - asyncio_redis：redis异步支持
 - aiohttp：异步请求
+- aiocache：异步缓存，本项目改用了其中的decorator部分，缓存数据库使用redis
 
 
 对于用户信息，利用mongodb进行存储。

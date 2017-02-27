@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import logging
 from collections import namedtuple
+from aiocache import RedisCache
 
 # Search engine
 # eg:
@@ -17,6 +18,15 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
 LOGGER = logging.getLogger('root')
 
+# aiocache
+REDIS_DICT = dict(
+    IS_CACHE=True,
+    REDIS_ENDPOINT="127.0.0.1",
+    REDIS_PORT=6379,
+)
+AIO_CACHE = RedisCache(endpoint=REDIS_DICT['REDIS_ENDPOINT'], port=REDIS_DICT['REDIS_PORT'], namespace="main")
+
+#######################################  规则  ###########################################
 # DOMAIN
 BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', 'yunqi.qq.com', 'chuangshi.qq.com',
                 'book.qidian.com', 'www.soduso.com', 'pages.book.qq.com', 'book.km.com', 'www.lread.net',
