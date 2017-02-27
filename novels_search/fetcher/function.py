@@ -113,7 +113,7 @@ def cached(
     return cached_decorator
 
 
-@cached(ttl=86400, cache=RedisCache, key_from_attr='url', serializer=PickleSerializer(),
+@cached(cache=RedisCache, key_from_attr='url', serializer=PickleSerializer(),
         endpoint=REDIS_DICT.get('REDIS_ENDPOINT', None), port=REDIS_DICT.get('REDIS_PORT', None), namespace="main")
 async def cache_owllook_novels_content(url, netloc):
     async with aiohttp.ClientSession() as client:

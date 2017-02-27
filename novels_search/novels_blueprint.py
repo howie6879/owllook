@@ -28,6 +28,7 @@ def template(tpl, **kwargs):
 
 @bp.route("/")
 async def index(request):
+    print(22)
     return template('index.html', title='index')
 
 

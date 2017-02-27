@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 from sanic import Sanic
-import sys
-sys.path.append('/Users/howie/Documents/programming/python/git/novels-search')
 from novels_search.novels_blueprint import bp
 
 app = Sanic(__name__)
