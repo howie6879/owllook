@@ -15,9 +15,9 @@ from novels_search.config import RULES
 bp = Blueprint('novels_blueprint')
 
 # jinjia2 config
-bp.static('/static', './static')
+bp.static('/static', './static/novels')
 env = Environment(
-    loader=PackageLoader('novels_blueprint', 'template'),
+    loader=PackageLoader('views.novels_blueprint', '../templates/novels'),
     autoescape=select_autoescape(['html', 'xml', 'tpl']))
 
 

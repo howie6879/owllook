@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from sanic import Sanic
-from novels_search.novels_blueprint import bp
+from novels_search.views.novels_blueprint import bp
 
 app = Sanic(__name__)
 app.blueprint(bp)

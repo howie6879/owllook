@@ -36,7 +36,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 'www.ishuo.cn', 'read.qidian.com', 'www.yunlaige.com', 'www.qidian.com', 'www.sodu888.com',
                 'www.siluke.cc', 'read.10086.cn', 'www.pbtxt.com', 'c4txt.com', 'www.bokon.net', 'www.sikushu.net',
                 'www.is028.cn', 'www.tadu.com', 'www.kudu8.com', 'www.bmwen.com', 'www.5858xs.com', 'www.yiwan.com',
-                'www.x81zw.com', 'www.123du.cc', 'www.chashu.cc', '20xs.com']
+                'www.x81zw.com', 'www.123du.cc', 'www.chashu.cc', '20xs.com', 'www.haxwx.net']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -48,6 +48,18 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.58xs.com': Rules('http://www.58xs.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.shuyuelou.com': Rules('http://www.shuyuelou.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.mangg.com': Rules('http://www.mangg.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.lingdiankanshu.co': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqiku.com': Rules('http://www.biqiku.com', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.81xsw.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.22zw.com': Rules('0', {'class': 'acss'}, {'id': 'content'}),
     # 已解析
@@ -143,6 +155,8 @@ RULES = {
     'www.23zw.com': Rules('0', {'id': 'chapter_list'}, {'id': 'text_area'}),
     # 已解析
     'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}, {'id': 'content'}),
+    # 已解析
+    'www.2952.cc': Rules('0', {'class': 'inner'}, {'id': 'content'}),
     # 已解析
     'www.23us.cc': Rules('0', {'class': 'inner'}, {'id': 'content'}),
     # 已解析
