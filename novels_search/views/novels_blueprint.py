@@ -12,10 +12,10 @@ from novels_search.fetcher.novels import search
 from novels_search.fetcher.function import cache_owllook_novels_content, cache_owllook_novels_chapter
 from novels_search.config import RULES
 
-bp = Blueprint('novels_blueprint')
+novels_bp = Blueprint('novels_blueprint')
+novels_bp.static('/static', './static/novels')
 
 # jinjia2 config
-bp.static('/static', './static/novels')
 env = Environment(
     loader=PackageLoader('views.novels_blueprint', '../templates/novels'),
     autoescape=select_autoescape(['html', 'xml', 'tpl']))
@@ -26,12 +26,12 @@ def template(tpl, **kwargs):
     return html(template.render(kwargs))
 
 
-@bp.route("/")
+@novels_bp.route("/")
 async def index(request):
     return template('index.html', title='index')
 
 
-@bp.route("/search", methods=['GET'])
+@novels_bp.route("/search", methods=['GET'])
 async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', None)
@@ -52,7 +52,7 @@ async def owllook_search(request):
         count=len(parse_result))
 
 
-@bp.route("/chapter")
+@novels_bp.route("/chapter")
 async def chapter(request):
     url = request.args.get('url', None)
     name = request.args.get('name', None)
@@ -69,7 +69,7 @@ async def chapter(request):
         return text('failed')
 
 
-@bp.route("/owllook_content")
+@novels_bp.route("/owllook_content")
 async def owllook_content(request):
     url = request.args.get('url', None)
     name = request.args.get('name', None)
@@ -90,17 +90,17 @@ async def owllook_content(request):
         return text('failed')
 
 
-@bp.route("/owllook_donate")
+@novels_bp.route("/owllook_donate")
 async def donate(request):
     return template('donate.html')
 
 
-@bp.route("/owllook_feedback")
+@novels_bp.route("/owllook_feedback")
 async def feedback(request):
     return template('feedback.html')
 
 
-@bp.exception(ServerError)
+@novels_bp.exception(ServerError)
 async def test(request, exception):
     return json(
         {
