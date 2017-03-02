@@ -51,22 +51,22 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">用户:</label>
+                        <label for="owllook_user" class="col-sm-2 control-label">用户:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="用户名/邮箱">
+                            <input type="email" class="form-control" id="owllook_user" placeholder="用户名/邮箱">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">密码:</label>
+                        <label for="owllook_pass" class="col-sm-2 control-label">密码:</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="密码">
+                            <input type="password" class="form-control" id="owllook_pass" placeholder="密码">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left">注册</button>
-                <button type="button" class="btn btn-primary">登录</button>
+                <button type="submit" class="btn btn-primary" id="owllook_login">登录</button>
             </div>
         </div>
     </div>
@@ -75,11 +75,11 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="static/js/main.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+<script src="static/js/main.js"></script>
 {% block script %}{% endblock %}
 </body>
 </html>

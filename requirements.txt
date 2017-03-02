@@ -2,6 +2,7 @@ aiohttp
 async_timeout
 uvloop
 bs4
+tornado
 sanic>=0.3.1
 Jinja2>=2.9.5
 arrow

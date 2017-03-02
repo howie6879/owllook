@@ -10,7 +10,6 @@
 - sanic_session：sanic的持续会话插件
 - vloop：sanic默认使用uvloop，替代asyncio本身的loop
 - motor：异步的mongodb驱动
-- asyncio_redis：redis异步支持
 - aiohttp：异步请求
 - aiocache：异步缓存，本项目改用了其中的decorator部分，缓存数据库使用redis
 

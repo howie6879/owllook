@@ -3,29 +3,11 @@ import asyncio_redis
 from sanic import Sanic
 from sanic.response import text
 from sanic_session import RedisSessionInterface
+from novels_search.database.redis import RedisSession
 
 app = Sanic()
 
-
-# Token from https://github.com/subyraman/sanic_session
-
-class Redis:
-    """
-    A simple wrapper class that allows you to share a connection
-    pool across your application.
-    """
-    _pool = None
-
-    async def get_redis_pool(self):
-        if not self._pool:
-            self._pool = await asyncio_redis.Pool.create(
-                host='localhost', port=6379, poolsize=10
-            )
-
-        return self._pool
-
-
-redis = Redis()
+redis = RedisSession()
 
 # pass the getter method for the connection pool into the session
 session_interface = RedisSessionInterface(redis.get_redis_pool, expiry=604800)

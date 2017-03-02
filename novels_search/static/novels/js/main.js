@@ -26,4 +26,24 @@ $(document).ready(function () {
             $(this).addClass('bookMark');
         }
     });
+    // login
+    $("#owllook_login").click(function () {
+        var owllook_user = $("#owllook_user").val();
+        var owllook_pass = $("#owllook_pass").val();
+        if (owllook_user == "" || owllook_pass == "") {
+            alert('不能有内容为空');
+        } else {
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                url: "/operate/login?user=" + owllook_user + "&pwd=" + owllook_pass,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        window.location.href = '/';
+                    }
+                }
+            });
+        }
+    });
 });

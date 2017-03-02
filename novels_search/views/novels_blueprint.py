@@ -5,7 +5,6 @@ from sanic import Blueprint
 from sanic.response import redirect, html, text, json
 from sanic.exceptions import ServerError
 from jinja2 import Environment, PackageLoader, select_autoescape
-from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
 from novels_search.fetcher.novels import search
@@ -28,7 +27,11 @@ def template(tpl, **kwargs):
 
 @novels_bp.route("/")
 async def index(request):
-    return template('index.html', title='index')
+    user = request['session'].get('user', None)
+    if user:
+        return template('index.html', title='index', is_login=1, user=user)
+    else:
+        return template('index.html', title='index', is_login=0)
 
 
 @novels_bp.route("/search", methods=['GET'])
@@ -41,15 +44,16 @@ async def owllook_search(request):
         keyword = 'intitle:{name} 小说 阅读'.format(name=name)
     is_web = int(request.args.get('is_web', 1))
     result = await search(keyword, is_web)
-    parse_result = [i for i in result if i]
-    result_sorted = sorted(
-        parse_result, reverse=True, key=lambda res: res['timestamp'])
-    return template(
-        'result.html',
-        name=name,
-        time='%.2f' % (time.time() - start),
-        result=result_sorted,
-        count=len(parse_result))
+    if result:
+        parse_result = [i for i in result if i]
+        result_sorted = sorted(
+            parse_result, reverse=True, key=lambda res: res['timestamp'])
+        return template(
+            'result.html',
+            name=name,
+            time='%.2f' % (time.time() - start),
+            result=result_sorted,
+            count=len(parse_result))
 
 
 @novels_bp.route("/chapter")
