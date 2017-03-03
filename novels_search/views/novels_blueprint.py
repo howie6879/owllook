@@ -46,11 +46,7 @@ async def owllook_search(request):
         novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
         try:
             motor_db = MotorBase().db
-            keyword = await motor_db.search_records.find_one({'keyword': name})
-            if not keyword:
-                await motor_db.search_records.save({'keyword': name, 'count': 1})
-            else:
-                motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}})
+            motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
         except Exception as e:
             LOGGER.exception(e)
     is_web = int(request.args.get('is_web', 1))
