@@ -3,11 +3,6 @@ import logging
 from aiocache import RedisCache
 
 # Search engine
-# eg:
-# https://m.baidu.com/s?word=***+**
-# https://www.baidu.com/s?q=&wd=python&ie=utf-8&tn=baidulocal&ct=2097152&si=jianshu.com&cl=3
-# https://www.baidu.com/s?wd=%E6%8B%A9%E5%A4%A9%E8%AE%B0+%E5%B0%8F%E8%AF%B4&ie=utf-8&tn=baidulocal
-# https://www.baidu.com/s?wd=python&ie=utf-8&tn=baidulocal&ct=2097152&si=cnblogs.com&rn=50
 URL_PHONE = 'https://m.baidu.com/s'
 URL_PC = 'http://www.baidu.com/s'
 BAIDU_RN = 50
