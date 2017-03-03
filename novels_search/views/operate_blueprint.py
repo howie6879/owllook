@@ -23,6 +23,13 @@ def template(tpl, **kwargs):
     return html(template.render(kwargs))
 
 
+def get_time():
+    utc = arrow.utcnow()
+    local = utc.to(TIMEZONE)
+    time = local.format("YYYY-MM-DD HH:mm:ss")
+    return time
+
+
 @operate_bp.route("/login", methods=['POST'])
 async def owllook_login(request):
     """
@@ -67,9 +74,7 @@ async def owllook_register(request):
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
             password = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
-            utc = arrow.utcnow()
-            local = utc.to(TIMEZONE)
-            time = local.format("YYYY-MM-DD HH:mm:ss")
+            time = get_time()
             data = {
                 "user": user,
                 "password": password,
@@ -82,3 +87,25 @@ async def owllook_register(request):
     else:
         return json({'status': 0})
 
+
+@operate_bp.route("/add_bookmark", methods=['POST'])
+async def owllook_add_bookmark(request):
+    """
+
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   0   添加书签失败
+        :   1   添加书签成功
+    """
+    user = request['session'].get('user', None)
+    if user:
+        bookmarkurl = request.args.get('bookmarkurl', '')
+        name = request.args.get('name', '')
+        chapter_url = request.args.get('chapter_url', '')
+        novels_name = request.args.get('novels_name', '')
+        url = bookmarkurl + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name
+        time = get_time()
+        return json({'status': 1})
+    else:
+        return json({'status': -1})

@@ -19,7 +19,7 @@ REDIS_DICT = dict(
     REDIS_PORT=6379,
     CACHE_DB=0,
     SESSION_DB=1,
-    POOLSIZE=10,
+    POOLSIZE=4,
 )
 AIO_CACHE = RedisCache(endpoint=REDIS_DICT['REDIS_ENDPOINT'], port=REDIS_DICT['REDIS_PORT'], namespace="main")
 

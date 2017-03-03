@@ -18,9 +18,24 @@ $(document).ready(function () {
     });
     // bookmark
     $('#bookMark').click(function () {
+        bookmarkurl = window.location.pathname + window.location.search;
         if ($(this).hasClass('bookMark')) {
-            $(this).removeClass('bookMark');
-            $(this).addClass('bookMarkAct');
+            // add bookmark
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                url: "/operate/add_bookmark?bookmarkurl=" + bookmarkurl,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('#bookMark').removeClass('bookMark');
+                        $('#bookMark').addClass('bookMarkAct');
+                    }
+                    if (data.status == -1) {
+                        alert('您还没有登录');
+                    }
+                }
+            });
         } else {
             $(this).removeClass('bookMarkAct');
             $(this).addClass('bookMark');
