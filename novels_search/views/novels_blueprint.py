@@ -3,7 +3,6 @@ import time
 
 from sanic import Blueprint
 from sanic.response import redirect, html, text, json
-from sanic.exceptions import ServerError
 from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse
 
@@ -130,13 +129,3 @@ async def donate(request):
 @novels_bp.route("/owllook_feedback")
 async def feedback(request):
     return template('feedback.html')
-
-
-@novels_bp.exception(ServerError)
-async def test(request, exception):
-    return json(
-        {
-            "exception": "{}".format(exception),
-            "status": exception.status_code
-        },
-        status=exception.status_code)
