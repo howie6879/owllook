@@ -7,8 +7,9 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse
 
 from novels_search.fetcher.novels import search
+from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import cache_owllook_novels_content, cache_owllook_novels_chapter
-from novels_search.config import RULES
+from novels_search.config import RULES, LOGGER
 
 novels_bp = Blueprint('novels_blueprint')
 novels_bp.static('/static', './static/novels')
@@ -42,9 +43,18 @@ async def owllook_search(request):
     if not name:
         return redirect('/')
     else:
-        keyword = 'intitle:{name} 小说 阅读'.format(name=name)
+        novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
+        try:
+            motor_db = MotorBase().db
+            keyword = await motor_db.search_records.find_one({'keyword': name})
+            if not keyword:
+                await motor_db.search_records.save({'keyword': name, 'count': 1})
+            else:
+                motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}})
+        except Exception as e:
+            LOGGER.exception(e)
     is_web = int(request.args.get('is_web', 1))
-    result = await search(keyword, is_web)
+    result = await search(novels_name, is_web)
     if result:
         parse_result = [i for i in result if i]
         result_sorted = sorted(

@@ -44,6 +44,32 @@ BTW，sanic写界面确实不是很方便。
 
 ![content](./docs/content.png)
 
+### 3.关于
+
+**0.1：**
+
+- 小说的基本搜索解析功能
+- 搜索记录
+- 缓存
+- 书签
+- 登录（暂时不开放注册，可与我申请体验）
+
+**TODO:**
+
+- [ ] 注册
+
+
+- [ ] 书架
+
+
+- [ ] 手机端兼容
+
+
+- [ ] 推荐
+
+
+- [ ] 排行榜
+
 ### License
 
 `novels-search` is offered under the Apache 2 license.
