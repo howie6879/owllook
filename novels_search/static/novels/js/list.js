@@ -20,7 +20,7 @@ $(document).ready(function () {
                     // content_url=-1 表示特殊情况
                     content_url = chapter_url;
                 }
-                show_url = "owllook_content?url=" + content_url + url + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name" + novels_name;
+                show_url = "owllook_content?url=" + content_url + url + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name;
                 $(this).attr('href', show_url);
                 $(this).attr('target', '_blank');
             }
