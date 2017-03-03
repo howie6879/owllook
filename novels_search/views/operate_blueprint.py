@@ -42,6 +42,8 @@ async def owllook_login(request):
             password = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
             if password == data.get('password'):
                 request['session']['user'] = user
+                # response = json({'status': 1})
+                # response.cookies['user'] = user
                 return json({'status': 1})
         return json({'status': -1})
     else:

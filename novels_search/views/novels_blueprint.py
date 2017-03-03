@@ -28,6 +28,8 @@ def template(tpl, **kwargs):
 @novels_bp.route("/")
 async def index(request):
     user = request['session'].get('user', None)
+    # cookies = request.cookies.get('user')
+    # print(cookies)
     if user:
         return template('index.html', title='index', is_login=1, user=user)
     else:
@@ -48,12 +50,26 @@ async def owllook_search(request):
         parse_result = [i for i in result if i]
         result_sorted = sorted(
             parse_result, reverse=True, key=lambda res: res['timestamp'])
-        return template(
-            'result.html',
-            name=name,
-            time='%.2f' % (time.time() - start),
-            result=result_sorted,
-            count=len(parse_result))
+        user = request['session'].get('user', None)
+        if user:
+            return template(
+                'result.html',
+                is_login=1,
+                user=user,
+                name=name,
+                time='%.2f' % (time.time() - start),
+                result=result_sorted,
+                count=len(parse_result))
+        else:
+            return template(
+                'result.html',
+                is_login=0,
+                name=name,
+                time='%.2f' % (time.time() - start),
+                result=result_sorted,
+                count=len(parse_result))
+    else:
+        return html("No Result!")
 
 
 @novels_bp.route("/chapter")
@@ -83,13 +99,25 @@ async def owllook_content(request):
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_content(url=url, netloc=netloc)
     if content:
+        user = request['session'].get('user', None)
         content = str(content).replace('[', '').replace(']', '')
-        return template(
-            'content.html',
-            name=name,
-            url=url,
-            content_url=content_url,
-            soup=content)
+        if user:
+            return template(
+                'content.html',
+                is_login=1,
+                user=user,
+                name=name,
+                url=url,
+                content_url=content_url,
+                soup=content)
+        else:
+            return template(
+                'content.html',
+                is_login=0,
+                name=name,
+                url=url,
+                content_url=content_url,
+                soup=content)
     else:
         return text('failed')
 

@@ -22,57 +22,8 @@
 </head>
 <body>
 {% block content %}{% endblock %}
-
-<div class="footer">
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="message">
-            <div class="right">
-                <span>
-                    <a target="_blank" href="/owllook_feedback">反馈</a>
-                    <a target="_blank" href="/owllook_donate">捐赠</a>
-                    <a data-container="body" data-toggle="popover"
-                       data-placement="top"
-                       data-content="本站是一个小说搜索引擎，提供且仅提供百度搜索提供的小说检索结果。本站只负责展示搜索结果，展示内容与本站无关。">免责声明</a>
-                    <a target="_blank" href="/owllook_about">关于</a>
-                </span>
-            </div>
-        </div>
-    </nav>
-</div>
-
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="loginModalLabel">登录</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="owllook_user" class="col-sm-2 control-label">用户:</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="owllook_user" placeholder="用户名/邮箱">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="owllook_pass" class="col-sm-2 control-label">密码:</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="owllook_pass" placeholder="密码">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left">注册</button>
-                <button type="submit" class="btn btn-primary" id="owllook_login">登录</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+{% include "logout.html" %}
+{% include "footer.html" %}
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

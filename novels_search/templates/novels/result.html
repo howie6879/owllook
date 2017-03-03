@@ -18,9 +18,15 @@
                 <input type="text" name="wd" class="form-control" value="{{name}}">
             </div>
         </form>
+        {% if is_login %}
+        <div class="header">
+        {% include "login.html" %}
+        </div>
+        {% else %}
         <div class="login">
             <a class="btn btn-primary pull-right" href="#" role="button" data-toggle="modal" data-target="#login">登录</a>
         </div>
+        {% endif %}
     </div>
 </nav>
 <div class="result">

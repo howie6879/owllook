@@ -1,5 +1,3 @@
-import asyncio_redis
-
 from sanic import Sanic
 from sanic.response import text
 from sanic_session import RedisSessionInterface
