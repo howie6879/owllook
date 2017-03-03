@@ -26,17 +26,17 @@ def template(tpl, **kwargs):
 @operate_bp.route("/login", methods=['POST'])
 async def owllook_login(request):
     """
-
+    用户登录
     :param request:
     :return:
         :   -1  用户名或密码不能为空
         :   0   用户名或密码错误
         :   1   登陆成功
     """
-    motor_db = MotorBase().db
     user = request.args.get('user', None)
     pwd = request.args.get('pwd', None)
     if user and pwd:
+        motor_db = MotorBase().db
         data = await motor_db.user.find_one({'user': user})
         if data:
             password = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
@@ -53,17 +53,17 @@ async def owllook_login(request):
 @operate_bp.route("/register", methods=['POST'])
 async def owllook_register(request):
     """
-
+    用户注册
     :param request:
     :return:
         :   -1  用户名已存在
         :   0   用户名或密码不能为空
         :   1   注册成功
     """
-    motor_db = MotorBase().db
     user = request.args.get('user', None)
     pwd = request.args.get('pwd', None)
     if user and pwd:
+        motor_db = MotorBase().db
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
             password = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
@@ -81,3 +81,4 @@ async def owllook_register(request):
             return json({'status': -1})
     else:
         return json({'status': 0})
+

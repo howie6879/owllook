@@ -132,7 +132,7 @@ async def cache_owllook_novels_content(url, netloc):
         return None
 
 
-@cached(ttl=1800, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
+@cached(ttl=3600, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_chapter(url, netloc):
     async with aiohttp.ClientSession() as client:
         html = await target_fetch(client=client, url=url)

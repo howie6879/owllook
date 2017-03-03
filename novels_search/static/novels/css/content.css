@@ -55,11 +55,11 @@ body {
 
 .search input:focus {
     top: 15px;
-    border-bottom: 3px solid #7a776e;
+    border-bottom: 3px solid #E67676;
 }
 
 .all-content {
-    width: 70% !important;
+    width: 65% !important;
     box-shadow: 0 0 15px 0 #CCC;
     background: #F6F4EC;
     margin: 0 auto 30px;
@@ -114,6 +114,43 @@ body {
     word-break: break-all;
     font-family: "Microsoft YaHei";
     text-align: left;
+    position: relative;
+}
+
+.left-bar-list {
+    width: 60px;
+    position: fixed;
+    left: 12%;
+}
+
+.left-bar-list .left-bar-flag {
+    position: relative;
+    z-index: 100;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-top: none;
+    background: url("../img/left_bar_flag.png")
+}
+
+.left-bar-list .left-bar-flag .glyphicon {
+    font-size: 18px;
+}
+
+.left-bar-list .left-bar-flag a {
+    font: 12px/16px PingFangSC-Regular, '-apple-system', Simsun;
+    display: block;
+    width: 58px;
+    height: 58px;
+    transition: none;
+    text-align: center;
+    padding-top: 12px;
+    color: #999;
+    text-decoration: none;
+    color: rgba(0, 0, 0, .4)
+}
+
+.left-bar-list .left-bar-flag a:hover {
+    color: #E67676;
 }
 
 .show-content > p {

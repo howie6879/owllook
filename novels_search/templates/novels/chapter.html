@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {% block header %}
-<title>{{ name }} - owllook</title>
+<title>{{ novels_name }} - owllook</title>
 <link rel="stylesheet" href="static/css/chapter.css">
 {% endblock %}
 
@@ -20,6 +20,7 @@
 <div class="container all-chapter">
     <input id="content_url" type="hidden" value="{{content_url}}">
     <input id="url" type="hidden" value="{{url}}">
+    <input type="hidden" id="novels_name" value="{{novels_name}}">
     {% for item in soup -%}
     {{item|safe}}
     {%- endfor %}

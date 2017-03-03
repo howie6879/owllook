@@ -34,9 +34,36 @@
 <div class="container all-content">
     <input id="content_url" type="hidden" value="{{content_url}}">
     <input id="url" type="hidden" value="{{url}}">
+    <input id="chapter_url" type="hidden" value="{{chapter_url}}">
     <div class="title">
         <a id="bookMark" title="书签" class="bookMark"></a>
         <h2>{{name}}</h2>
+    </div>
+    <div class="left-bar-list">
+        <div class="left-bar-flag">
+            <a href="/chapter?url={{chapter_url}}&novels_name={{novels_name}}">
+                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                <div>目录</div>
+            </a>
+        </div>
+        <div class="left-bar-flag">
+            <a href="">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                <div>设置</div>
+            </a>
+        </div>
+        <div class="left-bar-flag">
+            <a href="">
+                <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                <div>书架</div>
+            </a>
+        </div>
+        <div class="left-bar-flag">
+            <a href="">
+                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                <div>书单</div>
+            </a>
+        </div>
     </div>
     <div class="show-content">
         {% for item in soup -%}

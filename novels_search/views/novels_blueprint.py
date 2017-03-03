@@ -84,16 +84,16 @@ async def owllook_search(request):
 @novels_bp.route("/chapter")
 async def chapter(request):
     url = request.args.get('url', None)
-    name = request.args.get('name', None)
+    novels_name = request.args.get('novels_name', None)
     netloc = urlparse(url).netloc
     if netloc not in RULES.keys():
         return redirect(url)
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
     if content:
-        content = str(content).replace('[', '').replace(']', '')
+        content = str(content).replace('[', '').replace(']', '').replace(',', '')
         return template(
-            'chapter.html', name=name, url=url, content_url=content_url, soup=content)
+            'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:
         return text('failed')
 
@@ -101,6 +101,8 @@ async def chapter(request):
 @novels_bp.route("/owllook_content")
 async def owllook_content(request):
     url = request.args.get('url', None)
+    chapter_url = request.args.get('chapter_url', None)
+    novels_name = request.args.get('novels_name', None)
     name = request.args.get('name', None)
     netloc = urlparse(url).netloc
     if netloc not in RULES.keys():
@@ -118,6 +120,8 @@ async def owllook_content(request):
                 name=name,
                 url=url,
                 content_url=content_url,
+                chapter_url=chapter_url,
+                novels_name=novels_name,
                 soup=content)
         else:
             return template(
@@ -126,6 +130,8 @@ async def owllook_content(request):
                 name=name,
                 url=url,
                 content_url=content_url,
+                chapter_url=chapter_url,
+                novels_name=novels_name,
                 soup=content)
     else:
         return text('failed')
