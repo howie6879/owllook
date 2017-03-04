@@ -7,7 +7,7 @@ from sanic import Blueprint
 from sanic.response import html, json
 
 from novels_search.database.mongodb import MotorBase
-from novels_search.config import WEBSITE, TIMEZONE
+from novels_search.config import WEBSITE, TIMEZONE, LOGGER
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
 operate_bp.static('/static', './static/operate')
@@ -106,6 +106,16 @@ async def owllook_add_bookmark(request):
         novels_name = request.args.get('novels_name', '')
         url = bookmarkurl + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name
         time = get_time()
-        return json({'status': 1})
+        try:
+            motor_db = MotorBase().db
+            motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
+            motor_db.user_message.update_one(
+                {'user': user, 'bookmarks.bookmark': {'$ne': url}},
+                {'$push': {'bookmarks': {'bookmark': url, 'add_time': time}}})
+            LOGGER.info('书签添加成功')
+            return json({'status': 1})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
     else:
         return json({'status': -1})
