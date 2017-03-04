@@ -37,8 +37,22 @@ $(document).ready(function () {
                 }
             });
         } else {
-            $(this).removeClass('bookMarkAct');
-            $(this).addClass('bookMark');
+            // delete bookmark
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                url: "/operate/delete_bookmark?bookmarkurl=" + bookmarkurl,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('#bookMark').removeClass('bookMarkAct');
+                        $('#bookMark').addClass('bookMark');
+                    }
+                    if (data.status == -1) {
+                        alert('您还没有登录');
+                    }
+                }
+            });
         }
     });
     // login

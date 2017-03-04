@@ -37,7 +37,11 @@
     <input id="chapter_url" type="hidden" value="{{chapter_url}}">
     <input type="hidden" id="novels_name" value="{{novels_name}}">
     <div class="title">
+        {% if bookmark %}
+        <a id="bookMark" title="书签" class="bookMarkAct"></a>
+        {% else %}
         <a id="bookMark" title="书签" class="bookMark"></a>
+        {% endif %}
         <h2 id="content_name">{{name}}</h2>
     </div>
     <div class="left-bar-list">

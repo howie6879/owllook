@@ -119,3 +119,33 @@ async def owllook_add_bookmark(request):
             return json({'status': 0})
     else:
         return json({'status': -1})
+
+
+@operate_bp.route("/delete_bookmark", methods=['POST'])
+async def owllook_delete_bookmark(request):
+    """
+
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   0   删除书签失败
+        :   1   删除书签成功
+    """
+    user = request['session'].get('user', None)
+    if user:
+        bookmarkurl = request.args.get('bookmarkurl', '')
+        name = request.args.get('name', '')
+        chapter_url = request.args.get('chapter_url', '')
+        novels_name = request.args.get('novels_name', '')
+        url = bookmarkurl + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name
+        try:
+            motor_db = MotorBase().db
+            motor_db.user_message.update_one({'user': user},
+                                             {'$pull': {'bookmarks': {"bookmark": url}}})
+            LOGGER.info('删除书签成功')
+            return json({'status': 1})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
+    else:
+        return json({'status': -1})
