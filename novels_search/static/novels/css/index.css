@@ -40,8 +40,8 @@ div.search > .btn-default:hover {
 
 .login > .pull-right {
     position: absolute;
-    right: 25px;
-    top: 20px;
+    right: 0;
+    top: 5px;
     border: 1px solid #4285f4;
     font-weight: bold;
     outline: none;

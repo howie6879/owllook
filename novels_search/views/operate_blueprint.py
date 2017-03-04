@@ -57,6 +57,24 @@ async def owllook_login(request):
         return json({'status': 0})
 
 
+@operate_bp.route("/logout", methods=['GET'])
+async def owllook_logout(request):
+    """
+    用户登录
+    :param request:
+    :return:
+        :   0   退出失败
+        :   1   退出成功
+    """
+    user = request['session'].get('user', None)
+    if user:
+        response = json({'status': 1})
+        del response.cookies['session']
+        return response
+    else:
+        return json({'status': 0})
+
+
 @operate_bp.route("/register", methods=['POST'])
 async def owllook_register(request):
     """

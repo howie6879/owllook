@@ -75,4 +75,18 @@ $(document).ready(function () {
             });
         }
     });
+    // logout
+    $("#logout").click(function () {
+        $.ajax({
+            type: "get",
+            contentType: "application/json",
+            url: "/operate/logout",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 1) {
+                    location.reload();
+                }
+            }
+        });
+    })
 });

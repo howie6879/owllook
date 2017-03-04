@@ -31,9 +31,9 @@ async def index(request):
     # cookies = request.cookies.get('user')
     # print(cookies)
     if user:
-        return template('index.html', title='index', is_login=1, user=user)
+        return template('index.html', title='owllook - 小说搜索引擎', is_login=1, user=user)
     else:
-        return template('index.html', title='index', is_login=0)
+        return template('index.html', title='owllook - 小说搜索引擎', is_login=0)
 
 
 @novels_bp.route("/search", methods=['GET'])
