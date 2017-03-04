@@ -7,6 +7,7 @@ from sanic_session import RedisSessionInterface
 from novels_search.views.novels_blueprint import novels_bp
 from novels_search.views.operate_blueprint import operate_bp
 from novels_search.views.except_blueprint import except_bp
+from novels_search.views.admin_blueprint import admin_bp
 from novels_search.database.redis import RedisSession
 from novels_search.config import WEBSITE, REDIS_DICT
 
@@ -14,6 +15,7 @@ app = Sanic(__name__)
 app.blueprint(novels_bp)
 app.blueprint(operate_bp)
 app.blueprint(except_bp)
+app.blueprint(admin_bp)
 
 
 @app.listener('before_server_start')

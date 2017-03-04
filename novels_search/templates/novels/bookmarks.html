@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="static/css/result.css">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid center-block result-header">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <img alt="Owllook" src="">
+            </a>
+        </div>
+        <form action="/search" method="get">
+            <div class="col-xs-6 search">
+                <input type="text" name="wd" class="form-control" value="">
+            </div>
+        </form>
+        {% if is_login %}
+        <div class="header">
+            {% include "login.html" %}
+        </div>
+        {% else %}
+        <div class="login">
+            <a class="btn btn-primary pull-right" href="#" role="button" data-toggle="modal" data-target="#login">登录</a>
+        </div>
+        {% endif %}
+    </div>
+</nav>
+<div class="container">
+    {% if is_bookmark %}
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>小说名</th>
+            <th>章节名</th>
+            <th>添加时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%for item in result%}
+        <tr>
+            <th scope="row">{{item.index}}</th>
+            <td><a href="/search?wd={{item.novels_name}}" target="_blank">{{item.novels_name}}</a></td>
+            <td><a href="{{item.bookmark}}" target="_blank">{{item.chapter_name}}</a></td>
+            <td>{{item.add_time}}</td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+    {% else %}
+    <center>暂无数钱数据</center>
+    {% endif %}
+
+</div>
+{% endblock %}
