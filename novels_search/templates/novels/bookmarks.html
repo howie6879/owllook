@@ -11,29 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-default">
-    <div class="container-fluid center-block result-header">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <img alt="Owllook" src="">
-            </a>
-        </div>
-        <form action="/search" method="get">
-            <div class="col-xs-6 search">
-                <input type="text" name="wd" class="form-control" value="">
-            </div>
-        </form>
-        {% if is_login %}
-        <div class="header">
-            {% include "login.html" %}
-        </div>
-        {% else %}
-        <div class="login">
-            <a class="btn btn-primary pull-right" href="#" role="button" data-toggle="modal" data-target="#login">登录</a>
-        </div>
-        {% endif %}
-    </div>
-</nav>
+{% include "search_bar.html" %}
 <div class="container">
     {% if is_bookmark %}
     <table class="table table-striped table-hover">
