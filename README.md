@@ -36,9 +36,7 @@ BTW，sanic写界面确实不是很方便。
 
 具体效果图请看下面：
 
-![](./doc/owllook.gif)
-
-![](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif-blog.howie)
+![demo](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)
 
 
 
