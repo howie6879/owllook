@@ -1,11 +1,22 @@
 div.search {
+    width: 100%;
     text-align: center;
     height: 30px;
     line-height: 30px;
-    margin: 25% 25%;
+
+}
+
+div.logo{
+    padding-top: 10%;
+}
+
+form.home_search {
+    height: 120px;
+    margin-top: 55px;
 }
 
 div.search > .form-control {
+    width: 55%;
     height: 40px;
     line-height: 40px;
 }

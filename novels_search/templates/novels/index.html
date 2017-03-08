@@ -17,9 +17,12 @@
     {% endif %}
 </div>
 <div class="container">
-    <form action="/search" method="get">
-        <div class="col-xs-6 search">
-            <input type="text" name="wd" class="form-control">
+    <div class="logo">
+        <img class="center-block" src="static/img/logo_home.png" alt="owllook">
+    </div>
+    <form action="/search" method="get" class="home_search center-block">
+        <div class="search center-block">
+            <input type="text" name="wd" class="form-control center-block">
             <input class="btn btn-default" type="submit" value="Owl Search">
         </div>
     </form>

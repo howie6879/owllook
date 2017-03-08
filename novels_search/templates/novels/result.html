@@ -10,7 +10,7 @@
     <div class="container-fluid center-block result-header">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-                <img alt="Owllook" src="">
+                <img alt="Owllook" width="120px" height="40px" src="static/img/logo_search.png">
             </a>
         </div>
         <form action="/search" method="get">
@@ -20,7 +20,7 @@
         </form>
         {% if is_login %}
         <div class="header">
-        {% include "login.html" %}
+            {% include "login.html" %}
         </div>
         {% else %}
         <div class="login">

@@ -23,7 +23,10 @@ async def fetch(client, url, name, is_web):
             async with client.get(url, params=params, headers=headers) as response:
                 assert response.status == 200
                 LOGGER.info('Task url: {}'.format(response.url))
-                text = await response.text()
+                try:
+                    text = await response.text()
+                except:
+                    text = await response.read()
                 return text
         except Exception as e:
             LOGGER.exception(e)

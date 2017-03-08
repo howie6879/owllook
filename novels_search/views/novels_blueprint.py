@@ -43,7 +43,7 @@ async def owllook_search(request):
     if not name:
         return redirect('/')
     else:
-        novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
+        novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
         try:
             motor_db = MotorBase().db
             motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
@@ -54,7 +54,7 @@ async def owllook_search(request):
     if result:
         parse_result = [i for i in result if i]
         result_sorted = sorted(
-            parse_result, reverse=True, key=lambda res: res['timestamp'])
+            parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result
         user = request['session'].get('user', None)
         if user:
             return template(
