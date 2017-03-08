@@ -1,10 +1,12 @@
 ### 
 
-### 网络小说搜索引擎（novels-search）
+![chapter](./novels_search/static/novels/img/logo_home.png)
 
 ### 1.说明
 
-`novels-search`是一个基于其他网站的垂直小说搜索引擎，至于为什么写这个，一个是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统。
+网络小说搜索引擎（novels-search）——owllook
+
+> `owllook`是一个基于其他网站的垂直小说搜索引擎，至于为什么写这个，一个是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，不出意外的话就作为自己的毕业设计。
 
 - sanic：基于Python 3.5+的异步web服务器，快快快
 - sanic_session：sanic的持续会话插件
@@ -34,15 +36,11 @@ BTW，sanic写界面确实不是很方便。
 
 具体效果图请看下面：
 
-目录解析：
+![](./doc/owllook.gif)
 
-![chapter](./docs/chapter.png)
+![](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif-blog.howie)
 
 
-
-章节内容解析：
-
-![content](./docs/content.png)
 
 ### 3.关于
 
