@@ -34,7 +34,7 @@ BTW，sanic写界面确实不是很方便。
 
 ### 2.demo
 
-具体效果图请看下面：
+具体效果图请看[这里](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)：
 
 ![demo](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)
 
