@@ -167,3 +167,64 @@ async def owllook_delete_bookmark(request):
             return json({'status': 0})
     else:
         return json({'status': -1})
+
+
+@operate_bp.route("/add_book", methods=['POST'])
+async def owllook_add_book(request):
+    """
+
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   0   添加书架失败
+        :   1   添加书架成功
+    """
+    user = request['session'].get('user', None)
+    if user:
+        novels_name = request.args.get('novels_name', '')
+        chapter_url = request.args.get('chapter_url', '')
+        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url,
+                                                                            novels_name=novels_name)
+        time = get_time()
+        try:
+            motor_db = MotorBase().db
+            motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
+            motor_db.user_message.update_one(
+                {'user': user, 'books_url.book_url': {'$ne': url}},
+                {'$push': {'books_url': {'book_url': url, 'add_time': time}}})
+            LOGGER.info('书架添加成功')
+            return json({'status': 1})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
+    else:
+        return json({'status': -1})
+
+
+@operate_bp.route("/delete_book", methods=['POST'])
+async def owllook_delete_book(request):
+    """
+
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   0   删除书架失败
+        :   1   删除书架成功
+    """
+    user = request['session'].get('user', None)
+    if user:
+        novels_name = request.args.get('novels_name', '')
+        chapter_url = request.args.get('chapter_url', '')
+        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url,
+                                                                            novels_name=novels_name)
+        try:
+            motor_db = MotorBase().db
+            motor_db.user_message.update_one({'user': user},
+                                             {'$pull': {'books_url': {"book_url": url}}})
+            LOGGER.info('删除书架成功')
+            return json({'status': 1})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
+    else:
+        return json({'status': -1})

@@ -34,7 +34,7 @@
     <input id="content_url" type="hidden" value="{{content_url}}">
     <input id="url" type="hidden" value="{{url}}">
     <input id="chapter_url" type="hidden" value="{{chapter_url}}">
-    <input type="hidden" id="novels_name" value="{{novels_name}}">
+    <input id="novels_name" type="hidden" value="{{novels_name}}">
     <div class="title">
         {% if bookmark %}
         <a id="bookMark" title="书签" class="bookMarkAct"></a>
@@ -57,10 +57,18 @@
             </a>
         </div>
         <div class="left-bar-flag">
-            <a href="">
+            {% if book %}
+            <a id="owllook_book" class="add-color" href="javascript:;">
                 <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                 <div>书架</div>
             </a>
+            {% else %}
+            <a id="owllook_book" href="javascript:;">
+                <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                <div>书架</div>
+            </a>
+            {% endif %}
+
         </div>
         <div class="left-bar-flag">
             <a href="">

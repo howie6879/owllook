@@ -149,8 +149,8 @@ body {
     color: rgba(0, 0, 0, .4)
 }
 
-.left-bar-list .left-bar-flag a:hover {
-    color: #E67676;
+.left-bar-list .left-bar-flag a:hover, .add-color {
+    color: #E67676 !important;
 }
 
 .show-content > p {

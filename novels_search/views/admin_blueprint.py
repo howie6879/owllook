@@ -47,12 +47,47 @@ async def bookmarks(request):
                         item_result['bookmark'] = bookmark
                         item_result['add_time'] = i.get('add_time', '')
                         result.append(item_result)
-                    return template('bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
+                    return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
                                     is_login=1,
                                     user=user,
                                     is_bookmark=1,
                                     result=result)
-            return template('bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
+            return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user,
+                            is_bookmark=0)
+        except Exception as e:
+            LOGGER.error(e)
+    else:
+        return redirect('/')
+
+
+@admin_bp.route("/books")
+async def books(request):
+    user = request['session'].get('user', None)
+    if user:
+        motor_db = MotorBase().db
+        try:
+            data = await motor_db.user_message.find_one({'user': user})
+            if data:
+                books_url = data.get('books_url', None)
+                if books_url:
+                    result = []
+                    for i in books_url:
+                        item_result = {}
+                        book_url = i.get('book_url', None)
+                        query = parse_qs(urlparse(book_url).query)
+                        item_result['novels_name'] = query.get('novels_name', '')[0] if query.get('novels_name',
+                                                                                                  '') else ''
+                        item_result['book_url'] = book_url
+                        item_result['add_time'] = i.get('add_time', '')
+                        result.append(item_result)
+                    return template('admin_books.html', title='{user}的书架 - owllook'.format(user=user),
+                                    is_login=1,
+                                    user=user,
+                                    is_bookmark=1,
+                                    result=result[::-1])
+            return template('admin_books.html', title='{user}的书架 - owllook'.format(user=user),
                             is_login=1,
                             user=user,
                             is_bookmark=0)

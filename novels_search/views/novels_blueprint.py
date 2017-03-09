@@ -107,6 +107,9 @@ async def owllook_content(request):
         chapter_url=chapter_url,
         novels_name=novels_name
     )
+    book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(
+        chapter_url=chapter_url,
+        novels_name=novels_name)
     netloc = urlparse(url).netloc
     if netloc not in RULES.keys():
         return redirect(url)
@@ -118,7 +121,9 @@ async def owllook_content(request):
         if user:
             motor_db = MotorBase().db
             bookmark = await motor_db.user_message.find_one({'bookmarks.bookmark': bookmark_url})
+            book = await motor_db.user_message.find_one({'books_url.book_url': book_url})
             bookmark = 1 if bookmark else 0
+            book = 1 if book else 0
             return template(
                 'content.html',
                 is_login=1,
@@ -126,6 +131,7 @@ async def owllook_content(request):
                 name=name,
                 url=url,
                 bookmark=bookmark,
+                book=book,
                 content_url=content_url,
                 chapter_url=chapter_url,
                 novels_name=novels_name,
@@ -137,6 +143,7 @@ async def owllook_content(request):
                 name=name,
                 url=url,
                 bookmark=0,
+                book=0,
                 content_url=content_url,
                 chapter_url=chapter_url,
                 novels_name=novels_name,

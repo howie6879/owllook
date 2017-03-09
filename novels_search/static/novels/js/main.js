@@ -16,6 +16,45 @@ $(document).ready(function () {
         $('html, body, .content').animate({scrollTop: $(document).height()}, 300);
         return false;
     });
+    // book
+    $('#owllook_book').click(function () {
+        var chapter_url = $("#chapter_url").val();
+        var novels_name = $("#novels_name").val();
+        if ($(this).hasClass('add-color')) {
+            // delete book
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                url: "/operate/delete_book?novels_name=" + novels_name + "&chapter_url=" + chapter_url,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('#owllook_book').removeClass('add-color');
+                    }
+                    if (data.status == -1) {
+                        alert('您还没有登录');
+                    }
+                }
+            });
+        } else {
+            // add book
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                url: "/operate/add_book?novels_name=" + novels_name + "&chapter_url=" + chapter_url,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('#owllook_book').addClass('add-color');
+                    }
+                    if (data.status == -1) {
+                        alert('您还没有登录');
+                    }
+                }
+            });
+        }
+    });
+
     // bookmark
     $('#bookMark').click(function () {
         bookmarkurl = window.location.pathname + window.location.search;
