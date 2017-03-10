@@ -25,6 +25,7 @@ def init_cache(sanic, loop):
         endpoint=REDIS_DICT.get('REDIS_ENDPOINT', None),
         port=REDIS_DICT.get('REDIS_PORT', None),
         db=REDIS_DICT.get('CACHE_DB', None),
+        password=REDIS_DICT.get('PASSWORD', None),
         loop=loop,
     )
 

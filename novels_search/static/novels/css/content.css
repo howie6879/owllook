@@ -167,6 +167,6 @@ body {
 
 /*原网页上一章下一章等隐藏*/
 
-.bottem, .chapter h1, .content > center, .content p > strong, .content p > a {
+#tuijian, .chapter_Turnpage a, .bottem, .chapter h1, .content > center, .content p > strong, .content p > a {
     display: none !important;
 }

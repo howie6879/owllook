@@ -17,6 +17,7 @@ REDIS_DICT = dict(
     IS_CACHE=True,
     REDIS_ENDPOINT="",
     REDIS_PORT=6379,
+    PASSWORD="",
     CACHE_DB=0,
     SESSION_DB=1,
     POOLSIZE=4,

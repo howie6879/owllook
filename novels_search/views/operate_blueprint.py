@@ -78,7 +78,7 @@ async def owllook_logout(request):
 @operate_bp.route("/register", methods=['POST'])
 async def owllook_register(request):
     """
-    用户注册
+    用户注册 不允许重名
     :param request:
     :return:
         :   -1  用户名已存在
@@ -126,12 +126,13 @@ async def owllook_add_bookmark(request):
         time = get_time()
         try:
             motor_db = MotorBase().db
-            motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
-            motor_db.user_message.update_one(
-                {'user': user, 'bookmarks.bookmark': {'$ne': url}},
-                {'$push': {'bookmarks': {'bookmark': url, 'add_time': time}}})
-            LOGGER.info('书签添加成功')
-            return json({'status': 1})
+            res = motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
+            if res:
+                motor_db.user_message.update_one(
+                    {'user': user, 'bookmarks.bookmark': {'$ne': url}},
+                    {'$push': {'bookmarks': {'bookmark': url, 'add_time': time}}})
+                LOGGER.info('书签添加成功')
+                return json({'status': 1})
         except Exception as e:
             LOGGER.exception(e)
             return json({'status': 0})
@@ -188,12 +189,13 @@ async def owllook_add_book(request):
         time = get_time()
         try:
             motor_db = MotorBase().db
-            motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
-            motor_db.user_message.update_one(
-                {'user': user, 'books_url.book_url': {'$ne': url}},
-                {'$push': {'books_url': {'book_url': url, 'add_time': time}}})
-            LOGGER.info('书架添加成功')
-            return json({'status': 1})
+            res = motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
+            if res:
+                motor_db.user_message.update_one(
+                    {'user': user, 'books_url.book_url': {'$ne': url}},
+                    {'$push': {'books_url': {'book_url': url, 'add_time': time}}})
+                LOGGER.info('书架添加成功')
+                return json({'status': 1})
         except Exception as e:
             LOGGER.exception(e)
             return json({'status': 0})
