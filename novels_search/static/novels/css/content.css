@@ -104,7 +104,7 @@ body {
     margin-bottom: 30px;
 }
 
-.show-content {
+.show-content, pre {
     width: 90%;
     line-height: 1.8;
     font-size: 16px !important;
@@ -115,6 +115,11 @@ body {
     font-family: "Microsoft YaHei";
     text-align: left;
     position: relative;
+}
+
+pre {
+    border: none !important;
+    background: none !important;
 }
 
 .left-bar-list {

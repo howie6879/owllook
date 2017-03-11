@@ -6,7 +6,7 @@ div.search {
 
 }
 
-div.logo{
+div.logo {
     padding-top: 10%;
 }
 
@@ -58,4 +58,19 @@ div.search > .btn-default:hover {
     outline: none;
     background: #4285f4;
     background: -webkit-linear-gradient(top, #4387fd, #4683ea);
+}
+
+@media (max-width: 767px) {
+    .logo {
+        padding-top: 40% !important;
+    }
+
+    .logo img {
+        width: 100px;
+        height: 45px;
+    }
+}
+
+@media (min-width: 992px) {
+
 }

@@ -111,3 +111,21 @@ div.footer > .navbar {
     margin-left: auto;
     margin-right: auto;
 }
+
+@media (max-width: 767px) {
+    .right > span > a {
+        margin-left: 5px !important;
+        font-size: 12px;
+    }
+
+    .modal-dialog .modal-content {
+        width: 80%;
+        height: 245px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    label {
+        padding-top: 8px !important;
+    }
+}
