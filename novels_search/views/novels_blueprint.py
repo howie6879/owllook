@@ -91,7 +91,7 @@ async def chapter(request):
         return template(
             'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:
-        return text('failed')
+        return text('解析失败，请将失败页面反馈给本站')
 
 
 @novels_bp.route("/owllook_content")
@@ -149,7 +149,7 @@ async def owllook_content(request):
                 novels_name=novels_name,
                 soup=content)
     else:
-        return text('failed')
+        return text('解析失败，请将失败页面反馈给本站')
 
 
 @novels_bp.route("/owllook_donate")
