@@ -9,7 +9,7 @@ from operator import itemgetter
 
 from novels_search.fetcher.novels import search
 from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.function import cache_owllook_novels_content, cache_owllook_novels_chapter
+from novels_search.fetcher.function import cache_owllook_novels_content, cache_owllook_novels_chapter, get_time
 from novels_search.config import RULES, LOGGER
 
 novels_bp = Blueprint('novels_blueprint')
@@ -41,12 +41,12 @@ async def index(request):
 async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', None)
+    motor_db = MotorBase().db
     if not name:
         return redirect('/')
     else:
         novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
         try:
-            motor_db = MotorBase().db
             motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
         except Exception as e:
             LOGGER.exception(e)
@@ -62,6 +62,25 @@ async def owllook_search(request):
             key=itemgetter('is_parse', 'timestamp')) if ':baidu' not in name else parse_result
         user = request['session'].get('user', None)
         if user:
+            try:
+                time_current = get_time()
+                res = motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time_current}},
+                                                       upsert=True)
+                # 此处语法操作过多  下次看一遍mongo再改
+                if res:
+                    is_ok = motor_db.user_message.update_one(
+                        {'user': user, 'search_records.keyword': {'$ne': name}},
+                        {'$push': {'search_records': {'keyword': name, 'counts': 0}}},
+                    )
+
+                    if is_ok:
+                        motor_db.user_message.update_one(
+                            {'user': user, 'search_records.keyword': name},
+                            {'$inc': {'search_records.$.counts': 1}}
+                        )
+
+            except Exception as e:
+                LOGGER.exception(e)
             return template(
                 'result.html',
                 is_login=1,
@@ -70,6 +89,7 @@ async def owllook_search(request):
                 time='%.2f' % (time.time() - start),
                 result=result_sorted,
                 count=len(parse_result))
+
         else:
             return template(
                 'result.html',
@@ -78,6 +98,7 @@ async def owllook_search(request):
                 time='%.2f' % (time.time() - start),
                 result=result_sorted,
                 count=len(parse_result))
+
     else:
         return html("No Result！请将小说名反馈给本站，谢谢！")
 

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 import hashlib
-import arrow
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from sanic import Blueprint
 from sanic.response import html, json
 
 from novels_search.database.mongodb import MotorBase
-from novels_search.config import WEBSITE, TIMEZONE, LOGGER
+from novels_search.fetcher.function import get_time
+from novels_search.config import WEBSITE, LOGGER
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
 operate_bp.static('/static', './static/operate')
@@ -21,13 +21,6 @@ env = Environment(
 def template(tpl, **kwargs):
     template = env.get_template(tpl)
     return html(template.render(kwargs))
-
-
-def get_time():
-    utc = arrow.utcnow()
-    local = utc.to(TIMEZONE)
-    time = local.format("YYYY-MM-DD HH:mm:ss")
-    return time
 
 
 @operate_bp.route("/login", methods=['POST'])

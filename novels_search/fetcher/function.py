@@ -3,12 +3,13 @@ import aiohttp
 import async_timeout
 import random
 import os
+import arrow
 
 from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
 from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
-from novels_search.config import USER_AGENT, RULES, LOGGER
+from novels_search.config import USER_AGENT, RULES, LOGGER, TIMEZONE
 
 
 def get_data(filename, default=''):
@@ -147,3 +148,10 @@ async def cache_owllook_novels_chapter(url, netloc):
                 content = soup.find_all(selector.get('tag'))
             return str(content) if content else None
         return None
+
+
+def get_time():
+    utc = arrow.utcnow()
+    local = utc.to(TIMEZONE)
+    time = local.format("YYYY-MM-DD HH:mm:ss")
+    return time
