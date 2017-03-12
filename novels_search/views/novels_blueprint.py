@@ -5,6 +5,7 @@ from sanic import Blueprint
 from sanic.response import redirect, html, text, json
 from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse
+from operator import itemgetter
 
 from novels_search.fetcher.novels import search
 from novels_search.database.mongodb import MotorBase
@@ -53,8 +54,12 @@ async def owllook_search(request):
     result = await search(novels_name, is_web)
     if result:
         parse_result = [i for i in result if i]
+        # result_sorted = sorted(
+        #     parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result
+        # 优先依靠是否解析进行排序  其次以更新时间进行排序
         result_sorted = sorted(
-            parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result
+            parse_result, reverse=True,
+            key=itemgetter('is_parse', 'timestamp')) if ':baidu' not in name else parse_result
         user = request['session'].get('user', None)
         if user:
             return template(
@@ -74,7 +79,7 @@ async def owllook_search(request):
                 result=result_sorted,
                 count=len(parse_result))
     else:
-        return html("No Result!")
+        return html("No Result！请将小说名反馈给本站，谢谢！")
 
 
 @novels_bp.route("/chapter")
@@ -87,7 +92,7 @@ async def chapter(request):
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
     if content:
-        content = str(content).replace('[', '').replace(']', '').replace(',', '')
+        content = str(content).strip('[],')
         return template(
             'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:
