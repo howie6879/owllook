@@ -60,6 +60,7 @@ div.search > .btn-default:hover {
     background: -webkit-linear-gradient(top, #4387fd, #4683ea);
 }
 
+
 @media (max-width: 767px) {
     .logo {
         padding-top: 40% !important;
@@ -73,4 +74,10 @@ div.search > .btn-default:hover {
 
 @media (min-width: 992px) {
 
+}
+
+@media (min-width: 1680px) {
+    .logo {
+        padding-top: 20% !important;
+    }
 }

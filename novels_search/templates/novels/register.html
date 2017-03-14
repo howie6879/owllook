@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{ title }} - 最简洁清新的搜索阅读体验</title>
+<link rel="stylesheet" href="static/css/register.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <a href="/"><img class="img-responsive center-block col-md-2 col-xs-4 logo" src="static/img/logo_home.png"
+                     alt="owllook"></a>
+    <div class="register center-block">
+        <h4 class="title">注册</h4>
+        <form action="" method="post" role="form" id="register">
+            <div class="input-group">
+                <input type="text" class="sign" name="nickname" placeholder="你的昵称">
+                <i class="glyphicon glyphicon-user icon"></i>
+            </div>
+            <div class="input-group">
+                <input type="text" class="sign" name="email" placeholder="你的邮箱">
+                <i class="glyphicon glyphicon-envelope icon"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" class="sign" name="password" placeholder="你的密码">
+                <i class="glyphicon glyphicon-lock icon"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" class="sign sign-last" name="password2" placeholder="确认一次" data-container="body"
+                       data-toggle="popover" data-content="">
+                <i class="glyphicon glyphicon-lock icon"></i>
+            </div>
+            <p class="errorInfo errorHidden">密码不一致</p>
+        </form>
+        <button class="btn btn-success submitBtn">注册</button>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="static/js/register.js"></script>
+{% endblock %}

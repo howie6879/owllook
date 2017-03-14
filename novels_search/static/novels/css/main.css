@@ -120,7 +120,8 @@ div.footer > .navbar {
 
     .modal-dialog .modal-content {
         width: 80%;
-        height: 245px;
+        min-width: 238px;
+        height: 260px;
         margin-left: auto;
         margin-right: auto;
     }

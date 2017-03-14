@@ -1,0 +1,85 @@
+body {
+    background-color: #f1f1f1 !important;
+}
+
+.logo {
+    margin: 5% auto;
+}
+
+.register {
+    width: 35%;
+    height: 100%;
+    background-color: white;
+    margin-top: 15%;
+    padding: 2rem 4rem;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+}
+
+.title {
+    text-align: center;
+    font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 2rem 0;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.sign {
+    padding: 4px 12px 4px 25px !important;
+    font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+    height: 50px !important;
+    font-size: 14px;
+    border: 1px solid #c8c8c8;
+    border-bottom: none;
+    width: 100%;
+    background-color: #f1f1f1;
+    outline: none
+}
+
+.sign-last {
+    border-bottom: 1px solid #c8c8c8;
+    margin-bottom: 2rem;
+}
+
+.icon {
+    position: absolute !important;
+    top: 17px !important;
+    left: 8px;
+    color: #969696;
+}
+
+.submitBtn {
+    width: 100%;
+    margin-bottom: 3rem !important;
+    padding: 1rem 0 !important;
+}
+
+.errorInfo {
+    color: red;
+    text-align: center;
+}
+
+.errorHidden {
+    visibility: hidden;
+}
+
+@media (max-width: 767px) {
+    .register {
+        width: 96%;
+        margin-top: 25%;
+    }
+
+    .logo {
+        margin-top: 12%;
+    }
+}
+
+@media (min-width: 1680px) {
+    .register {
+        margin-top: 20%;
+    }
+}

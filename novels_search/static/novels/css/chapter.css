@@ -149,7 +149,7 @@ tr > td.ccss, .L, ul#chapterlist li, .list_box td.list_lineb {
     width: 19% !important;
 }
 
-#dirsort01 li strong, .notice, .zuixin10, .update h2, .bdsub dd h3, .bdsub .tags, .bdsub .tips {
+div#comment, #dirsort01 li strong, .notice, .zuixin10, .update h2, .bdsub dd h3, .bdsub .tags, .bdsub .tips {
     display: none !important;
 }
 

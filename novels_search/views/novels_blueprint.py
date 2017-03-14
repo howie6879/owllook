@@ -178,6 +178,25 @@ async def owllook_content(request):
         return text('解析失败，请将失败页面反馈给本站')
 
 
+@novels_bp.route("/register")
+async def owllook_register(request):
+    """
+    用户登录
+    :param request:
+    :return:
+        :   -1  用户名或密码不能为空
+        :   0   用户名或密码错误
+        :   1   登陆成功
+    """
+    user = request['session'].get('user', None)
+    # cookies = request.cookies.get('user')
+    # print(cookies)
+    if user:
+        return redirect('/')
+    else:
+        return template('register.html', title='owllook - 注册 - 小说搜索引擎')
+
+
 @novels_bp.route("/owllook_donate")
 async def donate(request):
     return template('donate.html')
