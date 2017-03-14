@@ -175,3 +175,30 @@ pre {
 #tuijian, .chapter_Turnpage a, .bottem, .chapter h1, .content > center, .content p > strong, .content p > a {
     display: none !important;
 }
+
+@media (max-width: 767px) {
+    .left-bar-list {
+        display: none;
+    }
+
+    .all-content {
+        width: 96% !important;
+    }
+
+    .move {
+        display: none;
+    }
+
+    .search input {
+        right: 0 !important;
+        left: 0 !important;
+    }
+
+    .login > a {
+        margin-top: 10px !important;
+    }
+
+    .title > h2 {
+        font-size: 20px;
+    }
+}

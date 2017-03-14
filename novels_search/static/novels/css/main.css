@@ -120,7 +120,7 @@ div.footer > .navbar {
 
     .modal-dialog .modal-content {
         width: 80%;
-        min-width: 238px;
+        min-width: 265px;
         height: 260px;
         margin-left: auto;
         margin-right: auto;
@@ -140,6 +140,10 @@ div.footer > .navbar {
 
     .header .pull-right {
         margin-top: 17px !important;
+    }
+
+    /*登陆后排版*/
+    .header li.pull-right {
         margin-right: 0 !important;
     }
 }

@@ -162,4 +162,11 @@ div#comment, #dirsort01 li strong, .notice, .zuixin10, .update h2, .bdsub dd h3,
     width: 100% !important;
 }
 
+@media (max-width: 767px) {
+    .list_box td.list_lineb, .chapter li, #category .content .combox h2, .mulu li, .booktext li, #chapterslist dd, .book li, .art_listmain_main span, .box_chap li, #dirsort01 li, #book dd, .centent li, #chapterlist li, .booklist span, .box .zjlist4 li, .chapterlist li, #at td, .readout td, .zjlist dd, .mulu_list > li, .acss .ccss, .list .zl, #xslist ul li, .dirlist li, .list-chapter > li, .list_box ul li, #defaulthtml4 table .dccss, .article-list > dl > dd, .update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
+        width: 100%;
+    }
+
+}
+
 
