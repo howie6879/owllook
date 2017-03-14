@@ -7,35 +7,39 @@
 
 {% block content %}
 {% include "search_bar.html" %}
-<div class="result">
-    <p style="color: #868383;font-size: 13px; ">找到 {{count}} 条结果（用时{{time}}s）</p>
-    <div class="list-unstyled item">
-        {%for item in result%}
-        <div class="result_item">
-            <li>
-                <a target="_blank" href="/chapter?url={{item.url}}&novels_name={{name}}">{{item.title}}</a>
-                <div class="netloc">
-                    <i>{{item.netloc}}</i>
-                    <i><a target="_blank" href="{{item.url}}">查看源网址</a></i>
+<div class="container">
+    <div class="result">
+        <div class="show-result col-sm-7 col-xs-12">
+            <p style="color: #868383;font-size: 13px; ">找到 {{count}} 条结果（用时{{time}}s）</p>
+            <div class="list-unstyled item">
+                {%for item in result%}
+                <div class="result_item col-sm-9 col-xs-12">
+                    <li>
+                        <a target="_blank" href="/chapter?url={{item.url}}&novels_name={{name}}">{{item.title}}</a>
+                        <div class="netloc">
+                            <i>{{item.netloc}}</i>
+                            <i><a target="_blank" href="{{item.url}}">查看源网址</a></i>
+                        </div>
+                        <div class="tags">
+                            <span>{{item.time}}</span>
+                            {% if item.is_parse %}
+                            <span class="label label-primary">已解析</span>
+                            {% else %}
+                            <span class="label label-danger">未解析</span>
+                            {% endif %}
+                        </div>
+                    </li>
                 </div>
-                <div class="tags">
-                    <span>{{item.time}}</span>
-                    {% if item.is_parse %}
-                    <span class="label label-primary">已解析</span>
-                    {% else %}
-                    <span class="label label-danger">未解析</span>
-                    {% endif %}
+                {%endfor%}
+            </div>
+            <div class="move">
+                <div class="move_up">
+                    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
                 </div>
-            </li>
-        </div>
-        {%endfor%}
-    </div>
-    <div class="move">
-        <div class="move_up">
-            <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-        </div>
-        <div class="move_down">
-            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                <div class="move_down">
+                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

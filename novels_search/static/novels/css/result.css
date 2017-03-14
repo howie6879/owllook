@@ -4,10 +4,11 @@
 }
 
 .result {
+    position: absolute;
     margin-right: 0 !important;
     padding-left: 15px;
     padding-right: 15px;
-    margin-left: 6%;
+    left: 8%;
     margin-bottom: 60px;
 }
 
@@ -69,4 +70,35 @@ div.item > li > a {
 
 .modal-dialog .form-control {
     margin-top: 0 !important;
+}
+
+@media (min-width: 1680px) {
+    .result {
+        position: absolute;
+        left: 6%;
+    }
+}
+
+@media (max-width: 767px) {
+    .result {
+        position: static;
+        padding: 0 !important;
+        left: 0 !important;
+    }
+
+    .show-result {
+        margin-bottom: 40px;
+    }
+
+    .col-xs-12 {
+        padding-left: 0 !important;
+    }
+
+    .move {
+        display: none;
+    }
+
+    .show-result .tags .label{
+        right: 0 !important;
+    }
 }

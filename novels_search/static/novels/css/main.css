@@ -129,4 +129,17 @@ div.footer > .navbar {
     label {
         padding-top: 8px !important;
     }
+
+    .navbar-header {
+        display: none !important;
+    }
+
+    .login > a {
+        margin-top: 20px !important;
+    }
+
+    .header .pull-right {
+        margin-top: 17px !important;
+        margin-right: 0 !important;
+    }
 }
