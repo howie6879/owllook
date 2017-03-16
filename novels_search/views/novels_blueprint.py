@@ -143,7 +143,8 @@ async def owllook_content(request):
     content = await cache_owllook_novels_content(url=url, netloc=netloc)
     if content:
         user = request['session'].get('user', None)
-        content = str(content).replace('[', '').replace(']', '')
+        # 破坏广告链接
+        content = str(content).strip('[]Jjs,').replace('http', 'hs')
         if user:
             motor_db = MotorBase().db
             bookmark = await motor_db.user_message.find_one({'bookmarks.bookmark': bookmark_url})
