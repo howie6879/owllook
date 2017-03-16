@@ -39,7 +39,8 @@ async def owllook_login(request):
         motor_db = MotorBase().db
         data = await motor_db.user.find_one({'user': user})
         if data:
-            password = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+            pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+            password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
             if password == data.get('password'):
                 request['session']['user'] = user
                 # response = json({'status': 1})
@@ -80,11 +81,13 @@ async def owllook_register(request):
     """
     user = request.args.get('user', None)
     pwd = request.args.get('pwd', None)
+    email = request.args.get('email', None)
     if user and pwd:
         motor_db = MotorBase().db
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
-            password = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+            pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+            password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
             time = get_time()
             data = {
                 "user": user,

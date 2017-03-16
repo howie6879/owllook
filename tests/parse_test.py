@@ -18,6 +18,6 @@ def novel_task(url):
 
 start = time.time()
 #result = novel_task('http://www.shuge.net/html/98/98044')
-result = novel_task('http://www.ymoxuan.com/book/26/26581/9432602.html')
+result = novel_task('www.dingdianzw.com')
 pprint(result)
 print(time.time() - start)

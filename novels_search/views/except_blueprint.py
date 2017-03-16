@@ -19,7 +19,7 @@ def template(tpl, **kwargs):
 
 
 @except_bp.exception(NotFound)
-def ignore_404s(request, exception):
+def ignore_404(request, exception):
     if "google3eabdadc11faf3b3" in request.url:
         return template('google3eabdadc11faf3b3.html')
     return template('404.html')
