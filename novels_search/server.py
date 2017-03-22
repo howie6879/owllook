@@ -54,4 +54,4 @@ async def save_session(request, response):
         await session_interface.save(request, response)
 
 
-app.run(host="0.0.0.0", workers=4, port=8000, debug=True)
+app.run(host="0.0.0.0", workers=1, port=8000, debug=True)

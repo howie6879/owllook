@@ -7,9 +7,10 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse
 from operator import itemgetter
 
-from novels_search.fetcher.novels import search
 from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.function import cache_owllook_novels_content, cache_owllook_novels_chapter, get_time
+from novels_search.fetcher.function import get_time
+from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
+    cache_owllook_novels_result
 from novels_search.config import RULES, LOGGER
 
 novels_bp = Blueprint('novels_blueprint')
@@ -51,7 +52,7 @@ async def owllook_search(request):
         except Exception as e:
             LOGGER.exception(e)
     is_web = int(request.args.get('is_web', 1))
-    result = await search(novels_name, is_web)
+    result = await cache_owllook_novels_result(novels_name, is_web)
     if result:
         parse_result = [i for i in result if i]
         # result_sorted = sorted(
