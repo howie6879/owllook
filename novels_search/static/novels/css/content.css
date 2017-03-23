@@ -177,8 +177,8 @@ pre {
 }
 
 @media (max-width: 767px) {
-    .left-bar-list {
-        display: none;
+    .left-bar-list, #cloud-tie-wrapper {
+        display: none !important;
     }
 
     .all-content {
