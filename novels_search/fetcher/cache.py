@@ -65,7 +65,7 @@ def cached(
     return cached_decorator
 
 
-@cached(key_from_attr='url', serializer=PickleSerializer(), namespace="main")
+@cached(ttl=86400, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_content(url, netloc):
     async with aiohttp.ClientSession() as client:
         html = await target_fetch(client=client, url=url)

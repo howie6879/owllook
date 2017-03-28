@@ -4,6 +4,11 @@ from sanic import Sanic
 from sanic.response import html
 from sanic_session import RedisSessionInterface
 
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.getcwd()))
+
 from novels_search.views.novels_blueprint import novels_bp
 from novels_search.views.operate_blueprint import operate_bp
 from novels_search.views.except_blueprint import except_bp
@@ -54,4 +59,5 @@ async def save_session(request, response):
         await session_interface.save(request, response)
 
 
-app.run(host="0.0.0.0", workers=1, port=8000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", workers=1, port=8000, debug=True)

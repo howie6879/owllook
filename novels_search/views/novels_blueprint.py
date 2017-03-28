@@ -33,9 +33,9 @@ async def index(request):
     # cookies = request.cookies.get('user')
     # print(cookies)
     if user:
-        return template('index.html', title='owllook - 小说搜索引擎', is_login=1, user=user)
+        return template('index.html', title='owllook - 网络小说搜索引擎', is_login=1, user=user)
     else:
-        return template('index.html', title='owllook - 小说搜索引擎', is_login=0)
+        return template('index.html', title='owllook - 网络小说搜索引擎', is_login=0)
 
 
 @novels_bp.route("/search", methods=['GET'])
@@ -196,7 +196,7 @@ async def owllook_register(request):
     if user:
         return redirect('/')
     else:
-        return template('register.html', title='owllook - 注册 - 小说搜索引擎')
+        return template('register.html', title='owllook - 注册 - 网络小说搜索引擎')
 
 
 @novels_bp.route("/owllook_donate")

@@ -3,7 +3,7 @@ async_timeout
 uvloop
 bs4
 tornado
-sanic>=0.3.1
+sanic>=0.4.1
 Jinja2>=2.9.5
 arrow
 html5lib
@@ -11,3 +11,4 @@ sanic-session>=0.1.2
 asyncio-redis>=0.14.3
 aiocache>=0.3.2
 motor>=1.1
+sanic-gunicorn
