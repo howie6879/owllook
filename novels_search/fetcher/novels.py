@@ -17,7 +17,7 @@ async def fetch(client, url, name, is_web):
         try:
             headers = {'user-agent': get_random_user_agent()}
             if is_web:
-                params = {'wd': name, 'ie': 'utf-8', 'tn': 'baidulocal', 'rn': BAIDU_RN, 'nojs': 1}
+                params = {'wd': name, 'ie': 'utf-8', 'rn': BAIDU_RN, 'vf_bl': 1}
             else:
                 params = {'word': name}
             async with client.get(url, params=params, headers=headers) as response:
@@ -110,7 +110,7 @@ async def data_extraction_for_web_baidu(client, html):
             real_url = await get_real_url(client=client, url=url) if url else None
             if real_url:
                 netloc = urlparse(real_url).netloc
-                if 'baidu' in real_url or netloc  in BLACK_DOMAIN:
+                if 'baidu' in real_url or netloc in BLACK_DOMAIN:
                     return None
                 is_parse = 1 if netloc in RULES.keys() else 0
                 title = html.select('h3.t a')[0].get_text()
