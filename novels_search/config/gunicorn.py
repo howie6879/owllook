@@ -1,4 +1,5 @@
 # gunicorn config
+# gunicorn -c config/gunicorn.py --worker-class sanic_gunicorn.Worker server:app
 bind = '0.0.0.0:8000'
 backlog = 2048
 

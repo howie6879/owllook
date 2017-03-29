@@ -38,7 +38,7 @@ def init_cache(sanic, loop):
 redis = RedisSession()
 
 # pass the getter method for the connection pool into the session
-session_interface = RedisSessionInterface(redis.get_redis_pool, expiry=604800)
+session_interface = RedisSessionInterface(redis.get_redis_pool, expiry=86400)
 
 
 @app.middleware('request')
@@ -60,4 +60,5 @@ async def save_session(request, response):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", workers=1, port=8000, debug=True)
+    if __debug__:
+        app.run(host="0.0.0.0", workers=1, port=8000, debug=True)

@@ -7,7 +7,7 @@ import arrow
 from novels_search.config import USER_AGENT, LOGGER, TIMEZONE
 
 
-def get_data(filename, default=''):
+def get_data(filename, default='') -> list:
     """
     Get data from a file
     :param filename: filename
@@ -25,7 +25,7 @@ def get_data(filename, default=''):
     return data
 
 
-def get_random_user_agent():
+def get_random_user_agent() -> str:
     """
     Get a random user agent string.
     :return: Random user agent string.
@@ -33,7 +33,7 @@ def get_random_user_agent():
     return random.choice(get_data('user_agents.txt', USER_AGENT))
 
 
-def get_time():
+def get_time() -> str:
     utc = arrow.utcnow()
     local = utc.to(TIMEZONE)
     time = local.format("YYYY-MM-DD HH:mm:ss")
