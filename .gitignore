@@ -1,5 +1,6 @@
 # file
 *.pyc
+gunicorn.py
 tags
 .DS_Store
 # dir
