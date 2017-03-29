@@ -100,6 +100,6 @@ async def cache_owllook_novels_chapter(url, netloc):
 
 
 @cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
-async def cache_owllook_novels_result(novels_name):
+async def cache_owllook_baidu_novels_result(novels_name):
     result = await baidu_search(novels_name)
     return result if result else None
