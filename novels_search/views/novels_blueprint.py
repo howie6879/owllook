@@ -2,7 +2,7 @@
 import time
 
 from sanic import Blueprint
-from sanic.response import redirect, html, text, json
+from sanic.response import redirect, html, text
 from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse
 from operator import itemgetter
@@ -51,8 +51,8 @@ async def owllook_search(request):
             motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
         except Exception as e:
             LOGGER.exception(e)
-    is_web = int(request.args.get('is_web', 1))
-    result = await cache_owllook_novels_result(novels_name, is_web)
+    # is_web = int(request.args.get('is_web', 1))
+    result = await cache_owllook_novels_result(novels_name)
     if result:
         parse_result = [i for i in result if i]
         # result_sorted = sorted(

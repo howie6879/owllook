@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
 from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
-from novels_search.fetcher.novels import search
+from novels_search.fetcher.baidu_novels import baidu_search
 from novels_search.fetcher.function import target_fetch
 from novels_search.config import RULES
 
@@ -100,6 +100,6 @@ async def cache_owllook_novels_chapter(url, netloc):
 
 
 @cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
-async def cache_owllook_novels_result(novels_name, is_web):
-    result = await search(novels_name, is_web)
+async def cache_owllook_novels_result(novels_name):
+    result = await baidu_search(novels_name)
     return result if result else None

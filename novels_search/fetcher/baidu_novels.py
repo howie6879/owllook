@@ -136,7 +136,7 @@ async def data_extraction_for_web_baidu(client, html):
             return None
 
 
-async def search(name, is_web=1):
+async def baidu_search(name, is_web=1):
     url = URL_PC if is_web else URL_PHONE
     async with aiohttp.ClientSession() as client:
         html = await fetch(client=client, url=url, name=name, is_web=is_web)

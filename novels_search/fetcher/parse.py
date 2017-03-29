@@ -1,13 +1,10 @@
 #!/usr/bin/env python
-import asyncio
 import aiohttp
 import async_timeout
 from bs4 import BeautifulSoup
-import chardet
-from urllib.parse import urlparse
 from pprint import pprint
 
-from novels_search.config import LOGGER, RULES
+from novels_search.config import LOGGER
 from novels_search.fetcher.function import get_random_user_agent
 
 

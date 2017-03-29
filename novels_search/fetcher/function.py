@@ -33,6 +33,13 @@ def get_random_user_agent():
     return random.choice(get_data('user_agents.txt', USER_AGENT))
 
 
+def get_time():
+    utc = arrow.utcnow()
+    local = utc.to(TIMEZONE)
+    time = local.format("YYYY-MM-DD HH:mm:ss")
+    return time
+
+
 async def target_fetch(client, url):
     """
 
@@ -54,10 +61,3 @@ async def target_fetch(client, url):
         except Exception as e:
             LOGGER.exception(e)
             return None
-
-
-def get_time():
-    utc = arrow.utcnow()
-    local = utc.to(TIMEZONE)
-    time = local.format("YYYY-MM-DD HH:mm:ss")
-    return time
