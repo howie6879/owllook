@@ -5,7 +5,7 @@ from aiocache import RedisCache
 # Search engine
 URL_PHONE = 'https://m.baidu.com/s'
 URL_PC = 'http://www.baidu.com/s'
-BAIDU_RN = 50
+BAIDU_RN = 15
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36'
 
 # logging
@@ -38,5 +38,9 @@ WEBSITE = dict(
     IS_RUNNING=True,
     TOKEN=''
 )
+
+AUTH = {
+    "Owllook-Api-Key": ""
+}
 
 TIMEZONE = 'Asia/Shanghai'

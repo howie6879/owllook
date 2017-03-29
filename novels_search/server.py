@@ -13,18 +13,21 @@ from novels_search.views.novels_blueprint import novels_bp
 from novels_search.views.operate_blueprint import operate_bp
 from novels_search.views.except_blueprint import except_bp
 from novels_search.views.admin_blueprint import admin_bp
+from novels_search.views.api_blueprint import api_bp
 from novels_search.database.redis import RedisSession
-from novels_search.config import WEBSITE, REDIS_DICT
+from novels_search.config import WEBSITE, REDIS_DICT, LOGGER
 
 app = Sanic(__name__)
 app.blueprint(novels_bp)
 app.blueprint(operate_bp)
 app.blueprint(except_bp)
 app.blueprint(admin_bp)
+app.blueprint(api_bp)
 
 
 @app.listener('before_server_start')
 def init_cache(sanic, loop):
+    LOGGER.info("Starting aiocache")
     aiocache.settings.set_defaults(
         class_="aiocache.RedisCache",
         endpoint=REDIS_DICT.get('REDIS_ENDPOINT', None),
@@ -33,12 +36,12 @@ def init_cache(sanic, loop):
         password=REDIS_DICT.get('PASSWORD', None),
         loop=loop,
     )
-
-
-redis = RedisSession()
-
-# pass the getter method for the connection pool into the session
-session_interface = RedisSessionInterface(redis.get_redis_pool, expiry=86400)
+    LOGGER.info("Starting redis pool")
+    redis = RedisSession()
+    # redis instance for app
+    app.get_redis_pool = redis.get_redis_pool
+    # pass the getter method for the connection pool into the session
+    app.session_interface = RedisSessionInterface(app.get_redis_pool, expiry=86400)
 
 
 @app.middleware('request')
@@ -46,7 +49,7 @@ async def add_session_to_request(request):
     # before each request initialize a session
     # using the client's request
     if WEBSITE['IS_RUNNING']:
-        await session_interface.open(request)
+        await app.session_interface.open(request)
     else:
         return html("<h3>网站正在维护...</h3>")
 
@@ -56,7 +59,7 @@ async def save_session(request, response):
     # after each request save the session,
     # pass the response to set client cookies
     if request.get('session', None):
-        await session_interface.save(request, response)
+        await app.session_interface.save(request, response)
 
 
 if __name__ == "__main__":
