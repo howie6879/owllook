@@ -3,17 +3,17 @@ import asyncio
 import aiohttp
 import async_timeout
 import re
-from bs4 import BeautifulSoup
 import arrow
+
+from bs4 import BeautifulSoup
 from urllib.parse import urlparse
-from pprint import pprint
 
 from novels_search.fetcher.function import get_random_user_agent
 from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES, BAIDU_RN
 
 
 async def fetch(client, url, name, is_web):
-    with async_timeout.timeout(10):
+    with async_timeout.timeout(15):
         try:
             headers = {'user-agent': get_random_user_agent()}
             if is_web:
@@ -114,7 +114,6 @@ async def data_extraction_for_web_baidu(client, html):
                     return None
                 is_parse = 1 if netloc in RULES.keys() else 0
                 title = html.select('h3.t a')[0].get_text()
-                source = real_url
                 # time = re.findall(r'\d+-\d+-\d+', source)
                 # time = time[0] if time else None
                 timestamp = 0
