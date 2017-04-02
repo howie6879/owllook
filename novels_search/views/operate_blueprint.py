@@ -54,7 +54,7 @@ async def owllook_login(request):
 @operate_bp.route("/logout", methods=['GET'])
 async def owllook_logout(request):
     """
-    用户登录
+    用户登出
     :param request:
     :return:
         :   0   退出失败
@@ -122,9 +122,10 @@ async def owllook_add_bookmark(request):
         time = get_time()
         try:
             motor_db = MotorBase().db
-            res = motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
+            res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
+                                                         upsert=True)
             if res:
-                motor_db.user_message.update_one(
+                await motor_db.user_message.update_one(
                     {'user': user, 'bookmarks.bookmark': {'$ne': url}},
                     {'$push': {'bookmarks': {'bookmark': url, 'add_time': time}}})
                 LOGGER.info('书签添加成功')
@@ -155,8 +156,8 @@ async def owllook_delete_bookmark(request):
         url = bookmarkurl + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name
         try:
             motor_db = MotorBase().db
-            motor_db.user_message.update_one({'user': user},
-                                             {'$pull': {'bookmarks': {"bookmark": url}}})
+            await motor_db.user_message.update_one({'user': user},
+                                                   {'$pull': {'bookmarks': {"bookmark": url}}})
             LOGGER.info('删除书签成功')
             return json({'status': 1})
         except Exception as e:
@@ -185,9 +186,10 @@ async def owllook_add_book(request):
         time = get_time()
         try:
             motor_db = MotorBase().db
-            res = motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}}, upsert=True)
+            res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
+                                                         upsert=True)
             if res:
-                motor_db.user_message.update_one(
+                await motor_db.user_message.update_one(
                     {'user': user, 'books_url.book_url': {'$ne': url}},
                     {'$push': {'books_url': {'book_url': url, 'add_time': time}}})
                 LOGGER.info('书架添加成功')
@@ -217,8 +219,8 @@ async def owllook_delete_book(request):
                                                                             novels_name=novels_name)
         try:
             motor_db = MotorBase().db
-            motor_db.user_message.update_one({'user': user},
-                                             {'$pull': {'books_url': {"book_url": url}}})
+            await motor_db.user_message.update_one({'user': user},
+                                                   {'$pull': {'books_url': {"book_url": url}}})
             LOGGER.info('删除书架成功')
             return json({'status': 1})
         except Exception as e:

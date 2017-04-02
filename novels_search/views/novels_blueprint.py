@@ -48,7 +48,7 @@ async def owllook_search(request):
     else:
         novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
         try:
-            motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
+            await motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
         except Exception as e:
             LOGGER.exception(e)
     # is_web = int(request.args.get('is_web', 1))
@@ -68,17 +68,18 @@ async def owllook_search(request):
         if user:
             try:
                 time_current = get_time()
-                res = motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time_current}},
-                                                       upsert=True)
+                res = await motor_db.user_message.update_one({'user': user},
+                                                             {'$set': {'last_update_time': time_current}},
+                                                             upsert=True)
                 # 此处语法操作过多  下次看一遍mongo再改
                 if res:
-                    is_ok = motor_db.user_message.update_one(
+                    is_ok = await motor_db.user_message.update_one(
                         {'user': user, 'search_records.keyword': {'$ne': name}},
                         {'$push': {'search_records': {'keyword': name, 'counts': 0}}},
                     )
 
                     if is_ok:
-                        motor_db.user_message.update_one(
+                        await motor_db.user_message.update_one(
                             {'user': user, 'search_records.keyword': name},
                             {'$inc': {'search_records.$.counts': 1}}
                         )
