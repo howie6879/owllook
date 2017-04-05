@@ -34,7 +34,7 @@ BTW，sanic写界面确实不是很方便。
 
 **运行：**
 
-`python novels_search/server.py`
+`python server.py`
 
 `gunicorn --bind localhost:8000 --worker-class sanic_gunicorn.Worker server:app`
 

@@ -82,7 +82,7 @@ async def owllook_register(request):
     user = request.args.get('user', None)
     pwd = request.args.get('pwd', None)
     email = request.args.get('email', None)
-    if user and pwd:
+    if user and pwd and email:
         motor_db = MotorBase().db
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
@@ -92,6 +92,7 @@ async def owllook_register(request):
             data = {
                 "user": user,
                 "password": password,
+                "email": email,
                 "register_time": time,
             }
             object_id = await motor_db.user.save(data)
