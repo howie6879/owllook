@@ -36,9 +36,11 @@ BTW，sanic写界面确实不是很方便。
 
 `python server.py`
 
+或者
+
 `gunicorn --bind localhost:8000 --worker-class sanic_gunicorn.Worker server:app`
 
-或者直接访问[http://www.owllook.net/](http://www.owllook.net/)
+也可以直接访问[http://www.owllook.net/](http://www.owllook.net/)
 
 ### 2.demo
 

@@ -11,7 +11,7 @@ from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import get_time
 from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result
-from novels_search.config import RULES, LOGGER
+from novels_search.config import RULES, LOGGER, REPLACE_RULES
 
 novels_bp = Blueprint('novels_blueprint')
 novels_bp.static('/static', './static/novels')
@@ -115,6 +115,8 @@ async def chapter(request):
     netloc = urlparse(url).netloc
     if netloc not in RULES.keys():
         return redirect(url)
+    if netloc in REPLACE_RULES.keys():
+        url = url.replace(REPLACE_RULES[netloc]['old'], REPLACE_RULES[netloc]['new'])
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
     if content:

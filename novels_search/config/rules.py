@@ -28,6 +28,14 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "www.duwanjuan.com", "www.05935.com", "book.zongheng.com", "www.55x.cn", "www.freexs.cn",
                 "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com"]
 
+# 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
+REPLACE_RULES = {
+    "www.miaobige.com": {
+        'old': 'miaobige.com/book/',
+        'new': 'miaobige.com/read/'
+    },
+}
+
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
 RULES = {
@@ -39,9 +47,13 @@ RULES = {
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.vodtw.com': Rules('0', {'class': 'insert_list'}, {'class': 'contentbox'}),
+    # 已解析
+    'www.6mao.com': Rules('http://www.6mao.com/', {'class': 'liebiao_bottom'}, {'id': 'neirong'}),
+    # 已解析
     'www.7kankan.com': Rules('0', {'class': 'uclist'}, {'id': 'content'}),
     # 已解析
-    'www.biqugetw.com': Rules('http://www.biqugetw.com', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biqugetw.com': Rules('http://www.biqugetw.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'gdbzkz.com': Rules('1', {'class': 'mulu'}, {'class': 'content-body'}),
     # 已解析
