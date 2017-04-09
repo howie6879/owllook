@@ -11,7 +11,7 @@ from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import get_time
 from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result
-from novels_search.config import RULES, LOGGER, REPLACE_RULES
+from novels_search.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY
 
 novels_bp = Blueprint('novels_blueprint')
 novels_bp.static('/static', './static/novels')
@@ -46,16 +46,26 @@ async def owllook_search(request):
     if not name:
         return redirect('/')
     else:
-        novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
+        # 记录搜索小说名
         try:
             await motor_db.search_records.update_one({'keyword': name}, {'$inc': {'count': 1}}, upsert=True)
         except Exception as e:
             LOGGER.exception(e)
-    # is_web = int(request.args.get('is_web', 1))
-    # result = await cache_owllook_baidu_novels_result(novels_name)
-    # for 360 so
-    novels_name = "{name} 小说 免费阅读".format(name=name)
-    result = await cache_owllook_so_novels_result(novels_name)
+    # 通过搜索引擎获取检索结果
+    result = None
+    for each_engine in ENGINE_PRIORITY:
+        # for 360 so
+        if each_engine == "360":
+            novels_name = "{name} 小说 免费阅读".format(name=name)
+            result = await cache_owllook_so_novels_result(novels_name)
+            if result:
+                break
+        if each_engine == "baidu":
+            # for baidu
+            novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
+            result = await cache_owllook_baidu_novels_result(novels_name)
+            if result:
+                break
     if result:
         parse_result = [i for i in result if i]
         # result_sorted = sorted(
