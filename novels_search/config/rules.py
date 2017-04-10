@@ -26,7 +26,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "www.52ranwen.net", "www.dingdianzw.com", "www.topber.com", "www.391k.com", "www.qqxzb.com",
                 "www.zojpw.com", "www.pp8.com", "www.bxwx.org", "www.hrsxb.com", "www.497.com", "www.d8qu.com",
                 "www.duwanjuan.com", "www.05935.com", "book.zongheng.com", "www.55x.cn", "www.freexs.cn",
-                "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com"]
+                "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com", "book.sina.com.cn"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -50,9 +50,17 @@ RULES = {
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.xs222.com': Rules('http://www.xs222.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.5ccc.net': Rules('0', {'class': 'acss'}, {'id': 'content'}),
+    # 已解析
+    'www.bqg5200.com': Rules('http://www.bqg5200.com/', {'id': 'readerlist'}, {'id': 'content'}),
+    # 已解析
     'www.vodtw.com': Rules('0', {'class': 'insert_list'}, {'class': 'contentbox'}),
     # 已解析
     'www.6mao.com': Rules('http://www.6mao.com/', {'class': 'liebiao_bottom'}, {'id': 'neirong'}),
+    # 已解析
+    'www.touxiang.la': Rules('http://www.touxiang.la/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
     'www.7kankan.com': Rules('0', {'class': 'uclist'}, {'id': 'content'}),
     # 已解析

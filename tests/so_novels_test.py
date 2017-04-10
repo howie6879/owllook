@@ -16,6 +16,6 @@ def novel_task(name):
 
 
 start = time.time()
-result = novel_task('雪中悍刀行 小说 免费阅读')
+result = novel_task('琅琊榜 小说 免费阅读')
 pprint(result)
 print(time.time() - start)

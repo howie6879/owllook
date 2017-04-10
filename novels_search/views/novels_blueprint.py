@@ -52,22 +52,21 @@ async def owllook_search(request):
         except Exception as e:
             LOGGER.exception(e)
     # 通过搜索引擎获取检索结果
-    result = None
+    parse_result = [None]
     for each_engine in ENGINE_PRIORITY:
         # for 360 so
         if each_engine == "360":
             novels_name = "{name} 小说 免费阅读".format(name=name)
-            result = await cache_owllook_so_novels_result(novels_name)
-            if result:
+            parse_result = await cache_owllook_so_novels_result(novels_name)
+            if parse_result:
                 break
         if each_engine == "baidu":
             # for baidu
             novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
-            result = await cache_owllook_baidu_novels_result(novels_name)
-            if result:
+            parse_result = await cache_owllook_baidu_novels_result(novels_name)
+            if parse_result:
                 break
-    if result:
-        parse_result = [i for i in result if i]
+    if parse_result[0]:
         # result_sorted = sorted(
         #     parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result
         # 优先依靠是否解析进行排序  其次以更新时间进行排序
