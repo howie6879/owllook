@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import aiocache
 from sanic import Sanic
-from sanic.response import html
+from sanic.response import html, redirect
 from sanic_session import RedisSessionInterface
 
 import sys
@@ -15,7 +15,7 @@ from novels_search.views.except_blueprint import except_bp
 from novels_search.views.admin_blueprint import admin_bp
 from novels_search.views.api_blueprint import api_bp
 from novels_search.database.redis import RedisSession
-from novels_search.config import WEBSITE, REDIS_DICT, LOGGER
+from novels_search.config import WEBSITE, REDIS_DICT, LOGGER, HOST
 
 app = Sanic(__name__)
 app.blueprint(novels_bp)
@@ -48,6 +48,9 @@ def init_cache(sanic, loop):
 async def add_session_to_request(request):
     # before each request initialize a session
     # using the client's request
+    host = request.headers.get('host', None)
+    if not host or host not in HOST:
+        return redirect('http://www.owllook.net')
     if WEBSITE['IS_RUNNING']:
         await app.session_interface.open(request)
     else:

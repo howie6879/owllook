@@ -45,4 +45,6 @@ AUTH = {
     "Owllook-Api-Key": ""
 }
 
+HOST = ['owllook.net', 'www.owllook.net', '0.0.0.0:8000']
+
 TIMEZONE = 'Asia/Shanghai'
