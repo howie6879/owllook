@@ -1,0 +1,8 @@
+www.owllook.net {
+    proxy / 127.0.0.1:8001
+    gzip
+}
+
+owllook.net {
+    redir http://www.owllook.net
+}

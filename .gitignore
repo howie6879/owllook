@@ -1,5 +1,6 @@
 # file
 *.pyc
+*.ini
 gunicorn.py
 tags
 .DS_Store
