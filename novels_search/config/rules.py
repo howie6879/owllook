@@ -26,7 +26,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "www.52ranwen.net", "www.dingdianzw.com", "www.topber.com", "www.391k.com", "www.qqxzb.com",
                 "www.zojpw.com", "www.pp8.com", "www.bxwx.org", "www.hrsxb.com", "www.497.com", "www.d8qu.com",
                 "www.duwanjuan.com", "www.05935.com", "book.zongheng.com", "www.55x.cn", "www.freexs.cn",
-                "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com", "book.sina.com.cn"]
+                "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com", "book.sina.com.cn", "www.vodtw.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -50,7 +50,13 @@ RULES = {
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.50331.net': Rules('http://www.50331.net/', {'id': 'main'}, {'class': 'zhang-txt-nei-rong'}),
+    # 已解析
+    'www.wenxuemi.com': Rules('http://www.wenxuemi.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
     'www.xs222.com': Rules('http://www.xs222.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.lewen8.com': Rules('http://www.lewen8.com/', {'id': 'chapterlist'}, {'id': 'content'}),
     # 已解析
     'www.5ccc.net': Rules('0', {'class': 'acss'}, {'id': 'content'}),
     # 已解析
@@ -212,6 +218,8 @@ RULES = {
     # 已解析
     'www.xinshu.in': Rules('http://www.xinshu.in', {'class': 'list_box'}, {'class': 'box_box'}),
     # 已解析
+    'www.lwxs520.com': Rules('0', {'class': 'dccss'}, {'id': 'content'}),
+    # 已解析
     'www.lwxs.la': Rules('http://www.lwxs.la', {'id': 'defaulthtml4'}, {'id': 'content'}),
     # 已解析
     'www.biqule.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
@@ -330,6 +338,8 @@ RULES = {
     'www.lingyu.org': Rules('http://www.lingyu.org', {'class': 'mt10'}, {'id': 'htmlContent'}),
     # 已解析
     'www.aszw8.com': Rules('0', {'id': 'at'}, {'id': 'contents'}),
+    # 已解析
+    'www.23us.so': Rules('1', {'id': 'at'}, {'id': 'contents'}),
     # 已解析
     'www.biquge.lu': Rules('http://www.biquge.lu', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
