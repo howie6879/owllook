@@ -17,7 +17,6 @@
     <table class="table table-striped table-hover">
         <thead>
         <tr align="center">
-            <th>#</th>
             <th>小说名</th>
             <th>章节名</th>
             <th>源目录</th>
@@ -27,7 +26,6 @@
         <tbody>
         {%for item in result%}
         <tr>
-            <th scope="row">{{item.index}}</th>
             <td><a href="/search?wd={{item.novels_name}}" target="_blank">{{item.novels_name}}</a></td>
             <td><a href="{{item.bookmark}}" target="_blank">{{item.chapter_name}}</a></td>
             <td>

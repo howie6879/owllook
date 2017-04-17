@@ -84,7 +84,7 @@ async def owllook_search(request):
                 if res:
                     is_ok = await motor_db.user_message.update_one(
                         {'user': user, 'search_records.keyword': {'$ne': name}},
-                        {'$push': {'search_records': {'keyword': name, 'counts': 0}}},
+                        {'$push': {'search_records': {'keyword': name, 'counts': 1}}},
                     )
 
                     if is_ok:
@@ -133,7 +133,7 @@ async def chapter(request):
         return template(
             'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:
-        return text('解析失败，请将失败页面反馈给本站')
+        return text('解析失败，请将失败页面反馈给本站，请重新刷新一次，或者访问源网页：{url}'.format(url=url))
 
 
 @novels_bp.route("/owllook_content")
@@ -192,7 +192,7 @@ async def owllook_content(request):
                 novels_name=novels_name,
                 soup=content)
     else:
-        return text('解析失败，请将失败页面反馈给本站')
+        return text('解析失败，请将失败页面反馈给本站，请重新刷新一次，或者访问源网页：{url}'.format(url=url))
 
 
 @novels_bp.route("/register")

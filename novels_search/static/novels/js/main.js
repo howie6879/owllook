@@ -22,10 +22,12 @@ $(document).ready(function () {
         var novels_name = $("#novels_name").val();
         if ($(this).hasClass('add-color')) {
             // delete book
+            var del_pd = {"novels_name": novels_name, "chapter_url": chapter_url};
             $.ajax({
                 type: "post",
                 contentType: "application/json",
-                url: "/operate/delete_book?novels_name=" + novels_name + "&chapter_url=" + chapter_url,
+                url: "/operate/delete_book",
+                data: del_pd,
                 dataType: 'json',
                 success: function (data) {
                     if (data.status == 1) {
@@ -38,10 +40,12 @@ $(document).ready(function () {
             });
         } else {
             // add book
+            var add_pd = {"novels_name": novels_name, "chapter_url": chapter_url};
             $.ajax({
                 type: "post",
                 contentType: "application/json",
-                url: "/operate/add_book?novels_name=" + novels_name + "&chapter_url=" + chapter_url,
+                url: "/operate/add_book",
+                data: add_pd,
                 dataType: 'json',
                 success: function (data) {
                     if (data.status == 1) {
@@ -60,10 +64,12 @@ $(document).ready(function () {
         bookmarkurl = window.location.pathname + window.location.search;
         if ($(this).hasClass('bookMark')) {
             // add bookmark
+            var add_bm_pd = {'bookmarkurl': bookmarkurl};
             $.ajax({
                 type: "post",
                 contentType: "application/json",
-                url: "/operate/add_bookmark?bookmarkurl=" + bookmarkurl,
+                url: "/operate/add_bookmark",
+                data: add_bm_pd,
                 dataType: 'json',
                 success: function (data) {
                     if (data.status == 1) {
@@ -77,10 +83,12 @@ $(document).ready(function () {
             });
         } else {
             // delete bookmark
+            var del_bm_pd = {'bookmarkurl': bookmarkurl};
             $.ajax({
                 type: "post",
                 contentType: "application/json",
-                url: "/operate/delete_bookmark?bookmarkurl=" + bookmarkurl,
+                url: "/operate/delete_bookmark",
+                data: del_bm_pd,
                 dataType: 'json',
                 success: function (data) {
                     if (data.status == 1) {

@@ -317,7 +317,7 @@ RULES = {
     # 已解析
     'www.tsxsw.com': Rules('0', {'class': 'bdsub'}, {'id': 'contents'}),
     # 已解析
-    'www.ymoxuan.com': Rules('0', {'class': 'booktext'}, {'id': 'show'}),
+    'www.ymoxuan.com': Rules('1', {'class': 'mulu'}, {'id': 'content'}),
     # 已解析
     'zetianjiba.net': Rules('1', {'class': 'bg'}, {'class': 'content'}),
     # 已解析

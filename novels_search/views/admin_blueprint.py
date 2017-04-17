@@ -29,16 +29,14 @@ async def bookmarks(request):
         try:
             data = await motor_db.user_message.find_one({'user': user})
             if data:
+                # 获取所有书签
                 bookmarks = data.get('bookmarks', None)
                 if bookmarks:
                     result = []
-                    index = 0
                     for i in bookmarks:
                         item_result = {}
-                        index += 1
                         bookmark = i.get('bookmark', None)
                         query = parse_qs(urlparse(bookmark).query)
-                        item_result['index'] = index
                         item_result['novels_name'] = query.get('novels_name', '')[0] if query.get('novels_name',
                                                                                                   '') else ''
                         item_result['chapter_name'] = query.get('name', '')[0] if query.get('name', '') else ''
@@ -51,13 +49,14 @@ async def bookmarks(request):
                                     is_login=1,
                                     user=user,
                                     is_bookmark=1,
-                                    result=result)
+                                    result=result[::-1])
             return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
                             is_login=1,
                             user=user,
                             is_bookmark=0)
         except Exception as e:
             LOGGER.error(e)
+            return redirect('/')
     else:
         return redirect('/')
 
@@ -93,5 +92,6 @@ async def books(request):
                             is_bookmark=0)
         except Exception as e:
             LOGGER.error(e)
+            return redirect('/')
     else:
         return redirect('/')

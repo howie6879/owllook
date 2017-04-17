@@ -2,6 +2,7 @@
 import hashlib
 
 from jinja2 import Environment, PackageLoader, select_autoescape
+from urllib.parse import parse_qs, unquote
 from sanic import Blueprint
 from sanic.response import html, json
 
@@ -114,12 +115,10 @@ async def owllook_add_bookmark(request):
         :   1   添加书签成功
     """
     user = request['session'].get('user', None)
-    if user:
-        bookmarkurl = request.args.get('bookmarkurl', '')
-        name = request.args.get('name', '')
-        chapter_url = request.args.get('chapter_url', '')
-        novels_name = request.args.get('novels_name', '')
-        url = bookmarkurl + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    bookmarkurl = data.get('bookmarkurl', '')
+    if user and bookmarkurl:
+        url = unquote(bookmarkurl[0])
         time = get_time()
         try:
             motor_db = MotorBase().db
@@ -149,12 +148,11 @@ async def owllook_delete_bookmark(request):
         :   1   删除书签成功
     """
     user = request['session'].get('user', None)
-    if user:
-        bookmarkurl = request.args.get('bookmarkurl', '')
-        name = request.args.get('name', '')
-        chapter_url = request.args.get('chapter_url', '')
-        novels_name = request.args.get('novels_name', '')
-        url = bookmarkurl + "&name=" + name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    bookmarkurl = data.get('bookmarkurl', '')
+    print(bookmarkurl)
+    if user and bookmarkurl:
+        url = unquote(bookmarkurl[0])
         try:
             motor_db = MotorBase().db
             await motor_db.user_message.update_one({'user': user},
@@ -179,11 +177,12 @@ async def owllook_add_book(request):
         :   1   添加书架成功
     """
     user = request['session'].get('user', None)
-    if user:
-        novels_name = request.args.get('novels_name', '')
-        chapter_url = request.args.get('chapter_url', '')
-        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url,
-                                                                            novels_name=novels_name)
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    novels_name = data.get('novels_name', '')
+    chapter_url = data.get('chapter_url', '')
+    if user and novels_name and chapter_url:
+        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
+                                                                            novels_name=novels_name[0])
         time = get_time()
         try:
             motor_db = MotorBase().db
@@ -213,11 +212,12 @@ async def owllook_delete_book(request):
         :   1   删除书架成功
     """
     user = request['session'].get('user', None)
-    if user:
-        novels_name = request.args.get('novels_name', '')
-        chapter_url = request.args.get('chapter_url', '')
-        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url,
-                                                                            novels_name=novels_name)
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    novels_name = data.get('novels_name', '')
+    chapter_url = data.get('chapter_url', '')
+    if user and novels_name and chapter_url:
+        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
+                                                                            novels_name=novels_name[0])
         try:
             motor_db = MotorBase().db
             await motor_db.user_message.update_one({'user': user},
