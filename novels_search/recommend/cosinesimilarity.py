@@ -35,7 +35,7 @@ class CosineSimilarity(object):
         """
         计算余弦相似度
         :param wordVector: wordVector = {} 目标用户以及各个兴趣对应的向量
-        :return: 返回各个网站相似度值
+        :return: 返回各个用户相似度值
         """
         resultDic = {}
         for web, value in wordVector.items():
