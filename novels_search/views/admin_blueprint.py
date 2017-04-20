@@ -5,6 +5,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse, parse_qs
 
 from novels_search.database.mongodb import MotorBase
+from novels_search.fetcher.cache import get_the_latest_chapter
 from novels_search.config import LOGGER
 
 admin_bp = Blueprint('admin_blueprint', url_prefix='admin')
@@ -77,13 +78,21 @@ async def books(request):
                         book_url = i.get('book_url', None)
                         last_read_url = i.get("last_read_url", "")
                         book_query = parse_qs(urlparse(book_url).query)
-                        last_chapter_name = parse_qs(last_read_url).get('name', ['暂无'])[0]
+                        last_read_chapter_name = parse_qs(last_read_url).get('name', ['暂无'])[0]
                         item_result['novels_name'] = book_query.get('novels_name', '')[0] if book_query.get(
                             'novels_name', '') else ''
                         item_result['book_url'] = book_url
+                        latest_data = await motor_db.latest_chapter.find_one({'owllook_chapter_url': book_url})
+                        if latest_data:
+                            item_result['latest_chapter_name'] = latest_data['data']['latest_chapter_name']
+                            item_result['owllook_content_url'] = latest_data['data']['owllook_content_url']
+                        else:
+                            get_latest_data = await get_the_latest_chapter(book_url) or {}
+                            item_result['latest_chapter_name'] = get_latest_data.get('latest_chapter_name', '暂未获取，请反馈')
+                            item_result['owllook_content_url'] = get_latest_data.get('owllook_content_url', '')
                         item_result['add_time'] = i.get('add_time', '')
                         item_result["last_read_url"] = last_read_url if last_read_url else book_url
-                        item_result["last_chapter_name"] = last_chapter_name
+                        item_result["last_read_chapter_name"] = last_read_chapter_name
                         result.append(item_result)
                     return template('admin_books.html', title='{user}的书架 - owllook'.format(user=user),
                                     is_login=1,

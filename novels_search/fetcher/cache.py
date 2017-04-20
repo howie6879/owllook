@@ -5,11 +5,13 @@ from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
 from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
+from urllib.parse import urlparse, parse_qs
 
+from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.baidu_novels import baidu_search
 from novels_search.fetcher.so_novels import so_search
-from novels_search.fetcher.function import target_fetch
-from novels_search.config import RULES
+from novels_search.fetcher.function import target_fetch, get_time
+from novels_search.config import RULES, LATEST_RULES
 
 
 # Token from https://github.com/argaen/aiocache/blob/master/aiocache/decorators.py
@@ -67,7 +69,7 @@ def cached(
     return cached_decorator
 
 
-@cached(ttl=86400, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
+@cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_content(url, netloc):
     async with aiohttp.ClientSession() as client:
         html = await target_fetch(client=client, url=url)
@@ -84,7 +86,7 @@ async def cache_owllook_novels_content(url, netloc):
         return None
 
 
-@cached(ttl=3600, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
+@cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_chapter(url, netloc):
     async with aiohttp.ClientSession() as client:
         html = await target_fetch(client=client, url=url)
@@ -113,3 +115,41 @@ async def cache_owllook_so_novels_result(novels_name):
     result = await so_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
+
+
+async def get_the_latest_chapter(chapter_url):
+    url = parse_qs(urlparse(chapter_url).query).get('url', '')
+    novels_name = parse_qs(urlparse(chapter_url).query).get('novels_name', '')
+    data = None
+    if url and novels_name:
+        url = url[0]
+        novels_name = novels_name[0]
+        netloc = urlparse(url).netloc
+        if netloc in LATEST_RULES.keys():
+            async with aiohttp.ClientSession() as client:
+                html = await target_fetch(client=client, url=url)
+                if LATEST_RULES[netloc].plan:
+                    meta_value = LATEST_RULES[netloc].meta_value
+                    soup = BeautifulSoup(html, 'html5lib')
+                    latest_chapter_name = soup.select('meta[property="{0}"]'.format(meta_value["latest_chapter_name"]))
+                    latest_chapter_name = latest_chapter_name[0].get('content', None) if latest_chapter_name else None
+                    latest_chapter_url = soup.select('meta[property="{0}"]'.format(meta_value["latest_chapter_url"]))
+                    latest_chapter_url = latest_chapter_url[0].get('content', None) if latest_chapter_url else None
+                    time_current = get_time()
+                    data = {
+                        "latest_chapter_name": latest_chapter_name,
+                        "latest_chapter_url": latest_chapter_url,
+                        "owllook_chapter_url": chapter_url,
+                        "owllook_content_url": "/owllook_content?url={latest_chapter_url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
+                            latest_chapter_url=latest_chapter_url,
+                            name=latest_chapter_name,
+                            chapter_url=url,
+                            novels_name=novels_name,
+                        ),
+                        "finished_at": time_current,
+                    }
+                    # 存储最新章节
+                    motor_db = MotorBase().db
+                    await motor_db.latest_chapter.update_one({'owllook_chapter_url': chapter_url},
+                                                             {'$set': {'data': data}}, upsert=True)
+    return data

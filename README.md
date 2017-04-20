@@ -55,6 +55,10 @@ BTW，sanic写界面确实不是很方便。
 
 ![content](./docs/content.png)
 
+书架：
+
+![books](./docs/the_latest_chapter.jpeg)
+
 ### 3.关于
 
 **0.1.0：**

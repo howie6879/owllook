@@ -41,6 +41,26 @@ ENGINE_PRIORITY = ['360', 'baidu']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
+LatestRules = namedtuple('LatestRules', 'plan meta_value selector')
+
+# 获取小说最新章节
+PLAN_01 = LatestRules(
+    True,
+    {'latest_chapter_name': 'og:novel:latest_chapter_name', 'latest_chapter_url': 'og:novel:latest_chapter_url'},
+    None,
+)
+
+LATEST_RULES = {
+    "www.biquge.tw": PLAN_01,
+    "www.biquge.cc": PLAN_01,
+    "www.8535.org": PLAN_01,
+    "www.qu.la": PLAN_01,
+    "www.ybdu.com": PLAN_01,
+    "www.wenxuemi.com": PLAN_01,
+    "www.biquge.com": PLAN_01,
+    "www.23us.cc": PLAN_01,
+}
+
 RULES = {
     # demo  'name': Rules('content_url', {chapter_selector}, {content_selector})
     # 已解析
