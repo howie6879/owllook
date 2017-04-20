@@ -40,7 +40,8 @@ $(document).ready(function () {
             });
         } else {
             // add book
-            var add_pd = {"novels_name": novels_name, "chapter_url": chapter_url};
+            last_read_url = window.location.pathname + window.location.search;
+            var add_pd = {"novels_name": novels_name, "chapter_url": chapter_url, 'last_read_url': last_read_url};
             $.ajax({
                 type: "post",
                 contentType: "application/json",

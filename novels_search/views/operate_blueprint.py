@@ -150,7 +150,6 @@ async def owllook_delete_bookmark(request):
     user = request['session'].get('user', None)
     data = parse_qs(str(request.body, encoding='utf-8'))
     bookmarkurl = data.get('bookmarkurl', '')
-    print(bookmarkurl)
     if user and bookmarkurl:
         url = unquote(bookmarkurl[0])
         try:
@@ -180,6 +179,7 @@ async def owllook_add_book(request):
     data = parse_qs(str(request.body, encoding='utf-8'))
     novels_name = data.get('novels_name', '')
     chapter_url = data.get('chapter_url', '')
+    last_read_url = data.get('last_read_url', '')
     if user and novels_name and chapter_url:
         url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
                                                                             novels_name=novels_name[0])
@@ -191,7 +191,7 @@ async def owllook_add_book(request):
             if res:
                 await motor_db.user_message.update_one(
                     {'user': user, 'books_url.book_url': {'$ne': url}},
-                    {'$push': {'books_url': {'book_url': url, 'add_time': time}}})
+                    {'$push': {'books_url': {'book_url': url, 'add_time': time, 'last_read_url': last_read_url[0]}}})
                 LOGGER.info('书架添加成功')
                 return json({'status': 1})
         except Exception as e:

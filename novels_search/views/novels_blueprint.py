@@ -142,6 +142,11 @@ async def owllook_content(request):
     chapter_url = request.args.get('chapter_url', None)
     novels_name = request.args.get('novels_name', None)
     name = request.args.get('name', None)
+    # 当小说内容url不在解析规则内 跳转到原本url
+    netloc = urlparse(url).netloc
+    if netloc not in RULES.keys():
+        return redirect(url)
+    # 拼接小说书签url
     bookmark_url = "{path}?url={url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
         path=request.url,
         url=url,
@@ -149,12 +154,10 @@ async def owllook_content(request):
         chapter_url=chapter_url,
         novels_name=novels_name
     )
+    # 拼接小说目录url
     book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(
         chapter_url=chapter_url,
         novels_name=novels_name)
-    netloc = urlparse(url).netloc
-    if netloc not in RULES.keys():
-        return redirect(url)
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_content(url=url, netloc=netloc)
     if content:
@@ -163,10 +166,18 @@ async def owllook_content(request):
         content = str(content).strip('[]Jjs,').replace('http', 'hs')
         if user:
             motor_db = MotorBase().db
-            bookmark = await motor_db.user_message.find_one({'bookmarks.bookmark': bookmark_url})
-            book = await motor_db.user_message.find_one({'books_url.book_url': book_url})
+            bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
+            book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
             bookmark = 1 if bookmark else 0
-            book = 1 if book else 0
+            if book:
+                # 当书架中存在该书源
+                book = 1
+                # 保存最后一次阅读记录
+                await motor_db.user_message.update_one(
+                    {'user': user, 'books_url.book_url': book_url},
+                    {'$set': {'books_url.$.last_read_url': bookmark_url}})
+            else:
+                book = 0
             return template(
                 'content.html',
                 is_login=1,
