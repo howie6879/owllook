@@ -49,7 +49,7 @@ async def data_extraction_for_web_so(client, html):
             is_parse = 1 if netloc in RULES.keys() else 0
             time = ''
             timestamp = 0
-            return {'title': title, 'url': url.replace('index.html', ''), 'time': time, 'is_parse': is_parse,
+            return {'title': title, 'url': url.replace('index.html', '').replace('Index.html', ''), 'time': time, 'is_parse': is_parse,
                     'timestamp': timestamp,
                     'netloc': netloc}
         except Exception as e:

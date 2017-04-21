@@ -95,7 +95,8 @@ async def data_extraction_for_web(html):
                 except Exception as e:
                     LOGGER.exception(e)
                     timestamp = 0
-            return {'title': title, 'url': url.replace('index.html', ''), 'time': time, 'is_parse': is_parse,
+            return {'title': title, 'url': url.replace('index.html', '').replace('Index.html', ''), 'time': time,
+                    'is_parse': is_parse,
                     'timestamp': timestamp,
                     'netloc': netloc}
         except Exception as e:

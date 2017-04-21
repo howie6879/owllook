@@ -34,6 +34,14 @@ REPLACE_RULES = {
         'old': 'miaobige.com/book/',
         'new': 'miaobige.com/read/'
     },
+    "www.5ccc.net": {
+        'old': '5ccc.net/wksz_info/',
+        'new': '5ccc.net/xiaoshuo/'
+    },
+    "www.7kankan.com": {
+        'old': '7kankan.com/files/article/info/',
+        'new': '7kankan.com/files/article/html/'
+    },
 }
 
 # 搜索引擎检索优先级
@@ -51,19 +59,58 @@ PLAN_01 = LatestRules(
 )
 
 LATEST_RULES = {
+    "www.biqugex.com": PLAN_01,
     "www.biquge.tw": PLAN_01,
-    "www.biquge.cc": PLAN_01,
-    "www.8535.org": PLAN_01,
     "www.qu.la": PLAN_01,
     "www.ybdu.com": PLAN_01,
     "www.wenxuemi.com": PLAN_01,
     "www.biquge.com": PLAN_01,
     "www.23us.cc": PLAN_01,
+    "www.xs222.com": PLAN_01,
+    "www.lewen8.com": PLAN_01,
+    "www.bqg5200.com": PLAN_01,
+    "www.vodtw.com": PLAN_01,
+    "www.6mao.com": PLAN_01,
+    "www.touxiang.la": PLAN_01,
+    "www.bxquge.com": PLAN_01,
+    "www.beidouxin.com": PLAN_01,
+    "www.263zw.com": PLAN_01,
+    "www.3qzone.com": PLAN_01,
+    "wwww.yooread.com": PLAN_01,
+    "www.bequge.com": PLAN_01,
+    "www.biquku.co": PLAN_01,
+    "www.xbqge.com": PLAN_01,
+    "www.aiquxs.com": PLAN_01,
+    "www.23us.com": PLAN_01,
+    "www.ddbiquge.com": PLAN_01,
+    "www.abocms.cn": PLAN_01,
+    "www.liewen.cc": PLAN_01,
+    "www.8535.org": PLAN_01,
+    "www.dingdianzw.com": PLAN_01,
+    "www.biquge.cc": PLAN_01,
+    "www.111bz.org": PLAN_01,
+    "www.biqugebook.com": PLAN_01,
+    "www.e8zw.com": PLAN_01,
+    "www.xqqxs.com": PLAN_01,
+    "tianyibook.la": PLAN_01,
+    "www.lingdianksw.com": PLAN_01,
+    "www.qb5.tw": PLAN_01,
+    "www.quanben.com": PLAN_01,
+    "www.58xs.com": PLAN_01,
+    "www.biqukan.com": PLAN_01,
+
+    # 其他规则
+    "www.50331.net": LatestRules(
+        False,
+        None,
+        {'content_url': "http://www.50331.net/", 'tag': 'span.zzjie a'}
+    )
 }
 
 RULES = {
     # demo  'name': Rules('content_url', {chapter_selector}, {content_selector})
-    # 已解析
+    # content_url=1表示章节链接使用本身自带的链接，不用拼接
+    # content_url=0表示章节网页需要当前页面url拼接
     # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'},{}),
     # 'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
@@ -271,7 +318,7 @@ RULES = {
     'www.00ksw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.booktxt.net': Rules('http://www.booktxt.net', {'class': 'box_con'}, {'id': 'content'}),
-    # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
+    # 已解析
     'wanmeishijiexiaoshuo.org': Rules('1', {'class': 'bg'}, {'class': 'content'}),
     # 已解析
     'www.sosoxiaoshuo.cc': Rules('http://www.sosoxiaoshuo.cc', {'class': 'box_con'}, {'id': 'content'}),
@@ -281,7 +328,7 @@ RULES = {
     'www.81zw.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.cilook.net': Rules('0', {'id': 'cl_content'}, {'id': 'content'}),
-    # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
+    # 已解析
     'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {'id': 'content'}),
     # 已解析
     'www.biquge.tw': Rules('http://www.biquge.tw', {'class': 'box_con'}, {'id': 'content'}),
@@ -324,7 +371,7 @@ RULES = {
     'www.miaobige.com': Rules('0', {'id': 'readerlists'}, {'id': 'content'}),
     # 已解析
     'www.dashubao.net': Rules('0', {'class': 'ml_main'}, {'class': 'yd_text2'}),
-    # 已解析 content_url=0表示章节网页需要当前页面url拼接
+    # 已解析
     'www.23zw.com': Rules('0', {'id': 'chapter_list'}, {'id': 'text_area'}),
     # 已解析
     'www.23us.la': Rules('http://www.23us.la', {'class': 'inner'}, {'id': 'content'}),
@@ -344,9 +391,9 @@ RULES = {
     'www.37zw.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.555zw.com': Rules('0', {'class': 'dir'}, {'id': 'content'}),
-    # 已解析  content_url=1表示章节链接使用本身自带的链接，不用拼接
+    # 已解析
     'www.jueshitangmen.info': Rules('1', {'class': 'bg'}, {'class': 'content'}),
-    # 已解析 content_url=0表示章节网页需要当前页面url拼接
+    # 已解析
     'www.bxwx9.org': Rules('0', {'class': 'TabCss'}, {'id': 'content'}),
     # 已解析
     'www.xxbiquge.com': Rules('http://www.xxbiquge.com', {'class': 'box_con'}, {'id': 'content'}),

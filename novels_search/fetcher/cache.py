@@ -128,31 +128,49 @@ async def get_the_latest_chapter(chapter_url):
         if netloc in LATEST_RULES.keys():
             async with aiohttp.ClientSession() as client:
                 html = await target_fetch(client=client, url=url)
+                soup = BeautifulSoup(html, 'html5lib')
+                latest_chapter_name, latest_chapter_url = None, None
                 if LATEST_RULES[netloc].plan:
                     meta_value = LATEST_RULES[netloc].meta_value
-                    soup = BeautifulSoup(html, 'html5lib')
                     latest_chapter_name = soup.select('meta[property="{0}"]'.format(meta_value["latest_chapter_name"]))
                     latest_chapter_name = latest_chapter_name[0].get('content', None) if latest_chapter_name else None
                     latest_chapter_url = soup.select('meta[property="{0}"]'.format(meta_value["latest_chapter_url"]))
                     latest_chapter_url = latest_chapter_url[0].get('content', None) if latest_chapter_url else None
-                    if latest_chapter_name and latest_chapter_url:
-                        time_current = get_time()
-                        data = {
-                            "latest_chapter_name": latest_chapter_name,
-                            "latest_chapter_url": latest_chapter_url,
-                            "owllook_chapter_url": chapter_url,
-                            "owllook_content_url": "/owllook_content?url={latest_chapter_url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
-                                latest_chapter_url=latest_chapter_url,
-                                name=latest_chapter_name,
-                                chapter_url=url,
-                                novels_name=novels_name,
-                            ),
-                        }
-                        # 存储最新章节
-                        motor_db = MotorBase().db
-                        await motor_db.latest_chapter.update_one(
-                            {"novels_name": novels_name, 'owllook_chapter_url': chapter_url},
-                            {'$set': {'data': data, "finished_at": time_current}}, upsert=True)
+                else:
+                    selector = LATEST_RULES[netloc].selector
+                    content_url = selector.get('content_url')
+                    if selector.get('id', None):
+                        latest_chapter_soup = soup.find_all(id=selector['id'])
+                    elif selector.get('class', None):
+                        latest_chapter_soup = soup.find_all(class_=selector['class'])
+                    else:
+                        latest_chapter_soup = soup.select(selector.get('tag'))
+                    if latest_chapter_soup:
+                        if content_url == '1':
+                            pass
+                        elif content_url == '0':
+                            pass
+                        else:
+                            latest_chapter_url = content_url + latest_chapter_soup[0].get('href', None)
+                        latest_chapter_name = latest_chapter_soup[0].get('title', None)
+                if latest_chapter_name and latest_chapter_url:
+                    time_current = get_time()
+                    data = {
+                        "latest_chapter_name": latest_chapter_name,
+                        "latest_chapter_url": latest_chapter_url,
+                        "owllook_chapter_url": chapter_url,
+                        "owllook_content_url": "/owllook_content?url={latest_chapter_url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
+                            latest_chapter_url=latest_chapter_url,
+                            name=latest_chapter_name,
+                            chapter_url=url,
+                            novels_name=novels_name,
+                        ),
+                    }
+                    # 存储最新章节
+                    motor_db = MotorBase().db
+                    await motor_db.latest_chapter.update_one(
+                        {"novels_name": novels_name, 'owllook_chapter_url': chapter_url},
+                        {'$set': {'data': data, "finished_at": time_current}}, upsert=True)
     return data
 
 
