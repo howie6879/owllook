@@ -11,7 +11,7 @@ from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.baidu_novels import baidu_search
 from novels_search.fetcher.so_novels import so_search
 from novels_search.fetcher.function import target_fetch, get_time
-from novels_search.config import RULES, LATEST_RULES
+from novels_search.config import RULES, LATEST_RULES, LOGGER
 
 
 # Token from https://github.com/argaen/aiocache/blob/master/aiocache/decorators.py
@@ -135,21 +135,44 @@ async def get_the_latest_chapter(chapter_url):
                     latest_chapter_name = latest_chapter_name[0].get('content', None) if latest_chapter_name else None
                     latest_chapter_url = soup.select('meta[property="{0}"]'.format(meta_value["latest_chapter_url"]))
                     latest_chapter_url = latest_chapter_url[0].get('content', None) if latest_chapter_url else None
-                    time_current = get_time()
-                    data = {
-                        "latest_chapter_name": latest_chapter_name,
-                        "latest_chapter_url": latest_chapter_url,
-                        "owllook_chapter_url": chapter_url,
-                        "owllook_content_url": "/owllook_content?url={latest_chapter_url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
-                            latest_chapter_url=latest_chapter_url,
-                            name=latest_chapter_name,
-                            chapter_url=url,
-                            novels_name=novels_name,
-                        ),
-                        "finished_at": time_current,
-                    }
-                    # 存储最新章节
-                    motor_db = MotorBase().db
-                    await motor_db.latest_chapter.update_one({'owllook_chapter_url': chapter_url},
-                                                             {'$set': {'data': data}}, upsert=True)
+                    if latest_chapter_name and latest_chapter_url:
+                        time_current = get_time()
+                        data = {
+                            "latest_chapter_name": latest_chapter_name,
+                            "latest_chapter_url": latest_chapter_url,
+                            "owllook_chapter_url": chapter_url,
+                            "owllook_content_url": "/owllook_content?url={latest_chapter_url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
+                                latest_chapter_url=latest_chapter_url,
+                                name=latest_chapter_name,
+                                chapter_url=url,
+                                novels_name=novels_name,
+                            ),
+                        }
+                        # 存储最新章节
+                        motor_db = MotorBase().db
+                        await motor_db.latest_chapter.update_one(
+                            {"novels_name": novels_name, 'owllook_chapter_url': chapter_url},
+                            {'$set': {'data': data, "finished_at": time_current}}, upsert=True)
     return data
+
+
+async def update_all_books():
+    try:
+        motor_db = MotorBase().db
+        # 获取所有书架链接游标
+        books_url_cursor = motor_db.user_message.find({}, {'books_url.book_url': 1, '_id': 0})
+        # 已更新url集合
+        already_urls = set()
+        async for document in books_url_cursor:
+            if document:
+                books_url = document['books_url']
+                # 一组书架链接列表数据
+                for book_url in books_url:
+                    chapter_url = book_url['book_url']
+                    if chapter_url not in already_urls:
+                        await get_the_latest_chapter(chapter_url)
+                        already_urls.add(chapter_url)
+        return True
+    except Exception as e:
+        LOGGER.exception(e)
+        return False
