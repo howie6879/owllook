@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import aiocache
+import time
 from sanic import Sanic
 from sanic.response import html, redirect
 from sanic_session import RedisSessionInterface
@@ -41,7 +42,7 @@ def init_cache(sanic, loop):
     # redis instance for app
     app.get_redis_pool = redis.get_redis_pool
     # pass the getter method for the connection pool into the session
-    app.session_interface = RedisSessionInterface(app.get_redis_pool, expiry=86400)
+    app.session_interface = RedisSessionInterface(app.get_redis_pool, cookie_name="owl_sid", expiry=30 * 24 * 60 * 60)
 
 
 @app.middleware('request')
@@ -61,8 +62,11 @@ async def add_session_to_request(request):
 async def save_session(request, response):
     # after each request save the session,
     # pass the response to set client cookies
-    if request.get('session', None):
+    # await app.session_interface.save(request, response)
+    if request.path == '/operate/login' and request['session'].get('user', None):
         await app.session_interface.save(request, response)
+        import datetime
+        response.cookies['owl_sid']['expires'] = datetime.datetime.now() + datetime.timedelta(days=30)
 
 
 if __name__ == "__main__":

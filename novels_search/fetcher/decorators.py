@@ -19,8 +19,30 @@ def authenticator(key):
                 response = await func(request, *args, **kwargs)
                 return response
             else:
-                return json({'msg': 'not_authorized', 'status': 403})
+                return json({'msg': 'not_authorized', 'status': 401})
 
         return authenticate
+
+    return wrapper
+
+
+def auth_params(*keys):
+    """
+    
+    :param keys: 判断必须要有的参数
+    :return: 返回值
+    """
+
+    def wrapper(func):
+        @wraps(func)
+        async def auth_param(request, *args, **kwargs):
+            params = list(request.args.keys()) + list(kwargs.keys())
+            if sorted(keys) == sorted(params):
+                response = await func(request, *args, **kwargs)
+                return response
+            else:
+                return json({'msg': 'bad_request', 'status': 400})
+
+        return auth_param
 
     return wrapper

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import hashlib
+import datetime
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import parse_qs, unquote
@@ -43,10 +44,20 @@ async def owllook_login(request):
             pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
             password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
             if password == data.get('password'):
+                response = json({'status': 1})
+                # 将session_id存于cokies
+                date = datetime.datetime.now()
+                response.cookies['owl_sid'] = request['session'].sid
+                response.cookies['owl_sid']['expires'] = date + datetime.timedelta(days=30)
+                response.cookies['owl_sid']['httponly'] = True
+                # 此处设置存于服务器session的user值
                 request['session']['user'] = user
+                # response.cookies['user'] = user
+                # response.cookies['user']['expires'] = date + datetime.timedelta(days=30)
+                # response.cookies['user']['httponly'] = True
                 # response = json({'status': 1})
                 # response.cookies['user'] = user
-                return json({'status': 1})
+                return response
         return json({'status': -1})
     else:
         return json({'status': 0})
@@ -64,7 +75,8 @@ async def owllook_logout(request):
     user = request['session'].get('user', None)
     if user:
         response = json({'status': 1})
-        del response.cookies['session']
+        del response.cookies['user']
+        del response.cookies['owl_sid']
         return response
     else:
         return json({'status': 0})

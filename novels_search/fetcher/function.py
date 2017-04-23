@@ -4,6 +4,8 @@ import random
 import os
 import arrow
 
+from urllib.parse import urlparse
+
 from novels_search.config import USER_AGENT, LOGGER, TIMEZONE
 
 
@@ -38,6 +40,16 @@ def get_time() -> str:
     local = utc.to(TIMEZONE)
     time = local.format("YYYY-MM-DD HH:mm:ss")
     return time
+
+
+def get_netloc(url):
+    """
+    获取netloc
+    :param url: 
+    :return:  netloc
+    """
+    netloc = urlparse(url).netloc
+    return netloc or None
 
 
 async def target_fetch(client, url):
