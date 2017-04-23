@@ -11,10 +11,10 @@ from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import get_time
 from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result
-from novels_search.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY
+from novels_search.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, BASE_DIR
 
 novels_bp = Blueprint('novels_blueprint')
-novels_bp.static('/static', './static/novels')
+novels_bp.static('/static', BASE_DIR + '/static/novels')
 
 # jinjia2 config
 env = Environment(

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import logging
+import os
 from aiocache import RedisCache
 
 # Search engine
@@ -45,6 +46,8 @@ AUTH = {
     "Owllook-Api-Key": ""
 }
 
-HOST = ['127.0.0.1:8001']
+HOST = ['127.0.0.1:8001', '0.0.0.0:8001']
 
 TIMEZONE = 'Asia/Shanghai'
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))

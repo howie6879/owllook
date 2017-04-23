@@ -6,10 +6,10 @@ from urllib.parse import urlparse, parse_qs
 
 from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.cache import get_the_latest_chapter
-from novels_search.config import LOGGER
+from novels_search.config import LOGGER, BASE_DIR
 
 admin_bp = Blueprint('admin_blueprint', url_prefix='admin')
-admin_bp.static('/static', './static/novels')
+admin_bp.static('/static', BASE_DIR + '/static/novels')
 
 # jinjia2 config
 env = Environment(

@@ -9,10 +9,10 @@ from sanic.response import html, json
 
 from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import get_time
-from novels_search.config import WEBSITE, LOGGER
+from novels_search.config import WEBSITE, LOGGER, BASE_DIR
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
-operate_bp.static('/static', './static/operate')
+operate_bp.static('/static', BASE_DIR + '/static/operate')
 
 # jinjia2 config
 env = Environment(
