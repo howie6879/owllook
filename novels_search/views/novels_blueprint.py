@@ -163,7 +163,7 @@ async def owllook_content(request):
         return redirect(url)
     # 拼接小说书签url
     bookmark_url = "{path}?url={url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
-        path=request.url,
+        path=request.path,
         url=url,
         name=name,
         chapter_url=chapter_url,

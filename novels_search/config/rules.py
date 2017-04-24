@@ -27,7 +27,8 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "www.zojpw.com", "www.pp8.com", "www.bxwx.org", "www.hrsxb.com", "www.497.com", "www.d8qu.com",
                 "www.duwanjuan.com", "www.05935.com", "book.zongheng.com", "www.55x.cn", "www.freexs.cn",
                 "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com", "book.sina.com.cn", "www.vodtw.com", "wenda.so.com",
-                "product.dangdang.com", "www.chuiyao.com"]
+                "product.dangdang.com", "www.chuiyao.com", "novel.slieny.com", "www.bilibili.com", "donghua.dmzj.com",
+                "www.yaojingweiba.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -42,6 +43,14 @@ REPLACE_RULES = {
     "www.7kankan.com": {
         'old': '7kankan.com/files/article/info/',
         'new': '7kankan.com/files/article/html/'
+    },
+    "www.xqingdou.net": {
+        'old': 'xqingdou.net/book_',
+        'new': 'xqingdou.net/chapter_'
+    },
+    "www.wuyanxia.net": {
+        'old': 'wuyanxia.net/book/',
+        'new': 'wuyanxia.net/read/'
     },
 }
 
@@ -117,6 +126,10 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.wenku8.com': Rules('0', {'class': 'css'}, {'id': 'content'}),
+    # 已解析
+    'www.xqingdou.net': Rules('http://www.xqingdou.net/', {'class': 'dirconone'}, {'id': 'chapter_content'}),
     # 已解析
     'www.zuowe.com': Rules('http://www.zuowe.com/', {'class': 'book_list'}, {'id': 'htmlContent'}),
     # 已解析

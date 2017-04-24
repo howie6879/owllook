@@ -51,6 +51,7 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.status == 1) {
                         $('#owllook_book').addClass('add-color');
+                        alert('已加入书架^_^')
                     }
                     if (data.status == -1) {
                         alert('您还没有登录');

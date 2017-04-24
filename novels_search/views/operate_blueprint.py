@@ -163,11 +163,11 @@ async def owllook_delete_bookmark(request):
     data = parse_qs(str(request.body, encoding='utf-8'))
     bookmarkurl = data.get('bookmarkurl', '')
     if user and bookmarkurl:
-        url = unquote(bookmarkurl[0])
+        bookmark = unquote(bookmarkurl[0])
         try:
             motor_db = MotorBase().db
             await motor_db.user_message.update_one({'user': user},
-                                                   {'$pull': {'bookmarks': {"bookmark": url}}})
+                                                   {'$pull': {'bookmarks': {"bookmark": bookmark}}})
             LOGGER.info('删除书签成功')
             return json({'status': 1})
         except Exception as e:
@@ -203,7 +203,8 @@ async def owllook_add_book(request):
             if res:
                 await motor_db.user_message.update_one(
                     {'user': user, 'books_url.book_url': {'$ne': url}},
-                    {'$push': {'books_url': {'book_url': url, 'add_time': time, 'last_read_url': last_read_url[0]}}})
+                    {'$push': {
+                        'books_url': {'book_url': url, 'add_time': time, 'last_read_url': unquote(last_read_url[0])}}})
                 LOGGER.info('书架添加成功')
                 return json({'status': 1})
         except Exception as e:
@@ -225,15 +226,18 @@ async def owllook_delete_book(request):
     """
     user = request['session'].get('user', None)
     data = parse_qs(str(request.body, encoding='utf-8'))
-    novels_name = data.get('novels_name', '')
-    chapter_url = data.get('chapter_url', '')
-    if user and novels_name and chapter_url:
-        url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
-                                                                            novels_name=novels_name[0])
+    if user:
+        if data.get('book_url', None):
+            book_url = data.get('book_url', None)[0]
+        else:
+            novels_name = data.get('novels_name', '')
+            chapter_url = data.get('chapter_url', '')
+            book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
+                                                                                     novels_name=novels_name[0])
         try:
             motor_db = MotorBase().db
             await motor_db.user_message.update_one({'user': user},
-                                                   {'$pull': {'books_url': {"book_url": url}}})
+                                                   {'$pull': {'books_url': {"book_url": unquote(book_url)}}})
             LOGGER.info('删除书架成功')
             return json({'status': 1})
         except Exception as e:

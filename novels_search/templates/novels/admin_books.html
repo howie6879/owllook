@@ -21,6 +21,7 @@
             <th>源目录</th>
             <th>最新章节</th>
             <th>上次阅读</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -30,8 +31,15 @@
             <td>
                 <a href="{{item.book_url}}" target="_blank">查看{{item.novels_name}}源目录</a>
             </td>
-            <td><a href="{{item.owllook_content_url}}" target="_blank">{{item.latest_chapter_name}}</a></td>
-            <td><a href="{{item.last_read_url}}" target="_blank">{{item.last_read_chapter_name}}</a></td>
+            <td>
+                <a href="{{item.owllook_content_url}}" target="_blank">{{item.latest_chapter_name}}</a>
+            </td>
+            <td>
+                <a href="{{item.last_read_url}}" target="_blank">{{item.last_read_chapter_name}}</a>
+            </td>
+            <td class="del-book">
+                <a class="book_url" data-value="{{item.book_url}}" href="javascript:;">删除</a>
+            </td>
         </tr>
         {%endfor%}
         </tbody>
@@ -41,4 +49,7 @@
     {% endif %}
 
 </div>
+{% endblock %}
+{% block script %}
+<script src="static/js/books.js"></script>
 {% endblock %}
