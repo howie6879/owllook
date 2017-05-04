@@ -4,7 +4,7 @@
 
 ### 1.说明
 
-网络小说搜索引擎（novels-search）——owllook 网址：[https://www.owllook.net/](https://www.owllook.net/)
+网络小说搜索引擎——owllook 网址：[https://www.owllook.net/](https://www.owllook.net/)
 
 > `owllook`是一个基于其他网站的垂直小说搜索引擎，至于为什么写这个，一个是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计。
 
@@ -88,4 +88,4 @@ BTW，sanic写界面确实不是很方便。
 
 ### License
 
-`novels-search` is offered under the Apache 2 license.
+`owllook` is offered under the Apache 2 license.
