@@ -4,11 +4,10 @@ import time
 from sanic import Blueprint
 from sanic.response import redirect, html, text
 from jinja2 import Environment, PackageLoader, select_autoescape
-from urllib.parse import urlparse
 from operator import itemgetter
 
 from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.function import get_time
+from novels_search.fetcher.function import get_time, get_netloc
 from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result
 from novels_search.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, BASE_DIR
@@ -41,7 +40,7 @@ async def index(request):
 @novels_bp.route("/search", methods=['GET'])
 async def owllook_search(request):
     start = time.time()
-    name = request.args.get('wd', None)
+    name = request.args.get('wd', '').strip()
     motor_db = MotorBase().db
     if not name:
         return redirect('/')
@@ -128,7 +127,7 @@ async def chapter(request):
     """
     url = request.args.get('url', None)
     novels_name = request.args.get('novels_name', None)
-    netloc = urlparse(url).netloc
+    netloc = get_netloc(url)
     if netloc not in RULES.keys():
         return redirect(url)
     if netloc in REPLACE_RULES.keys():
@@ -158,7 +157,7 @@ async def owllook_content(request):
     novels_name = request.args.get('novels_name', None)
     name = request.args.get('name', None)
     # 当小说内容url不在解析规则内 跳转到原本url
-    netloc = urlparse(url).netloc
+    netloc = get_netloc(url)
     if netloc not in RULES.keys():
         return redirect(url)
     # 拼接小说书签url

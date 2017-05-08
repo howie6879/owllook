@@ -50,5 +50,8 @@ class CosineSimilarity(object):
             squares.append(sqrt(square_title))
             squares.append(sqrt(square_data))
             mul_of_squares = reduce(lambda x, y: x * y, squares)
-            resultDic[web] = ('%.5f' % (numerator / mul_of_squares))
+            value = float(('%.5f' % (numerator / mul_of_squares)))
+            if value > 0:
+                resultDic[web] = value
+        resultDic = [{v[0]: v[1]} for v in sorted(resultDic.items(), key=lambda d: d[1], reverse=True)]
         return resultDic

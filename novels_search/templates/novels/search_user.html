@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="static/css/result.css">
+<style>
+    td, th {
+        text-align: center !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "search_bar.html" %}
+<div class="container">
+    {% if is_bookmark %}
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr align="center">
+            <th>小说名</th>
+            <th>源目录</th>
+            <th>最新章节</th>
+            <th>{{name}}上次阅读到</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%for item in result%}
+        <tr>
+            <td><a href="/search?wd={{item.novels_name}}" target="_blank">{{item.novels_name}}</a></td>
+            <td>
+                <a href="{{item.book_url}}" target="_blank">查看{{item.novels_name}}源目录</a>
+            </td>
+            <td>
+                <a href="{{item.owllook_content_url}}" target="_blank">{{item.latest_chapter_name}}</a>
+            </td>
+            <td>
+                <a href="{{item.last_read_url}}" target="_blank">{{item.last_read_chapter_name}}</a>
+            </td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+    {% else %}
+    <center>书架暂无数据</center>
+    {% endif %}
+
+</div>
+{% endblock %}
+{% block script %}
+<script src="static/js/books.js"></script>
+{% endblock %}

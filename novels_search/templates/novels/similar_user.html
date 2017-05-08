@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="static/css/result.css">
+<style>
+    td, th {
+        text-align: center !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "search_bar.html" %}
+<div class="container">
+    {% if is_similar %}
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr align="center">
+            <th>相似用户</th>
+            <th>相似度</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for v in similar_user%}
+        {% for key in v %}
+        <tr>
+            <td>
+                <a href="/admin/search_user?ss={{key}}" target="_blank">{{key}}</a>
+            </td>
+            <td>
+                <a href="#">{{v[key]}}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <center>暂无相似书友</center>
+    {% endif %}
+
+</div>
+{% endblock %}
+{% block script %}
+<script src="static/js/books.js"></script>
+{% endblock %}

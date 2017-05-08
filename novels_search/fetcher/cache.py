@@ -147,8 +147,10 @@ async def get_the_latest_chapter(chapter_url):
                         latest_chapter_soup = soup.select(selector.get('tag'))
                     if latest_chapter_soup:
                         if content_url == '1':
+                            # TODO
                             pass
                         elif content_url == '0':
+                            # TODO
                             pass
                         else:
                             latest_chapter_url = content_url + latest_chapter_soup[0].get('href', None)
