@@ -11,6 +11,7 @@ from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.baidu_novels import baidu_search
 from novels_search.fetcher.so_novels import so_search
 from novels_search.fetcher.function import target_fetch, get_time
+from novels_search.fetcher.extract_novels import extract_pre_next_chapter
 from novels_search.config import RULES, LATEST_RULES, LOGGER
 
 
@@ -82,7 +83,21 @@ async def cache_owllook_novels_content(url, netloc):
                 content = soup.find_all(class_=selector['class'])
             else:
                 content = soup.find_all(selector.get('tag'))
-            return str(content) if content else None
+            if content:
+                title = soup.title.string
+                if "_" in title:
+                    title = title.split('_')[0]
+                elif "-" in title:
+                    title = title.split('-')[0]
+                next_chapter = extract_pre_next_chapter(chapter_url=url, html=html)
+                data = {
+                    'content': str(content),
+                    'next_chapter': next_chapter,
+                    'title': title
+                }
+            else:
+                data = None
+            return data
         return None
 
 

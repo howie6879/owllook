@@ -135,7 +135,7 @@ async def chapter(request):
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
     if content:
-        content = str(content).strip('[],, Jjs')
+        content = str(content).strip('[],, Jjs').replace(', ', '')
         return template(
             'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:
@@ -155,69 +155,81 @@ async def owllook_content(request):
     url = request.args.get('url', None)
     chapter_url = request.args.get('chapter_url', None)
     novels_name = request.args.get('novels_name', None)
-    name = request.args.get('name', None)
+    name = request.args.get('name', '')
     # 当小说内容url不在解析规则内 跳转到原本url
     netloc = get_netloc(url)
     if netloc not in RULES.keys():
         return redirect(url)
-    # 拼接小说书签url
-    bookmark_url = "{path}?url={url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
-        path=request.path,
-        url=url,
-        name=name,
-        chapter_url=chapter_url,
-        novels_name=novels_name
-    )
     # 拼接小说目录url
     book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(
         chapter_url=chapter_url,
         novels_name=novels_name)
+    if url == chapter_url:
+        return redirect(book_url)
     content_url = RULES[netloc].content_url
-    content = await cache_owllook_novels_content(url=url, netloc=netloc)
-    if content:
+    content_data = await cache_owllook_novels_content(url=url, netloc=netloc)
+    if content_data:
         user = request['session'].get('user', None)
-        # 破坏广告链接
-        content = str(content).strip('[]Jjs,').replace('http', 'hs')
-        if user:
-            motor_db = MotorBase().db
-            bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
-            book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
-            bookmark = 1 if bookmark else 0
-            if book:
-                # 当书架中存在该书源
-                book = 1
-                # 保存最后一次阅读记录
-                await motor_db.user_message.update_one(
-                    {'user': user, 'books_url.book_url': book_url},
-                    {'$set': {'books_url.$.last_read_url': bookmark_url}})
+        try:
+            content = content_data.get('content', '获取失败')
+            next_chapter = content_data.get('next_chapter', '获取失败')
+            title = content_data.get('title', '获取失败')
+            name = name or title
+            # 拼接小说书签url
+            bookmark_url = "{path}?url={url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
+                path=request.path,
+                url=url,
+                name=name,
+                chapter_url=chapter_url,
+                novels_name=novels_name
+            )
+            # 破坏广告链接
+            content = str(content).strip('[]Jjs,').replace('http', 'hs')
+            if user:
+                motor_db = MotorBase().db
+                bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
+                book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
+                bookmark = 1 if bookmark else 0
+                if book:
+                    # 当书架中存在该书源
+                    book = 1
+                    # 保存最后一次阅读记录
+                    await motor_db.user_message.update_one(
+                        {'user': user, 'books_url.book_url': book_url},
+                        {'$set': {'books_url.$.last_read_url': bookmark_url}})
+                else:
+                    book = 0
+                return template(
+                    'content.html',
+                    is_login=1,
+                    user=user,
+                    name=name,
+                    url=url,
+                    bookmark=bookmark,
+                    book=book,
+                    content_url=content_url,
+                    chapter_url=chapter_url,
+                    novels_name=novels_name,
+                    next_chapter=next_chapter,
+                    soup=content)
             else:
-                book = 0
-            return template(
-                'content.html',
-                is_login=1,
-                user=user,
-                name=name,
-                url=url,
-                bookmark=bookmark,
-                book=book,
-                content_url=content_url,
-                chapter_url=chapter_url,
-                novels_name=novels_name,
-                soup=content)
-        else:
-            return template(
-                'content.html',
-                is_login=0,
-                name=name,
-                url=url,
-                bookmark=0,
-                book=0,
-                content_url=content_url,
-                chapter_url=chapter_url,
-                novels_name=novels_name,
-                soup=content)
+                return template(
+                    'content.html',
+                    is_login=0,
+                    name=name,
+                    url=url,
+                    bookmark=0,
+                    book=0,
+                    content_url=content_url,
+                    chapter_url=chapter_url,
+                    novels_name=novels_name,
+                    next_chapter=next_chapter,
+                    soup=content)
+        except Exception as e:
+            LOGGER.exception(e)
+            return redirect(book_url)
     else:
-        return text('解析失败，请将失败页面反馈给本站，请重新刷新一次，或者访问源网页：{url}'.format(url=url))
+        return text('解析失败或者是没有下一页了，请将失败页面反馈给本站，请重新刷新一次，或者访问源网页：{url}'.format(url=url))
 
 
 @novels_bp.route("/register")
@@ -231,8 +243,6 @@ async def owllook_register(request):
         :   1   登陆成功
     """
     user = request['session'].get('user', None)
-    # cookies = request.cookies.get('user')
-    # print(cookies)
     if user:
         return redirect('/')
     else:

@@ -5,8 +5,9 @@ from sanic.response import html, redirect
 from sanic_session import RedisSessionInterface
 
 import sys
+import os
 
-sys.path.append('../')
+sys.path.append(os.path.dirname(os.getcwd()))
 from novels_search.views.novels_blueprint import novels_bp
 from novels_search.views.operate_blueprint import operate_bp
 from novels_search.views.except_blueprint import except_bp

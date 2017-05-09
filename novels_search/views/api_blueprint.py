@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 from sanic import Blueprint, response
 from urllib.parse import unquote
+from bs4 import BeautifulSoup
+from pprint import pprint
 
 from novels_search.fetcher.function import get_time, get_netloc
+from novels_search.fetcher.extract_novels import extract_chapters
 from novels_search.fetcher.decorators import authenticator, auth_params
 from novels_search.fetcher.cache import cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, \
     cache_owllook_novels_chapter
@@ -66,27 +69,34 @@ async def owl_so_novels(request, name):
 
 
 @api_bp.route("/owl_novels_chapters")
-@auth_params('chapter_url', 'novels_name')
+@auth_params('chapters_url', 'novels_name')
 @authenticator('Owllook-Api-Key')
 async def owl_novels_chapters(request):
     """
-    返回章节目录
+    返回章节目录 基本达到通用
     :param request: 
     :param chapter_url: 章节源目录页url
     :param novels_name: 小说名称
     :return: 小说目录信息
     """
-    chapter_url = request.args.get('chapter_url', None)
+    chapters_url = request.args.get('chapters_url', None)
     novels_name = request.args.get('novels_name', None)
-    netloc = get_netloc(chapter_url)
+    netloc = get_netloc(chapters_url)
     try:
-        res = await cache_owllook_novels_chapter(url=chapter_url, netloc=netloc)
+        res = await cache_owllook_novels_chapter(url=chapters_url, netloc=netloc)
+        chapters_sorted = []
         if res:
-            pass
+            chapters_sorted = extract_chapters(chapters_url, res)
             result = {'status': 200}
         else:
             result = {'status': 204}
-        result.update({'data': {}, 'msg': "ok"})
+        result.update({
+            'data': {
+                'novels_name': novels_name,
+                'chapter_url': chapters_url,
+                'all_chapters': chapters_sorted
+            },
+            'msg': "ok"})
     except Exception as e:
         LOGGER.exception(e)
         result = {'status': 500, 'msg': e}
