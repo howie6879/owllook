@@ -89,7 +89,7 @@ async def cache_owllook_novels_content(url, netloc):
                     title = title.split('_')[0]
                 elif "-" in title:
                     title = title.split('-')[0]
-                next_chapter = extract_pre_next_chapter(chapter_url=url, html=html)
+                next_chapter = extract_pre_next_chapter(chapter_url=url, html=str(soup))
                 data = {
                     'content': str(content),
                     'next_chapter': next_chapter,

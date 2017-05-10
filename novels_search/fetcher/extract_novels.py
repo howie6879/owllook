@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 from operator import itemgetter
 from pprint import pprint
 
+from novels_search.config import LOGGER
+
 
 def extract_chapters(chapters_url, html):
     """
@@ -17,7 +19,7 @@ def extract_chapters(chapters_url, html):
     # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
     chapters_reg = r'(<a\s+.*?>.*第?\s*[一二两三四五六七八九十○零百千万亿0-9１２３４５６７８９０]{1,6}\s*[章回卷节折篇幕集].*?</a>)'
     # 这里不能保证获取的章节分得很清楚，但能保证这一串str是章节目录。可以利用bs安心提取a
-    chapters_res = re.findall(chapters_reg, html, re.I)
+    chapters_res = re.findall(chapters_reg, str(html), re.I)
     str_chapters_res = '\n'.join(chapters_res)
     chapters_res_soup = BeautifulSoup(str_chapters_res, 'html5lib')
     all_chapters = []
@@ -40,23 +42,27 @@ def extract_pre_next_chapter(chapter_url, html):
     :param html: 
     :return: 
     """
-    # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
-    next_reg = r'(<a\s+.*?>.*[上前下后][一]?[页张个篇章节步].*?</a>)'
-    # 这里同样需要利用bs再次解析
-    next_res = re.findall(next_reg, html, re.I)
-    str_next_res = '\n'.join(next_res)
-    next_res_soup = BeautifulSoup(str_next_res, 'html5lib')
     next_chapter = {}
-    for link in next_res_soup.find_all('a'):
-        text = link.text or ''
-        text = text.strip().replace(' ', '')
-        is_ok = is_chapter(text)
-        if is_ok:
-            url = urljoin(chapter_url, link.get('href')) or ''
-            next_chapter[text] = url
+    try:
+        # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
+        next_reg = r'(<a\s+.*?>.*[上前下后][一]?[页张个篇章节步].*?</a>)'
+        # 这里同样需要利用bs再次解析
+        next_res = re.findall(next_reg, html)
+        str_next_res = '\n'.join(next_res)
+        next_res_soup = BeautifulSoup(str_next_res, 'html5lib')
+        for link in next_res_soup.find_all('a'):
+            text = link.text or ''
+            text = text.strip().replace(' ', '')
+            is_ok = is_chapter(text)
+            if is_ok:
+                url = urljoin(chapter_url, link.get('href')) or ''
+                next_chapter[text] = url
 
-    nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
-    return nextDic
+        nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
+        return nextDic
+    except Exception as e:
+        LOGGER.exception(e)
+        return next_chapter
 
 
 def is_chapter(text):
