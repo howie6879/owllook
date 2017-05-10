@@ -11,5 +11,5 @@ sanic-session>=0.1.2
 asyncio-redis>=0.14.3
 aiocache==0.3.2
 motor>=1.1
-sanic-gunicorn
 schedule
+gunicorn

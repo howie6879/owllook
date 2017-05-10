@@ -39,8 +39,7 @@ BTW，sanic写界面确实不是很方便。
 `python server.py`
 
 或者
-
-`gunicorn --bind 127.0.0.1:8001 --worker-class sanic_gunicorn.Worker server:app`
+`gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server:app`
 
 ### 2.demo
 

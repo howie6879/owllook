@@ -68,5 +68,4 @@ async def save_session(request, response):
 
 
 if __name__ == "__main__":
-    if __debug__:
         app.run(host="127.0.0.1", workers=1, port=8001, debug=True)
