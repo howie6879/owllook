@@ -44,7 +44,7 @@ $(function () {
                         if (data.status == -1) {
                             alert('用户名已存在 换个更好的名字吧');
                         }
-                        if (data.status == -1) {
+                        if (data.status == -2) {
                             alert('回答错了^_^');
                         }
                         if (data.status == 0) {
