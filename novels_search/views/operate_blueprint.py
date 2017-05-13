@@ -9,6 +9,7 @@ from sanic.response import html, json
 
 from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import get_time
+from novels_search.utils import get_real_answer
 from novels_search.config import WEBSITE, LOGGER, BASE_DIR
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
@@ -35,8 +36,9 @@ async def owllook_login(request):
         :   0   用户名或密码错误
         :   1   登陆成功
     """
-    user = request.args.get('user', None)
-    pwd = request.args.get('pwd', None)
+    login_data = parse_qs(str(request.body, encoding='utf-8'))
+    user = login_data.get('user', [None])[0]
+    pwd = login_data.get('pwd', [None])[0]
     if user and pwd:
         motor_db = MotorBase().db
         data = await motor_db.user.find_one({'user': user})
@@ -63,6 +65,49 @@ async def owllook_login(request):
         return json({'status': 0})
 
 
+@operate_bp.route("/register", methods=['POST'])
+async def owllook_register(request):
+    """
+    用户注册 不允许重名
+    :param request:
+    :return:
+        :   -1  用户名已存在
+        :   0   用户名或密码不能为空
+        :   1   注册成功
+    """
+    register_data = parse_qs(str(request.body, encoding='utf-8'))
+    user = register_data.get('user', [None])[0]
+    pwd = register_data.get('pwd', [None])[0]
+    email = register_data.get('email', [None])[0]
+    answer = register_data.get('answer', [None])[0]
+    reg_index = request.cookies['reg_index']
+    if user and pwd and email and answer and reg_index:
+        motor_db = MotorBase().db
+        is_exist = await motor_db.user.find_one({'user': user})
+        if not is_exist:
+            # 验证问题答案是否准确
+            real_answer = get_real_answer(str(reg_index))
+            if real_answer and real_answer == answer:
+                pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+                password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
+                time = get_time()
+                data = {
+                    "user": user,
+                    "password": password,
+                    "email": email,
+                    "ip": request.ip[0],
+                    "register_time": time,
+                }
+                await motor_db.user.save(data)
+                return json({'status': 1})
+            else:
+                return json({'status': -2})
+        else:
+            return json({'status': -1})
+    else:
+        return json({'status': 0})
+
+
 @operate_bp.route("/logout", methods=['GET'])
 async def owllook_logout(request):
     """
@@ -78,40 +123,6 @@ async def owllook_logout(request):
         del response.cookies['user']
         del response.cookies['owl_sid']
         return response
-    else:
-        return json({'status': 0})
-
-
-@operate_bp.route("/register", methods=['POST'])
-async def owllook_register(request):
-    """
-    用户注册 不允许重名
-    :param request:
-    :return:
-        :   -1  用户名已存在
-        :   0   用户名或密码不能为空
-        :   1   注册成功
-    """
-    user = request.args.get('user', None)
-    pwd = request.args.get('pwd', None)
-    email = request.args.get('email', None)
-    if user and pwd and email:
-        motor_db = MotorBase().db
-        is_exist = await motor_db.user.find_one({'user': user})
-        if not is_exist:
-            pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
-            password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
-            time = get_time()
-            data = {
-                "user": user,
-                "password": password,
-                "email": email,
-                "register_time": time,
-            }
-            object_id = await motor_db.user.save(data)
-            return json({'object_id': str(object_id)}) if object_id else None
-        else:
-            return json({'status': -1})
     else:
         return json({'status': 0})
 

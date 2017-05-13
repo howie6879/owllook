@@ -65,6 +65,11 @@ async def save_session(request, response):
         await app.session_interface.save(request, response)
         import datetime
         response.cookies['owl_sid']['expires'] = datetime.datetime.now() + datetime.timedelta(days=30)
+    elif request.path == '/register':
+        try:
+            response.cookies['reg_index'] = str(request['session']['index'][0])
+        except KeyError:
+            pass
 
 
 if __name__ == "__main__":

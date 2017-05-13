@@ -8,6 +8,7 @@ from operator import itemgetter
 
 from novels_search.database.mongodb import MotorBase
 from novels_search.fetcher.function import get_time, get_netloc
+from novels_search.utils import ver_question
 from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result
 from novels_search.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, BASE_DIR
@@ -246,7 +247,16 @@ async def owllook_register(request):
     if user:
         return redirect('/')
     else:
-        return template('register.html', title='owllook - 注册 - 网络小说搜索引擎')
+        ver_que_ans = ver_question()
+        if ver_que_ans:
+            request['session']['index'] = ver_que_ans
+            return template(
+                'register.html',
+                title='owllook - 注册 - 网络小说搜索引擎',
+                question = ver_que_ans[1]
+            )
+        else:
+            return redirect('/')
 
 
 @novels_bp.route("/owllook_donate")

@@ -111,10 +111,12 @@ $(document).ready(function () {
         if (owllook_user == "" || owllook_pass == "") {
             alert('不能有内容为空');
         } else {
+            var login_pd = {'user': owllook_user, 'pwd': owllook_pass};
             $.ajax({
                 type: "post",
                 contentType: "application/json",
-                url: "/operate/login?user=" + owllook_user + "&pwd=" + owllook_pass,
+                url: "/operate/login",
+                data: login_pd,
                 dataType: 'json',
                 success: function (data) {
                     if (data.status == 1) {

@@ -7,10 +7,10 @@ body {
 }
 
 .register {
-    width: 35%;
+    width: 40%;
     height: 100%;
     background-color: white;
-    margin-top: 15%;
+    margin-top: 4%;
     padding: 2rem 4rem;
     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
 }
@@ -63,18 +63,14 @@ body {
     text-align: center;
 }
 
-.errorHidden {
-    visibility: hidden;
+.errorHidden0, .errorHidden1, .errorHidden2, .errorHidden3 {
+    display: none;
 }
 
 @media (max-width: 767px) {
     .register {
-        width: 96%;
-        margin-top: 25%;
-    }
-
-    .logo {
-        margin-top: 12%;
+        width: 100%;
+        margin-top: -6%;
     }
 }
 
