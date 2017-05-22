@@ -174,7 +174,7 @@ async def owllook_content(request):
         try:
             content = content_data.get('content', '获取失败')
             next_chapter = content_data.get('next_chapter', '获取失败')
-            title = content_data.get('title', '获取失败')
+            title = content_data.get('title', '获取失败').replace(novels_name, '')
             name = name or title
             # 拼接小说书签url
             bookmark_url = "{path}?url={url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
@@ -253,7 +253,7 @@ async def owllook_register(request):
             return template(
                 'register.html',
                 title='owllook - 注册 - 网络小说搜索引擎',
-                question = ver_que_ans[1]
+                question=ver_que_ans[1]
             )
         else:
             return redirect('/')

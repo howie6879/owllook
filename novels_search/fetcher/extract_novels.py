@@ -66,7 +66,7 @@ def extract_pre_next_chapter(chapter_url, html):
 
 
 def is_chapter(text):
-    rm_list = ['目录', '章节', '返回', '列表', '加入', '书签']
+    rm_list = ['目录', '章节', '返回', '列表', '加入', '书签', '投票', '推荐']
     for i in rm_list:
         if i in text:
             return False

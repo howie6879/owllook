@@ -1,4 +1,4 @@
-![owllook-demo](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif-blog.howie)
+![owllook-demo](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)
 ## 0.前言
 事情的起因是这样的，前段时间在把之前写的一些同步网络请求代码改成异步的，用的是`aiohttp`，既然是请求，那请求什么呢，就百度吧，请求什么内容呢，我随手一输自己最近看的一本小说，然后作为练手用，就做了这个，我将其取名为`owllook`，准备做成一个推荐系统，所以我就将其部署上去，这才有了这个网站。
 

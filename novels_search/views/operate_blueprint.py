@@ -60,6 +60,8 @@ async def owllook_login(request):
                 # response = json({'status': 1})
                 # response.cookies['user'] = user
                 return response
+            else:
+                return json({'status': -2})
         return json({'status': -1})
     else:
         return json({'status': 0})
@@ -95,7 +97,6 @@ async def owllook_register(request):
                     "user": user,
                     "password": password,
                     "email": email,
-                    "ip": request.ip[0],
                     "register_time": time,
                 }
                 await motor_db.user.save(data)

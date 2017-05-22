@@ -122,6 +122,12 @@ $(document).ready(function () {
                     if (data.status == 1) {
                         location.reload();
                     }
+                    if (data.status == -1) {
+                        alert('用户名错误');
+                    }
+                    if (data.status == -2) {
+                        alert('密码错误');
+                    }
                 }
             });
         }
