@@ -173,7 +173,7 @@ async def owllook_content(request):
         user = request['session'].get('user', None)
         try:
             content = content_data.get('content', '获取失败')
-            next_chapter = content_data.get('next_chapter', '获取失败')
+            next_chapter = content_data.get('next_chapter', [])
             title = content_data.get('title', '获取失败').replace(novels_name, '')
             name = name or title
             # 拼接小说书签url
