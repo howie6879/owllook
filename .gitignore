@@ -3,6 +3,7 @@
 *.ini
 *.log
 gunicorn.py
+pro_config.py
 tags
 .DS_Store
 # dir

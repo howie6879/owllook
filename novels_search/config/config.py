@@ -13,7 +13,7 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36
 
 # logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
-LOGGER = logging.getLogger('novels_search')
+LOGGER = logging.getLogger('owllook')
 
 # aiocache
 REDIS_DICT = dict(
@@ -23,7 +23,7 @@ REDIS_DICT = dict(
     PASSWORD="",
     CACHE_DB=0,
     SESSION_DB=1,
-    POOLSIZE=4,
+    POOLSIZE=10,
 )
 AIO_CACHE = RedisCache(endpoint=REDIS_DICT['REDIS_ENDPOINT'], port=REDIS_DICT['REDIS_PORT'], namespace="main")
 

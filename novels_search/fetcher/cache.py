@@ -57,7 +57,7 @@ def cached(
 
             result = await func(*args, **kwargs)
 
-            if result:
+            if result and result[0]:
                 try:
                     await cache_instance.set(cache_key, result, ttl=ttl)
                 except Exception:
