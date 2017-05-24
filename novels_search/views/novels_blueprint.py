@@ -52,7 +52,7 @@ async def owllook_search(request):
         except Exception as e:
             LOGGER.exception(e)
     # 通过搜索引擎获取检索结果
-    parse_result = [None]
+    parse_result = None
     for each_engine in ENGINE_PRIORITY:
         # for 360 so
         if each_engine == "360":
