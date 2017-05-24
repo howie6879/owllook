@@ -57,7 +57,7 @@ def cached(
 
             result = await func(*args, **kwargs)
 
-            if result and result[0]:
+            if result:
                 try:
                     await cache_instance.set(cache_key, result, ttl=ttl)
                 except Exception:
@@ -122,14 +122,14 @@ async def cache_owllook_novels_chapter(url, netloc):
 async def cache_owllook_baidu_novels_result(novels_name):
     result = await baidu_search(novels_name)
     parse_result = [i for i in result if i]
-    return parse_result if parse_result else [None]
+    return parse_result if parse_result else None
 
 
 @cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_so_novels_result(novels_name):
     result = await so_search(novels_name)
     parse_result = [i for i in result if i]
-    return parse_result if parse_result else [None]
+    return parse_result if parse_result else None
 
 
 async def get_the_latest_chapter(chapter_url):

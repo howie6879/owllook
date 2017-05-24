@@ -66,7 +66,7 @@ async def owllook_search(request):
             parse_result = await cache_owllook_baidu_novels_result(novels_name)
             if parse_result:
                 break
-    if parse_result[0]:
+    if parse_result:
         # result_sorted = sorted(
         #     parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result
         # 优先依靠是否解析进行排序  其次以更新时间进行排序
