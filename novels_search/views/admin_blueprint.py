@@ -89,7 +89,7 @@ async def search_user(request):
                 return template('search_user.html', title='{name}的书架 - owllook'.format(name=name),
                                 is_login=1,
                                 user=user,
-                                name=name,
+                                username=name,
                                 is_bookmark=1,
                                 result=result[::-1])
             else:

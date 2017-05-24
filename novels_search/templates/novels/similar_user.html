@@ -26,7 +26,7 @@
         {% for key in v %}
         <tr>
             <td>
-                <a href="/admin/search_user?ss={{key}}" target="_blank">{{key}}</a>
+                <a href="/admin/search_user?ss={{key|replace('&#183;','.')}}" target="_blank">{{key|replace('&#183;','.')}}</a>
             </td>
             <td>
                 <a href="#">{{v[key]}}</a>
