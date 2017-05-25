@@ -115,6 +115,7 @@ LATEST_RULES = {
     "www.yssm.org": PLAN_01,
     "www.81zw.com": PLAN_01,
     "www.ymoxuan.com": PLAN_01,
+    "www.mytxt.cc": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -133,6 +134,10 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.zhonghuawuxia.com': Rules('1', {'class': 'list'}, {'id': 'content'}),
+    # 已解析
+    'www.mytxt.cc': Rules('http://www.mytxt.cc/', {'class': 'story_list_m62topxs'}, {'class': 'detail_con_m62topxs'}),
     # 已解析
     'www.136txt.com': Rules('1', {'class': 'directory_con'}, {'id': 'chapterContent'}),
     # 已解析

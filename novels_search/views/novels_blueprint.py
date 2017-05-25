@@ -174,8 +174,8 @@ async def owllook_content(request):
         try:
             content = content_data.get('content', '获取失败')
             next_chapter = content_data.get('next_chapter', [])
-            title = content_data.get('title', '获取失败').replace(novels_name, '')
-            name = name or title
+            title = content_data.get('title', '').replace(novels_name, '')
+            name = title if title else name
             # 拼接小说书签url
             bookmark_url = "{path}?url={url}&name={name}&chapter_url={chapter_url}&novels_name={novels_name}".format(
                 path=request.path,

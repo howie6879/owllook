@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import aiohttp
+import re
 
 from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
@@ -84,11 +85,15 @@ async def cache_owllook_novels_content(url, netloc):
             else:
                 content = soup.find_all(selector.get('tag'))
             if content:
+                # 提取出真正的章节标题
+                title_reg = r'(第?\s*[一二两三四五六七八九十○零百千万亿0-9１２３４５６７８９０]{1,6}\s*[章回卷节折篇幕集]\s*.*?)[_,-]'
                 title = soup.title.string
-                if "_" in title:
-                    title = title.split('_')[0]
-                elif "-" in title:
-                    title = title.split('-')[0]
+                extract_title = re.findall(title_reg, title, re.I)
+                title = extract_title[0] if extract_title else title
+                # if "_" in title:
+                #     title = title.split('_')[0]
+                # elif "-" in title:
+                #     title = title.split('-')[0]
                 next_chapter = extract_pre_next_chapter(chapter_url=url, html=str(soup))
                 data = {
                     'content': str(content),
