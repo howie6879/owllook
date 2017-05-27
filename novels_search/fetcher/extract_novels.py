@@ -4,6 +4,7 @@ import re
 from urllib.parse import unquote, urljoin, urlparse
 from bs4 import BeautifulSoup
 from operator import itemgetter
+from collections import OrderedDict
 from pprint import pprint
 
 from novels_search.config import LOGGER
@@ -42,7 +43,7 @@ def extract_pre_next_chapter(chapter_url, html):
     :param html: 
     :return: 
     """
-    next_chapter = {}
+    next_chapter = OrderedDict()
     try:
         # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
         next_reg = r'(<a\s+.*?>.*[上前下后][一]?[页张个篇章节步].*?</a>)'
@@ -60,8 +61,8 @@ def extract_pre_next_chapter(chapter_url, html):
                 url = urljoin(chapter_url, link.get('href')) or ''
                 next_chapter[text] = url
 
-        nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
-        return nextDic
+        # nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
+        return next_chapter
     except Exception as e:
         LOGGER.exception(e)
         return next_chapter
