@@ -5,8 +5,8 @@ import asyncio
 
 from pprint import pprint
 from urllib.parse import parse_qs, urlparse
-from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.function import get_time
+from owllook.database.mongodb import MotorBase
+from owllook.fetcher.function import get_time
 
 # mongo
 MONGODB_SERVER = "localhost"

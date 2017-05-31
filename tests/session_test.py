@@ -1,7 +1,7 @@
 from sanic import Sanic
 from sanic.response import text
 from sanic_session import RedisSessionInterface
-from novels_search.database.redis import RedisSession
+from owllook.database.redis import RedisSession
 
 app = Sanic()
 

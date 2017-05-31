@@ -4,12 +4,12 @@ from urllib.parse import unquote
 from bs4 import BeautifulSoup
 from pprint import pprint
 
-from novels_search.fetcher.function import get_time, get_netloc
-from novels_search.fetcher.extract_novels import extract_chapters
-from novels_search.fetcher.decorators import authenticator, auth_params
-from novels_search.fetcher.cache import cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, \
+from owllook.fetcher.function import get_time, get_netloc
+from owllook.fetcher.extract_novels import extract_chapters
+from owllook.fetcher.decorators import authenticator, auth_params
+from owllook.fetcher.cache import cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, \
     cache_owllook_novels_chapter
-from novels_search.config import LOGGER
+from owllook.config import LOGGER
 
 api_bp = Blueprint('api_blueprint', url_prefix='v1')
 

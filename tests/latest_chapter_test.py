@@ -3,7 +3,7 @@ import uvloop
 import asyncio
 import time
 from pprint import pprint
-from novels_search.fetcher.cache import get_the_latest_chapter, update_all_books
+from owllook.fetcher.cache import get_the_latest_chapter, update_all_books
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 

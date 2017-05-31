@@ -6,8 +6,8 @@ import async_timeout
 from bs4 import BeautifulSoup
 from urllib.parse import unquote, urlparse, parse_qs
 
-from novels_search.fetcher.function import get_random_user_agent
-from novels_search.config import SO_URL, LOGGER, BLACK_DOMAIN, RULES
+from owllook.fetcher.function import get_random_user_agent
+from owllook.config import SO_URL, LOGGER, BLACK_DOMAIN, RULES
 
 
 async def fetch(client, url, novels_name):

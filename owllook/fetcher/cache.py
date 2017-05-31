@@ -8,12 +8,12 @@ from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
 from urllib.parse import urlparse, parse_qs
 
-from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.baidu_novels import baidu_search
-from novels_search.fetcher.so_novels import so_search
-from novels_search.fetcher.function import target_fetch, get_time
-from novels_search.fetcher.extract_novels import extract_pre_next_chapter
-from novels_search.config import RULES, LATEST_RULES, LOGGER
+from owllook.database.mongodb import MotorBase
+from owllook.fetcher.baidu_novels import baidu_search
+from owllook.fetcher.so_novels import so_search
+from owllook.fetcher.function import target_fetch, get_time
+from owllook.fetcher.extract_novels import extract_pre_next_chapter
+from owllook.config import RULES, LATEST_RULES, LOGGER
 
 
 # Token from https://github.com/argaen/aiocache/blob/master/aiocache/decorators.py

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import asyncio_redis
 
-from novels_search.config import REDIS_DICT
+from owllook.config import REDIS_DICT
 
 
 # Token from https://github.com/subyraman/sanic_session

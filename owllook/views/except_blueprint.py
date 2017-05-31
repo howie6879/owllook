@@ -4,7 +4,7 @@ from sanic.exceptions import NotFound, ServerError
 from sanic.response import html, json
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from novels_search.config import BASE_DIR
+from owllook.config import BASE_DIR
 
 except_bp = Blueprint('except_blueprint', url_prefix='except')
 except_bp.static('/static', BASE_DIR + '/static/except')

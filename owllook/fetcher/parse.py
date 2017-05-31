@@ -4,8 +4,8 @@ import async_timeout
 from bs4 import BeautifulSoup
 from pprint import pprint
 
-from novels_search.config import LOGGER
-from novels_search.fetcher.function import get_random_user_agent
+from owllook.config import LOGGER
+from owllook.fetcher.function import get_random_user_agent
 
 
 async def fetch(client, url):

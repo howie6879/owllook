@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import asyncio
 import uvloop
-from novels_search.fetcher.cache import update_all_books
+from owllook.fetcher.cache import update_all_books
 
 
 def update_all():

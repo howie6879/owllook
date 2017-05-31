@@ -8,13 +8,13 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.getcwd()))
-from novels_search.views.novels_blueprint import novels_bp
-from novels_search.views.operate_blueprint import operate_bp
-from novels_search.views.except_blueprint import except_bp
-from novels_search.views.admin_blueprint import admin_bp
-from novels_search.views.api_blueprint import api_bp
-from novels_search.database.redis import RedisSession
-from novels_search.config import WEBSITE, REDIS_DICT, LOGGER, HOST
+from owllook.views.novels_blueprint import novels_bp
+from owllook.views.operate_blueprint import operate_bp
+from owllook.views.except_blueprint import except_bp
+from owllook.views.admin_blueprint import admin_bp
+from owllook.views.api_blueprint import api_bp
+from owllook.database.redis import RedisSession
+from owllook.config import WEBSITE, REDIS_DICT, LOGGER, HOST
 
 app = Sanic(__name__)
 app.blueprint(novels_bp)

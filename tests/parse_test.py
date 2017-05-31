@@ -3,7 +3,7 @@ import uvloop
 import asyncio
 import time
 from pprint import pprint
-from novels_search.fetcher.parse import novels_search
+from owllook.fetcher.parse import novels_search
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 

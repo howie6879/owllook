@@ -4,9 +4,9 @@ from sanic.response import html, redirect, json
 from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse, parse_qs, unquote
 
-from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.cache import get_the_latest_chapter
-from novels_search.config import LOGGER, BASE_DIR
+from owllook.database.mongodb import MotorBase
+from owllook.fetcher.cache import get_the_latest_chapter
+from owllook.config import LOGGER, BASE_DIR
 
 admin_bp = Blueprint('admin_blueprint', url_prefix='admin')
 admin_bp.static('/static', BASE_DIR + '/static/novels')

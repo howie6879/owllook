@@ -7,10 +7,10 @@ from urllib.parse import parse_qs, unquote
 from sanic import Blueprint
 from sanic.response import html, json
 
-from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.function import get_time
-from novels_search.utils import get_real_answer
-from novels_search.config import WEBSITE, LOGGER, BASE_DIR
+from owllook.database.mongodb import MotorBase
+from owllook.fetcher.function import get_time
+from owllook.utils import get_real_answer
+from owllook.config import WEBSITE, LOGGER, BASE_DIR
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
 operate_bp.static('/static', BASE_DIR + '/static/operate')

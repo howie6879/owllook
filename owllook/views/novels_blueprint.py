@@ -6,12 +6,12 @@ from sanic.response import redirect, html, text
 from jinja2 import Environment, PackageLoader, select_autoescape
 from operator import itemgetter
 
-from novels_search.database.mongodb import MotorBase
-from novels_search.fetcher.function import get_time, get_netloc
-from novels_search.utils import ver_question
-from novels_search.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
+from owllook.database.mongodb import MotorBase
+from owllook.fetcher.function import get_time, get_netloc
+from owllook.utils import ver_question
+from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result
-from novels_search.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, BASE_DIR
+from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, BASE_DIR
 
 novels_bp = Blueprint('novels_blueprint')
 novels_bp.static('/static', BASE_DIR + '/static/novels')

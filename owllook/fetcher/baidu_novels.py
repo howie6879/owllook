@@ -8,8 +8,8 @@ import arrow
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
-from novels_search.fetcher.function import get_random_user_agent
-from novels_search.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES, BAIDU_RN
+from owllook.fetcher.function import get_random_user_agent
+from owllook.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES, BAIDU_RN
 
 
 async def fetch(client, url, name, is_web):

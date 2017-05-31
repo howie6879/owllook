@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from motor.motor_asyncio import AsyncIOMotorClient
-from novels_search.config import MONGODB
+from owllook.config import MONGODB
 
 
 class MotorBase:

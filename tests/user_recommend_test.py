@@ -4,9 +4,9 @@ import asyncio
 
 from pprint import pprint
 from copy import deepcopy
-from novels_search.database.mongodb import MotorBase
-from novels_search.recommend.cosinesimilarity import CosineSimilarity
-from novels_search.fetcher.function import get_time
+from owllook.database.mongodb import MotorBase
+from owllook.recommend.cosinesimilarity import CosineSimilarity
+from owllook.fetcher.function import get_time
 
 
 async def get_user_tag():

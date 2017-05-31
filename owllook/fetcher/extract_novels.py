@@ -7,7 +7,7 @@ from operator import itemgetter
 from collections import OrderedDict
 from pprint import pprint
 
-from novels_search.config import LOGGER
+from owllook.config import LOGGER
 
 
 def extract_chapters(chapters_url, html):

@@ -7,7 +7,7 @@ import sys
 
 sys.path.append('../../')
 
-from novels_search.fetcher.cache import update_all_books
+from owllook.fetcher.cache import update_all_books
 
 
 def update_all_books_schedule():

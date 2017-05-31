@@ -6,7 +6,7 @@ import arrow
 
 from urllib.parse import urlparse
 
-from novels_search.config import USER_AGENT, LOGGER, TIMEZONE
+from owllook.config import USER_AGENT, LOGGER, TIMEZONE
 
 
 def get_data(filename, default='') -> list:

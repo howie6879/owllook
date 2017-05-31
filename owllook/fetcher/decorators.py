@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from functools import wraps
 from sanic.response import json
-from novels_search.config import AUTH
+from owllook.config import AUTH
 
 
 def authenticator(key):
