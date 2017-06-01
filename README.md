@@ -1,6 +1,6 @@
 ### 
 
-![chapter](./novels_search/static/novels/img/logo_home.png)
+![chapter](./owllook/static/novels/img/logo_home.png)
 
 ### 1.说明
 
