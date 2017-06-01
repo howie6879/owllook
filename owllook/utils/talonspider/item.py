@@ -34,20 +34,21 @@ class Item(metaclass=ItemMeta):
             setattr(self, field_name, value)
 
     @classmethod
-    def _get_html(cls, url, params, **kwargs):
-        response = requests.get(url, params, **kwargs)
-        response.raise_for_status()
-        return response.text
-
-    @classmethod
-    def get_item(cls, html='', url='', params=None, **kwargs):
+    def _get_html(cls, html, url, params, **kwargs):
         if html:
             html = etree.HTML(html)
         elif url:
-            text = cls._get_html(url, params=params, **kwargs)
+            response = requests.get(url, params, **kwargs)
+            response.raise_for_status()
+            text = response.text
             html = etree.HTML(text)
         else:
             raise ValueError("html or url is expected")
+        return html
+
+    @classmethod
+    def get_item(cls, html='', url='', params=None, **kwargs):
+        html = cls._get_html(html, url, params=params, **kwargs)
         item = {}
         ins_item = cls(html=html)
         for i in cls._fields.keys():
@@ -56,4 +57,11 @@ class Item(metaclass=ItemMeta):
 
     @classmethod
     def get_items(cls, html='', url='', params=None, **kwargs):
-        pass
+        html = cls._get_html(html, url, params=params, **kwargs)
+        items_field = cls._fields.get('target_item', None)
+        if items_field:
+            cls._fields.pop('target_item')
+            items = items_field.extract_value(html)
+            return [cls(html=i) for i in items]
+        else:
+            raise ValueError("target_item is expected")
