@@ -1,12 +1,30 @@
 #!/usr/bin/env python
-from owllook.utils.talonspider import Item, TextField
+import time
+from owllook.utils.talonspider import Item, TextField, AttrField
+from pprint import pprint
 
 
-class DoubanSpider(Item):
-    title = TextField(css_select='head title')
+class TestSpider(Item):
+    title = TextField(css_select='.book-info>h1>em')
+    author = TextField(css_select='a.writer')
+    cover = AttrField(css_select='a#bookImg>img', attr='src')
+    abstract = TextField(css_select='div.book-intro>p')
+    tag = TextField(css_select='span.blue')
+    latest_chapter = TextField(css_select='div.detail>p.cf>a')
+    latest_chapter_time = TextField(css_select='div.detail>p.cf>em')
 
     def tal_title(self, title):
-        return title.strip()
+        # Clean your target value
+        return title
+
+    def tal_cover(self, cover):
+        return 'http:' + cover
+
+    def tal_tag(self, ele_tag):
+        return '#'.join([i.text for i in ele_tag])
+
+    def tal_latest_chapter_time(self, latest_chapter_time):
+        return latest_chapter_time.replace('今天', str(time.strftime("%Y-%m-%d ", time.localtime())))
 
 
 html = """
@@ -65,5 +83,16 @@ html = """
 """
 
 if __name__ == '__main__':
-    item_data = DoubanSpider.get_item(url='https://movie.douban.com/top250')
-    print(item_data)
+    item_data = TestSpider.get_item(url='http://book.qidian.com/info/1004608738')
+    pprint(item_data)
+
+# output
+
+# {'abstract': '在破败中崛起，在寂灭中复苏。',
+#  'author': '辰东',
+#  'cover': 'http://qidian.qpic.cn/qdbimg/349573/1004608738/180',
+#  'latest_chapter': '求下月票啦，请投来吧',
+#  'latest_chapter_time': '2017-06-01 01:19更新',
+#  'spider_name': 'testspider',
+#  'tag': '连载#签约#VIP',
+#  'title': '圣墟'}

@@ -19,7 +19,7 @@ class BaseField(object):
 
 class TextField(BaseField):
     """
-    Field class for a field
+    TextField class for a field
     """
 
     def __init__(self, css_select=None, xpath_select=None, re_select=None):
@@ -33,7 +33,34 @@ class TextField(BaseField):
         value = ''
         if self.css_select:
             value = html.cssselect(self.css_select)
-            value = value[0].text if len(value) == 1 else value
+            value = value[0].text.strip() if len(value) == 1 else value
+        elif self.xpath_select:
+            value = ''
+        elif self.re_select:
+            value = ''
+        else:
+            raise ValueError('%s field: css_select or xpath_select or re_select is expected' % self.__class__.__name__)
+        return value
+
+
+class AttrField(BaseField):
+    """
+    AttrField class for a field
+    """
+
+    def __init__(self, attr, css_select=None, xpath_select=None, re_select=None):
+        super(AttrField, self).__init__(css_select, xpath_select, re_select)
+        self.attr = attr
+
+    def extract_value(self, html):
+        """
+        Use css_select or re_select to extract a field value
+        :return:
+        """
+        value = ''
+        if self.css_select:
+            value = html.cssselect(self.css_select)
+            value = value[0].get(self.attr).strip()
         elif self.xpath_select:
             value = ''
         elif self.re_select:
