@@ -43,7 +43,7 @@
 
 我尽量写少量的规则来完成解析，具体见[规则定义](https://github.com/howie6879/novels-search/blob/master/docs/%E8%A7%84%E5%88%99%E5%AE%9A%E4%B9%89.md)，遇到自己喜欢的小说网站，你也可以自己添加解析。
 
-有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫模块来做这件事，见 [talonspider](https://github.com/howie6879/owllook/tree/master/owllook/utils/talonspider)
+有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫模块来做这件事，见 [talonspider](https://github.com/howie6879/talonspider)
 
 BTW，sanic写界面确实不是很方便。
 

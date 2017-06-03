@@ -12,7 +12,6 @@ class ItemMeta(type):
     def __new__(cls, name, bases, attrs):
         _fields = dict({(field_name, attrs.pop(field_name)) for field_name, object in list(attrs.items()) if
                         isinstance(object, BaseField)})
-        _fields['spider_name'] = name.lower()
         attrs['_fields'] = _fields
         new_class = super(ItemMeta, cls).__new__(cls, name, bases, attrs)
         return new_class

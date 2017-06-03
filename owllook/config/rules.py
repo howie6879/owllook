@@ -91,6 +91,7 @@ LATEST_RULES = {
     "www.263zw.com": PLAN_01,
     "www.3qzone.com": PLAN_01,
     "wwww.yooread.com": PLAN_01,
+    "www.suimeng.la": PLAN_01,
     "www.bequge.com": PLAN_01,
     "www.biquku.co": PLAN_01,
     "www.xbqge.com": PLAN_01,
@@ -116,6 +117,7 @@ LATEST_RULES = {
     "www.81zw.com": PLAN_01,
     "www.ymoxuan.com": PLAN_01,
     "www.mytxt.cc": PLAN_01,
+    "www.woquge.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -134,6 +136,8 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.woquge.com': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.zhonghuawuxia.com': Rules('1', {'class': 'list'}, {'id': 'content'}),
     # 已解析
@@ -168,6 +172,8 @@ RULES = {
     'www.lewen8.com': Rules('http://www.lewen8.com/', {'id': 'chapterlist'}, {'id': 'content'}),
     # 已解析
     'www.5ccc.net': Rules('0', {'class': 'acss'}, {'id': 'content'}),
+    # 已解析
+    'www.suimeng.la': Rules('0', {'class': 'acss'}, {'id': 'ccontent'}),
     # 已解析
     'www.bqg5200.com': Rules('http://www.bqg5200.com/', {'id': 'readerlist'}, {'id': 'content'}),
     # 已解析
