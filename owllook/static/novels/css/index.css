@@ -60,15 +60,30 @@ div.search > .btn-default:hover {
     background: -webkit-linear-gradient(top, #4387fd, #4683ea);
 }
 
+div.owl_search_ranking {
+    margin-top: 5%;
+    width: 55%;
+}
+
+div.owl_search_ranking span {
+    display: inline-block;
+    font-size: 12px;
+    padding: .3em .6em .3em;
+    margin-bottom: 2px;
+}
 
 @media (max-width: 767px) {
     .logo {
-        padding-top: 40% !important;
+        padding-top: 28% !important;
     }
 
     .logo img {
         width: 100px;
         height: 45px;
+    }
+
+    div.owl_search_ranking {
+        display: none;
     }
 }
 

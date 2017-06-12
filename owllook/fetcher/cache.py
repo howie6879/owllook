@@ -137,6 +137,19 @@ async def cache_owllook_so_novels_result(novels_name):
     return parse_result if parse_result else None
 
 
+@cached(ttl=10800, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
+async def cache_owllook_search_ranking():
+    motor_db = MotorBase().db
+    keyword_cursor = motor_db.search_records.find(
+        {'count': {'$gte': 50}},
+        {'keyword': 1, '_id': 0}
+    ).sort('count', -1).limit(20)
+    result = []
+    async for document in keyword_cursor:
+        result.append(document['keyword'])
+    return result
+
+
 async def get_the_latest_chapter(chapter_url):
     url = parse_qs(urlparse(chapter_url).query).get('url', '')
     novels_name = parse_qs(urlparse(chapter_url).query).get('novels_name', '')

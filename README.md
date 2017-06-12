@@ -77,7 +77,7 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - [x] 目录获取
 - [x] 翻页
 - [ ] 推荐
-- [ ] 搜索排行
+- [x] 搜索排行
 - [ ] 阅读书单
 - [ ] 排行榜
 

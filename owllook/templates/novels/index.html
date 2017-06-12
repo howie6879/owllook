@@ -26,5 +26,12 @@
             <input class="btn btn-default" type="submit" value="Owl Search">
         </div>
     </form>
+    <div class="owl_search_ranking center-block">
+        <span style="font-size: 100%" class="label label-info">搜索排行:</span>
+        {%for novels_name in search_ranking%}
+        <a target="_blank" href="/search?wd={{novels_name}}"><span
+                class="label label-primary">{{novels_name}}</span></a>
+        {%endfor%}
+    </div>
 </div>
 {% endblock %}
