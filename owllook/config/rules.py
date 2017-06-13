@@ -126,6 +126,8 @@ LATEST_RULES = {
     "www.miaobige.com": PLAN_01,
     "www.xs.la": PLAN_01,
     "www.44pq.co": PLAN_01,
+    "www.50zw.la": PLAN_01,
+    "www.33xs.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -144,6 +146,10 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.33xs.com': Rules('http://www.33xs.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.50zw.la': Rules('0', {'class': 'chapterlist'}, {'id': 'htmlContent'}),
     # 已解析
     'www.44pq.co': Rules('0', {'class': 'chapterlist'}, {'id': 'BookText'}),
     # 已解析
