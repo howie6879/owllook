@@ -47,7 +47,7 @@ def extract_pre_next_chapter(chapter_url, html):
     try:
         # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
         next_reg = r'(<a\s+.*?>.*[上前下后][一]?[页张个篇章节步].*?</a>)'
-        judge_reg = r'^[上前下后][一]?[页张个篇章节步]$'
+        judge_reg = r'[上前下后][一]?[页张个篇章节步]'
         # 这里同样需要利用bs再次解析
         next_res = re.findall(next_reg, html, re.I)
         str_next_res = '\n'.join(next_res)
@@ -55,11 +55,12 @@ def extract_pre_next_chapter(chapter_url, html):
         for link in next_res_soup.find_all('a'):
             text = link.text or ''
             text = text.replace(' ', '')
-            is_next = re.search(judge_reg, text)
-            # is_ok = is_chapter(text)
-            if is_next:
-                url = urljoin(chapter_url, link.get('href')) or ''
-                next_chapter[text] = url
+            if novels_list(text):
+                is_next = re.search(judge_reg, text)
+                # is_ok = is_chapter(text)
+                if is_next:
+                    url = urljoin(chapter_url, link.get('href')) or ''
+                    next_chapter[text] = url
 
         # nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
         return next_chapter
@@ -68,8 +69,8 @@ def extract_pre_next_chapter(chapter_url, html):
         return next_chapter
 
 
-def is_chapter(text):
-    rm_list = ['目录', '章节', '返回', '列表', '加入', '书签', '投票', '推荐']
+def novels_list(text):
+    rm_list = ['最后一个使徒']
     for i in rm_list:
         if i in text:
             return False
