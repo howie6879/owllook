@@ -54,7 +54,6 @@ def get_netloc(url):
 
 async def target_fetch(client, url):
     """
-
     :param client: aiohttp client
     :param url: targer url
     :return: text
