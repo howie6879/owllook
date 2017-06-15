@@ -1,6 +1,6 @@
-### 
+###
 
-![chapter](./owllook/static/novels/img/logo_home.png)
+<img src="./owllook/static/novels/img/logo_home.png" alt="chapter" align=center />
 
 ### 1.说明
 
@@ -83,7 +83,7 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 
 `owllook` is offered under the Apache 2 license.
 
-#### 4.感谢
+### 4.感谢
 
 **owllook使用了以下第三方包:**
 
@@ -104,3 +104,13 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - caddy：基于go的web服务器
 
   …...更多见requirements.txt，感谢开发者。
+
+**感谢以下捐赠者 ^_^ :**
+ - 12hStudy: 5 元
+ - 佚名：5元
+ - 佚名：50元
+ - 路人甲、：100元
+ - 盛阿德：20元
+ - shine：50元
+
+<img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
