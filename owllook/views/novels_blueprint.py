@@ -55,7 +55,7 @@ async def owllook_search(request):
     for each_engine in ENGINE_PRIORITY:
         # for 360 so
         if each_engine == "360":
-            novels_name = "{name} 小说 免费阅读".format(name=name)
+            novels_name = "{name} 小说 最新章节".format(name=name)
             parse_result = await cache_owllook_so_novels_result(novels_name)
             if parse_result:
                 break

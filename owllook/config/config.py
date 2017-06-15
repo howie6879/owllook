@@ -12,8 +12,17 @@ SO_URL = "https://www.so.com/s"
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36'
 
 # logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
-LOGGER = logging.getLogger('owllook')
+# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s: %(message)s')
+# LOGGER = logging.getLogger('owllook')
+logging_format = "[%(asctime)s] %(process)d-%(levelname)s "
+logging_format += "%(module)s::%(funcName)s():l%(lineno)d: "
+logging_format += "%(message)s"
+
+logging.basicConfig(
+    format=logging_format,
+    level=logging.DEBUG
+)
+LOGGER = logging.getLogger()
 
 # aiocache
 REDIS_DICT = dict(
