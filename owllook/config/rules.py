@@ -128,6 +128,11 @@ LATEST_RULES = {
     "www.44pq.co": PLAN_01,
     "www.50zw.la": PLAN_01,
     "www.33xs.com": PLAN_01,
+    "www.zwdu.com": PLAN_01,
+    "www.ttzw.com": PLAN_01,
+    "www.biqudu.com": PLAN_01,
+    "www.biqugeg.com": PLAN_01,
+    "www.23txt.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -146,6 +151,16 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqudu.com': Rules('http://www.biqudu.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqugeg.com': Rules('http://www.biqugeg.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.23txt.com': Rules('http://www.23txt.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.ttzw.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.zwdu.com': Rules('http://www.zwdu.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.33xs.com': Rules('http://www.33xs.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析

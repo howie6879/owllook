@@ -29,8 +29,8 @@ def init_cache(sanic, loop):
     LOGGER.info("Starting aiocache")
     aiocache.settings.set_defaults(
         class_="aiocache.RedisCache",
-        endpoint=REDIS_DICT.get('REDIS_ENDPOINT', None),
-        port=REDIS_DICT.get('REDIS_PORT', None),
+        endpoint=REDIS_DICT.get('REDIS_ENDPOINT', 'localhost'),
+        port=REDIS_DICT.get('REDIS_PORT', '6379'),
         db=REDIS_DICT.get('CACHE_DB', None),
         password=REDIS_DICT.get('PASSWORD', None),
         loop=loop,
@@ -73,4 +73,4 @@ async def save_session(request, response):
 
 
 if __name__ == "__main__":
-        app.run(host="127.0.0.1", workers=1, port=8001, debug=True)
+    app.run(host="127.0.0.1", workers=1, port=8001, debug=True)
