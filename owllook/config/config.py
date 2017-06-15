@@ -27,9 +27,9 @@ LOGGER = logging.getLogger()
 # aiocache
 REDIS_DICT = dict(
     IS_CACHE=True,
-    REDIS_ENDPOINT="",
+    REDIS_ENDPOINT="localhost",
     REDIS_PORT=6379,
-    PASSWORD="",
+    PASSWORD=None,
     CACHE_DB=0,
     SESSION_DB=1,
     POOLSIZE=10,
