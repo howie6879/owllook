@@ -110,8 +110,9 @@ async def data_extraction_for_web_baidu(client, html):
             url = html.select('h3.t a')[0].get('href', None)
             real_url = await get_real_url(client=client, url=url) if url else None
             if real_url:
-                netloc = urlparse(real_url).netloc
-                if 'baidu' in real_url or netloc in BLACK_DOMAIN:
+                real_str_url = str(real_url)
+                netloc = urlparse(real_str_url).netloc
+                if 'baidu' in real_str_url or netloc in BLACK_DOMAIN:
                     return None
                 is_parse = 1 if netloc in RULES.keys() else 0
                 title = html.select('h3.t a')[0].get_text()
@@ -126,7 +127,7 @@ async def data_extraction_for_web_baidu(client, html):
                 #     except Exception as e:
                 #         LOGGER.exception(e)
                 #         timestamp = 0
-                return {'title': title, 'url': real_url.replace('index.html', ''), 'time': time, 'is_parse': is_parse,
+                return {'title': title, 'url': real_str_url.replace('index.html', ''), 'time': time, 'is_parse': is_parse,
                         'timestamp': timestamp,
                         'netloc': netloc}
             else:

@@ -11,7 +11,7 @@ from owllook.config import SO_URL, LOGGER, BLACK_DOMAIN, RULES
 
 
 async def fetch(client, url, novels_name):
-    with async_timeout.timeout(15):
+    with async_timeout.timeout(20):
         try:
             headers = {'user-agent': get_random_user_agent()}
             params = {'q': novels_name, 'ie': 'utf-8'}
