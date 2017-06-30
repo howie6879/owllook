@@ -1,5 +1,3 @@
-###
-
 <img src="./owllook/static/novels/img/logo_home.png" alt="chapter" align=center />
 
 ### 1.说明
@@ -106,11 +104,11 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
   …...更多见requirements.txt，感谢开发者。
 
 **感谢以下捐赠者 ^_^ :**
- - 12hStudy: 5 元
- - 佚名：5元
- - 佚名：50元
- - 路人甲、：100元
- - 盛阿德：20元
- - shine：50元
+- 12hStudy: 5 元
+- 佚名：5元
+- 佚名：50元
+- 路人甲、：100元
+- 盛阿德：20元
+- shine：50元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />

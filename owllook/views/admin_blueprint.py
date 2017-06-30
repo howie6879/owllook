@@ -30,7 +30,7 @@ async def similar_user(request):
         try:
             similar_info = await motor_db.user_recommend.find_one({'user': user})
             if similar_info:
-                similar_user = similar_info['similar_user']
+                similar_user = similar_info['similar_user'][:20]
                 user_tag = similar_info['user_tag']
                 updated_at = similar_info['updated_at']
                 return template('similar_user.html',
