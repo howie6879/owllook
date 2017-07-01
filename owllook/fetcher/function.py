@@ -3,6 +3,8 @@ import async_timeout
 import random
 import os
 import arrow
+import requests
+import cchardet
 
 from urllib.parse import urlparse
 
@@ -72,3 +74,21 @@ async def target_fetch(client, url):
         except Exception as e:
             LOGGER.exception(e)
             return None
+
+
+def requests_target_fetch(url):
+    """
+    :param url:
+    :return:
+    """
+    try:
+        headers = {'user-agent': get_random_user_agent()}
+        response = requests.get(url=url, headers=headers, verify=False)
+        response.raise_for_status()
+        content = response.content
+        charset = cchardet.detect(content)
+        text = content.decode(charset['encoding'])
+        return text
+    except Exception as e:
+        LOGGER.exception(e)
+        return None

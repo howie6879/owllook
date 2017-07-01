@@ -4,8 +4,9 @@ import uvloop
 import schedule
 import time
 import sys
+import os
 
-sys.path.append('../../')
+sys.path.append(os.path.dirname(os.getcwd()))
 
 from owllook.fetcher.cache import update_all_books
 

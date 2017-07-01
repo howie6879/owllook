@@ -11,7 +11,7 @@ from urllib.parse import urlparse, parse_qs
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.baidu_novels import baidu_search
 from owllook.fetcher.so_novels import so_search
-from owllook.fetcher.function import target_fetch, get_time
+from owllook.fetcher.function import target_fetch, get_time, requests_target_fetch
 from owllook.fetcher.extract_novels import extract_pre_next_chapter
 from owllook.config import RULES, LATEST_RULES, LOGGER
 
@@ -160,8 +160,20 @@ async def get_the_latest_chapter(chapter_url):
         netloc = urlparse(url).netloc
         if netloc in LATEST_RULES.keys():
             async with aiohttp.ClientSession() as client:
-                html = await target_fetch(client=client, url=url)
-                soup = BeautifulSoup(html, 'html5lib')
+                try:
+                    html = await target_fetch(client=client, url=url)
+                    if html is None:
+                        html = requests_target_fetch(url=url)
+                except TypeError:
+                    html = requests_target_fetch(url=url)
+                except Exception as e:
+                    LOGGER.exception(e)
+                    return None
+                try:
+                    soup = BeautifulSoup(html, 'html5lib')
+                except Exception as e:
+                    LOGGER.exception(e)
+                    return None
                 latest_chapter_name, latest_chapter_url = None, None
                 if LATEST_RULES[netloc].plan:
                     meta_value = LATEST_RULES[netloc].meta_value

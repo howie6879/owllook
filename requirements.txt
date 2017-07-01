@@ -13,4 +13,6 @@ aiocache==0.3.2
 motor>=1.1
 schedule
 gunicorn
+cchardet
+requests
 talonspider>=0.0.5
