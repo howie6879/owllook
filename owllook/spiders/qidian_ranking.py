@@ -70,7 +70,7 @@ class QidianRankingSpider(Spider):
                 }},
                 upsert=True)
         except Exception as e:
-            self.logger.info(e)
+            self.logger.exception(e)
 
 
 if __name__ == '__main__':

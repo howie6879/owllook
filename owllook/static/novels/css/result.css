@@ -70,13 +70,6 @@ div.item > li > a {
     margin-top: 0 !important;
 }
 
-@media (min-width: 1680px) {
-    .result {
-        position: absolute;
-        left: 1%;
-    }
-}
-
 @media (max-width: 767px) {
     .result {
         padding-right: 0 !important;
@@ -98,7 +91,7 @@ div.item > li > a {
         right: -10px !important;
     }
 
-    .netloc i{
+    .netloc i {
         font-size: 13px;
     }
 }

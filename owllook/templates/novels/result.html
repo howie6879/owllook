@@ -3,6 +3,13 @@
 {% block header %}
 <title>{{ name }} - 搜索结果 - owllook</title>
 <link rel="stylesheet" href="static/css/result.css">
+<style>
+    @media (min-width: 1680px) {
+        .container {
+            margin-left: 3% !important;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -29,6 +36,7 @@
                             {% endif %}
                         </div>
                     </li>
+
                 </div>
                 {%endfor%}
             </div>
