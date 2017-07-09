@@ -32,18 +32,21 @@ async def data_extraction_for_web_so(client, html):
     with async_timeout.timeout(15):
         try:
             try:
-                url = html.select('h3.res-title a')[0].get('href', None)
+                url = html.select('h3.res-title a')[0].get('data-url', None)
                 title = html.select('h3.res-title a')[0].get_text()
             except IndexError:
                 url = html.select('h3.title a')[0].get('href', None)
+                url = parse_qs(urlparse(url).query).get('url', None)
+                url = url[0] if url else None
                 title = html.select('h3.title a')[0].get_text()
             except Exception as e:
                 LOGGER.exception(e)
                 url, title = None, None
                 return None
+            # 2017.07.09 此处出现bug url展示形式发生变化 因此对于h3.title a形式依旧不变  但是h3.res-title a则取属性data-url
+            # url = parse_qs(urlparse(url).query).get('url', None)
+            # url = url[0] if url else None
 
-            url = parse_qs(urlparse(url).query).get('url', None)
-            url = url[0] if url else None
             netloc = urlparse(url).netloc
             if not url or 'baidu' in url or 'baike.so.com' in url or netloc in BLACK_DOMAIN:
                 return None
