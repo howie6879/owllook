@@ -8,11 +8,12 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.getcwd()))
-from owllook.views.novels_blueprint import novels_bp
-from owllook.views.operate_blueprint import operate_bp
-from owllook.views.except_blueprint import except_bp
-from owllook.views.admin_blueprint import admin_bp
-from owllook.views.api_blueprint import api_bp
+from owllook.views import novels_bp
+from owllook.views import operate_bp
+from owllook.views import except_bp
+from owllook.views import admin_bp
+from owllook.views import api_bp
+from owllook.views import rank_bp
 from owllook.database.redis import RedisSession
 from owllook.config import WEBSITE, REDIS_DICT, LOGGER, HOST
 
@@ -22,6 +23,7 @@ app.blueprint(operate_bp)
 app.blueprint(except_bp)
 app.blueprint(admin_bp)
 app.blueprint(api_bp)
+app.blueprint(rank_bp)
 
 
 @app.listener('before_server_start')
