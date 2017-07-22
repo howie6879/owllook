@@ -144,7 +144,7 @@ async def cache_owllook_search_ranking():
     keyword_cursor = motor_db.search_records.find(
         {'count': {'$gte': 50}},
         {'keyword': 1, '_id': 0}
-    ).sort('count', -1).limit(20)
+    ).sort('count', -1).limit(25)
     result = []
     async for document in keyword_cursor:
         result.append(document['keyword'])

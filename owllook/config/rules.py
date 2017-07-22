@@ -29,7 +29,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com", "book.sina.com.cn", "www.vodtw.com", "wenda.so.com",
                 "product.dangdang.com", "www.chuiyao.com", "novel.slieny.com", "www.bilibili.com", "donghua.dmzj.com",
                 "www.yaojingweiba.com", "www.qb5200.com", "www.520tingshu.com", "www.567zw.com", "www.zjrxz.com",
-                "v.qq.com", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com"]
+                "v.qq.com", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com", "news.so.com", "www.sodu3.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -133,6 +133,8 @@ LATEST_RULES = {
     "www.biqudu.com": PLAN_01,
     "www.biqugeg.com": PLAN_01,
     "www.23txt.com": PLAN_01,
+    "www.baquge.tw": PLAN_01,
+    "www.lread.cc": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -151,6 +153,12 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.7kshu.com': Rules('0', {'id': 'chapterlist'}, {'id': 'content'}),
+    # 已解析
+    'www.lread.cc': Rules('http://www.lread.cc/', {'class': 'box_con'}, {'id': 'booktext'}),
+    # 已解析
+    'www.baquge.tw': Rules('http://www.baquge.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biqudu.com': Rules('http://www.biqudu.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析

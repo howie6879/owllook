@@ -26,12 +26,7 @@ def update_all():
 
 
 start = time.time()
-# chapter_url = "/chapter?url=http://www.biquge.cc/html/156/156129/&novels_name=圣墟"
 chapter_url = "/chapter?url=http://www.8535.org/xuanhuan/139075/&novels_name=圣墟"
-# chapter_url = "/chapter?url=http://www.50331.net/&novels_name=圣墟"
-# chapter_url = "/chapter?url=http://www.biquge.tw/86_86745/&novels_name=圣墟"
-# result = novel_task('http://www.shuge.net/html/98/98044')
-# result = update_all()
 
 result = latest_chapter_task(chapter_url)
 pprint(result)
