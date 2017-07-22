@@ -15,7 +15,7 @@ from owllook.views import admin_bp
 from owllook.views import api_bp
 from owllook.views import rank_bp
 from owllook.database.redis import RedisSession
-from owllook.config import WEBSITE, REDIS_DICT, LOGGER, HOST
+from owllook.config import LOGGER, CONFIG
 
 app = Sanic(__name__)
 app.blueprint(novels_bp)
@@ -27,20 +27,22 @@ app.blueprint(rank_bp)
 
 
 @app.listener('before_server_start')
-def init_cache(sanic, loop):
+def init_cache(app, loop):
     LOGGER.info("Starting aiocache")
+    app.config.from_object(CONFIG)
+    REDIS_DICT = CONFIG.REDIS_DICT
     aiocache.settings.set_defaults(
         class_="aiocache.RedisCache",
         endpoint=REDIS_DICT.get('REDIS_ENDPOINT', 'localhost'),
         port=REDIS_DICT.get('REDIS_PORT', '6379'),
-        db=REDIS_DICT.get('CACHE_DB', None),
+        db=REDIS_DICT.get('CACHE_DB', 0),
         password=REDIS_DICT.get('PASSWORD', None),
         loop=loop,
     )
     LOGGER.info("Starting redis pool")
-    redis = RedisSession()
+    redis_session = RedisSession()
     # redis instance for app
-    app.get_redis_pool = redis.get_redis_pool
+    app.get_redis_pool = redis_session.get_redis_pool
     # pass the getter method for the connection pool into the session
     app.session_interface = RedisSessionInterface(app.get_redis_pool, cookie_name="owl_sid", expiry=30 * 24 * 60 * 60)
 
@@ -50,9 +52,9 @@ async def add_session_to_request(request):
     # before each request initialize a session
     # using the client's request
     host = request.headers.get('host', None)
-    if not host or host not in HOST:
+    if not host or host not in CONFIG.HOST:
         return redirect('http://www.owllook.net')
-    if WEBSITE['IS_RUNNING']:
+    if CONFIG.WEBSITE['IS_RUNNING']:
         await app.session_interface.open(request)
     else:
         return html("<h3>网站正在维护...</h3>")
@@ -75,4 +77,4 @@ async def save_session(request, response):
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", workers=1, port=8001, debug=True)
+    app.run(host="127.0.0.1", workers=1, port=8001, debug=CONFIG.DEBUG)

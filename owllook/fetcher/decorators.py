@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from functools import wraps
 from sanic.response import json
-from owllook.config import AUTH
+from owllook.config import CONFIG
 
 
 def authenticator(key):
@@ -15,7 +15,7 @@ def authenticator(key):
         @wraps(func)
         async def authenticate(request, *args, **kwargs):
             value = request.headers.get(key, None)
-            if value and AUTH[key] == value:
+            if value and CONFIG.AUTH[key] == value:
                 response = await func(request, *args, **kwargs)
                 return response
             else:

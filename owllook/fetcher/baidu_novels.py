@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
 from owllook.fetcher.function import get_random_user_agent
-from owllook.config import URL_PC, URL_PHONE, LOGGER, BLACK_DOMAIN, RULES, BAIDU_RN
+from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES
 
 
 async def fetch(client, url, name, is_web):
@@ -17,7 +17,7 @@ async def fetch(client, url, name, is_web):
         try:
             headers = {'user-agent': get_random_user_agent()}
             if is_web:
-                params = {'wd': name, 'ie': 'utf-8', 'rn': BAIDU_RN, 'vf_bl': 1}
+                params = {'wd': name, 'ie': 'utf-8', 'rn': CONFIG.BAIDU_RN, 'vf_bl': 1}
             else:
                 params = {'word': name}
             async with client.get(url, params=params, headers=headers) as response:
@@ -127,7 +127,8 @@ async def data_extraction_for_web_baidu(client, html):
                 #     except Exception as e:
                 #         LOGGER.exception(e)
                 #         timestamp = 0
-                return {'title': title, 'url': real_str_url.replace('index.html', ''), 'time': time, 'is_parse': is_parse,
+                return {'title': title, 'url': real_str_url.replace('index.html', ''), 'time': time,
+                        'is_parse': is_parse,
                         'timestamp': timestamp,
                         'netloc': netloc}
             else:
@@ -138,7 +139,7 @@ async def data_extraction_for_web_baidu(client, html):
 
 
 async def baidu_search(name, is_web=1):
-    url = URL_PC if is_web else URL_PHONE
+    url = CONFIG.URL_PC if is_web else CONFIG.URL_PHONE
     async with aiohttp.ClientSession() as client:
         html = await fetch(client=client, url=url, name=name, is_web=is_web)
         if html:

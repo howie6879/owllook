@@ -11,10 +11,20 @@ from owllook.fetcher.function import get_time, get_netloc
 from owllook.utils import ver_question
 from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, cache_owllook_search_ranking
-from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, BASE_DIR
+from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 
 novels_bp = Blueprint('novels_blueprint')
-novels_bp.static('/static', BASE_DIR + '/static/novels')
+novels_bp.static('/static', CONFIG.BASE_DIR + '/static/novels')
+
+@novels_bp.listener('before_server_start')
+def setup_db(novels_bp, loop):
+    global motor_db
+    motor_db = MotorBase().db
+
+
+@novels_bp.listener('after_server_stop')
+def close_connection(novels_bp, loop):
+    motor_db = None
 
 # jinjia2 config
 env = Environment(
@@ -41,7 +51,6 @@ async def index(request):
 async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', '').strip()
-    motor_db = MotorBase().db
     if not name:
         return redirect('/')
     else:
@@ -186,7 +195,6 @@ async def owllook_content(request):
             # 破坏广告链接
             content = str(content).strip('[]Jjs,').replace('http', 'hs')
             if user:
-                motor_db = MotorBase().db
                 bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
                 book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
                 bookmark = 1 if bookmark else 0

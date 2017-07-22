@@ -10,10 +10,21 @@ from sanic.response import html, json
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.function import get_time
 from owllook.utils import get_real_answer
-from owllook.config import WEBSITE, LOGGER, BASE_DIR
+from owllook.config import CONFIG, LOGGER
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
-operate_bp.static('/static', BASE_DIR + '/static/operate')
+operate_bp.static('/static', CONFIG.BASE_DIR + '/static/operate')
+
+
+@operate_bp.listener('before_server_start')
+def setup_db(operate_bp, loop):
+    global motor_db
+    motor_db = MotorBase().db
+
+
+@operate_bp.listener('after_server_stop')
+def close_connection(operate_bp, loop):
+    motor_db = None
 
 # jinjia2 config
 env = Environment(
@@ -40,10 +51,9 @@ async def owllook_login(request):
     user = login_data.get('user', [None])[0]
     pwd = login_data.get('pwd', [None])[0]
     if user and pwd:
-        motor_db = MotorBase().db
         data = await motor_db.user.find_one({'user': user})
         if data:
-            pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+            pass_first = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
             password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
             if password == data.get('password'):
                 response = json({'status': 1})
@@ -84,13 +94,12 @@ async def owllook_register(request):
     answer = register_data.get('answer', [None])[0]
     reg_index = request.cookies['reg_index']
     if user and pwd and email and answer and reg_index:
-        motor_db = MotorBase().db
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
             # 验证问题答案是否准确
             real_answer = get_real_answer(str(reg_index))
             if real_answer and real_answer == answer:
-                pass_first = hashlib.md5((WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
+                pass_first = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
                 password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
                 time = get_time()
                 data = {
@@ -145,7 +154,6 @@ async def owllook_add_bookmark(request):
         url = unquote(bookmarkurl[0])
         time = get_time()
         try:
-            motor_db = MotorBase().db
             res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
                                                          upsert=True)
             if res:
@@ -177,7 +185,6 @@ async def owllook_delete_bookmark(request):
     if user and bookmarkurl:
         bookmark = unquote(bookmarkurl[0])
         try:
-            motor_db = MotorBase().db
             await motor_db.user_message.update_one({'user': user},
                                                    {'$pull': {'bookmarks': {"bookmark": bookmark}}})
             LOGGER.info('删除书签成功')
@@ -209,7 +216,6 @@ async def owllook_add_book(request):
                                                                             novels_name=novels_name[0])
         time = get_time()
         try:
-            motor_db = MotorBase().db
             res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
                                                          upsert=True)
             if res:
@@ -247,7 +253,6 @@ async def owllook_delete_book(request):
             book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
                                                                                      novels_name=novels_name[0])
         try:
-            motor_db = MotorBase().db
             await motor_db.user_message.update_one({'user': user},
                                                    {'$pull': {'books_url': {"book_url": unquote(book_url)}}})
             LOGGER.info('删除书架成功')

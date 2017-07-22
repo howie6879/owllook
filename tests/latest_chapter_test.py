@@ -3,6 +3,9 @@ import uvloop
 import asyncio
 import time
 from pprint import pprint
+import os
+
+os.environ['MODE'] = 'PRO'
 from owllook.fetcher.cache import get_the_latest_chapter, update_all_books
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())

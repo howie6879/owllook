@@ -6,10 +6,22 @@ from urllib.parse import urlparse, parse_qs, unquote
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.cache import get_the_latest_chapter
-from owllook.config import LOGGER, BASE_DIR
+from owllook.config import LOGGER, CONFIG
 
 admin_bp = Blueprint('admin_blueprint', url_prefix='admin')
-admin_bp.static('/static', BASE_DIR + '/static/novels')
+admin_bp.static('/static', CONFIG.BASE_DIR + '/static/novels')
+
+
+@admin_bp.listener('before_server_start')
+def setup_db(admin_bp, loop):
+    global motor_db
+    motor_db = MotorBase().db
+
+
+@admin_bp.listener('after_server_stop')
+def close_connection(admin_bp, loop):
+    motor_db = None
+
 
 # jinjia2 config
 env = Environment(
@@ -26,7 +38,6 @@ def template(tpl, **kwargs):
 async def similar_user(request):
     user = request['session'].get('user', None)
     if user:
-        motor_db = MotorBase().db
         try:
             similar_info = await motor_db.user_recommend.find_one({'user': user})
             if similar_info:
@@ -45,7 +56,7 @@ async def similar_user(request):
                 return template('similar_user.html',
                                 title='与' + user + '相似的书友',
                                 is_login=1,
-                                is_similar=1,
+                                is_similar=0,
                                 user=user)
         except Exception as e:
             LOGGER.error(e)
@@ -59,7 +70,6 @@ async def search_user(request):
     user = request['session'].get('user', None)
     name = request.args.get('ss', None)
     if user and name:
-        motor_db = MotorBase().db
         try:
             data = await motor_db.user_message.find_one({'user': name})
             books_url = data.get('books_url', None) if data else None
@@ -108,7 +118,6 @@ async def search_user(request):
 async def bookmarks(request):
     user = request['session'].get('user', None)
     if user:
-        motor_db = MotorBase().db
         try:
             data = await motor_db.user_message.find_one({'user': user})
             if data:
@@ -148,7 +157,6 @@ async def bookmarks(request):
 async def books(request):
     user = request['session'].get('user', None)
     if user:
-        motor_db = MotorBase().db
         try:
             data = await motor_db.user_message.find_one({'user': user})
             if data:

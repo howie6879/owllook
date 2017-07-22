@@ -8,7 +8,7 @@ import cchardet
 
 from urllib.parse import urlparse
 
-from owllook.config import USER_AGENT, LOGGER, TIMEZONE
+from owllook.config import LOGGER, CONFIG
 
 
 def get_data(filename, default='') -> list:
@@ -34,12 +34,12 @@ def get_random_user_agent() -> str:
     Get a random user agent string.
     :return: Random user agent string.
     """
-    return random.choice(get_data('user_agents.txt', USER_AGENT))
+    return random.choice(get_data('user_agents.txt', CONFIG.USER_AGENT))
 
 
 def get_time() -> str:
     utc = arrow.utcnow()
-    local = utc.to(TIMEZONE)
+    local = utc.to(CONFIG.TIMEZONE)
     time = local.format("YYYY-MM-DD HH:mm:ss")
     return time
 

@@ -4,10 +4,10 @@ import aiohttp
 import async_timeout
 
 from bs4 import BeautifulSoup
-from urllib.parse import unquote, urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs
 
 from owllook.fetcher.function import get_random_user_agent
-from owllook.config import SO_URL, LOGGER, BLACK_DOMAIN, RULES
+from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES
 
 
 async def fetch(client, url, novels_name):
@@ -63,7 +63,7 @@ async def data_extraction_for_web_so(client, html):
 
 
 async def so_search(novels_name):
-    url = SO_URL
+    url = CONFIG.SO_URL
     async with aiohttp.ClientSession() as client:
         html = await fetch(client=client, url=url, novels_name=novels_name)
         if html:

@@ -15,6 +15,8 @@ from owllook.fetcher.function import target_fetch, get_time, requests_target_fet
 from owllook.fetcher.extract_novels import extract_pre_next_chapter
 from owllook.config import RULES, LATEST_RULES, LOGGER
 
+motor_base = MotorBase()
+
 
 # Token from https://github.com/argaen/aiocache/blob/master/aiocache/decorators.py
 def cached(
@@ -57,7 +59,6 @@ def cached(
                 logger.exception("Unexpected error with %s", cache_instance)
 
             result = await func(*args, **kwargs)
-
             if result:
                 try:
                     await cache_instance.set(cache_key, result, ttl=ttl)
@@ -139,7 +140,7 @@ async def cache_owllook_so_novels_result(novels_name):
 
 @cached(ttl=10800, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
 async def cache_owllook_search_ranking():
-    motor_db = MotorBase().db
+    motor_db = motor_base.db
     keyword_cursor = motor_db.search_records.find(
         {'count': {'$gte': 50}},
         {'keyword': 1, '_id': 0}
@@ -214,7 +215,7 @@ async def get_the_latest_chapter(chapter_url):
                         ),
                     }
                     # 存储最新章节
-                    motor_db = MotorBase().db
+                    motor_db = motor_base.db
                     await motor_db.latest_chapter.update_one(
                         {"novels_name": novels_name, 'owllook_chapter_url': chapter_url},
                         {'$set': {'data': data, "finished_at": time_current}}, upsert=True)
@@ -223,7 +224,7 @@ async def get_the_latest_chapter(chapter_url):
 
 async def update_all_books():
     try:
-        motor_db = MotorBase().db
+        motor_db = motor_base.db
         # 获取所有书架链接游标
         books_url_cursor = motor_db.user_message.find({}, {'books_url.book_url': 1, '_id': 0})
         # 已更新url集合

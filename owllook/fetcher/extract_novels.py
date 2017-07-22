@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import re
 
-from urllib.parse import unquote, urljoin, urlparse
+from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
 from operator import itemgetter
 from collections import OrderedDict
-from pprint import pprint
 
 from owllook.config import LOGGER
 
@@ -60,7 +59,7 @@ def extract_pre_next_chapter(chapter_url, html):
                 # is_ok = is_chapter(text)
                 if is_next:
                     url = urljoin(chapter_url, link.get('href')) or ''
-                    next_chapter[text] = url
+                    next_chapter[text[:5]] = url
 
         # nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
         return next_chapter
