@@ -2,7 +2,7 @@
 
 ### 1.说明
 
-网络小说搜索引擎——owllook 网址：[https://www.owllook.net/](https://www.owllook.net/)
+网络小说搜索引擎——owllook 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
 
 > `owllook`是一个基于其他搜索引擎的垂直小说搜索引擎
 >
@@ -12,17 +12,17 @@
 
 #### 1.1.项目介绍
 
-`owllook`使用了mongodb储存了用户使用过程中的产生的基本信息，诸如注册信息、搜索小说信息、收藏小说数据等，对于某些必要的缓存，则利用redis进行缓存处理，如小说缓存、session缓存，注意，对于限制数据：都将在24小时删除。
+`owllook`使用了mongodb储存了用户使用过程中的产生的基本信息，诸如注册信息、搜索小说信息、收藏小说数据等，对于某些必要的缓存，则利用redis进行缓存处理，如小说缓存、session缓存，注意，对于限制数据：都将在24小时删除
 
-对于不同网站的小说，页面规则都不尽相同，我希望能够在代码解析后再统一展示出来，这样方便且美观，而不是仅仅跳转到对应网站就完事，清新简洁的阅读体验才是最重要的。
+对于不同网站的小说，页面规则都不尽相同，我希望能够在代码解析后再统一展示出来，这样方便且美观，而不是仅仅跳转到对应网站就完事，清新简洁的阅读体验才是最重要的
 
-目前采用的是直接在搜索引擎上进行结果检索，我尽量写少量的规则来完成解析，具体见[规则定义](https://github.com/howie6879/novels-search/blob/master/docs/%E8%A7%84%E5%88%99%E5%AE%9A%E4%B9%89.md)，遇到自己喜欢的小说网站，你也可以自己添加解析，`owllook`目前解析了超过**200+**网站，追更网站解析了**50+**。
+目前采用的是直接在搜索引擎上进行结果检索，我尽量写少量的规则来完成解析，具体见[规则定义](./docs/规则定义.md)，遇到自己喜欢的小说网站，你也可以自己添加解析，`owllook`目前解析了超过 **200+** 网站，追更网站解析了**50+**
 
 有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫模块来做这件事，见 **[talonspider](https://github.com/howie6879/talonspider)**
 
-BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计。
+BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计
 
-详细介绍[owllook -- 一个简洁的网络小说搜索引擎](http://www.jianshu.com/p/257345cd9009)
+若觉得还可以，就给个 **star** 吧，详细介绍 [owllook -- 一个简洁的网络小说搜索引擎](http://www.jianshu.com/p/257345cd9009)
 
 ```shell
 pip install -r requirements.txt
@@ -65,17 +65,17 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 
 目录解析页：
 
-![demo](./docs/chapter.png)
+![demo](./docs/imgs/chapter.png)
 
 
 
 阅读：
 
-![content](./docs/content.png)
+![content](./docs/imgs/content.png)
 
 书架：
 
-![books](./docs/the_latest_chapter.jpeg)
+![books](./docs/imgs/the_latest_chapter.jpeg)
 
 ### 3.License
 
