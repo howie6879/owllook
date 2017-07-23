@@ -14,13 +14,13 @@ admin_bp.static('/static', CONFIG.BASE_DIR + '/static/novels')
 
 @admin_bp.listener('before_server_start')
 def setup_db(admin_bp, loop):
-    global motor_db
-    motor_db = MotorBase().db
+    global motor_base
+    motor_base = MotorBase()
 
 
 @admin_bp.listener('after_server_stop')
 def close_connection(admin_bp, loop):
-    motor_db = None
+    motor_base = None
 
 
 # jinjia2 config
@@ -39,6 +39,7 @@ async def similar_user(request):
     user = request['session'].get('user', None)
     if user:
         try:
+            motor_db = motor_base.db
             similar_info = await motor_db.user_recommend.find_one({'user': user})
             if similar_info:
                 similar_user = similar_info['similar_user'][:20]
@@ -71,6 +72,7 @@ async def search_user(request):
     name = request.args.get('ss', None)
     if user and name:
         try:
+            motor_db = motor_base.db
             data = await motor_db.user_message.find_one({'user': name})
             books_url = data.get('books_url', None) if data else None
             if books_url:
@@ -119,6 +121,7 @@ async def bookmarks(request):
     user = request['session'].get('user', None)
     if user:
         try:
+            motor_db = motor_base.db
             data = await motor_db.user_message.find_one({'user': user})
             if data:
                 # 获取所有书签
@@ -158,6 +161,7 @@ async def books(request):
     user = request['session'].get('user', None)
     if user:
         try:
+            motor_db = motor_base.db
             data = await motor_db.user_message.find_one({'user': user})
             if data:
                 books_url = data.get('books_url', None)

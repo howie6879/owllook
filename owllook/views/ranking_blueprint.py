@@ -11,13 +11,13 @@ rank_bp.static('/static', CONFIG.BASE_DIR + '/static/rank')
 
 @rank_bp.listener('before_server_start')
 def setup_db(rank_bp, loop):
-    global motor_db
-    motor_db = MotorBase().db
+    global motor_base
+    motor_base = MotorBase()
 
 
 @rank_bp.listener('after_server_stop')
 def close_connection(rank_bp, loop):
-    motor_db = None
+    motor_base = None
 
 
 # jinjia2 config
@@ -28,6 +28,7 @@ env = Environment(
 
 @rank_bp.route("/")
 async def index(request):
+    motor_db = motor_base.db
     ranking_cursor = motor_db.novels_ranking.find({})
     async for document in ranking_cursor:
         LOGGER.info(document)

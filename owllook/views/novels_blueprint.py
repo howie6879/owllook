@@ -18,13 +18,13 @@ novels_bp.static('/static', CONFIG.BASE_DIR + '/static/novels')
 
 @novels_bp.listener('before_server_start')
 def setup_db(novels_bp, loop):
-    global motor_db
-    motor_db = MotorBase().db
+    global motor_base
+    motor_base = MotorBase()
 
 
 @novels_bp.listener('after_server_stop')
 def close_connection(novels_bp, loop):
-    motor_db = None
+    motor_base = None
 
 # jinjia2 config
 env = Environment(
@@ -51,6 +51,7 @@ async def index(request):
 async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', '').strip()
+    motor_db = motor_base.db
     if not name:
         return redirect('/')
     else:
@@ -195,6 +196,7 @@ async def owllook_content(request):
             # 破坏广告链接
             content = str(content).strip('[]Jjs,').replace('http', 'hs')
             if user:
+                motor_db = motor_base.db
                 bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
                 book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
                 bookmark = 1 if bookmark else 0
