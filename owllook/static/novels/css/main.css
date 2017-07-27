@@ -37,17 +37,24 @@ div.footer > .navbar {
 }
 
 .message > .right {
+    float: left;
     position: absolute;
     right: 5%;
 }
 
-.message > .right > span {
+.message > .left {
+    float: left;
+    position: absolute;
+    left: 2%;
+}
+
+.message > .right > span, .message > .left > span {
     text-align: center !important;
     line-height: 40px !important;
     height: 40px;
 }
 
-.right > span > a {
+.right > span > a, .message > .left > span > a {
     color: #666;
     margin-left: 25px;
 }
