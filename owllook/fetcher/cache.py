@@ -151,7 +151,7 @@ async def cache_owllook_search_ranking():
     return result
 
 
-async def get_the_latest_chapter(chapter_url, loop):
+async def get_the_latest_chapter(chapter_url, loop=None):
     try:
         with async_timeout.timeout(60):
             url = parse_qs(urlparse(chapter_url).query).get('url', '')
@@ -252,14 +252,14 @@ async def update_all_books(loop):
                             LOGGER.exception(e)
                         already_urls.add(chapter_url)
 
-                # 一组书架链接列表数据
-        #         book_urls += [book_url['book_url'] for book_url in books_url]
-        # url_tasks = [get_the_latest_chapter(each_url, loop) for each_url in set(book_urls)]
-        # tasks = [asyncio.ensure_future(i) for i in url_tasks]
-        # try:
-        #     await asyncio.gather(*tasks)
-        # except asyncio.TimeoutError as e:
-        #     pass
+                        # 一组书架链接列表数据
+                        #         book_urls += [book_url['book_url'] for book_url in books_url]
+                        # url_tasks = [get_the_latest_chapter(each_url, loop) for each_url in set(book_urls)]
+                        # tasks = [asyncio.ensure_future(i) for i in url_tasks]
+                        # try:
+                        #     await asyncio.gather(*tasks)
+                        # except asyncio.TimeoutError as e:
+                        #     pass
 
 
     except Exception as e:
