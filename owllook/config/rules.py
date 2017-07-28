@@ -180,7 +180,7 @@ RULES = {
     # 已解析
     'mianzhuan.wddsnxn.org': Rules('1', {'class': 'booklist'}, {'id': 'BookText'}),
     # 已解析
-    'www.a306.com': Rules('0', {'class': 'book_list'}, {'id': 'htmlContent'}),
+    'www.a306.com': Rules('http://www.a306.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.xs52.com': Rules('0', {'id': 'chapter_list'}, {'id': 'text_c'}),
     # 已解析

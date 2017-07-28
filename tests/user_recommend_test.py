@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import uvloop
 import asyncio
+import os
+
+os.environ['MODE'] = 'PRO'
 
 from pprint import pprint
 from copy import deepcopy
@@ -15,7 +18,7 @@ async def get_user_tag():
     result = {}
     async for document in user_tag_cursor:
         if document['data']['user_tag']:
-            result[document['user'].replace('.','&#183;')] = document['data']['user_tag']
+            result[document['user'].replace('.', '&#183;')] = document['data']['user_tag']
 
     for key, value in result.items():
         result_copy = deepcopy(result)

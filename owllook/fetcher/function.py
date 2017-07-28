@@ -2,6 +2,7 @@
 import async_timeout
 import random
 import os
+import aiohttp
 import arrow
 import requests
 import cchardet
@@ -60,7 +61,7 @@ async def target_fetch(client, url):
     :param url: targer url
     :return: text
     """
-    with async_timeout.timeout(20):
+    with async_timeout.timeout(30):
         try:
             headers = {'user-agent': get_random_user_agent()}
             async with client.get(url, headers=headers) as response:
@@ -69,7 +70,11 @@ async def target_fetch(client, url):
                 try:
                     text = await response.text()
                 except:
-                    text = await response.read()
+                    try:
+                        text = await response.read()
+                    except aiohttp.errors.ServerDisconnectedError as e:
+                        LOGGER.exception(e)
+                        text = None
                 return text
         except Exception as e:
             LOGGER.exception(e)

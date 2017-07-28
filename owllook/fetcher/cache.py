@@ -151,9 +151,9 @@ async def cache_owllook_search_ranking():
     return result
 
 
-async def get_the_latest_chapter(chapter_url):
+async def get_the_latest_chapter(chapter_url, loop):
     try:
-        with async_timeout.timeout(20):
+        with async_timeout.timeout(60):
             url = parse_qs(urlparse(chapter_url).query).get('url', '')
             novels_name = parse_qs(urlparse(chapter_url).query).get('novels_name', '')
             data = None
@@ -162,7 +162,7 @@ async def get_the_latest_chapter(chapter_url):
                 novels_name = novels_name[0]
                 netloc = urlparse(url).netloc
                 if netloc in LATEST_RULES.keys():
-                    async with aiohttp.ClientSession() as client:
+                    async with aiohttp.ClientSession(loop=loop) as client:
                         try:
                             html = await target_fetch(client=client, url=url)
                             if html is None:
@@ -231,31 +231,36 @@ async def get_the_latest_chapter(chapter_url):
         return None
 
 
-async def update_all_books():
+async def update_all_books(loop):
     try:
         motor_db = MotorBase().db
         # 获取所有书架链接游标
         books_url_cursor = motor_db.user_message.find({}, {'books_url.book_url': 1, '_id': 0})
         book_urls = []
         already_urls = set()
-        # url_tasks = [get_the_latest_chapter(each_url) for each_url in set(book_urls)]
-        # tasks = [asyncio.ensure_future(i) for i in url_tasks]
-        # return await asyncio.gather(*tasks)
         async for document in books_url_cursor:
             if document:
                 books_url = document['books_url']
 
-                # 一组书架链接列表数据
-                # book_urls += [book_url['book_url'] for book_url in books_url]
                 for book_url in books_url:
                     chapter_url = book_url['book_url']
                     if chapter_url not in already_urls:
                         try:
                             with async_timeout.timeout(20):
-                                await get_the_latest_chapter(chapter_url)
+                                await get_the_latest_chapter(chapter_url, loop)
                         except Exception as e:
                             LOGGER.exception(e)
                         already_urls.add(chapter_url)
+
+                # 一组书架链接列表数据
+        #         book_urls += [book_url['book_url'] for book_url in books_url]
+        # url_tasks = [get_the_latest_chapter(each_url, loop) for each_url in set(book_urls)]
+        # tasks = [asyncio.ensure_future(i) for i in url_tasks]
+        # try:
+        #     await asyncio.gather(*tasks)
+        # except asyncio.TimeoutError as e:
+        #     pass
+
 
     except Exception as e:
         LOGGER.exception(e)

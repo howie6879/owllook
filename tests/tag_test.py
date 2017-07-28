@@ -2,6 +2,9 @@
 import pymongo
 import uvloop
 import asyncio
+import os
+
+os.environ['MODE'] = 'PRO'
 
 from pprint import pprint
 from urllib.parse import parse_qs, urlparse
