@@ -2,7 +2,7 @@
 
 {% block header %}
 <title>{{ title }} - 最简洁清新的搜索阅读体验</title>
-<link rel="stylesheet" href="static/css/index.css">
+<link rel="stylesheet" href="static/novels/css/index.css">
 {% endblock %}
 
 {% block content %}
@@ -15,10 +15,11 @@
 <!--</p>-->
 <!--</div>-->
 <div class="header">
-    <a target="_blank" href="https://github.com/howie6879/owllook"><img style="position: absolute; top: 0; left: 0; border: 0;"
-                                          src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
-                                          alt="Fork me on GitHub"
-                                          data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+    <a target="_blank" href="https://github.com/howie6879/owllook"><img
+            style="position: absolute; top: 0; left: 0; border: 0;"
+            src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+            alt="Fork me on GitHub"
+            data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
     {% if is_login %}
     {% include "login.html" %}
     {% else %}
@@ -29,7 +30,7 @@
 </div>
 <div class="container">
     <div class="logo">
-        <img class="img-responsive center-block" src="static/img/logo_home.png" alt="owllook">
+        <img class="img-responsive center-block" src="static/novels/img/logo_home.png" alt="owllook">
     </div>
     <form action="/search" method="get" class="home_search center-block">
         <div class="search center-block">

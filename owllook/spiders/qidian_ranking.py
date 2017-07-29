@@ -2,7 +2,9 @@
 import time
 from talonspider import Spider, Item, TextField, AttrField
 from talonspider.utils import get_random_user_agent
+import os
 
+os.environ['MODE'] = 'PRO'
 from owllook.database.mongodb import MotorBase
 from owllook.utils.tools import async_callback
 
@@ -28,6 +30,22 @@ class QidianRankingSpider(Spider):
         "User-Agent": get_random_user_agent()
     }
     set_mul = True
+    qidian_type = {
+        '-1': '全部类别',
+        '21': '玄幻',
+        '1': '奇幻',
+        '2': '武侠',
+        '22': '仙侠',
+        '4': '都市',
+        '15': '职场',
+        '6': '军事',
+        '5': '历史',
+        '7': '游戏',
+        '8': '体育',
+        '9': '科幻',
+        '10': '灵异',
+        '12': '二次元',
+    }
 
     def parse(self, res):
         items_data = RankingItem.get_items(html=res.html)
@@ -52,6 +70,7 @@ class QidianRankingSpider(Spider):
             result.append(data)
         res_dic['data'] = result
         res_dic['target_url'] = res.url
+        res_dic['type'] = self.qidian_type.get(res.url.split('=')[-1])
         res_dic['spider'] = "qidian"
         async_callback(self.save, res_dic=res_dic)
 
@@ -65,6 +84,7 @@ class QidianRankingSpider(Spider):
                 {'$set': {
                     'data': res_dic['data'],
                     'spider': res_dic['spider'],
+                    'type': res_dic['type'],
                     'finished_at': time.strftime("%Y-%m-%d %X", time.localtime())
                 }},
                 upsert=True)

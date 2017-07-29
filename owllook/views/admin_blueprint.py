@@ -9,7 +9,7 @@ from owllook.fetcher.cache import get_the_latest_chapter
 from owllook.config import LOGGER, CONFIG
 
 admin_bp = Blueprint('admin_blueprint', url_prefix='admin')
-admin_bp.static('/static', CONFIG.BASE_DIR + '/static/novels')
+admin_bp.static('/static/novels', CONFIG.BASE_DIR + '/static/novels')
 
 
 @admin_bp.listener('before_server_start')

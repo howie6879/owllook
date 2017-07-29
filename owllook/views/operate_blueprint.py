@@ -13,7 +13,6 @@ from owllook.utils import get_real_answer
 from owllook.config import CONFIG, LOGGER
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
-operate_bp.static('/static', CONFIG.BASE_DIR + '/static/operate')
 
 
 @operate_bp.listener('before_server_start')
@@ -25,6 +24,7 @@ def setup_db(operate_bp, loop):
 @operate_bp.listener('after_server_stop')
 def close_connection(operate_bp, loop):
     motor_base = None
+
 
 # jinjia2 config
 env = Environment(

@@ -14,7 +14,7 @@ from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_no
 from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 
 novels_bp = Blueprint('novels_blueprint')
-novels_bp.static('/static', CONFIG.BASE_DIR + '/static/novels')
+novels_bp.static('/static/novels', CONFIG.BASE_DIR + '/static/novels')
 
 @novels_bp.listener('before_server_start')
 def setup_db(novels_bp, loop):

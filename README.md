@@ -24,6 +24,12 @@ BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想
 
 若觉得还可以，就给个 **star** 吧，详细介绍 [owllook -- 一个简洁的网络小说搜索引擎](http://www.jianshu.com/p/257345cd9009)
 
+**关于安装：**
+
+请先装好mongo以及redis，然后python环境请确认在python3.5+，不会安装mongo看[这里](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-centos-7)
+
+mongo以及redis装好后，进入项目目录，依照步骤执行：
+
 ```shell
 pip install -r requirements.txt
 # 运行：
@@ -41,7 +47,7 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - 缓存
 - 书架
 - 书签
-- 登录（暂时不开放注册，可与我申请体验）
+- 登录
 - 初步兼容手机（后续跟进）
 
 **TODO:**
@@ -52,10 +58,11 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - [x] 书友推荐（很基础的推荐）
 - [x] 目录获取
 - [x] 翻页
-- [ ] 推荐
 - [x] 搜索排行
-- [ ] 阅读书单
+- [ ] 部分页面重写
 - [ ] 排行榜
+- [ ] 阅读书单
+- [ ] 推荐
 
 **交流群：591460519，欢迎提issue**
 
@@ -73,9 +80,17 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 
 ![content](./docs/imgs/content.png)
 
+ -----------------------
+
+2017-07-29更新
+
 书架：
 
-![books](./docs/imgs/the_latest_chapter.jpeg)
+![books](./docs/imgs/book.png)
+
+相似书友：
+
+![books](./docs/imgs/similar.png)
 
 ### 3.License
 
@@ -102,6 +117,12 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - caddy：基于go的web服务器
 
   …...更多见requirements.txt，感谢开发者。
+
+**web框架：**
+
+[bootstrap](https://github.com/twbs/bootstrap)：Sleek, intuitive, and powerful front-end framework for faster and easier web development. 
+
+[mdui](https://github.com/zdhxiong/mdui )：MDUI 是一个基于 Material Design 的前端框架
 
 **感谢以下捐赠者 ^_^ :**
 - 12hStudy: 5 元
