@@ -12,3 +12,5 @@ __pycache__/
 build/
 dist/
 *.egg-info/
+mdui.css
+mdui.js
