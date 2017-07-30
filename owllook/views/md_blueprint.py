@@ -44,7 +44,22 @@ async def index(request):
         #     LOGGER.info(document)
         return template('index.html', title='owllook')
     else:
-        return text('请先登录!')
+        return text('请先登录! www.owllook.net')
+
+
+@md_bp.route("/setting")
+async def admin_setting(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            return template('admin_setting.html', title='{user}的设置 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
 
 
 @md_bp.route("/similar_user")
@@ -120,6 +135,21 @@ async def books(request):
                             is_login=1,
                             user=user,
                             is_bookmark=0)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+@md_bp.route("/book_list")
+async def book_list(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            return template('admin_book_list.html', title='{user}的书单 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user)
         except Exception as e:
             LOGGER.error(e)
             return redirect('/')
