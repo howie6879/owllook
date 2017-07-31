@@ -26,6 +26,10 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">favorite</i>
             <div class="mdui-list-item-content"><a href="/md/book_list">我的书单</a></div>
         </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">notifications</i>
+            <div class="mdui-list-item-content"><a href="/md/noti_book">新书提醒</a></div>
+        </li>
         <li class="mdui-subheader">设置</li>
         <li class="mdui-list-item mdui-ripple mdui-list-item-active">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
@@ -45,6 +49,62 @@
 {% include "toolbar.html" %}
 
 <div class="mdui-container-fluid">
+    <div class="mdui-panel mdui-panel-fluid" mdui-panel>
+        <div class="mdui-panel-item">
+            <div class="mdui-panel-item-header">
+                <div class="mdui-panel-item-title">用户名</div>
+                <div class="mdui-panel-item-summary mdui-text-color-black-text">{{user}}</div>
+                <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-panel-item-body">
+                <p class="mdui-text-color-black-icon">用户名无法更改</p>
+            </div>
+        </div>
+        <div class="mdui-panel-item">
+            <div class="mdui-panel-item-header">
+                <div class="mdui-panel-item-title">邮箱</div>
+                <div class="mdui-panel-item-summary mdui-text-color-black-text">{{email}}</div>
+                <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-panel-item-body">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+                    <label class="mdui-textfield-label">请输入新邮箱</label>
+                    <input class="mdui-textfield-input" type="email"/>
+                </div>
+                <div class="mdui-panel-item-actions">
+                    <button class="mdui-btn mdui-ripple">cancel</button>
+                    <button class="mdui-btn mdui-ripple">save</button>
+                </div>
+            </div>
+        </div>
+        <div class="mdui-panel-item">
+            <div class="mdui-panel-item-header">
+                <div class="mdui-panel-item-title">修改密码</div>
+                <div class="mdui-panel-item-summary mdui-text-color-black-text">*******</div>
+                <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-panel-item-body">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+                    <label class="mdui-textfield-label">请输入原密码</label>
+                    <input class="mdui-textfield-input" type="password"/>
+                    <label class="mdui-textfield-label">请输入新密码</label>
+                    <input class="mdui-textfield-input" type="password"/>
+                    <label class="mdui-textfield-label">请再次输入新密码</label>
+                    <input class="mdui-textfield-input" type="password"/>
+                </div>
+                <div class="mdui-panel-item-actions">
+                    <button class="mdui-btn mdui-ripple">cancel</button>
+                    <button class="mdui-btn mdui-ripple">save</button>
+                </div>
+            </div>
+        </div>
+        <div class="mdui-panel-item">
+            <div class="mdui-panel-item-header">
+                <div class="mdui-panel-item-title">注册时间</div>
+                <div class="mdui-panel-item-summary mdui-text-color-black-text">{{register_time}}</div>
+                <i class="mdui-icon material-icons">access_time</i></div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block script %}

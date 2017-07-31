@@ -47,53 +47,6 @@ async def index(request):
         return text('请先登录! www.owllook.net')
 
 
-@md_bp.route("/setting")
-async def admin_setting(request):
-    user = request['session'].get('user', None)
-    if user:
-        try:
-            return template('admin_setting.html', title='{user}的设置 - owllook'.format(user=user),
-                            is_login=1,
-                            user=user)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
-    else:
-        return redirect('/')
-
-
-@md_bp.route("/similar_user")
-async def similar_user(request):
-    user = request['session'].get('user', None)
-    if user:
-        try:
-            motor_db = motor_base.db
-            similar_info = await motor_db.user_recommend.find_one({'user': user})
-            if similar_info:
-                similar_user = similar_info['similar_user'][:20]
-                user_tag = similar_info['user_tag']
-                updated_at = similar_info['updated_at']
-                return template('similar_user.html',
-                                title='与' + user + '相似的书友',
-                                is_login=1,
-                                is_similar=1,
-                                user=user,
-                                similar_user=similar_user,
-                                user_tag=user_tag,
-                                updated_at=updated_at)
-            else:
-                return template('similar_user.html',
-                                title='与' + user + '相似的书友',
-                                is_login=1,
-                                is_similar=0,
-                                user=user)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
-    else:
-        return redirect('/')
-
-
 @md_bp.route("/books")
 async def books(request):
     user = request['session'].get('user', None)
@@ -142,14 +95,31 @@ async def books(request):
         return redirect('/')
 
 
-@md_bp.route("/book_list")
-async def book_list(request):
+@md_bp.route("/similar_user")
+async def similar_user(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            return template('admin_book_list.html', title='{user}的书单 - owllook'.format(user=user),
-                            is_login=1,
-                            user=user)
+            motor_db = motor_base.db
+            similar_info = await motor_db.user_recommend.find_one({'user': user})
+            if similar_info:
+                similar_user = similar_info['similar_user'][:20]
+                user_tag = similar_info['user_tag']
+                updated_at = similar_info['updated_at']
+                return template('similar_user.html',
+                                title='与' + user + '相似的书友',
+                                is_login=1,
+                                is_similar=1,
+                                user=user,
+                                similar_user=similar_user,
+                                user_tag=user_tag,
+                                updated_at=updated_at)
+            else:
+                return template('similar_user.html',
+                                title='与' + user + '相似的书友',
+                                is_login=1,
+                                is_similar=0,
+                                user=user)
         except Exception as e:
             LOGGER.error(e)
             return redirect('/')
@@ -190,6 +160,58 @@ async def bookmarks(request):
                             is_login=1,
                             user=user,
                             is_bookmark=0)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+@md_bp.route("/book_list")
+async def book_list(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            return template('admin_book_list.html', title='{user}的书单 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+@md_bp.route("/noti_book")
+async def noti_book(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            return template('noti_book.html', title='新书提醒 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+@md_bp.route("/setting")
+async def admin_setting(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            motor_db = motor_base.db
+            data = await motor_db.user.find_one({'user': user})
+            if data:
+                return template('admin_setting.html', title='{user}的设置 - owllook'.format(user=user),
+                                is_login=1,
+                                user=user,
+                                register_time=data['register_time'],
+                                email=data['email'])
+            else:
+                return text('未知错误')
         except Exception as e:
             LOGGER.error(e)
             return redirect('/')

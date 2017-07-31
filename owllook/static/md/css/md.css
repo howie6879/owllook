@@ -6,3 +6,13 @@ table a {
     color: #337ab7 !important;
     text-decoration: none !important;
 }
+
+table a:hover {
+    color: black !important;
+}
+
+.mdui-panel-fluid {
+    margin-top: 2%;
+    width: 80%;
+    margin-left: 10%
+}
