@@ -16,3 +16,15 @@ table a:hover {
     width: 80%;
     margin-left: 10%
 }
+
+.email-error, .pass-error {
+    height: 12px;
+    margin-top: 8px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 12px;
+    color: #f44336;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    visibility: hidden;
+}

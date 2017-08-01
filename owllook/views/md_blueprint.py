@@ -209,7 +209,7 @@ async def admin_setting(request):
                                 is_login=1,
                                 user=user,
                                 register_time=data['register_time'],
-                                email=data['email'])
+                                email=data.get('email', '请尽快绑定邮箱'))
             else:
                 return text('未知错误')
         except Exception as e:

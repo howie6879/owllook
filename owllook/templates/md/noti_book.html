@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="/md/static/md/css/md.css">
+{% endblock %}
+
+{% block content %}
+<body class="mdui-appbar-with-toolbar">
+
+<div class="mdui-drawer mdui-drawer-close" id="drawer">
+    <ul class="mdui-list">
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">library_books</i>
+            <div class="mdui-list-item-content"><a href="/md/books">我的书架</a></div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">directions_run</i>
+            <div class="mdui-list-item-content"><a href="/md/similar_user">书友推荐</a></div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+            <div class="mdui-list-item-content"><a href="/md/bookmarks">我的书签</a></div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">favorite</i>
+            <div class="mdui-list-item-content"><a href="/md/book_list">我的书单</a></div>
+        </li>
+        <li class="mdui-list-item mdui-ripple mdui-list-item-active">
+            <i class="mdui-list-item-icon mdui-icon material-icons">notifications</i>
+            <div class="mdui-list-item-content"><a href="/md/noti_book">新书提醒</a></div>
+        </li>
+        <li class="mdui-subheader">设置</li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
+            <div class="mdui-list-item-content"><a href="/md/setting">个人设置</a></div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">security</i>
+            <div class="mdui-list-item-content">修改密码</div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
+            <div class="mdui-list-item-content">我要反馈</div>
+        </li>
+    </ul>
+</div>
+
+{% include "toolbar.html" %}
+
+<div class="mdui-container-fluid">
+    <div class="mdui-typo ">
+        <center>该功能正在开发中，敬请期待，若有建议请及时反馈</center>
+        <center><a target="_blank"
+                   href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a>
+        </center>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="/md/static/md/js/index.js"></script>
+{% endblock %}
