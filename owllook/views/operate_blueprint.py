@@ -142,7 +142,7 @@ async def owllook_logout(request):
 @operate_bp.route("/add_bookmark", methods=['POST'])
 async def owllook_add_bookmark(request):
     """
-
+    添加书签
     :param request:
     :return:
         :   -1  用户session失效  需要重新登录
@@ -175,7 +175,7 @@ async def owllook_add_bookmark(request):
 @operate_bp.route("/delete_bookmark", methods=['POST'])
 async def owllook_delete_bookmark(request):
     """
-
+    删除书签
     :param request:
     :return:
         :   -1  用户session失效  需要重新登录
@@ -203,7 +203,7 @@ async def owllook_delete_bookmark(request):
 @operate_bp.route("/add_book", methods=['POST'])
 async def owllook_add_book(request):
     """
-
+    添加书架
     :param request:
     :return:
         :   -1  用户session失效  需要重新登录
@@ -240,7 +240,7 @@ async def owllook_add_book(request):
 @operate_bp.route("/delete_book", methods=['POST'])
 async def owllook_delete_book(request):
     """
-
+    删除书架
     :param request:
     :return:
         :   -1  用户session失效  需要重新登录
@@ -263,6 +263,71 @@ async def owllook_delete_book(request):
                                                    {'$pull': {'books_url': {"book_url": unquote(book_url)}}})
             LOGGER.info('删除书架成功')
             return json({'status': 1})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
+    else:
+        return json({'status': -1})
+
+
+@operate_bp.route("/change_email", methods=['POST'])
+async def change_email(request):
+    """
+    修改用户邮箱
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   0   修改邮箱失败
+        :   1   添加邮箱成功
+    """
+    user = request['session'].get('user', None)
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    if user:
+        try:
+            email = data.get('email', None)[0]
+            motor_db = motor_base.db
+            await motor_db.user.update_one({'user': user},
+                                           {'$set': {'email': email}})
+            LOGGER.info('修改邮箱成功')
+            return json({'status': 1})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
+    else:
+        return json({'status': -1})
+
+
+@operate_bp.route("/change_pass", methods=['POST'])
+async def change_pass(request):
+    """
+    修改用户密码
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   0   修改密码失败
+        :   1   添加密码成功
+        :   -2  原始密码错误
+    """
+    user = request['session'].get('user', None)
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    if user:
+        try:
+            new_pass = data.get('new_pass', None)[0]
+            old_pass = data.get('old_pass', None)[0]
+            motor_db = motor_base.db
+            user_data = await motor_db.user.find_one({'user': user})
+            if user_data:
+                pass_first = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + old_pass).encode("utf-8")).hexdigest()
+                pass_second = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + new_pass).encode("utf-8")).hexdigest()
+                new_password = hashlib.md5(pass_second.encode("utf-8")).hexdigest()
+                password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
+                if password == user_data.get('password'):
+                    await motor_db.user.update_one({'user': user},
+                                                   {'$set': {'password': new_password}})
+                    LOGGER.info('修改密码成功')
+                    return json({'status': 1})
+                else:
+                    return json({'status': -2})
         except Exception as e:
             LOGGER.exception(e)
             return json({'status': 0})
