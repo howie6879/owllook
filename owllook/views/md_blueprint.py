@@ -42,9 +42,9 @@ async def index(request):
         # ranking_cursor = motor_db.novels_ranking.find({})
         # async for document in ranking_cursor:
         #     LOGGER.info(document)
-        return template('index.html', title='owllook')
+        return template('index.html', title='owllook', is_login=1, user=user)
     else:
-        return text('请先登录! www.owllook.net')
+        return template('index.html', title='owllook', is_login=0)
 
 
 @md_bp.route("/books")

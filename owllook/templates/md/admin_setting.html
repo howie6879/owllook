@@ -9,6 +9,7 @@
 <body class="mdui-appbar-with-toolbar">
 
 <div class="mdui-drawer mdui-drawer-close" id="drawer">
+    {% include "user_status.html" %}
     <ul class="mdui-list">
         <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">library_books</i>
@@ -36,8 +37,8 @@
             <div class="mdui-list-item-content"><a href="/md/setting">个人设置</a></div>
         </li>
         <!--<li class="mdui-list-item mdui-ripple">-->
-            <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
-            <!--<div class="mdui-list-item-content">修改密码</div>-->
+        <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
+        <!--<div class="mdui-list-item-content">修改密码</div>-->
         <!--</li>-->
         <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
@@ -53,7 +54,7 @@
         <div class="mdui-panel-item">
             <div class="mdui-panel-item-header">
                 <div class="mdui-panel-item-title">用户名</div>
-                <div class="mdui-panel-item-summary mdui-text-color-black-text">{{user}}</div>
+                <div class="mdui-panel-item-summary">{{user}}</div>
                 <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-panel-item-body">
@@ -63,7 +64,7 @@
         <div class="mdui-panel-item" id="item-email">
             <div class="mdui-panel-item-header">
                 <div class="mdui-panel-item-title">邮箱</div>
-                <div class="mdui-panel-item-summary mdui-text-color-black-text">{{email}}</div>
+                <div id="owl-email" class="mdui-panel-item-summary">{{email}}</div>
                 <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-panel-item-body">
@@ -81,7 +82,7 @@
         <div class="mdui-panel-item" id="item-pass">
             <div class="mdui-panel-item-header">
                 <div class="mdui-panel-item-title">修改密码</div>
-                <div class="mdui-panel-item-summary mdui-text-color-black-text">*******</div>
+                <div class="mdui-panel-item-summary">*******</div>
                 <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-panel-item-body">
@@ -104,7 +105,7 @@
         <div class="mdui-panel-item">
             <div class="mdui-panel-item-header">
                 <div class="mdui-panel-item-title">注册时间</div>
-                <div class="mdui-panel-item-summary mdui-text-color-black-text">{{register_time}}</div>
+                <div class="mdui-panel-item-summary">{{register_time}}</div>
                 <i class="mdui-icon material-icons">access_time</i></div>
         </div>
     </div>

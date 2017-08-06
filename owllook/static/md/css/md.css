@@ -28,3 +28,9 @@ table a:hover {
     white-space: nowrap;
     visibility: hidden;
 }
+
+.owl-ranking {
+    max-width: 400px;
+    height: 500px;
+    margin: 5px;
+}

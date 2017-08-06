@@ -9,6 +9,7 @@
 <body class="mdui-appbar-with-toolbar">
 
 <div class="mdui-drawer mdui-drawer-close" id="drawer">
+    {% include "user_status.html" %}
     <ul class="mdui-list">
         <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">library_books</i>
@@ -36,8 +37,8 @@
             <div class="mdui-list-item-content"><a href="/md/setting">个人设置</a></div>
         </li>
         <!--<li class="mdui-list-item mdui-ripple">-->
-            <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
-            <!--<div class="mdui-list-item-content">修改密码</div>-->
+        <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
+        <!--<div class="mdui-list-item-content">修改密码</div>-->
         <!--</li>-->
         <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
@@ -48,12 +49,45 @@
 
 {% include "toolbar.html" %}
 
-<div class="mdui-container-fluid">
-    <div class="mdui-typo ">
-        <center><h1>持续开发中，敬请期待，若有建议请及时反馈</h1></center>
-        <center><h2><a target="_blank"
-                       href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a></h2>
-        </center>
+<div class="mdui-container">
+    <!--<div class="mdui-typo ">-->
+    <!--<center><h1>持续开发中，敬请期待，若有建议请及时反馈</h1></center>-->
+    <!--<center><h2><a target="_blank"-->
+    <!--href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a></h2>-->
+    <!--</center>-->
+
+    <!--</div>-->
+    <div class="mdui-row">
+        <div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">
+            <div class="owl-ranking owl-search-ranking mdui-shadow-1">
+
+            </div>
+        </div>
+        <div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">
+            <div class="owl-ranking mdui-shadow-1">
+
+            </div>
+        </div>
+        <div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">
+            <div class="owl-ranking mdui-shadow-1">
+
+            </div>
+        </div>
+        <div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">
+            <div class="owl-ranking mdui-shadow-1">
+
+            </div>
+        </div>
+        <div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">
+            <div class="owl-ranking mdui-shadow-1">
+
+            </div>
+        </div>
+        <div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">
+            <div class="owl-ranking mdui-shadow-1">
+
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

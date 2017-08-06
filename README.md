@@ -59,7 +59,7 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - [x] 目录获取
 - [x] 翻页
 - [x] 搜索排行
-- [ ] 部分页面重写
+- [ ] 部分页面重写（进行中）
 - [ ] 排行榜
 - [ ] 阅读书单
 - [ ] 推荐
@@ -70,6 +70,14 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 
 下面是一些截图展示，具体效果图请看[这里](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)：
 
+ -----------------------
+
+2017-07-29更新
+
+书架：
+
+![books](./docs/imgs/book.jpeg)
+
 目录解析页：
 
 ![demo](./docs/imgs/chapter.png)
@@ -79,18 +87,6 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 阅读：
 
 ![content](./docs/imgs/content.png)
-
- -----------------------
-
-2017-07-29更新
-
-书架：
-
-![books](./docs/imgs/book.png)
-
-相似书友：
-
-![books](./docs/imgs/similar.png)
 
 ### 3.License
 

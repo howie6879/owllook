@@ -38,8 +38,11 @@ $("#passSubmitBtn").click(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.status == 1) {
-                    alert("密码修改成功");
-                    location.reload();
+                    mdui.snackbar({
+                        message: '密码修改成功',
+                        timeout: 3000
+                    });
+                    inst_panel.close('#item-pass');
                 }
                 if (data.status == -2) {
                     $(".pass-error").text("原始密码错误");
@@ -69,7 +72,13 @@ $("#emailSubmitBtn").click(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.status == 1) {
-                    location.reload();
+                    inst_panel.close('#item-email');
+                    mdui.snackbar({
+                        message: '邮箱修改成功',
+                        timeout: 3000
+                    });
+                    $("#owl-email").html(email);
+                    //location.reload();
                 }
                 if (data.status == -1) {
                     alert('您还没有登录');
