@@ -146,13 +146,15 @@ LATEST_RULES = {
 
 RULES = {
     # demo  'name': Rules('content_url', {chapter_selector}, {content_selector})
-    # content_url=1表示章节链接使用本身自带的链接，不用拼接
-    # content_url=0表示章节网页需要当前页面url拼接
+    # content_url=1 表示章节链接使用本身自带的链接，不用拼接
+    # content_url=0 表示章节网页需要当前页面url拼接
     # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'},{}),
     # 'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'book.sfacg.com': Rules('http://book.sfacg.com/', {'class': 'story-catalog'}, {'tag': 'p'}),
     # 已解析
     'www.7kshu.com': Rules('0', {'id': 'chapterlist'}, {'id': 'content'}),
     # 已解析
