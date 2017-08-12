@@ -187,9 +187,22 @@ async def noti_book(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            return template('noti_book.html', title='新书提醒 - owllook'.format(user=user),
-                            is_login=1,
-                            user=user)
+            motor_db = motor_base.db
+            is_author = 0
+            data = await motor_db.user_message.find_one({'user': user}, {'author_latest': 1, '_id': 0})
+            if data:
+                is_author = 1
+                author_list = data.get('author_latest', {})
+                return template('noti_book.html', title='新书提醒 - owllook'.format(user=user),
+                                is_login=1,
+                                is_author=is_author,
+                                author_list=author_list,
+                                user=user)
+            else:
+                return template('noti_book.html', title='新书提醒 - owllook'.format(user=user),
+                                is_login=1,
+                                is_author=is_author,
+                                user=user)
         except Exception as e:
             LOGGER.error(e)
             return redirect('/')

@@ -129,5 +129,6 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 - shine：50元
 - 江黑龙：10元
 - Future：100元
+- Mongol Hun ：20元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />

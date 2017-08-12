@@ -7,6 +7,11 @@ from urllib.parse import parse_qs, unquote
 from sanic import Blueprint
 from sanic.response import html, json
 
+try:
+    from ujson import dumps as json_dumps
+except:
+    from json import dumps as json_dumps
+
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.function import get_time
 from owllook.utils import get_real_answer
@@ -151,9 +156,9 @@ async def owllook_add_bookmark(request):
     """
     user = request['session'].get('user', None)
     data = parse_qs(str(request.body, encoding='utf-8'))
-    bookmarkurl = data.get('bookmarkurl', '')
-    if user and bookmarkurl:
-        url = unquote(bookmarkurl[0])
+    bookmark_url = data.get('bookmark_url', '')
+    if user and bookmark_url:
+        url = unquote(bookmark_url[0])
         time = get_time()
         try:
             motor_db = motor_base.db
@@ -328,6 +333,54 @@ async def change_pass(request):
                     return json({'status': 1})
                 else:
                     return json({'status': -2})
+        except Exception as e:
+            LOGGER.exception(e)
+            return json({'status': 0})
+    else:
+        return json({'status': -1})
+
+
+@operate_bp.route("/author_notification", methods=['POST'])
+async def author_notification(request):
+    """
+    作者新书通知
+    :param request:
+    :return:
+        :   -1  用户session失效  需要重新登录
+        :   2   无该作者信息
+        :   3   作者已经添加
+        :   0   操作失败
+        :   1   操作成功
+    """
+    user = request['session'].get('user', None)
+    data = parse_qs(str(request.body, encoding='utf-8'))
+    if user:
+        try:
+            author_name = data.get('author_name', None)[0]
+            motor_db = motor_base.db
+            data = await motor_db.all_books.find_one({'author': author_name})
+            # data = []
+            # author_cursor = motor_db.all_books.find({'author': author_name}, {'name': 1, 'url': 1, '_id': 0})
+            # async for document in author_cursor:
+            #     data.append(document)
+            if data:
+                time = get_time()
+                res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
+                                                             upsert=True)
+                is_exist = await motor_db.user_message.find_one({'author_latest.author_name': author_name})
+                if is_exist:
+                    return json({'status': 3})
+                if res:
+                    await motor_db.user_message.update_one(
+                        {'user': user, 'author_latest.author_name': {'$ne': author_name}},
+                        {'$push': {
+                            'author_latest': {'author_name': author_name, 'add_time': time}}})
+                    LOGGER.info('作者添加成功')
+                    return json({'status': 1})
+                else:
+                    return json({'status': 2})
+            else:
+                return json({'status': 2})
         except Exception as e:
             LOGGER.exception(e)
             return json({'status': 0})

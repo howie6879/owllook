@@ -68,7 +68,7 @@ $(document).ready(function () {
         bookmarkurl = window.location.pathname + window.location.search;
         if ($(this).hasClass('bookMark')) {
             // add bookmark
-            var add_bm_pd = {'bookmarkurl': bookmarkurl};
+            var add_bm_pd = {'bookmark_url': bookmarkurl};
             $.ajax({
                 type: "post",
                 contentType: "application/json",

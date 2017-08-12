@@ -7,7 +7,7 @@ from owllook.config import CONFIG
 def authenticator(key):
     """
     
-    :param keys: 验证方式 Owllook-Api-Key : Maginc Key,  Authorization : Token
+    :param keys: 验证方式 Owllook-Api-Key : Magic Key,  Authorization : Token
     :return: 返回值
     """
 

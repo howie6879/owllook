@@ -34,3 +34,8 @@ table a:hover {
     height: 500px;
     margin: 5px;
 }
+
+.author-name-tag{
+    margin-left: 10%;
+    margin-top: 10px;
+}

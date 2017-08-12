@@ -37,8 +37,8 @@
             <div class="mdui-list-item-content"><a href="/md/setting">个人设置</a></div>
         </li>
         <!--<li class="mdui-list-item mdui-ripple">-->
-            <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
-            <!--<div class="mdui-list-item-content">修改密码</div>-->
+        <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
+        <!--<div class="mdui-list-item-content">修改密码</div>-->
         <!--</li>-->
         <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
@@ -50,14 +50,37 @@
 {% include "toolbar.html" %}
 
 <div class="mdui-container-fluid">
-    <div class="mdui-typo ">
-        <center>该功能正在开发中，敬请期待，若有建议请及时反馈</center>
-        <center><a target="_blank"
-                   href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a>
-        </center>
+    <div class="mdui-textfield" style="width: 80%;margin-left: 10%;">
+        <input name="author_name" class="mdui-textfield-input mdui-float-left" style="max-width: 70%" type="text"
+               placeholder="作者名"/>
+        <button id="authorBtn" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-float-right"
+                style="min-width: 65px !important;">添加
+        </button>
     </div>
+    <div class="mdui-divider"></div>
+    {% if is_login %}
+    <div class="author-name-tag">
+        {%for item in author_list%}
+        <div class="mdui-chip">
+            <span class="mdui-chip-icon mdui-color-blue"><i class="mdui-icon material-icons">face</i></span>
+            <span class="mdui-chip-title">{{item.author_name}}</span>
+            <span class="mdui-chip-delete"><i class="mdui-icon material-icons">cancel</i></span>
+        </div>
+        {%endfor%}
+    </div>
+
+    {% else %}
+    <div class="author-name-tag">
+        <div class="mdui-chip">
+            <span class="mdui-chip-icon mdui-color-blue"><i class="mdui-icon material-icons">face</i></span>
+            <span class="mdui-chip-title">输入作者名</span>
+            <span class="mdui-chip-delete"><i class="mdui-icon material-icons">cancel</i></span>
+        </div>
+    </div>
+    {% endif %}
+
 </div>
 {% endblock %}
 {% block script %}
-<script src="/md/static/md/js/index.js"></script>
+<script src="/md/static/md/js/noti.js"></script>
 {% endblock %}
