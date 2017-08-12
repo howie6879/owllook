@@ -22,9 +22,10 @@ $("#authorBtn").click(function () {
                 if (data.status == 1) {
                     mdui.snackbar({
                         message: '添加作者成功',
-                        timeout: 1000
+                        onClose: function () {
+                            location.reload();
+                        }
                     });
-                    location.reload();
                 }
                 if (data.status == -1) {
                     alert('您还没有登录');

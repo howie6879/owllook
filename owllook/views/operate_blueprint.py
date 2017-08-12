@@ -358,16 +358,17 @@ async def author_notification(request):
         try:
             author_name = data.get('author_name', None)[0]
             motor_db = motor_base.db
-            data = await motor_db.all_books.find_one({'author': author_name})
-            # data = []
-            # author_cursor = motor_db.all_books.find({'author': author_name}, {'name': 1, 'url': 1, '_id': 0})
-            # async for document in author_cursor:
-            #     data.append(document)
+            # data = await motor_db.all_books.find_one({'author': author_name})
+            data = []
+            author_cursor = motor_db.all_books.find({'author': author_name}, {'name': 1, 'url': 1, '_id': 0})
+            async for document in author_cursor:
+                data.append(document)
             if data:
                 time = get_time()
                 res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
                                                              upsert=True)
-                is_exist = await motor_db.user_message.find_one({'author_latest.author_name': author_name})
+                is_exist = await motor_db.user_message.find_one(
+                    {'user': user, 'author_latest.author_name': author_name})
                 if is_exist:
                     return json({'status': 3})
                 if res:
@@ -375,6 +376,14 @@ async def author_notification(request):
                         {'user': user, 'author_latest.author_name': {'$ne': author_name}},
                         {'$push': {
                             'author_latest': {'author_name': author_name, 'add_time': time}}})
+                    is_author_exist = await motor_db.author_message.find_one({'name': author_name})
+                    if not is_author_exist:
+                        author_data = {
+                            "author_name": author_name,
+                            "nums": len(data),
+                            "updated_time": get_time(),
+                        }
+                        await motor_db.author_message.save(author_data)
                     LOGGER.info('作者添加成功')
                     return json({'status': 1})
                 else:

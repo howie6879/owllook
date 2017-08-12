@@ -58,7 +58,7 @@
         </button>
     </div>
     <div class="mdui-divider"></div>
-    {% if is_login %}
+    {% if is_author %}
     <div class="author-name-tag">
         {%for item in author_list%}
         <div class="mdui-chip">
@@ -73,8 +73,7 @@
     <div class="author-name-tag">
         <div class="mdui-chip">
             <span class="mdui-chip-icon mdui-color-blue"><i class="mdui-icon material-icons">face</i></span>
-            <span class="mdui-chip-title">输入作者名</span>
-            <span class="mdui-chip-delete"><i class="mdui-icon material-icons">cancel</i></span>
+            <span class="mdui-chip-title">输入作者名, 追踪新书动态</span>
         </div>
     </div>
     {% endif %}
