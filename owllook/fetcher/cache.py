@@ -144,11 +144,13 @@ async def cache_owllook_search_ranking():
     motor_db = MotorBase().db
     keyword_cursor = motor_db.search_records.find(
         {'count': {'$gte': 50}},
-        {'keyword': 1, '_id': 0}
+        {'keyword': 1, 'count': 1, '_id': 0}
     ).sort('count', -1).limit(25)
     result = []
+    index = 1
     async for document in keyword_cursor:
-        result.append(document['keyword'])
+        result.append({'keyword': document['keyword'], 'count': document['count'], 'index': index})
+        index += 1
     return result
 
 

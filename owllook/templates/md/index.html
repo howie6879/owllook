@@ -50,44 +50,79 @@
 {% include "toolbar.html" %}
 
 <div class="mdui-container">
-    <div class="mdui-typo ">
-        <center><h1>持续开发中，敬请期待，若有建议请及时反馈</h1></center>
-        <center><h2><a target="_blank"
-                       href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a></h2>
-        </center>
-
+    <div class="mdui-typo" style="margin-top: 3%">
+        <div class="mdui-chip">
+            <span class="mdui-chip-title mdui-text-color-red-accent">owllook</span>
+        </div>
+        <div class="mdui-chip">
+            <span class="mdui-chip-title">起点小说榜单</span>
+        </div>
     </div>
+    <div class="mdui-divider" style="margin-top: 1%;"></div>
+    <div class="mdui-typo" style="margin-top: 1%">
+        <div class="mdui-chip">
+            <span class="mdui-chip-title mdui-text-color-red">搜索排行</span>
+        </div>
+    </div>
+    <div class="mdui-divider" style="margin-top: 1%; margin-bottom: 2%"></div>
+    <div class="mdui-table-fluid">
+        <table class="mdui-table" style="margin-bottom: 50px;">
+            <thead>
+            <tr align="center">
+                <th>#</th>
+                <th>小说名</th>
+                <th>搜索次数</th>
+            </tr>
+            </thead>
+            <tbody>
+            {%for each_ranking in search_ranking%}
+            <tr>
+                <td>{{each_ranking.index}}</td>
+                <td><a href="/search?wd={{each_ranking.keyword}}" target="_blank">{{each_ranking.keyword}}</a></td>
+                <td>{{each_ranking.count}}</td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <!--<div class="mdui-typo ">-->
+    <!--<center><h1>持续开发中，敬请期待，若有建议请及时反馈</h1></center>-->
+    <!--<center><h2><a target="_blank"-->
+    <!--href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a></h2>-->
+    <!--</center>-->
+
+    <!--</div>-->
     <!--<div class="mdui-row">-->
-        <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-            <!--<div class="owl-ranking owl-search-ranking mdui-shadow-1">-->
+    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
+    <!--<div class="owl-ranking owl-search-ranking mdui-shadow-1">-->
 
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-            <!--<div class="owl-ranking mdui-shadow-1">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
+    <!--<div class="owl-ranking mdui-shadow-1">-->
 
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-            <!--<div class="owl-ranking mdui-shadow-1">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
+    <!--<div class="owl-ranking mdui-shadow-1">-->
 
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-            <!--<div class="owl-ranking mdui-shadow-1">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
+    <!--<div class="owl-ranking mdui-shadow-1">-->
 
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-            <!--<div class="owl-ranking mdui-shadow-1">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
+    <!--<div class="owl-ranking mdui-shadow-1">-->
 
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-            <!--<div class="owl-ranking mdui-shadow-1">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
+    <!--<div class="owl-ranking mdui-shadow-1">-->
 
-            <!--</div>-->
-        <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
 </div>
 {% endblock %}

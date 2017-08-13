@@ -5,7 +5,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse, parse_qs
 
 from owllook.database.mongodb import MotorBase
-from owllook.fetcher.cache import get_the_latest_chapter
+from owllook.fetcher.cache import get_the_latest_chapter, cache_owllook_search_ranking
 from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 
 md_bp = Blueprint('rank_blueprint', url_prefix='md')
@@ -37,14 +37,15 @@ def template(tpl, **kwargs):
 @md_bp.route("/")
 async def index(request):
     user = request['session'].get('user', None)
+    search_ranking = await cache_owllook_search_ranking()
     if user:
         # motor_db = motor_base.db
         # ranking_cursor = motor_db.novels_ranking.find({})
         # async for document in ranking_cursor:
         #     LOGGER.info(document)
-        return template('index.html', title='owllook', is_login=1, user=user)
+        return template('index.html', title='owllook', is_login=1, user=user, search_ranking=search_ranking)
     else:
-        return template('index.html', title='owllook', is_login=0)
+        return template('index.html', title='owllook', is_login=0, search_ranking=search_ranking)
 
 
 @md_bp.route("/books")
