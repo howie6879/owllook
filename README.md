@@ -39,6 +39,8 @@ python server.py
 gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server:app
 
 # 方案二
+docker build -t owllook:0.1 .
+# 在dev_owllook.env里面填上数据库配置 数据库ip需要注意 不得填localhost
 docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 ```
 
