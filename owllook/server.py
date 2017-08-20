@@ -35,9 +35,9 @@ def init_cache(app, loop):
     aiocache.settings.set_defaults(
         class_="aiocache.RedisCache",
         endpoint=REDIS_DICT.get('REDIS_ENDPOINT', 'localhost'),
-        port=REDIS_DICT.get('REDIS_PORT', '6379'),
+        port=REDIS_DICT.get('REDIS_PORT', 6379),
         db=REDIS_DICT.get('CACHE_DB', 0),
-        password=REDIS_DICT.get('PASSWORD', None),
+        password=REDIS_DICT.get('REDIS_PASSWORD', None),
         loop=loop,
     )
     LOGGER.info("Starting redis pool")

@@ -16,8 +16,8 @@ class RedisSession:
         if not self._pool:
             REDIS_DICT = CONFIG.REDIS_DICT
             self._pool = await asyncio_redis.Pool.create(
-                host=REDIS_DICT.get('REDIS_ENDPOINT', None), port=REDIS_DICT.get('REDIS_PORT', None),
-                poolsize=REDIS_DICT.get('POOLSIZE', None), password=REDIS_DICT.get('PASSWORD', None),
+                host=str(REDIS_DICT.get('REDIS_ENDPOINT', "localhost")), port=int(REDIS_DICT.get('REDIS_PORT', 6379)),
+                poolsize=int(REDIS_DICT.get('POOLSIZE', 10)), password=REDIS_DICT.get('REDIS_PASSWORD', None),
                 db=REDIS_DICT.get('SESSION_DB', None)
             )
 

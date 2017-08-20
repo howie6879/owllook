@@ -14,10 +14,10 @@ class MotorBase:
         # motor
         self.motor_uri = 'mongodb://{account}{host}:{port}/{database}'.format(
             account='{username}:{password}@'.format(
-                username=self.MONGODB['USERNAME'],
-                password=self.MONGODB['PASSWORD']) if self.MONGODB['USERNAME'] else '',
-            host=self.MONGODB['HOST'] if self.MONGODB['HOST'] else 'localhost',
-            port=self.MONGODB['PORT'] if self.MONGODB['PORT'] else 27017,
+                username=self.MONGODB['MONGO_USERNAME'],
+                password=self.MONGODB['MONGO_PASSWORD']) if self.MONGODB['MONGO_USERNAME'] else '',
+            host=self.MONGODB['MONGO_HOST'] if self.MONGODB['MONGO_HOST'] else 'localhost',
+            port=self.MONGODB['MONGO_PORT'] if self.MONGODB['MONGO_PORT'] else 27017,
             database=db)
         return AsyncIOMotorClient(self.motor_uri)
 
