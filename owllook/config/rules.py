@@ -75,6 +75,7 @@ PLAN_01 = LatestRules(
 
 LATEST_RULES = {
     "www.biqugex.com": PLAN_01,
+    "www.nuomi9.com": PLAN_01,
     "www.biquge.tw": PLAN_01,
     "www.qu.la": PLAN_01,
     "www.ybdu.com": PLAN_01,
@@ -135,6 +136,7 @@ LATEST_RULES = {
     "www.23txt.com": PLAN_01,
     "www.baquge.tw": PLAN_01,
     "www.lread.cc": PLAN_01,
+    "www.biqudao.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -153,6 +155,10 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqudao.com': Rules('http://www.biqudao.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.nuomi9.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'book.sfacg.com': Rules('http://book.sfacg.com/', {'class': 'story-catalog'}, {'tag': 'p'}),
     # 已解析

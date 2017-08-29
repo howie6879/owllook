@@ -2,6 +2,8 @@
  * Created by howie on 12/08/2017.
  */
 
+var inst_panel = new mdui.Panel('#panel');
+
 
 $("#authorBtn").click(function () {
     var author_name = $("[name='author_name']").val();
@@ -39,6 +41,12 @@ $("#authorBtn").click(function () {
                 if (data.status == 3) {
                     mdui.snackbar({
                         message: '作者已添加',
+                        timeout: 2000
+                    });
+                }
+                if (data.status == 4) {
+                    mdui.snackbar({
+                        message: '只能添加五位作者',
                         timeout: 2000
                     });
                 }

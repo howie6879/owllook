@@ -349,16 +349,20 @@ async def author_notification(request):
         :   -1  用户session失效  需要重新登录
         :   2   无该作者信息
         :   3   作者已经添加
+        :   4   超过添加的上限
         :   0   操作失败
         :   1   操作成功
     """
     user = request['session'].get('user', None)
-    data = parse_qs(str(request.body, encoding='utf-8'))
+    user_data = parse_qs(str(request.body, encoding='utf-8'))
     if user:
         try:
-            author_name = data.get('author_name', None)[0]
             motor_db = motor_base.db
-            # data = await motor_db.all_books.find_one({'author': author_name})
+            all_authors = await motor_db.user_message.find_one({'user': user}, {'author_latest': 1, '_id': 0})
+            count = len(all_authors.get('author_latest', []))
+            if count == CONFIG.WEBSITE.get("AUTHOR_LATEST_COUNT", 5):
+                return json({'status': 4})
+            author_name = user_data.get('author_name', None)[0]
             data = []
             author_cursor = motor_db.all_books.find({'author': author_name}, {'name': 1, 'url': 1, '_id': 0})
             async for document in author_cursor:
