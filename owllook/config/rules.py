@@ -137,6 +137,7 @@ LATEST_RULES = {
     "www.baquge.tw": PLAN_01,
     "www.lread.cc": PLAN_01,
     "www.biqudao.com": PLAN_01,
+    "www.kxs7.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -155,6 +156,8 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.kxs7.com': Rules('http://www.kxs7.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biqudao.com': Rules('http://www.biqudao.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
