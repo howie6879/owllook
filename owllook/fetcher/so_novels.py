@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
 
 from owllook.fetcher.function import get_random_user_agent
-from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES
+from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES,LATEST_RULES
 
 
 async def fetch(client, url, novels_name):
@@ -31,18 +31,34 @@ async def fetch(client, url, novels_name):
 async def data_extraction_for_web_so(client, html):
     with async_timeout.timeout(15):
         try:
+            # 2017.09.09 修改 更加全面地获取title && url
             try:
-                url = html.select('h3.res-title a')[0].get('data-url', None)
-                title = html.select('h3.res-title a')[0].get_text()
-            except IndexError:
-                url = html.select('h3.title a')[0].get('href', None)
-                url = parse_qs(urlparse(url).query).get('url', None)
-                url = url[0] if url else None
-                title = html.select('h3.title a')[0].get_text()
+                title = html.select('h3 a')[0].get_text()
+                url = html.select('h3 a')[0].get('href', None)
             except Exception as e:
                 LOGGER.exception(e)
                 url, title = None, None
                 return None
+            # 针对不同的请进行url的提取
+            if "www.so.com/link?m=" in url:
+                url = html.select('h3 a')[0].get('data-url', None)
+            if "www.so.com/link?url=" in url:
+                url = parse_qs(urlparse(url).query).get('url', None)
+                url = url[0] if url else None
+
+            # try:
+            #     url = html.select('h3.res-title a')[0].get('data-url', None)
+            #     title = html.select('h3.res-title a')[0].get_text()
+            # except IndexError:
+            #     url = html.select('h3.title a')[0].get('href', None)
+            #     url = parse_qs(urlparse(url).query).get('url', None)
+            #     url = url[0] if url else None
+            #     title = html.select('h3.title a')[0].get_text()
+            # except Exception as e:
+            #     LOGGER.exception(e)
+            #     url, title = None, None
+            #     return None
+
             # 2017.07.09 此处出现bug url展示形式发生变化 因此对于h3.title a形式依旧不变  但是h3.res-title a则取属性data-url
             # url = parse_qs(urlparse(url).query).get('url', None)
             # url = url[0] if url else None
@@ -51,10 +67,12 @@ async def data_extraction_for_web_so(client, html):
             if not url or 'baidu' in url or 'baike.so.com' in url or netloc in BLACK_DOMAIN:
                 return None
             is_parse = 1 if netloc in RULES.keys() else 0
+            is_recommend = 1 if netloc in LATEST_RULES.keys() else 0
             time = ''
             timestamp = 0
             return {'title': title, 'url': url.replace('index.html', '').replace('Index.html', ''), 'time': time,
                     'is_parse': is_parse,
+                    'is_recommend':is_recommend,
                     'timestamp': timestamp,
                     'netloc': netloc}
         except Exception as e:

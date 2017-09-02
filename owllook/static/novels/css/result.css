@@ -51,7 +51,7 @@ div.item > li > a {
     margin-top: 5px;
 }
 
-.label {
+.parse-label {
     padding: 0.3em .6em .3em !important;
     position: absolute;
     right: 0;

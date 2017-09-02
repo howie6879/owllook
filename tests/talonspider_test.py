@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import time
-from owllook.utils.talonspider import Item, TextField, AttrField
+from talonspider import Item, TextField, AttrField
 from pprint import pprint
 
 
