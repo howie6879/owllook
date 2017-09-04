@@ -24,6 +24,8 @@ BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想
 
 若觉得还可以，就给个 **star** 吧，详细介绍 [owllook -- 一个简洁的网络小说搜索引擎](http://blog.howie6879.cn/2017/03/10/22/)
 
+**如果您希望在终端下看小说，可以试试这个项目[NIYT](https://github.com/howie6879/NIYT)**
+
 **关于安装：**
 
 请先装好mongo以及redis，然后python环境请确认在python3.5+，不会安装mongo看[这里](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-centos-7)

@@ -29,7 +29,8 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "xiaoshuo.360.cn", "www.3kw.cc", "www.gzbpi.com", "book.sina.com.cn", "www.vodtw.com", "wenda.so.com",
                 "product.dangdang.com", "www.chuiyao.com", "novel.slieny.com", "www.bilibili.com", "donghua.dmzj.com",
                 "www.yaojingweiba.com", "www.qb5200.com", "www.520tingshu.com", "www.567zw.com", "www.zjrxz.com",
-                "v.qq.com", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com", "news.so.com", "www.sodu3.com"]
+                "v.qq.com", "blog.sina.com.cn", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com",
+                "news.so.com", "www.sodu3.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -75,6 +76,7 @@ PLAN_01 = LatestRules(
 
 LATEST_RULES = {
     "www.biqugex.com": PLAN_01,
+    "www.x23us.com": PLAN_01,
     "www.23us.la": PLAN_01,
     "www.nuomi9.com": PLAN_01,
     "www.biquge.tw": PLAN_01,
@@ -141,6 +143,7 @@ LATEST_RULES = {
     "www.kxs7.com": PLAN_01,
     "www.biquguan.com": PLAN_01,
     "www.xs98.com": PLAN_01,
+    "www.58xs.tw": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -159,6 +162,8 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.58xs.tw': Rules('http://www.58xs.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquguan.com': Rules('http://www.biquguan.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -301,6 +306,8 @@ RULES = {
     'www.ttshu.com': Rules('http://www.ttshu.com', {'class': 'border'}, {'id': 'content'}),
     # 已解析
     'www.23us.com': Rules('0', {'id': 'at'}, {'id': 'contents'}),
+    # 已解析
+    'www.x23us.com': Rules('0', {'id': 'at'}, {'id': 'contents'}),
     # 已解析
     'www.23wx.cc': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
