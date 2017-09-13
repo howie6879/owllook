@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
 
 from owllook.fetcher.function import get_random_user_agent
-from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES,LATEST_RULES
+from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES
 
 
 async def fetch(client, url, novels_name):
@@ -72,7 +72,7 @@ async def data_extraction_for_web_so(client, html):
             timestamp = 0
             return {'title': title, 'url': url.replace('index.html', '').replace('Index.html', ''), 'time': time,
                     'is_parse': is_parse,
-                    'is_recommend':is_recommend,
+                    'is_recommend': is_recommend,
                     'timestamp': timestamp,
                     'netloc': netloc}
         except Exception as e:

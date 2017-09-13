@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
 from owllook.fetcher.function import get_random_user_agent
-from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES
+from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES
 
 
 async def fetch(client, url, name, is_web):
@@ -116,6 +116,7 @@ async def data_extraction_for_web_baidu(client, html):
                     return None
                 is_parse = 1 if netloc in RULES.keys() else 0
                 title = html.select('h3.t a')[0].get_text()
+                is_recommend = 1 if netloc in LATEST_RULES.keys() else 0
                 # time = re.findall(r'\d+-\d+-\d+', source)
                 # time = time[0] if time else None
                 timestamp = 0
@@ -129,6 +130,7 @@ async def data_extraction_for_web_baidu(client, html):
                 #         timestamp = 0
                 return {'title': title, 'url': real_str_url.replace('index.html', ''), 'time': time,
                         'is_parse': is_parse,
+                        'is_recommend': is_recommend,
                         'timestamp': timestamp,
                         'netloc': netloc}
             else:

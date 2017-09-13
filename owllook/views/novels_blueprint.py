@@ -81,7 +81,7 @@ async def owllook_search(request):
         # 优先依靠是否解析进行排序  其次以更新时间进行排序
         result_sorted = sorted(
             parse_result, reverse=True,
-            key=itemgetter('is_recommend','is_parse', 'timestamp')) if ':baidu' not in name else parse_result
+            key=itemgetter('is_recommend','is_parse', 'timestamp'))
         user = request['session'].get('user', None)
         if user:
             try:
