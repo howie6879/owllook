@@ -78,8 +78,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 下面是一些截图展示，具体效果图请看[这里](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)：
 
------------------------
-
 2017-07-29更新
 
 书架：
@@ -95,6 +93,8 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 阅读：
 
 ![content](./docs/imgs/content.png)
+
+关于阅读时候的主题，这里感谢`mscststs`编写的油猴脚本，提供多种色彩主题切换，有兴趣点击[这里](https://greasyfork.org/zh-CN/scripts/33263-owllook-%E4%B8%BB%E9%A2%98%E6%A8%A1%E5%BC%8F)安装
 
 ### 3.License
 

@@ -26,3 +26,13 @@ class DevConfig(Config):
         MONGO_PASSWORD=os.getenv('MONGO_PASSWORD', ""),
         DATABASE='owllook',
     )
+
+    # website
+    WEBSITE = dict(
+        IS_RUNNING=True,
+        TOKEN=''
+    )
+
+    AUTH = {
+        "Owllook-Api-Key": "your key"
+    }
