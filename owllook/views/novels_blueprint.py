@@ -16,6 +16,7 @@ from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 novels_bp = Blueprint('novels_blueprint')
 novels_bp.static('/static/novels', CONFIG.BASE_DIR + '/static/novels')
 
+
 @novels_bp.listener('before_server_start')
 def setup_db(novels_bp, loop):
     global motor_base
@@ -25,6 +26,7 @@ def setup_db(novels_bp, loop):
 @novels_bp.listener('after_server_stop')
 def close_connection(novels_bp, loop):
     motor_base = None
+
 
 # jinjia2 config
 env = Environment(
@@ -80,8 +82,9 @@ async def owllook_search(request):
         #     parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result
         # 优先依靠是否解析进行排序  其次以更新时间进行排序
         result_sorted = sorted(
-            parse_result, reverse=True,
-            key=itemgetter('is_recommend','is_parse', 'timestamp'))
+            parse_result,
+            reverse=True,
+            key=itemgetter('is_recommend', 'is_parse', 'timestamp'))
         user = request['session'].get('user', None)
         if user:
             try:
