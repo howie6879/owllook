@@ -36,10 +36,6 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
             <div class="mdui-list-item-content"><a href="/md/setting">个人设置</a></div>
         </li>
-        <!--<li class="mdui-list-item mdui-ripple">-->
-        <!--<i class="mdui-list-item-icon mdui-icon material-icons">security</i>-->
-        <!--<div class="mdui-list-item-content">修改密码</div>-->
-        <!--</li>-->
         <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
             <div class="mdui-list-item-content">
@@ -54,26 +50,33 @@
 <div class="mdui-container">
     <div class="mdui-typo" style="margin-top: 3%">
         <div class="mdui-chip">
-            <span class="mdui-chip-title mdui-text-color-red-accent">owllook</span>
+            <a href="/md"><span class="rank-list mdui-chip-title">owllook</span></a>
         </div>
         <div class="mdui-chip">
-            <span class="mdui-chip-title">起点小说榜单</span>
+            <a href="/md/qidian"><span class="rank-list mdui-chip-title">起点小说榜单</span></a>
         </div>
     </div>
     <div class="mdui-divider" style="margin-top: 1%;"></div>
     <div class="mdui-typo" style="margin-top: 1%">
         <div class="mdui-chip">
-            <span class="mdui-chip-title mdui-text-color-red">搜索排行</span>
+            <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
         </div>
+        {%for each in first_type%}
+        <div class="mdui-chip">
+            <span class="mdui-chip-title">{{each}}</span>
+        </div>
+        {%endfor%}
+
     </div>
     <div class="mdui-divider" style="margin-top: 1%; margin-bottom: 2%"></div>
     <div class="mdui-table-fluid">
+        {% if is_owl %}
         <table class="mdui-table" style="margin-bottom: 50px;">
             <thead>
             <tr align="center">
-                <th>#</th>
-                <th>小说名</th>
-                <th>搜索次数</th>
+                {%for each_head in novels_head%}
+                <th>{{each_head}}</th>
+                {%endfor%}
             </tr>
             </thead>
             <tbody>
@@ -86,46 +89,31 @@
             {%endfor%}
             </tbody>
         </table>
+        {% else %}
+        {%for each_ranking in search_ranking.data%}
+        <table class="mdui-table mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3" style="margin-bottom: 50px;">
+            <thead>
+            <tr align="center">
+                {%for each_head in novels_head%}
+                <th>{{each_head}}</th>
+                {%endfor%}
+                <th><a target="_blank" href="{{each_ranking.more}}">{{each_ranking.title}}</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {%for each_book in each_ranking.book_list%}
+            <tr>
+                <td>{{each_book.num}}</td>
+                <td><a href="/search?wd={{each_book.name}}" target="_blank">{{each_book.name}}</a></td>
+                <!--<td>{{each_ranking.title}}</td>-->
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+        {%endfor%}
+        {% endif %}
+
     </div>
-    <!--<div class="mdui-typo ">-->
-    <!--<center><h1>持续开发中，敬请期待，若有建议请及时反馈</h1></center>-->
-    <!--<center><h2><a target="_blank"-->
-    <!--href="https://github.com/howie6879/owllook">https://github.com/howie6879/owllook</a></h2>-->
-    <!--</center>-->
-
-    <!--</div>-->
-    <!--<div class="mdui-row">-->
-    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-    <!--<div class="owl-ranking owl-search-ranking mdui-shadow-1">-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-    <!--<div class="owl-ranking mdui-shadow-1">-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-    <!--<div class="owl-ranking mdui-shadow-1">-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-    <!--<div class="owl-ranking mdui-shadow-1">-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-    <!--<div class="owl-ranking mdui-shadow-1">-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3">-->
-    <!--<div class="owl-ranking mdui-shadow-1">-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
 </div>
 {% endblock %}
 {% block script %}

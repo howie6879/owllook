@@ -153,6 +153,12 @@ async def cache_owllook_search_ranking():
         index += 1
     return result
 
+@cached(ttl=10800, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
+async def cache_others_search_ranking(spider='qidian', novel_type='全部类别'):
+    motor_db = MotorBase().db
+    item_data = await motor_db.novels_ranking.find_one({'spider': spider, 'type': novel_type}, {'data': 1, '_id': 0})
+    return item_data
+
 
 async def get_the_latest_chapter(chapter_url, loop=None):
     try:

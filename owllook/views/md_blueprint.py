@@ -5,7 +5,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from urllib.parse import urlparse, parse_qs
 
 from owllook.database.mongodb import MotorBase
-from owllook.fetcher.cache import get_the_latest_chapter, cache_owllook_search_ranking
+from owllook.fetcher.cache import get_the_latest_chapter, cache_owllook_search_ranking, cache_others_search_ranking
 from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 
 md_bp = Blueprint('rank_blueprint', url_prefix='md')
@@ -37,15 +37,54 @@ def template(tpl, **kwargs):
 @md_bp.route("/")
 async def index(request):
     user = request['session'].get('user', None)
+    novels_head = ['#', '小说名', '搜索次数']
+    first_type_title = "搜索排行"
+    first_type = []
     search_ranking = await cache_owllook_search_ranking()
     if user:
         # motor_db = motor_base.db
         # ranking_cursor = motor_db.novels_ranking.find({})
         # async for document in ranking_cursor:
         #     LOGGER.info(document)
-        return template('index.html', title='owllook', is_login=1, user=user, search_ranking=search_ranking)
+        return template('index.html', title='owllook', is_login=1, user=user, search_ranking=search_ranking,
+                        first_type=first_type, first_type_title=first_type_title, novels_head=novels_head, is_owl=1)
     else:
-        return template('index.html', title='owllook', is_login=0, search_ranking=search_ranking)
+        return template('index.html', title='owllook', is_login=0, search_ranking=search_ranking, first_type=first_type,
+                        first_type_title=first_type_title, novels_head=novels_head, is_owl=1)
+
+
+@md_bp.route("/qidian")
+async def index(request):
+    user = request['session'].get('user', None)
+    first_type_title = "全部类别"
+    novels_head = ['#']
+    first_type = [
+        '玄幻',
+        '奇幻',
+        '武侠',
+        '仙侠',
+        '都市',
+        '职场',
+        '军事',
+        '历史',
+        '游戏',
+        '体育',
+        '科幻',
+        '灵异',
+        '二次元',
+    ]
+    search_ranking = await cache_others_search_ranking(spider='qidian', novel_type='全部类别')
+    from pprint import pprint
+    if user:
+        # motor_db = motor_base.db
+        # ranking_cursor = motor_db.novels_ranking.find({})
+        # async for document in ranking_cursor:
+        #     LOGGER.info(document)
+        return template('index.html', title='owllook', is_login=1, user=user, search_ranking=search_ranking,
+                        first_type=first_type, first_type_title=first_type_title, novels_head=novels_head)
+    else:
+        return template('index.html', title='owllook', is_login=0, search_ranking=search_ranking, first_type=first_type,
+                        first_type_title=first_type_title, novels_head=novels_head)
 
 
 @md_bp.route("/books")
