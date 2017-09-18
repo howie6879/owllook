@@ -56,6 +56,7 @@ async def index(request):
 @md_bp.route("/qidian")
 async def index(request):
     user = request['session'].get('user', None)
+    novels_type = request.args.get('type', '全部类别').strip()
     first_type_title = "全部类别"
     novels_head = ['#']
     first_type = [
@@ -73,7 +74,7 @@ async def index(request):
         '灵异',
         '二次元',
     ]
-    search_ranking = await cache_others_search_ranking(spider='qidian', novel_type='全部类别')
+    search_ranking = await cache_others_search_ranking(spider='qidian', novel_type=novels_type)
     from pprint import pprint
     if user:
         # motor_db = motor_base.db

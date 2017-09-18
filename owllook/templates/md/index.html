@@ -59,11 +59,15 @@
     <div class="mdui-divider" style="margin-top: 1%;"></div>
     <div class="mdui-typo" style="margin-top: 1%">
         <div class="mdui-chip">
+            {% if is_owl %}
             <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
+            {% else %}
+            <span class="mdui-chip-title mdui-text-color-red"><a href="/md/qidian?type={{first_type_title}}">{{first_type_title}}</a></span>
+            {% endif %}
         </div>
         {%for each in first_type%}
         <div class="mdui-chip">
-            <span class="mdui-chip-title">{{each}}</span>
+            <span class="mdui-chip-title"><a href="/md/qidian?type={{each}}">{{each}}</a></span>
         </div>
         {%endfor%}
 
