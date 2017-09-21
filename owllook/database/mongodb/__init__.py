@@ -1,1 +1,1 @@
-from .motorbase import MotorBase
+from .motorbase import MotorBase, MotorBaseOld
