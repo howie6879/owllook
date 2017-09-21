@@ -4,7 +4,7 @@ from talonspider import Spider, Item, TextField, AttrField
 from talonspider.utils import get_random_user_agent
 import os
 
-os.environ['MODE'] = 'PRO'
+os.environ['MODE'] = 'DEV'
 from owllook.database.mongodb import MotorBase
 from owllook.utils.tools import async_callback
 
@@ -78,7 +78,7 @@ class QidianRankingSpider(Spider):
         # 存进数据库
         res_dic = kwargs.get('res_dic')
         try:
-            motor_db = MotorBase().db
+            motor_db = MotorBase().get_db()
             await motor_db.novels_ranking.update_one({
                 'target_url': res_dic['target_url']},
                 {'$set': {

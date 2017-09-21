@@ -39,7 +39,7 @@ async def similar_user(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             similar_info = await motor_db.user_recommend.find_one({'user': user})
             if similar_info:
                 similar_user = similar_info['similar_user'][:20]
@@ -72,7 +72,7 @@ async def search_user(request):
     name = request.args.get('ss', None)
     if user and name:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             data = await motor_db.user_message.find_one({'user': name})
             books_url = data.get('books_url', None) if data else None
             if books_url:
@@ -121,7 +121,7 @@ async def bookmarks(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             data = await motor_db.user_message.find_one({'user': user})
             if data:
                 # 获取所有书签
@@ -161,7 +161,7 @@ async def books(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             data = await motor_db.user_message.find_one({'user': user})
             if data:
                 books_url = data.get('books_url', None)

@@ -141,7 +141,7 @@ async def cache_owllook_so_novels_result(novels_name):
 
 @cached(ttl=10800, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
 async def cache_owllook_search_ranking():
-    motor_db = MotorBase().db
+    motor_db = MotorBase().get_db()
     keyword_cursor = motor_db.search_records.find(
         {'count': {'$gte': 50}},
         {'keyword': 1, 'count': 1, '_id': 0}
@@ -155,7 +155,7 @@ async def cache_owllook_search_ranking():
 
 @cached(ttl=3600, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
 async def cache_others_search_ranking(spider='qidian', novel_type='全部类别'):
-    motor_db = MotorBase().db
+    motor_db = MotorBase().get_db()
     item_data = await motor_db.novels_ranking.find_one({'spider': spider, 'type': novel_type}, {'data': 1, '_id': 0})
     return item_data
 
@@ -230,7 +230,7 @@ async def get_the_latest_chapter(chapter_url, loop=None):
                                 ),
                             }
                             # 存储最新章节
-                            motor_db = MotorBase().db
+                            motor_db = MotorBase().get_db()
                             await motor_db.latest_chapter.update_one(
                                 {"novels_name": novels_name, 'owllook_chapter_url': chapter_url},
                                 {'$set': {'data': data, "finished_at": time_current}}, upsert=True)
@@ -242,7 +242,7 @@ async def get_the_latest_chapter(chapter_url, loop=None):
 
 async def update_all_books(loop):
     try:
-        motor_db = MotorBase().db
+        motor_db = MotorBase().get_db()
         # 获取所有书架链接游标
         books_url_cursor = motor_db.user_message.find({}, {'books_url.book_url': 1, '_id': 0})
         book_urls = []

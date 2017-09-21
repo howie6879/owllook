@@ -53,7 +53,7 @@ async def index(request):
 async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', '').strip()
-    motor_db = motor_base.db
+    motor_db = motor_base.get_db()
     if not name:
         return redirect('/')
     else:
@@ -199,7 +199,7 @@ async def owllook_content(request):
             # 破坏广告链接
             content = str(content).strip('[]Jjs,').replace('http', 'hs')
             if user:
-                motor_db = motor_base.db
+                motor_db = motor_base.get_db()
                 bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
                 book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
                 bookmark = 1 if bookmark else 0

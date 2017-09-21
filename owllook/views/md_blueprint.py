@@ -42,7 +42,7 @@ async def index(request):
     first_type = []
     search_ranking = await cache_owllook_search_ranking()
     if user:
-        # motor_db = motor_base.db
+        # motor_db = motor_base.get_db()
         # ranking_cursor = motor_db.novels_ranking.find({})
         # async for document in ranking_cursor:
         #     LOGGER.info(document)
@@ -77,7 +77,7 @@ async def index(request):
     search_ranking = await cache_others_search_ranking(spider='qidian', novel_type=novels_type)
     from pprint import pprint
     if user:
-        # motor_db = motor_base.db
+        # motor_db = motor_base.get_db()
         # ranking_cursor = motor_db.novels_ranking.find({})
         # async for document in ranking_cursor:
         #     LOGGER.info(document)
@@ -93,7 +93,7 @@ async def books(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             data = await motor_db.user_message.find_one({'user': user})
             if data:
                 books_url = data.get('books_url', None)
@@ -141,7 +141,7 @@ async def similar_user(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             similar_info = await motor_db.user_recommend.find_one({'user': user})
             if similar_info:
                 similar_user = similar_info['similar_user'][:20]
@@ -173,7 +173,7 @@ async def bookmarks(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             data = await motor_db.user_message.find_one({'user': user})
             if data:
                 # 获取所有书签
@@ -228,7 +228,7 @@ async def noti_book(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             is_author = 0
             data = await motor_db.user_message.find_one({'user': user}, {'author_latest': 1, '_id': 0})
             if data:
@@ -256,7 +256,7 @@ async def admin_setting(request):
     user = request['session'].get('user', None)
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             data = await motor_db.user.find_one({'user': user})
             if data:
                 return template('admin_setting.html', title='{user}的设置 - owllook'.format(user=user),

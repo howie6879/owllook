@@ -56,7 +56,7 @@ async def owllook_login(request):
     user = login_data.get('user', [None])[0]
     pwd = login_data.get('pwd', [None])[0]
     if user and pwd:
-        motor_db = motor_base.db
+        motor_db = motor_base.get_db()
         data = await motor_db.user.find_one({'user': user})
         if data:
             pass_first = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + pwd).encode("utf-8")).hexdigest()
@@ -100,7 +100,7 @@ async def owllook_register(request):
     answer = register_data.get('answer', [None])[0]
     reg_index = request.cookies['reg_index']
     if user and pwd and email and answer and reg_index:
-        motor_db = motor_base.db
+        motor_db = motor_base.get_db()
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
             # 验证问题答案是否准确
@@ -161,7 +161,7 @@ async def owllook_add_bookmark(request):
         url = unquote(bookmark_url[0])
         time = get_time()
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
                                                          upsert=True)
             if res:
@@ -193,7 +193,7 @@ async def owllook_delete_bookmark(request):
     if user and bookmarkurl:
         bookmark = unquote(bookmarkurl[0])
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             await motor_db.user_message.update_one({'user': user},
                                                    {'$pull': {'bookmarks': {"bookmark": bookmark}}})
             LOGGER.info('删除书签成功')
@@ -225,7 +225,7 @@ async def owllook_add_book(request):
                                                                             novels_name=novels_name[0])
         time = get_time()
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             res = await motor_db.user_message.update_one({'user': user}, {'$set': {'last_update_time': time}},
                                                          upsert=True)
             if res:
@@ -263,7 +263,7 @@ async def owllook_delete_book(request):
             book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(chapter_url=chapter_url[0],
                                                                                      novels_name=novels_name[0])
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             await motor_db.user_message.update_one({'user': user},
                                                    {'$pull': {'books_url': {"book_url": unquote(book_url)}}})
             LOGGER.info('删除书架成功')
@@ -290,7 +290,7 @@ async def change_email(request):
     if user:
         try:
             email = data.get('email', None)[0]
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             await motor_db.user.update_one({'user': user},
                                            {'$set': {'email': email}})
             LOGGER.info('修改邮箱成功')
@@ -319,7 +319,7 @@ async def change_pass(request):
         try:
             new_pass = data.get('new_pass', None)[0]
             old_pass = data.get('old_pass', None)[0]
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             user_data = await motor_db.user.find_one({'user': user})
             if user_data:
                 pass_first = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + old_pass).encode("utf-8")).hexdigest()
@@ -357,7 +357,7 @@ async def author_notification(request):
     user_data = parse_qs(str(request.body, encoding='utf-8'))
     if user:
         try:
-            motor_db = motor_base.db
+            motor_db = motor_base.get_db()
             all_authors = await motor_db.user_message.find_one({'user': user}, {'author_latest': 1, '_id': 0})
             count = len(all_authors.get('author_latest', []))
             if count == CONFIG.WEBSITE.get("AUTHOR_LATEST_COUNT", 5):

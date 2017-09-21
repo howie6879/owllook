@@ -39,7 +39,7 @@ class Novels(object):
 
 
 async def get_tag():
-    motor_db = MotorBase().db
+    motor_db = MotorBase().get_db()
     novels = Novels()
     # 获取所有书架链接游标
     books_url_cursor = motor_db.user_message.find({}, {'books_url.book_url': 1, 'user': 1, '_id': 0})

@@ -29,10 +29,10 @@ class DevConfig(Config):
 
     # website
     WEBSITE = dict(
-        IS_RUNNING=True,
-        TOKEN=''
+        IS_RUNNING=os.getenv('OWLLOOK_IS_RUNNING', True),
+        TOKEN=os.getenv('OWLLOOK_TOKEN', '')
     )
 
     AUTH = {
-        "Owllook-Api-Key": "your key"
+        "Owllook-Api-Key": os.getenv('OWLLOOK_API_KEY', "your key")
     }

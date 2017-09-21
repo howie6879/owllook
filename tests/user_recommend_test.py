@@ -13,7 +13,7 @@ from owllook.fetcher.function import get_time
 
 
 async def get_user_tag():
-    motor_db = MotorBase().db
+    motor_db = MotorBase().get_db()
     user_tag_cursor = motor_db.user_tag.find({}, {'data.user_tag': 1, 'user': 1, '_id': 0})
     result = {}
     async for document in user_tag_cursor:
