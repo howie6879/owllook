@@ -33,8 +33,13 @@ BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想
 mongo以及redis装好后，进入项目目录，依照步骤执行：
 
 ```shell
-# 方案一
+# 首先
+git clone https://github.com/howie6879/owllook
+cd owllook
 pip install -r requirements.txt
+cd owllook
+
+# 方案一
 # 运行：
 python server.py
 # 或者
@@ -139,5 +144,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - Future：100元
 - Mongol Hun ：20元
 - 佚名：15元
+- 人到中年：100元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
