@@ -22,6 +22,12 @@ def singleton(cls):
 
 
 def async_callback(func, **kwargs):
+    """
+    Call the asynchronous function
+    :param func: a async function
+    :param kwargs: params
+    :return: result
+    """
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     loop = asyncio.get_event_loop()
     task = asyncio.ensure_future(func(**kwargs))

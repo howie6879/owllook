@@ -7,8 +7,8 @@ from sanic_session import RedisSessionInterface
 import sys
 import os
 
-os.environ['MODE'] = 'PRO'
-sys.path.append(os.path.dirname(os.getcwd()))
+# os.environ['MODE'] = 'PRO'
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from owllook.views import novels_bp
 from owllook.views import operate_bp
 from owllook.views import except_bp
