@@ -72,7 +72,7 @@ async def target_fetch(client, url):
                 except:
                     try:
                         text = await response.read()
-                    except aiohttp.errors.ServerDisconnectedError as e:
+                    except aiohttp.ServerDisconnectedError as e:
                         LOGGER.exception(e)
                         text = None
                 return text

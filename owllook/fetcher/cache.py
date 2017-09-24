@@ -153,6 +153,7 @@ async def cache_owllook_search_ranking():
         index += 1
     return result
 
+
 @cached(ttl=3600, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
 async def cache_others_search_ranking(spider='qidian', novel_type='全部类别'):
     motor_db = MotorBase().get_db()
@@ -260,7 +261,6 @@ async def update_all_books(loop):
                         except Exception as e:
                             LOGGER.exception(e)
                         already_urls.add(chapter_url)
-
                         # 一组书架链接列表数据
                         #         book_urls += [book_url['book_url'] for book_url in books_url]
                         # url_tasks = [get_the_latest_chapter(each_url, loop) for each_url in set(book_urls)]
@@ -269,8 +269,6 @@ async def update_all_books(loop):
                         #     await asyncio.gather(*tasks)
                         # except asyncio.TimeoutError as e:
                         #     pass
-
-
     except Exception as e:
         LOGGER.exception(e)
         return False
