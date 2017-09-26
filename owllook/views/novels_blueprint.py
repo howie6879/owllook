@@ -2,7 +2,7 @@
 import time
 
 from sanic import Blueprint
-from sanic.response import redirect, html, text
+from sanic.response import redirect, html, text, json
 from jinja2 import Environment, PackageLoader, select_autoescape
 from operator import itemgetter
 
@@ -44,7 +44,8 @@ async def index(request):
     user = request['session'].get('user', None)
     search_ranking = await cache_owllook_search_ranking()
     if user:
-        return template('index.html', title='owllook - 网络小说搜索引擎', is_login=1, user=user, search_ranking=search_ranking[:25])
+        return template('index.html', title='owllook - 网络小说搜索引擎', is_login=1, user=user,
+                        search_ranking=search_ranking[:25])
     else:
         return template('index.html', title='owllook - 网络小说搜索引擎', is_login=0, search_ranking=search_ranking[:25])
 
@@ -169,6 +170,7 @@ async def owllook_content(request):
     chapter_url = request.args.get('chapter_url', None)
     novels_name = request.args.get('novels_name', None)
     name = request.args.get('name', '')
+    is_ajax = request.args.get('is_ajax', '')
     # 当小说内容url不在解析规则内 跳转到原本url
     netloc = get_netloc(url)
     if netloc not in RULES.keys():
@@ -212,6 +214,21 @@ async def owllook_content(request):
                         {'$set': {'books_url.$.last_read_url': bookmark_url}})
                 else:
                     book = 0
+                if is_ajax == "owl_cache":
+                    owl_cache_dict = dict(
+                        is_login=1,
+                        user=user,
+                        name=name,
+                        url=url,
+                        bookmark=bookmark,
+                        book=book,
+                        content_url=content_url,
+                        chapter_url=chapter_url,
+                        novels_name=novels_name,
+                        next_chapter=next_chapter,
+                        soup=content
+                    )
+                    return json(owl_cache_dict)
                 return template(
                     'content.html',
                     is_login=1,
@@ -226,6 +243,20 @@ async def owllook_content(request):
                     next_chapter=next_chapter,
                     soup=content)
             else:
+                if is_ajax == "owl_cache":
+                    owl_cache_dict = dict(
+                        is_login=0,
+                        name=name,
+                        url=url,
+                        bookmark=0,
+                        book=0,
+                        content_url=content_url,
+                        chapter_url=chapter_url,
+                        novels_name=novels_name,
+                        next_chapter=next_chapter,
+                        soup=content
+                    )
+                    return json(owl_cache_dict)
                 return template(
                     'content.html',
                     is_login=0,
