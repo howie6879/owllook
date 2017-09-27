@@ -208,10 +208,16 @@ async def owllook_content(request):
                 if book:
                     # 当书架中存在该书源
                     book = 1
-                    # 保存最后一次阅读记录
                     await motor_db.user_message.update_one(
                         {'user': user, 'books_url.book_url': book_url},
                         {'$set': {'books_url.$.last_read_url': bookmark_url}})
+                    # 保存最后一次阅读记录
+                    if is_ajax == "owl_cache":
+                        latest_read = "/owllook_content" + \
+                                      request.headers.get('Referer', bookmark_url).split('owllook_content')[1]
+                        await motor_db.user_message.update_one(
+                            {'user': user, 'books_url.book_url': book_url},
+                            {'$set': {'books_url.$.last_read_url': latest_read}})
                 else:
                     book = 0
                 if is_ajax == "owl_cache":

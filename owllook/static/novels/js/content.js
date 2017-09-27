@@ -7,12 +7,9 @@ Created By MSCSTSTS
 //--------------------------------------------------------------------------------------------
 
 /*
-
 登录、书签、加入书库等功能，都是基于刷新或者ajax
 所以仅需修改部分页面
 最后，将页面滑动到顶部即可。
-
-
 处理逻辑：
 	1：页面加载，检查浏览器是否支持 ajax 和 sessionStorage
 	2：查询下一章 和 上一章是否已被缓存，若没有，则进行 ajax 请求，并将对应页面存入sessionStorage
@@ -159,13 +156,13 @@ $(document).ready(function(){
 		page_chapter_name.text(data.name);
 	}
 	function load_btn_href(data){
-		page_btn_pre.attr("href","/owllook_content?url="+data.pre_chapter_url+"&name="+data.name+"&chapter_url="+data.chapter_url+"&novels_name="+data.novels_name);
-		page_btn_next.attr("href","/owllook_content?url="+data.next_chapter_url+"&name="+data.name+"&chapter_url="+data.chapter_url+"&novels_name="+data.novels_name);
+		page_btn_pre.attr("href","/owllook_content?url="+data.pre_chapter_url+"&chapter_url="+data.chapter_url+"&novels_name="+data.novels_name);
+		page_btn_next.attr("href","/owllook_content?url="+data.next_chapter_url+"&chapter_url="+data.chapter_url+"&novels_name="+data.novels_name);
 	}
 	function load_location_url(data){
 		var th_url = window.location.href+"";
 		var pos = th_url.indexOf("/owllook_content?");
-		var td_url = "/owllook_content?url="+data.url+"&name="+data.name+"&chapter_url="+data.chapter_url+"&novels_name="+data.novels_name;
+		var td_url = "/owllook_content?url="+data.url+"&chapter_url="+data.chapter_url+"&novels_name="+data.novels_name;
 		th_url+=td_url;
 		//log(th_url);
 		window.history.replaceState({},data.name+" - owllook",td_url);

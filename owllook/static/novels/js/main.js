@@ -65,7 +65,11 @@ $(document).ready(function () {
 
     // bookmark
     $('#bookMark').click(function () {
-        bookmarkurl = window.location.pathname + window.location.search;
+        var chapter_url = $("#chapter_url").val();
+        var novels_name = $("#novels_name").val();
+        var url = $("#url").val();
+        var content_name = $("#content_name").text();
+        bookmarkurl = "/owllook_content?url=" + url + "&name=" + content_name + "&chapter_url=" + chapter_url + "&novels_name=" + novels_name;
         if ($(this).hasClass('bookMark')) {
             // add bookmark
             var add_bm_pd = {'bookmark_url': bookmarkurl};
