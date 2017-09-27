@@ -65,8 +65,8 @@ $(document).ready(function(){
 				}else{ // 正确获取到数据
 					var obj={
 						url:data.url,
-						next_chapter_url:data.next_chapter[0],
-                        pre_chapter_url:data.next_chapter[1],
+						pre_chapter_url:transform(data.next_chapter)[0],
+						next_chapter_url:transform(data.next_chapter)[1],
 						name:data.name,
 						novels_name:data.novels_name,
 						content:data.soup,
@@ -85,6 +85,13 @@ $(document).ready(function(){
 				//请求出错处理
 			}
 		});
+	}
+	function transform(obj){
+		var arr = [];
+		for(var item in obj){
+			arr.push(obj[item]);
+		}
+		return arr;
 	}
 	function store(n_url,obj){
 			window.sessionStorage.setItem(n_url,JSON.stringify(obj));

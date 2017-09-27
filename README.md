@@ -73,7 +73,8 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - [x] 翻页
 - [x] 搜索排行
 - [x] 部分页面重写
-- [ ] 排行榜（进行中）
+- [x] 章节异步加载 感谢@mscststs
+- [x] 排行榜 - 起点+owllook
 - [ ] 阅读书单
 - [ ] 推荐
 
