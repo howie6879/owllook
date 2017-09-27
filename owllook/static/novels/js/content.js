@@ -65,8 +65,8 @@ $(document).ready(function(){
 				}else{ // 正确获取到数据
 					var obj={
 						url:data.url,
-						next_chapter_url:data.next_chapter["下一章"],
-						pre_chapter_url:data.next_chapter["上一章"],
+						next_chapter_url:data.next_chapter[0],
+                        pre_chapter_url:data.next_chapter[1],
 						name:data.name,
 						novels_name:data.novels_name,
 						content:data.soup,
