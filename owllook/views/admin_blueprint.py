@@ -172,7 +172,7 @@ async def books(request):
                         book_url = i.get('book_url', None)
                         last_read_url = i.get("last_read_url", "")
                         book_query = parse_qs(urlparse(book_url).query)
-                        last_read_chapter_name = parse_qs(last_read_url).get('name', ['暂无'])[0]
+                        last_read_chapter_name = parse_qs(last_read_url).get('name', ['上次阅读'])[0]
                         item_result['novels_name'] = book_query.get('novels_name', '')[0] if book_query.get(
                             'novels_name', '') else ''
                         item_result['book_url'] = book_url
