@@ -45,7 +45,8 @@ def init_cache(app, loop):
     # redis instance for app
     app.get_redis_pool = redis_session.get_redis_pool
     # pass the getter method for the connection pool into the session
-    app.session_interface = RedisSessionInterface(app.get_redis_pool, cookie_name="owl_sid", expiry=30 * 24 * 60 * 60)
+    app.session_interface = RedisSessionInterface(
+        app.get_redis_pool, cookie_name="owl_sid", expiry=30 * 24 * 60 * 60)
 
 
 @app.middleware('request')
@@ -69,7 +70,8 @@ async def save_session(request, response):
     if request.path == '/operate/login' and request['session'].get('user', None):
         await app.session_interface.save(request, response)
         import datetime
-        response.cookies['owl_sid']['expires'] = datetime.datetime.now() + datetime.timedelta(days=30)
+        response.cookies['owl_sid']['expires'] = datetime.datetime.now(
+        ) + datetime.timedelta(days=30)
     elif request.path == '/register':
         try:
             response.cookies['reg_index'] = str(request['session']['index'][0])

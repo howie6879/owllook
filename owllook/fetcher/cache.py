@@ -163,7 +163,7 @@ async def cache_others_search_ranking(spider='qidian', novel_type='全部类别'
 
 async def get_the_latest_chapter(chapter_url, loop=None):
     try:
-        with async_timeout.timeout(60):
+        with async_timeout.timeout(30):
             url = parse_qs(urlparse(chapter_url).query).get('url', '')
             novels_name = parse_qs(urlparse(chapter_url).query).get('novels_name', '')
             data = None
@@ -256,7 +256,7 @@ async def update_all_books(loop):
                     chapter_url = book_url['book_url']
                     if chapter_url not in already_urls:
                         try:
-                            with async_timeout.timeout(20):
+                            with async_timeout.timeout(30):
                                 await get_the_latest_chapter(chapter_url, loop)
                         except Exception as e:
                             LOGGER.exception(e)
