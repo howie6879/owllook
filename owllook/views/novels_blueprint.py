@@ -182,15 +182,13 @@ async def owllook_content(request):
         novels_name=novels_name)
     motor_db = motor_base.get_db()
     if url == chapter_url:
-        if user:
-            # 保存最后一次阅读记录
-            if is_ajax == "owl_cache":
-                owl_referer = request.headers.get('Referer', '').split('owllook_content')[1]
-                if owl_referer:
-                    latest_read = "/owllook_content" + owl_referer
-                    await motor_db.user_message.update_one(
-                        {'user': user, 'books_url.book_url': book_url},
-                        {'$set': {'books_url.$.last_read_url': latest_read}})
+        if user and is_ajax == "owl_cache":
+            owl_referer = request.headers.get('Referer', '').split('owllook_content')[1]
+            if owl_referer:
+                latest_read = "/owllook_content" + owl_referer
+                await motor_db.user_message.update_one(
+                    {'user': user, 'books_url.book_url': book_url},
+                    {'$set': {'books_url.$.last_read_url': latest_read}})
         return redirect(book_url)
     content_url = RULES[netloc].content_url
     content_data = await cache_owllook_novels_content(url=url, netloc=netloc)
