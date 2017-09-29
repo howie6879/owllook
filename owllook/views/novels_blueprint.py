@@ -175,16 +175,26 @@ async def owllook_content(request):
     netloc = get_netloc(url)
     if netloc not in RULES.keys():
         return redirect(url)
+    user = request['session'].get('user', None)
     # 拼接小说目录url
     book_url = "/chapter?url={chapter_url}&novels_name={novels_name}".format(
         chapter_url=chapter_url,
         novels_name=novels_name)
+    motor_db = motor_base.get_db()
     if url == chapter_url:
+        if user:
+            # 保存最后一次阅读记录
+            if is_ajax == "owl_cache":
+                owl_referer = request.headers.get('Referer', '').split('owllook_content')[1]
+                if owl_referer:
+                    latest_read = "/owllook_content" + owl_referer
+                    await motor_db.user_message.update_one(
+                        {'user': user, 'books_url.book_url': book_url},
+                        {'$set': {'books_url.$.last_read_url': latest_read}})
         return redirect(book_url)
     content_url = RULES[netloc].content_url
     content_data = await cache_owllook_novels_content(url=url, netloc=netloc)
     if content_data:
-        user = request['session'].get('user', None)
         try:
             content = content_data.get('content', '获取失败')
             next_chapter = content_data.get('next_chapter', [])
@@ -201,7 +211,6 @@ async def owllook_content(request):
             # 破坏广告链接
             content = str(content).strip('[]Jjs,').replace('http', 'hs')
             if user:
-                motor_db = motor_base.get_db()
                 bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
                 book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
                 bookmark = 1 if bookmark else 0
@@ -215,10 +224,6 @@ async def owllook_content(request):
                         await motor_db.user_message.update_one(
                             {'user': user, 'books_url.book_url': book_url},
                             {'$set': {'books_url.$.last_read_url': latest_read}})
-                    # else:
-                    #     await motor_db.user_message.update_one(
-                    #         {'user': user, 'books_url.book_url': book_url},
-                    #         {'$set': {'books_url.$.last_read_url': bookmark_url}})
                 else:
                     book = 0
                 if is_ajax == "owl_cache":
