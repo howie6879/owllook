@@ -146,5 +146,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - Mongol Hun ：20元
 - 佚名：15元
 - 人到中年：100元
+- Black：6元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
