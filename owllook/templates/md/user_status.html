@@ -1,5 +1,4 @@
 <div class="mdui-card">
-
     {% if is_login %}
     <div class="mdui-card-header">
         <img class="mdui-card-header-avatar"
@@ -11,9 +10,10 @@
     <div class="mdui-card-header">
         <img class="mdui-card-header-avatar"
              src="/static/novels/img/logout.png"/>
-        <div class="mdui-card-header-title">请登录</div>
+        <div class="mdui-card-header-title">
+            点击<a style="color: #ff4081 !important;" mdui-dialog="{target: '#owl-login'}">登录</a>
+        </div>
         <div class="mdui-card-header-subtitle">以下功能，等你体验</div>
     </div>
     {% endif %}
-
 </div>

@@ -1,0 +1,57 @@
+{% if is_login %}
+<!--<button class="mdui-btn mdui-color-theme-accent" mdui-menu="{target: '#example-2'}">open</button>-->
+<!--<ul class="mdui-menu" id="example-2">-->
+    <!--<li class="mdui-menu-item">-->
+        <!--<a href="javascript:;" class="mdui-ripple">-->
+            <!--<i class="mdui-menu-item-icon mdui-icon material-icons">remove_red_eye</i>Preview-->
+        <!--</a>-->
+    <!--</li>-->
+    <!--<li class="mdui-menu-item">-->
+        <!--<a href="javascript:;" class="mdui-ripple">-->
+            <!--<i class="mdui-menu-item-icon mdui-icon material-icons">file_download</i>Download-->
+        <!--</a>-->
+    <!--</li>-->
+    <!--<li class="mdui-divider"></li>-->
+    <!--<li class="mdui-menu-item">-->
+        <!--<a href="javascript:;" class="mdui-ripple">-->
+            <!--<i class="mdui-menu-item-icon mdui-icon material-icons">delete</i>Remove-->
+        <!--</a>-->
+    <!--</li>-->
+    <!--<li class="mdui-menu-item">-->
+        <!--<a href="javascript:;" class="mdui-ripple">-->
+            <!--<i class="mdui-menu-item-icon"></i>Empty-->
+        <!--</a>-->
+    <!--</li>-->
+<!--</ul>-->
+{% else %}
+<div class="mdui-dialog" id="owl-login">
+    <div class="mdui-tab mdui-tab-full-width" id="owl-login-tab">
+        <a href="#owl-login-tab1" class="mdui-ripple">登录</a>
+        <!--<a href="#owl-login-tab2" class="mdui-ripple">注册</a>-->
+    </div>
+    <div id="owl-login-tab1" class="mdui-p-a-2">
+        <div class="mdui-textfield">
+            <label class="mdui-textfield-label">用户名</label>
+            <input class="mdui-textfield-input" id="owllook_user" type="text"/>
+        </div>
+        <div class="mdui-textfield">
+            <label class="mdui-textfield-label">密码</label>
+            <input class="mdui-textfield-input" id="owllook_pass" type="password"/>
+        </div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" onclick="userStatus.login()">登录</button>
+        </div>
+    </div>
+    <!--<div id="owl-login-tab2" class="mdui-p-a-2">-->
+    <!--<p>tab 2</p>-->
+    <!--<p>tab 2</p>-->
+    <!--<p>tab 2</p>-->
+    <!--<p>tab 2</p>-->
+    <!--<p>tab 2</p>-->
+    <!--<p>tab 2</p>-->
+    <!--<div class="mdui-dialog-actions">-->
+    <!--<button class="mdui-btn mdui-ripple">注册</button>-->
+    <!--</div>-->
+    <!--</div>-->
+</div>
+{% endif %}
