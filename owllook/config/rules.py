@@ -144,6 +144,7 @@ LATEST_RULES = {
     "www.biquguan.com": PLAN_01,
     "www.xs98.com": PLAN_01,
     "www.58xs.tw": PLAN_01,
+    "www.187ks.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -162,6 +163,8 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.187ks.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.58xs.tw': Rules('http://www.58xs.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
