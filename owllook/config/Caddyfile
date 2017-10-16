@@ -1,5 +1,7 @@
 www.owllook.net {
-    proxy / 127.0.0.1:8001
+    proxy / 127.0.0.1:8001 https://oh.owllook.net/ {
+        policy round_robin
+    }
     timeouts none
     gzip
 }
