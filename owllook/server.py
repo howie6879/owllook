@@ -24,7 +24,9 @@ app.blueprint(novels_bp)
 app.blueprint(operate_bp)
 app.blueprint(except_bp)
 app.blueprint(admin_bp)
-app.blueprint(api_bp)
+
+
+# app.blueprint(api_bp)
 
 
 @app.listener('before_server_start')
@@ -54,10 +56,14 @@ async def add_session_to_request(request):
     # before each request initialize a session
     # using the client's request
     host = request.headers.get('host', None)
-    if not host or host not in CONFIG.HOST:
-        return redirect('http://www.owllook.net')
-    if CONFIG.WEBSITE['IS_RUNNING']:
-        await app.session_interface.open(request)
+    user_agent = request.headers.get('user-agent', None)
+    if user_agent:
+        if not host or host not in CONFIG.HOST:
+            return redirect('http://www.owllook.net')
+        if CONFIG.WEBSITE['IS_RUNNING']:
+            await app.session_interface.open(request)
+        else:
+            return html("<h3>网站正在维护...</h3>")
     else:
         return html("<h3>网站正在维护...</h3>")
 

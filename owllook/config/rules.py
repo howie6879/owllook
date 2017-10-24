@@ -104,6 +104,7 @@ LATEST_RULES = {
     "www.23us.com": PLAN_01,
     "www.ddbiquge.com": PLAN_01,
     "www.abocms.cn": PLAN_01,
+    "www.a306.com": PLAN_01,
     "www.liewen.cc": PLAN_01,
     "www.8535.org": PLAN_01,
     "www.dingdianzw.com": PLAN_01,
