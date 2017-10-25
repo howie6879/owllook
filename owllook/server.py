@@ -58,8 +58,9 @@ async def add_session_to_request(request):
     host = request.headers.get('host', None)
     user_agent = request.headers.get('user-agent', None)
     if user_agent:
-        if not host or host not in CONFIG.HOST:
-            return redirect('http://www.owllook.net')
+        if CONFIG.VAL_HOST == 'true':
+            if not host or host not in CONFIG.HOST:
+                return redirect('http://www.owllook.net')
         if CONFIG.WEBSITE['IS_RUNNING']:
             await app.session_interface.open(request)
         else:

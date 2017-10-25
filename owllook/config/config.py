@@ -9,6 +9,7 @@ class Config():
 
     # Application config
     DEBUG = True
+    VAL_HOST = os.getenv('VAL_HOST', 'true')
     HOST = ['127.0.0.1:8001', '0.0.0.0:8001', '127.0.0.1:8002', '0.0.0.0:8002']
     TIMEZONE = 'Asia/Shanghai'
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))

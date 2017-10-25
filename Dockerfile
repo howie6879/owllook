@@ -8,6 +8,9 @@ WORKDIR ${APP_ROOT}/
 COPY requirements.txt ${APP_ROOT}/
 # 安装依赖
 RUN pip install --no-cache-dir --trusted-host mirrors.aliyun.com -i http://mirrors.aliyun.com/pypi/simple/ -r requirements.txt
+ENV TIME_ZONE=Asia/Shanghai
+RUN echo "${TIME_ZONE}" > /etc/timezone \
+    && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
 COPY . ${APP_ROOT}
 WORKDIR ${APP_ROOT}/owllook/
 RUN find . -name "*.pyc" -delete
