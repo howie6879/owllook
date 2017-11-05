@@ -48,7 +48,7 @@ body {
 }
 
 /* 区域1 */
-.listmain, .story_list_m62topxs, .directory_con, .book-list, #yuedu table, .leftList, table.css, .dirconone, .book_list, #readerlist, .liebiao_bottom dl, .insert_list dl, .uclist, .list_box, .chapter, .mulu, #chapterslist, .booktext, #chapterslist dl, .box_chap, #book dl, .centent, #chapterlist, .booklist, #at, table.border, .zjlist, .mulu_list, .acss, .list, #xslist ul, .dirlist, .list-chapter, .list_box ul, #defaulthtml4 table, .article-list > dl, .update, #list .box, .bookcontent > dl, .listmain > dl, .ml_main > dl, #list dl, #chapter_list, .chapterlist, .mt10, .catalog, #readerlists, .readout table {
+.chapters, .listmain, .story_list_m62topxs, .directory_con, .book-list, #yuedu table, .leftList, table.css, .dirconone, .book_list, #readerlist, .liebiao_bottom dl, .insert_list dl, .uclist, .list_box, .chapter, .mulu, #chapterslist, .booktext, #chapterslist dl, .box_chap, #book dl, .centent, #chapterlist, .booklist, #at, table.border, .zjlist, .mulu_list, .acss, .list, #xslist ul, .dirlist, .list-chapter, .list_box ul, #defaulthtml4 table, .article-list > dl, .update, #list .box, .bookcontent > dl, .listmain > dl, .ml_main > dl, #list dl, #chapter_list, .chapterlist, .mt10, .catalog, #readerlists, .readout table {
     overflow: hidden;
     padding-bottom: 1px;
     margin: auto;
@@ -82,7 +82,7 @@ table.css {
 }
 
 /* 区域3 */
-.story-catalog .catalog-list ul li, #chapter_list .chapter_list_chapterx, .listmain dl dd, .list .block_ul li, .story_list_m62topxs li, .directory_con .con li, .book-list li, #yuedu table tr li, .leftList li, table.css td.ccss, .dirconone ul li, .boxm ul li, .zjlist4 li, ul.pox li, .dccss, #readerlist ul li, .liebiao_bottom dd, .insert_list li, .uclist dd, .list_box td.list_lineb, .chapter li, #category .content .combox h2, .mulu li, .booktext li, #chapterslist dd, .book li, .art_listmain_main span, .box_chap li, #dirsort01 li, #book dd, .centent li, #chapterlist li, .booklist span, .box .zjlist4 li, .chapterlist li, #at td, .readout td, .zjlist dd, .mulu_list > li, .acss .ccss, .list .zl, #xslist ul li, .dirlist li, .list-chapter > li, .list_box ul li, #defaulthtml4 table .dccss, #defaulthtml4 table .dccss a, .article-list > dl > dd, .update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
+.chapter, .story-catalog .catalog-list ul li, #chapter_list .chapter_list_chapterx, .listmain dl dd, .list .block_ul li, .story_list_m62topxs li, .directory_con .con li, .book-list li, #yuedu table tr li, .leftList li, table.css td.ccss, .dirconone ul li, .boxm ul li, .zjlist4 li, ul.pox li, .dccss, #readerlist ul li, .liebiao_bottom dd, .insert_list li, .uclist dd, .list_box td.list_lineb, .chapter li, #category .content .combox h2, .mulu li, .booktext li, #chapterslist dd, .book li, .art_listmain_main span, .box_chap li, #dirsort01 li, #book dd, .centent li, #chapterlist li, .booklist span, .box .zjlist4 li, .chapterlist li, #at td, .readout td, .zjlist dd, .mulu_list > li, .acss .ccss, .list .zl, #xslist ul li, .dirlist li, .list-chapter > li, .list_box ul li, #defaulthtml4 table .dccss, #defaulthtml4 table .dccss a, .article-list > dl > dd, .update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
     border-bottom: 1px dashed #CCC;
     display: inline;
     float: left;
@@ -160,8 +160,8 @@ tr > td.ccss, .L, ul#chapterlist li, .list_box td.list_lineb {
 }
 
 @media (max-width: 767px) {
-    .list_box td.list_lineb, .chapter li, #category .content .combox h2, .mulu li, .booktext li, #chapterslist dd, .book li, .art_listmain_main span, .box_chap li, #dirsort01 li, #book dd, .centent li, #chapterlist li, .booklist span, .box .zjlist4 li, .chapterlist li, #at td, .readout td, .zjlist dd, .mulu_list > li, .acss .ccss, .list .zl, #xslist ul li, .dirlist li, .list-chapter > li, .list_box ul li, #defaulthtml4 table .dccss, .article-list > dl > dd, .update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
-        width: 100%;
+    li.chapter, .list_box td.list_lineb, .chapter li, #category .content .combox h2, .mulu li, .booktext li, #chapterslist dd, .book li, .art_listmain_main span, .box_chap li, #dirsort01 li, #book dd, .centent li, #chapterlist li, .booklist span, .box .zjlist4 li, .chapterlist li, #at td, .readout td, .zjlist dd, .mulu_list > li, .acss .ccss, .list .zl, #xslist ul li, .dirlist li, .list-chapter > li, .list_box ul li, #defaulthtml4 table .dccss, .article-list > dl > dd, .update .bd, #list td.swbt, .bookcontent dd, .listmain dd, .L, .ml_main > dl > dd, #readerlists > ul > li, .catalog > ul > li, .article_texttitleb > ul > li, #cl_content > dl > dd, #list dd, .panel li, .chapterlist > dd, td.ccss, .chapter_list_chapter, .book_list > ul > li {
+        width: 100% !important;
     }
 
 }

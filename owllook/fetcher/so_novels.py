@@ -89,4 +89,6 @@ async def so_search(novels_name):
             result = soup.find_all(class_='res-list')
             extra_tasks = [data_extraction_for_web_so(client=client, html=i) for i in result]
             tasks = [asyncio.ensure_future(i) for i in extra_tasks]
-        return await asyncio.gather(*tasks)
+            return await asyncio.gather(*tasks)
+        else:
+            return []

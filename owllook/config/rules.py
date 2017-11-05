@@ -141,11 +141,18 @@ LATEST_RULES = {
     "www.baquge.tw": PLAN_01,
     "www.lread.cc": PLAN_01,
     "www.biqudao.com": PLAN_01,
+    "www.laidudu.com": PLAN_01,
     "www.kxs7.com": PLAN_01,
     "www.biquguan.com": PLAN_01,
     "www.xs98.com": PLAN_01,
     "www.58xs.tw": PLAN_01,
     "www.187ks.com": PLAN_01,
+    "www.23zw.me": PLAN_01,
+    "www.kanshu58.com": PLAN_01,
+    "www.biqumo.com": PLAN_01,
+    "www.23wx.cm": PLAN_01,
+    "www.biqugexsw.com": PLAN_01,
+    "www.biqu6.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -164,6 +171,16 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqu6.com': Rules('http://www.biqu6.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqugexsw.com': Rules('http://www.biqugexsw.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.laidudu.com': Rules('http://www.laidudu.com/', {'class': 'listmain'}, {'id': 'content'}),
+    # 已解析
+    'www.kanshu58.com': Rules('0', {'class': 'chapters'}, {'id': 'content'}),
+    # 已解析
+    'www.23zw.me': Rules('0', {'id': 'chapter_list'}, {'id': 'text_area'}),
     # 已解析
     'www.187ks.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -314,6 +331,8 @@ RULES = {
     'www.x23us.com': Rules('0', {'id': 'at'}, {'id': 'contents'}),
     # 已解析
     'www.23wx.cc': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.23wx.cm': Rules('0', {'class': 'book_list'}, {'id': 'htmlContent'}),
     # 已解析
     'www.ddbiquge.com': Rules('http://www.ddbiquge.com', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
