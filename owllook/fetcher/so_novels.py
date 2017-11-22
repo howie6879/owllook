@@ -14,7 +14,7 @@ async def fetch(client, url, novels_name):
     with async_timeout.timeout(20):
         try:
             headers = {'user-agent': get_random_user_agent()}
-            params = {'q': novels_name, 'ie': 'utf-8'}
+            params = {'q': novels_name, 'ie': 'utf-8', 'src': 'home_www'}
             async with client.get(url, params=params, headers=headers) as response:
                 assert response.status == 200
                 LOGGER.info('Task url: {}'.format(response.url))

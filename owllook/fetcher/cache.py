@@ -13,6 +13,7 @@ from urllib.parse import urlparse, parse_qs
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.baidu_novels import baidu_search
 from owllook.fetcher.so_novels import so_search
+from owllook.fetcher.bing_novels import bing_search
 from owllook.fetcher.function import target_fetch, get_time, requests_target_fetch
 from owllook.fetcher.extract_novels import extract_pre_next_chapter
 from owllook.config import RULES, LATEST_RULES, LOGGER
@@ -90,7 +91,12 @@ async def cache_owllook_novels_content(url, netloc):
                 title_reg = r'(第?\s*[一二两三四五六七八九十○零百千万亿0-9１２３４５６７８９０]{1,6}\s*[章回卷节折篇幕集]\s*.*?)[_,-]'
                 title = soup.title.string
                 extract_title = re.findall(title_reg, title, re.I)
-                title = extract_title[0] if extract_title else title
+                if extract_title:
+                    title = extract_title[0]
+                else:
+                    title = soup.select('h1')[0].get_text()
+                if not title:
+                    title = soup.title.string
                 # if "_" in title:
                 #     title = title.split('_')[0]
                 # elif "-" in title:
@@ -135,6 +141,13 @@ async def cache_owllook_baidu_novels_result(novels_name):
 @cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_so_novels_result(novels_name):
     result = await so_search(novels_name)
+    parse_result = [i for i in result if i]
+    return parse_result if parse_result else None
+
+
+@cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+async def cache_owllook_bing_novels_result(novels_name):
+    result = await bing_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
 

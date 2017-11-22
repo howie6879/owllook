@@ -37,7 +37,7 @@ async def get_real_url(client, url):
     with async_timeout.timeout(10):
         try:
             headers = {'user-agent': get_random_user_agent()}
-            async with client.get(url, headers=headers, allow_redirects=True) as response:
+            async with client.head(url, headers=headers, allow_redirects=True) as response:
                 assert response.status == 200
                 LOGGER.info('Parse url: {}'.format(response.url))
                 # text = ""

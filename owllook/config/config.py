@@ -25,3 +25,4 @@ class Config():
     URL_PC = 'http://www.baidu.com/s'
     BAIDU_RN = 15
     SO_URL = "https://www.so.com/s"
+    BY_URL = "https://www.bing.com/search"
