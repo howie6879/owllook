@@ -18,8 +18,8 @@ def ver_question() -> tuple:
     """
     cf = ConfigParser()
     file_name = os.path.join(_dir, 'verification.conf')
-    cf.read(file_name)
     try:
+        cf.read(file_name, encoding='utf-8')
         index = random.choice(cf.sections())
     except IndexError as e:
         index = "1"

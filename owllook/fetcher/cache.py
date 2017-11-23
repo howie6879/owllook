@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
 from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, urljoin
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.baidu_novels import baidu_search
@@ -209,8 +209,8 @@ async def get_the_latest_chapter(chapter_url, loop=None):
                                                                              None) if latest_chapter_name else None
                             latest_chapter_url = soup.select(
                                 'meta[property="{0}"]'.format(meta_value["latest_chapter_url"]))
-                            latest_chapter_url = latest_chapter_url[0].get('content',
-                                                                           None) if latest_chapter_url else None
+                            latest_chapter_url = urljoin(url, latest_chapter_url[0].get('content',
+                                                                                        None)) if latest_chapter_url else None
                         else:
                             selector = LATEST_RULES[netloc].selector
                             content_url = selector.get('content_url')
@@ -232,6 +232,7 @@ async def get_the_latest_chapter(chapter_url, loop=None):
                                 latest_chapter_name = latest_chapter_soup[0].get('title', None)
                         if latest_chapter_name and latest_chapter_url:
                             time_current = get_time()
+                            print(latest_chapter_url)
                             data = {
                                 "latest_chapter_name": latest_chapter_name,
                                 "latest_chapter_url": latest_chapter_url,
