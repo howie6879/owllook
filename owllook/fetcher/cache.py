@@ -131,21 +131,21 @@ async def cache_owllook_novels_chapter(url, netloc):
         return None
 
 
-@cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_baidu_novels_result(novels_name):
     result = await baidu_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
 
 
-@cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_so_novels_result(novels_name):
     result = await so_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
 
 
-@cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_bing_novels_result(novels_name):
     result = await bing_search(novels_name)
     parse_result = [i for i in result if i]

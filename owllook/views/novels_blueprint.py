@@ -70,7 +70,7 @@ async def owllook_search(request):
     for each_engine in ENGINE_PRIORITY:
         # for bing
         if each_engine == "bing":
-            novels_name = "{name} 小说 阅读 最新章节 笔趣阁".format(name=name)
+            novels_name = "{name} 小说 阅读 最新章节".format(name=name)
             parse_result = await cache_owllook_bing_novels_result(novels_name)
             if parse_result:
                 break
