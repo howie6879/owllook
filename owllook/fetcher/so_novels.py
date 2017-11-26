@@ -13,8 +13,11 @@ from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES
 async def fetch(client, url, novels_name):
     with async_timeout.timeout(20):
         try:
-            headers = {'user-agent': get_random_user_agent()}
-            params = {'q': novels_name, 'ie': 'utf-8', 'src': 'home_www'}
+            headers = {
+                'User-Agent': get_random_user_agent(),
+                'Referer': "http://www.so.com/haosou.html?src=home"
+            }
+            params = {'ie': 'utf-8', 'src': 'noscript_home', 'shb': 1, 'q': novels_name, }
             async with client.get(url, params=params, headers=headers) as response:
                 assert response.status == 200
                 LOGGER.info('Task url: {}'.format(response.url))
@@ -92,3 +95,25 @@ async def so_search(novels_name):
             return await asyncio.gather(*tasks)
         else:
             return []
+
+
+if __name__ == '__main__':
+    import uvloop
+    import time
+
+    from pprint import pprint
+
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+
+
+    def novel_task(name):
+        loop = asyncio.get_event_loop()
+        task = asyncio.ensure_future(so_search(name))
+        loop.run_until_complete(task)
+        return task.result()
+
+
+    start = time.time()
+    result = novel_task('圣墟 小说 阅读 最新章节')
+    pprint(result)
+    print(time.time() - start)

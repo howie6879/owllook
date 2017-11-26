@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
- Created by howie.hu at 21/11/2017.
+ Created by howie.hu at 23/11/2017.
 """
 import asyncio
 import aiohttp
@@ -18,9 +18,9 @@ async def fetch(client, url, novels_name):
         try:
             headers = {
                 'user-agent': get_random_user_agent(),
-                'referer': "https://www.bing.com/"
+                'referer': "https://duckduckgo.com/"
             }
-            params = {'q': novels_name, 'ensearch': 0}
+            params = {'q': novels_name}
             async with client.get(url, params=params, headers=headers) as response:
                 assert response.status == 200
                 LOGGER.info('Task url: {}'.format(response.url))
@@ -34,7 +34,7 @@ async def fetch(client, url, novels_name):
             return None
 
 
-async def data_extraction_for_web_bing(client, html):
+async def data_extraction_for_web_duck(client, html):
     with async_timeout.timeout(15):
         try:
             try:
@@ -51,15 +51,6 @@ async def data_extraction_for_web_bing(client, html):
                 # time = time[0] if time else ''
                 timestamp = 0
                 time = ''
-                # if time:
-                #     try:
-                #         time_list = [int(i) for i in time.split('-')]
-                #         years = str(time_list[0])[-4:]
-                #         timestamp = arrow.get(int(years), time_list[1], time_list[2]).timestamp
-                #         time = years + "-" + str(time_list[1]) + "-" + str(time_list[2])
-                #     except Exception as e:
-                #         LOGGER.exception(e)
-                #         timestamp = 0
                 return {'title': title,
                         'url': url,
                         'time': time,
@@ -77,14 +68,14 @@ async def data_extraction_for_web_bing(client, html):
             return None
 
 
-async def bing_search(novels_name):
-    url = CONFIG.BY_URL
+async def duck_search(novels_name):
+    url = CONFIG.DUCKGO_URL
     async with aiohttp.ClientSession() as client:
         html = await fetch(client=client, url=url, novels_name=novels_name)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
-            result = soup.find_all(class_='b_algo')
-            extra_tasks = [data_extraction_for_web_bing(client=client, html=i) for i in result]
+            result = soup.find_all(class_='result')
+            extra_tasks = [data_extraction_for_web_duck(client=client, html=i) for i in result]
             tasks = [asyncio.ensure_future(i) for i in extra_tasks]
             return await asyncio.gather(*tasks)
         else:
@@ -102,12 +93,12 @@ if __name__ == '__main__':
 
     def novel_task(name):
         loop = asyncio.get_event_loop()
-        task = asyncio.ensure_future(bing_search(name))
+        task = asyncio.ensure_future(duck_search(name))
         loop.run_until_complete(task)
         return task.result()
 
 
     start = time.time()
-    result = novel_task('牧神记 小说 阅读 最新章节')
+    result = novel_task('圣墟 小说 阅读 最新章节')
     pprint(result)
     print(time.time() - start)
