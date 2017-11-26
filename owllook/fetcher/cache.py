@@ -11,9 +11,7 @@ from aiocache.utils import get_args_dict, get_cache
 from urllib.parse import urlparse, parse_qs, urljoin
 
 from owllook.database.mongodb import MotorBase
-from owllook.fetcher.baidu_novels import baidu_search
-from owllook.fetcher.so_novels import so_search
-from owllook.fetcher.bing_novels import bing_search
+from owllook.fetcher import baidu_search, so_search, bing_search, duck_search
 from owllook.fetcher.function import target_fetch, get_time, requests_target_fetch
 from owllook.fetcher.extract_novels import extract_pre_next_chapter
 from owllook.config import RULES, LATEST_RULES, LOGGER
@@ -148,6 +146,13 @@ async def cache_owllook_so_novels_result(novels_name):
 @cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_bing_novels_result(novels_name):
     result = await bing_search(novels_name)
+    parse_result = [i for i in result if i]
+    return parse_result if parse_result else None
+
+
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+async def cache_owllook_duck_novels_result(novels_name):
+    result = await duck_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
 

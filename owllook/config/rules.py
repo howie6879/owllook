@@ -61,7 +61,7 @@ REPLACE_RULES = {
 }
 
 # 搜索引擎检索优先级
-ENGINE_PRIORITY = ['baidu', 'bing', '360']
+ENGINE_PRIORITY = ['baidu', 'bing', 'duck_go', '360']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -97,7 +97,6 @@ LATEST_RULES = {
     "www.biquge.lu": PLAN_01,
     "www.263zw.com": PLAN_01,
     "www.3qzone.com": PLAN_01,
-    "www.x23us.com": PLAN_01,
     "wwww.yooread.com": PLAN_01,
     "www.suimeng.la": PLAN_01,
     "www.bequge.com": PLAN_01,
@@ -174,6 +173,7 @@ LATEST_RULES = {
     "www.biquku.la": PLAN_01,
     "www.00ksw.org": PLAN_01,
     "www.bqg.cc": PLAN_01,
+    "www.biqugezw.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(

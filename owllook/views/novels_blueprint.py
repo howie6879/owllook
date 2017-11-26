@@ -11,7 +11,7 @@ from owllook.fetcher.function import get_time, get_netloc
 from owllook.utils import ver_question
 from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
     cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, cache_owllook_search_ranking, \
-    cache_owllook_bing_novels_result
+    cache_owllook_bing_novels_result, cache_owllook_duck_novels_result
 from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 
 novels_bp = Blueprint('novels_blueprint')
@@ -80,10 +80,16 @@ async def owllook_search(request):
             parse_result = await cache_owllook_so_novels_result(novels_name)
             if parse_result:
                 break
+        # for baidu
         if each_engine == "baidu":
-            # for baidu
             novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
             parse_result = await cache_owllook_baidu_novels_result(novels_name)
+            if parse_result:
+                break
+        # for duckduckgo
+        if each_engine == "duck_go":
+            novels_name = '{name} 小说 阅读 最新章节'.format(name=name)
+            parse_result = await cache_owllook_duck_novels_result(novels_name)
             if parse_result:
                 break
     if parse_result:
