@@ -163,7 +163,8 @@ async def chapter(request):
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
     if content:
-        content = str(content).strip('[],, Jjs').replace(', ', '').replace('onerror', '').replace('js', '')
+        content = str(content).strip('[],, Jjs').replace(', ', '').replace('onerror', '').replace('js', '').replace(
+            '加入书架', '')
         return template(
             'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:

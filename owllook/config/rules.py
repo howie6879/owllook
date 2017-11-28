@@ -30,7 +30,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "product.dangdang.com", "www.chuiyao.com", "novel.slieny.com", "www.bilibili.com", "donghua.dmzj.com",
                 "www.yaojingweiba.com", "www.qb5200.com", "www.520tingshu.com", "www.567zw.com", "www.zjrxz.com",
                 "v.qq.com", "blog.sina.com.cn", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com",
-                "news.so.com", "www.sodu3.com", "vipreader.qidian.com", "www.mozhua9.com"]
+                "news.so.com", "www.sodu3.com", "vipreader.qidian.com", "www.mozhua9.com", "www.iqiyi.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -80,6 +80,7 @@ LATEST_RULES = {
     "www.23us.la": PLAN_01,
     "www.sqsxs.com": PLAN_01,
     "www.nuomi9.com": PLAN_01,
+    "www.biquge.info": PLAN_01,
     "www.biquge.tw": PLAN_01,
     "www.qu.la": PLAN_01,
     "www.ybdu.com": PLAN_01,
@@ -170,6 +171,7 @@ LATEST_RULES = {
     "www.biqu6.com": PLAN_01,
     "www.xiuxs.com": PLAN_01,
     "www.biqule.com": PLAN_01,
+    "www.biquzi.com": PLAN_01,
     "www.biquku.la": PLAN_01,
     "www.00ksw.org": PLAN_01,
     "www.bqg.cc": PLAN_01,
@@ -193,6 +195,8 @@ RULES = {
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.biquge.info': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
     'www.37zw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquku.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
@@ -202,6 +206,8 @@ RULES = {
     'www.00ksw.org': Rules('0', {'class': 'ml_list'}, {'id': 'articlecontent'}),
     # 已解析
     'www.bqge.org': Rules('http://www.bqge.org/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquzi.com': Rules('http://www.biquzi.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.bqg.cc': Rules('http://www.bqg.cc/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
