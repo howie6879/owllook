@@ -58,7 +58,6 @@ async def qidian(request):
     user = request['session'].get('user', None)
     novels_type = request.args.get('type', '全部类别').strip()
     first_type_title = "全部类别"
-    novels_head = ['#']
     first_type = [
         '玄幻',
         '奇幻',
@@ -74,23 +73,29 @@ async def qidian(request):
         '灵异',
         '二次元',
     ]
+    if novels_type in first_type:
+        novels_head = [novels_type]
+    elif novels_type == first_type_title:
+        novels_head = ['#']
+    else:
+        return redirect('qidian')
     search_ranking = await cache_others_search_ranking(spider='qidian', novel_type=novels_type)
     if user:
-        return template('index.html', 
-                        title='owllook', 
-                        is_login=1, 
-                        user=user, 
+        return template('index.html',
+                        title='owllook',
+                        is_login=1,
+                        user=user,
                         search_ranking=search_ranking,
-                        first_type=first_type, 
-                        first_type_title=first_type_title, 
+                        first_type=first_type,
+                        first_type_title=first_type_title,
                         novels_head=novels_head)
     else:
-        return template('index.html', 
-                        title='owllook', 
-                        is_login=0, 
-                        search_ranking=search_ranking, 
+        return template('index.html',
+                        title='owllook',
+                        is_login=0,
+                        search_ranking=search_ranking,
                         first_type=first_type,
-                        first_type_title=first_type_title, 
+                        first_type_title=first_type_title,
                         novels_head=novels_head)
 
 
