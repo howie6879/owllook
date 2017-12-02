@@ -270,7 +270,7 @@ $(document).ready(function () {
 		e.preventDefault();
 	});
 	(function(){
-		var startX,startY,endX,endY,moveLength;
+		var startX,startY,endX,endY;
 		var el = document.querySelector("body");
 		//获取点击开始的坐标
 		el.addEventListener("touchstart", function (e){
@@ -284,14 +284,12 @@ $(document).ready(function () {
 			var x = (endX - startX);
 			var y = (endY - startY);
 			if(Math.abs(x/y)>5&&Math.abs(x)>30){
-				if(x>0){
+				if(x<0){
 					page_btn_next.click();
 				}else{
 					page_btn_pre.click();
 				}
 			}
-			//长方形的斜边长 = 两个直线的平方的和的平方根
-			moveLength = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
 		});
 	})();
