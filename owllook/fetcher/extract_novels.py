@@ -48,7 +48,7 @@ def extract_pre_next_chapter(chapter_url, html):
         next_reg = r'(<a\s+.*?>.*[上前下后][一]?[页张个篇章节步].*?</a>)'
         judge_reg = r'[上前下后][一]?[页张个篇章节步]'
         # 这里同样需要利用bs再次解析
-        next_res = re.findall(next_reg, html, re.I)
+        next_res = re.findall(next_reg, html.replace('<<','').replace('>>',''), re.I)
         str_next_res = '\n'.join(next_res)
         next_res_soup = BeautifulSoup(str_next_res, 'html5lib')
         for link in next_res_soup.find_all('a'):

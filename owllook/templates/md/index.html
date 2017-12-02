@@ -55,14 +55,20 @@
         <div class="mdui-chip">
             <a href="/md/qidian"><span class="rank-list mdui-chip-title">起点小说榜单</span></a>
         </div>
+        <div class="mdui-chip">
+            <a href="/md/zh_bd_novels"><span class="rank-list mdui-chip-title">纵横百度月票榜</span></a>
+        </div>
     </div>
     <div class="mdui-divider" style="margin-top: 1%;"></div>
     <div class="mdui-typo" style="margin-top: 1%">
         <div class="mdui-chip">
             {% if is_owl %}
             <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
-            {% else %}
+            {% elif is_qidian %}
             <span class="mdui-chip-title mdui-text-color-red"><a href="/md/qidian?type={{first_type_title}}">{{first_type_title}}</a></span>
+            {% elif is_bd %}
+            <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
+            {% else %}
             {% endif %}
         </div>
         {%for each in first_type%}
@@ -93,7 +99,7 @@
             {%endfor%}
             </tbody>
         </table>
-        {% else %}
+        {% elif is_qidian %}
         {%for each_ranking in search_ranking.data%}
         <table class="mdui-table mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3" style="margin-bottom: 50px;">
             <thead>
@@ -115,6 +121,26 @@
             </tbody>
         </table>
         {%endfor%}
+        {% elif is_bd %}
+        <table class="mdui-table" style="margin-bottom: 50px;">
+            <thead>
+            <tr align="center">
+                {%for each_head in novels_head%}
+                <th>{{each_head}}</th>
+                {%endfor%}
+            </tr>
+            </thead>
+            <tbody>
+            {%for each_ranking in search_ranking.data%}
+            <tr>
+                <td>{{each_ranking.num}}</td>
+                <td><a href="/search?wd={{each_ranking.name}}" target="_blank">{{each_ranking.name}}</a></td>
+                <td>{{each_ranking.type}}</td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+        {% else %}
         {% endif %}
 
     </div>

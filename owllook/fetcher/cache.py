@@ -8,11 +8,10 @@ from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
 from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, urljoin
 
 from owllook.database.mongodb import MotorBase
-from owllook.fetcher.baidu_novels import baidu_search
-from owllook.fetcher.so_novels import so_search
+from owllook.fetcher import baidu_search, so_search, bing_search, duck_search
 from owllook.fetcher.function import target_fetch, get_time, requests_target_fetch
 from owllook.fetcher.extract_novels import extract_pre_next_chapter
 from owllook.config import RULES, LATEST_RULES, LOGGER
@@ -90,7 +89,12 @@ async def cache_owllook_novels_content(url, netloc):
                 title_reg = r'(第?\s*[一二两三四五六七八九十○零百千万亿0-9１２３４５６７８９０]{1,6}\s*[章回卷节折篇幕集]\s*.*?)[_,-]'
                 title = soup.title.string
                 extract_title = re.findall(title_reg, title, re.I)
-                title = extract_title[0] if extract_title else title
+                if extract_title:
+                    title = extract_title[0]
+                else:
+                    title = soup.select('h1')[0].get_text()
+                if not title:
+                    title = soup.title.string
                 # if "_" in title:
                 #     title = title.split('_')[0]
                 # elif "-" in title:
@@ -125,16 +129,30 @@ async def cache_owllook_novels_chapter(url, netloc):
         return None
 
 
-@cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_baidu_novels_result(novels_name):
     result = await baidu_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
 
 
-@cached(ttl=86400, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def cache_owllook_so_novels_result(novels_name):
     result = await so_search(novels_name)
+    parse_result = [i for i in result if i]
+    return parse_result if parse_result else None
+
+
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+async def cache_owllook_bing_novels_result(novels_name):
+    result = await bing_search(novels_name)
+    parse_result = [i for i in result if i]
+    return parse_result if parse_result else None
+
+
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+async def cache_owllook_duck_novels_result(novels_name):
+    result = await duck_search(novels_name)
     parse_result = [i for i in result if i]
     return parse_result if parse_result else None
 
@@ -196,8 +214,8 @@ async def get_the_latest_chapter(chapter_url, loop=None):
                                                                              None) if latest_chapter_name else None
                             latest_chapter_url = soup.select(
                                 'meta[property="{0}"]'.format(meta_value["latest_chapter_url"]))
-                            latest_chapter_url = latest_chapter_url[0].get('content',
-                                                                           None) if latest_chapter_url else None
+                            latest_chapter_url = urljoin(url, latest_chapter_url[0].get('content',
+                                                                                        None)) if latest_chapter_url else None
                         else:
                             selector = LATEST_RULES[netloc].selector
                             content_url = selector.get('content_url')
@@ -219,6 +237,7 @@ async def get_the_latest_chapter(chapter_url, loop=None):
                                 latest_chapter_name = latest_chapter_soup[0].get('title', None)
                         if latest_chapter_name and latest_chapter_url:
                             time_current = get_time()
+                            print(latest_chapter_url)
                             data = {
                                 "latest_chapter_name": latest_chapter_name,
                                 "latest_chapter_url": latest_chapter_url,

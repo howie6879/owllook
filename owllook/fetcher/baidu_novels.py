@@ -37,7 +37,7 @@ async def get_real_url(client, url):
     with async_timeout.timeout(10):
         try:
             headers = {'user-agent': get_random_user_agent()}
-            async with client.get(url, headers=headers, allow_redirects=True) as response:
+            async with client.head(url, headers=headers, allow_redirects=True) as response:
                 assert response.status == 200
                 LOGGER.info('Parse url: {}'.format(response.url))
                 # text = ""
@@ -112,6 +112,8 @@ async def data_extraction_for_web_baidu(client, html):
             if real_url:
                 real_str_url = str(real_url)
                 netloc = urlparse(real_str_url).netloc
+                if "http://" + netloc + "/" == real_str_url:
+                    return None
                 if 'baidu' in real_str_url or netloc in BLACK_DOMAIN:
                     return None
                 is_parse = 1 if netloc in RULES.keys() else 0

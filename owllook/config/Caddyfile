@@ -1,9 +1,0 @@
-www.owllook.net {
-    proxy / 127.0.0.1:8001
-    timeouts none
-    gzip
-}
-
-owllook.net {
-    redir http://www.owllook.net
-}

@@ -10,7 +10,8 @@ from owllook.database.mongodb import MotorBase
 from owllook.fetcher.function import get_time, get_netloc
 from owllook.utils import ver_question
 from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
-    cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, cache_owllook_search_ranking
+    cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, cache_owllook_search_ranking, \
+    cache_owllook_bing_novels_result, cache_owllook_duck_novels_result
 from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
 
 novels_bp = Blueprint('novels_blueprint')
@@ -54,6 +55,7 @@ async def index(request):
 async def owllook_search(request):
     start = time.time()
     name = request.args.get('wd', '').strip()
+    novels_keyword = name.split(' ')[0]
     motor_db = motor_base.get_db()
     if not name:
         return redirect('/')
@@ -66,16 +68,28 @@ async def owllook_search(request):
     # 通过搜索引擎获取检索结果
     parse_result = None
     for each_engine in ENGINE_PRIORITY:
+        # for bing
+        if each_engine == "bing":
+            novels_name = "{name} 小说 阅读 最新章节".format(name=name)
+            parse_result = await cache_owllook_bing_novels_result(novels_name)
+            if parse_result:
+                break
         # for 360 so
         if each_engine == "360":
             novels_name = "{name} 小说 最新章节".format(name=name)
             parse_result = await cache_owllook_so_novels_result(novels_name)
             if parse_result:
                 break
+        # for baidu
         if each_engine == "baidu":
-            # for baidu
             novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
             parse_result = await cache_owllook_baidu_novels_result(novels_name)
+            if parse_result:
+                break
+        # for duckduckgo
+        if each_engine == "duck_go":
+            novels_name = '{name} 小说 阅读 最新章节'.format(name=name)
+            parse_result = await cache_owllook_duck_novels_result(novels_name)
             if parse_result:
                 break
     if parse_result:
@@ -96,13 +110,13 @@ async def owllook_search(request):
                 # 此处语法操作过多  下次看一遍mongo再改
                 if res:
                     is_ok = await motor_db.user_message.update_one(
-                        {'user': user, 'search_records.keyword': {'$ne': name}},
-                        {'$push': {'search_records': {'keyword': name, 'counts': 1}}},
+                        {'user': user, 'search_records.keyword': {'$ne': novels_keyword}},
+                        {'$push': {'search_records': {'keyword': novels_keyword, 'counts': 1}}},
                     )
 
                     if is_ok:
                         await motor_db.user_message.update_one(
-                            {'user': user, 'search_records.keyword': name},
+                            {'user': user, 'search_records.keyword': novels_keyword},
                             {'$inc': {'search_records.$.counts': 1}}
                         )
 
@@ -112,7 +126,7 @@ async def owllook_search(request):
                 'result.html',
                 is_login=1,
                 user=user,
-                name=name,
+                name=novels_keyword,
                 time='%.2f' % (time.time() - start),
                 result=result_sorted,
                 count=len(parse_result))
@@ -121,7 +135,7 @@ async def owllook_search(request):
             return template(
                 'result.html',
                 is_login=0,
-                name=name,
+                name=novels_keyword,
                 time='%.2f' % (time.time() - start),
                 result=result_sorted,
                 count=len(parse_result))
@@ -149,7 +163,8 @@ async def chapter(request):
     content_url = RULES[netloc].content_url
     content = await cache_owllook_novels_chapter(url=url, netloc=netloc)
     if content:
-        content = str(content).strip('[],, Jjs').replace(', ', '')
+        content = str(content).strip('[],, Jjs').replace(', ', '').replace('onerror', '').replace('js', '').replace(
+            '加入书架', '')
         return template(
             'chapter.html', novels_name=novels_name, url=url, content_url=content_url, soup=content)
     else:

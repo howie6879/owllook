@@ -39,7 +39,8 @@ $(document).ready(function () {
     var page_btn_next = $("div.pre_next > a:nth-child(2)");
     var page_title = $("title");
     var page_chapter_name = $("#content_name");
-    var page_chapter_content = $(".show-content>div");//正文
+    // var page_chapter_content = $(".show-content>div");//正文
+    var page_chapter_content = $($(".show-content").children("*").get(0)); //正文
     var page_bookmark = $("#bookMark");//书签，需要修改样式
     var page_url = $("#url");//页面隐藏表单，本页地址
 

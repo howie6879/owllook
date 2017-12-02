@@ -30,7 +30,7 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "product.dangdang.com", "www.chuiyao.com", "novel.slieny.com", "www.bilibili.com", "donghua.dmzj.com",
                 "www.yaojingweiba.com", "www.qb5200.com", "www.520tingshu.com", "www.567zw.com", "www.zjrxz.com",
                 "v.qq.com", "blog.sina.com.cn", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com",
-                "news.so.com", "www.sodu3.com"]
+                "news.so.com", "www.sodu3.com", "vipreader.qidian.com", "www.mozhua9.com", "www.iqiyi.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
@@ -61,7 +61,7 @@ REPLACE_RULES = {
 }
 
 # 搜索引擎检索优先级
-ENGINE_PRIORITY = ['360', 'baidu']
+ENGINE_PRIORITY = ['baidu', 'bing', 'duck_go', '360']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
@@ -78,7 +78,9 @@ LATEST_RULES = {
     "www.biqugex.com": PLAN_01,
     "www.x23us.com": PLAN_01,
     "www.23us.la": PLAN_01,
+    "www.sqsxs.com": PLAN_01,
     "www.nuomi9.com": PLAN_01,
+    "www.biquge.info": PLAN_01,
     "www.biquge.tw": PLAN_01,
     "www.qu.la": PLAN_01,
     "www.ybdu.com": PLAN_01,
@@ -93,6 +95,7 @@ LATEST_RULES = {
     "www.touxiang.la": PLAN_01,
     "www.bxquge.com": PLAN_01,
     "www.beidouxin.com": PLAN_01,
+    "www.biquge.lu": PLAN_01,
     "www.263zw.com": PLAN_01,
     "www.3qzone.com": PLAN_01,
     "wwww.yooread.com": PLAN_01,
@@ -102,8 +105,10 @@ LATEST_RULES = {
     "www.xbqge.com": PLAN_01,
     "www.aiquxs.com": PLAN_01,
     "www.23us.com": PLAN_01,
+    "www.biqiuge.com": PLAN_01,
     "www.ddbiquge.com": PLAN_01,
     "www.abocms.cn": PLAN_01,
+    "www.a306.com": PLAN_01,
     "www.liewen.cc": PLAN_01,
     "www.8535.org": PLAN_01,
     "www.dingdianzw.com": PLAN_01,
@@ -125,6 +130,8 @@ LATEST_RULES = {
     "www.woquge.com": PLAN_01,
     "www.biquguo.com": PLAN_01,
     "www.8jzw.cc": PLAN_01,
+    "www.biquge.tv": PLAN_01,
+    "www.biquge5200.com": PLAN_01,
     "www.8jzw.com": PLAN_01,
     "www.23xsw.cc": PLAN_01,
     "www.miaobige.com": PLAN_01,
@@ -134,16 +141,41 @@ LATEST_RULES = {
     "www.33xs.com": PLAN_01,
     "www.zwdu.com": PLAN_01,
     "www.ttzw.com": PLAN_01,
+    "www.zanghaihuatxt.com": PLAN_01,
+    "www.kuxiaoshuo.com": PLAN_01,
     "www.biqudu.com": PLAN_01,
     "www.biqugeg.com": PLAN_01,
     "www.23txt.com": PLAN_01,
     "www.baquge.tw": PLAN_01,
+    "www.23qb.com": PLAN_01,
     "www.lread.cc": PLAN_01,
     "www.biqudao.com": PLAN_01,
+    "www.laidudu.com": PLAN_01,
     "www.kxs7.com": PLAN_01,
     "www.biquguan.com": PLAN_01,
+    "www.biquta.com": PLAN_01,
     "www.xs98.com": PLAN_01,
+    "www.bqge.org": PLAN_01,
     "www.58xs.tw": PLAN_01,
+    "www.187ks.com": PLAN_01,
+    "www.yikanxiaoshuo.com": PLAN_01,
+    "www.23zw.me": PLAN_01,
+    "www.37zw.net": PLAN_01,
+    "www.biquge.cm": PLAN_01,
+    "www.kanshu58.com": PLAN_01,
+    "www.biqumo.com": PLAN_01,
+    "www.mpxiaoshuo.com": PLAN_01,
+    "www.23wx.cm": PLAN_01,
+    "www.biquge.jp": PLAN_01,
+    "www.biqugexsw.com": PLAN_01,
+    "www.biqu6.com": PLAN_01,
+    "www.xiuxs.com": PLAN_01,
+    "www.biqule.com": PLAN_01,
+    "www.biquzi.com": PLAN_01,
+    "www.biquku.la": PLAN_01,
+    "www.00ksw.org": PLAN_01,
+    "www.bqg.cc": PLAN_01,
+    "www.biqugezw.com": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -162,6 +194,66 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.info': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.37zw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquku.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.co': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.00ksw.org': Rules('0', {'class': 'ml_list'}, {'id': 'articlecontent'}),
+    # 已解析
+    'www.bqge.org': Rules('http://www.bqge.org/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquzi.com': Rules('http://www.biquzi.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.bqg.cc': Rules('http://www.bqg.cc/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.jp': Rules('0', {'id': 'list'}, {'id': 'content'}),
+    # 已解析
+    'www.vipzw.com': Rules('http://www.vipzw.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge5200.com': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.zanghaihuatxt.com': Rules('http://www.zanghaihuatxt.com/', {'class': 'listmain'}, {'id': 'content'}),
+    # 已解析
+    'www.xiuxs.com': Rules('http://www.xiuxs.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.1biquge.com': Rules('http://www.1biquge.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.xiaoshuowan.com': Rules('http://www.xiaoshuowan.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqugela.com': Rules('http://www.biqugela.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biqu6.com': Rules('http://www.biqu6.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.sqsxs.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.tv': Rules('http://www.biquge.tv/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquta.com': Rules('https://www.biquta.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.cm': Rules('http://www.biquge.cm/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.23qb.com': Rules('https://www.23qb.com/', {'id': 'chapterList'}, {'id': 'TextContent'}),
+    # 已解析
+    # 'www.txtwan.com': Rules('http://www.txtwan.com/', {'id': 'chapterList'}, {'id': 'txt'}),
+    # 已解析
+    'www.biqugexsw.com': Rules('http://www.biqugexsw.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.kuxiaoshuo.com': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.laidudu.com': Rules('http://www.laidudu.com/', {'class': 'listmain'}, {'id': 'content'}),
+    # 已解析
+    'www.kanshu58.com': Rules('0', {'class': 'chapters'}, {'id': 'content'}),
+    # 已解析
+    'www.mpxiaoshuo.com': Rules('0', {'class': 'mulu_list'}, {'id': 'htmlContent'}),
+    # 已解析
+    'www.23zw.me': Rules('0', {'id': 'chapter_list'}, {'id': 'text_area'}),
+    # 已解析
+    'www.187ks.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.58xs.tw': Rules('http://www.58xs.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -310,6 +402,8 @@ RULES = {
     'www.x23us.com': Rules('0', {'id': 'at'}, {'id': 'contents'}),
     # 已解析
     'www.23wx.cc': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.23wx.cm': Rules('0', {'class': 'book_list'}, {'id': 'htmlContent'}),
     # 已解析
     'www.ddbiquge.com': Rules('http://www.ddbiquge.com', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析

@@ -8,7 +8,7 @@
 >
 > 目标是满足小说爱好者的**搜书、阅读、收藏、追更、推荐等功能**
 >
-> 若将本项目部署并发行，请声明来源，**本项目纯属共享学习之用，不得用于商业！**
+> 若将本项目部署并发行，请**声明来源**，本项目纯属**共享学习之用，不得用于商业！**
 
 #### 1.1.项目介绍
 
@@ -78,8 +78,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - [ ] 阅读书单
 - [ ] 推荐
 
-**交流群：591460519，欢迎提issue**
-
 ### 2.效果图
 
 下面是一些截图展示，具体效果图请看[这里](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)：
@@ -99,8 +97,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 阅读：
 
 ![content](./docs/imgs/content.png)
-
-关于阅读时候的主题，这里感谢`mscststs`编写的油猴脚本，提供多种色彩主题切换，有兴趣点击[这里](https://greasyfork.org/zh-CN/scripts/33263-owllook-%E4%B8%BB%E9%A2%98%E6%A8%A1%E5%BC%8F)安装
 
 ### 3.License
 
@@ -147,5 +143,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 佚名：15元
 - 人到中年：100元
 - Black：6元
+- 滑稽：5元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />

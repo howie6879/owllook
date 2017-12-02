@@ -6,6 +6,7 @@ gunicorn.py
 pro_config.py
 tags
 .DS_Store
+Caddyfile
 # dir
 __pycache__/
 .vscode/
