@@ -228,12 +228,12 @@ $(document).ready(function () {
     }
 
 
-    // function log(s) {
-    //     if (1) {
-    //         console.log(s);
-    //     }
-    //
-    // }
+    function log(s) {
+        if (1) {
+            console.log(s);
+        }
+
+    }
 
 
     ajax_content_init();
