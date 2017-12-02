@@ -228,17 +228,17 @@ $(document).ready(function () {
     }
 
 
-    function log(s) {
-        if (1) {
-            console.log(s);
-        }
-
-    }
+    // function log(s) {
+    //     if (1) {
+    //         console.log(s);
+    //     }
+    //
+    // }
 
 
     ajax_content_init();
-	
-	
+
+
 	/*
 		2017年12月2日 +触屏滑动切换上一章/下一章。
 	*/
