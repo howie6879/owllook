@@ -92,6 +92,7 @@ LATEST_RULES = {
     "www.bqg5200.com": PLAN_01,
     "www.vodtw.com": PLAN_01,
     "www.6mao.com": PLAN_01,
+    "www.biquge.sh": PLAN_01,
     "www.touxiang.la": PLAN_01,
     "www.bxquge.com": PLAN_01,
     "www.beidouxin.com": PLAN_01,
@@ -200,6 +201,8 @@ RULES = {
     'www.37zw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquku.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.biquge.sh': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquge.co': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
