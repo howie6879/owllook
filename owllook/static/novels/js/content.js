@@ -166,7 +166,7 @@ $(document).ready(function () {
     }
 
     function load_chapter_content(data) {
-        page_chapter_content.html(stripscript(data.content));
+        page_chapter_content.html(stripscript($(data.content).html()));
     }
 
     function load_chapter_name(data) {
