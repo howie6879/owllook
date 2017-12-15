@@ -6,7 +6,6 @@ import async_timeout
 
 from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
-from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
 from urllib.parse import urlparse, parse_qs, urljoin
 
@@ -55,14 +54,14 @@ def cached(
                     return await cache_instance.get(cache_key)
 
             except Exception:
-                logger.exception("Unexpected error with %s", cache_instance)
+                LOGGER.exception("Unexpected error with %s", cache_instance)
 
             result = await func(*args, **kwargs)
             if result:
                 try:
                     await cache_instance.set(cache_key, result, ttl=ttl)
                 except Exception:
-                    logger.exception("Unexpected error with %s", cache_instance)
+                    LOGGER.exception("Unexpected error with %s", cache_instance)
 
             return result
 
