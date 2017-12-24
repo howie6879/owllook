@@ -144,5 +144,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 人到中年：100元
 - Black：6元
 - 滑稽：5元
+- w.：20元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
