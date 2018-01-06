@@ -1,8 +1,8 @@
 #!/usr/bin/env python
+from jinja2 import Environment, PackageLoader, select_autoescape
 from sanic import Blueprint
 from sanic.exceptions import NotFound, ServerError
 from sanic.response import html, json
-from jinja2 import Environment, PackageLoader, select_autoescape
 
 from owllook.config import CONFIG
 

@@ -1,8 +1,8 @@
 # !/usr/bin/env python
-import schedule
-import time
-import sys
 import os
+import schedule
+import sys
+import time
 
 os.environ['MODE'] = 'PRO'
 sys.path.append('../../')

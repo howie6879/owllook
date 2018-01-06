@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-from sanic import Blueprint, response
 from urllib.parse import unquote
+
+from sanic import Blueprint
 
 from owllook.fetcher.function import get_time, get_netloc
 from owllook.fetcher.extract_novels import extract_chapters

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import aiocache
+import os
+import sys
+
 from sanic import Sanic
 from sanic.response import html, redirect
 from sanic_session import RedisSessionInterface
-
-import sys
-import os
 
 # os.environ['MODE'] = 'PRO'
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,9 +24,7 @@ app.blueprint(novels_bp)
 app.blueprint(operate_bp)
 app.blueprint(except_bp)
 app.blueprint(admin_bp)
-
-
-# app.blueprint(api_bp)
+app.blueprint(api_bp)
 
 
 @app.listener('before_server_start')

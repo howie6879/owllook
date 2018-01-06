@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+import logging
 import os
 import random
-import logging
 
 from configparser import ConfigParser
 

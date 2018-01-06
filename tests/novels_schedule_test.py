@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import asyncio
-import uvloop
 import os
+import uvloop
 
 os.environ['MODE'] = 'PRO'
 from owllook.fetcher.cache import update_all_books

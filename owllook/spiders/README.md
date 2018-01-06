@@ -1,6 +1,6 @@
 ## 小说榜单爬虫
 
-> 获取各大小说站的小说榜单排名，使用自己写的简单爬虫框架[talonspider](https://github.com/howie6879/talonspider)来进行脚本的编写
+> 获取各大小说站的小说榜单排名，使用自己写的简单爬虫框架[talospider](https://github.com/howie6879/talospider)来进行脚本的编写
 
 ### 1.起点榜单
 

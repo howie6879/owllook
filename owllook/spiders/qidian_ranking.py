@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-import time
-from talonspider import Spider, Item, TextField, AttrField
-from talonspider.utils import get_random_user_agent
 import os
+import time
+
+from talospider import Spider, Item, TextField, AttrField
+from talospider.utils import get_random_user_agent
 
 os.environ['MODE'] = 'PRO'
 from owllook.database.mongodb import MotorBaseOld
@@ -11,9 +12,13 @@ from owllook.utils.tools import async_callback
 
 class RankingItem(Item):
     target_item = TextField(css_select='.rank-list')
-    ranking_title = TextField(css_select='h3.wrap-title')
+    ranking_title = AttrField(css_select='h3.wrap-title',attr='html')
     more = AttrField(css_select='h3>a.more', attr='href')
     book_list = TextField(css_select='div.book-list>ul>li')
+
+    def tal_ranking_title(self,ranking_title):
+        if isinstance(ranking_title,list):
+            return ranking_title[0].text
 
     def tal_more(self, more):
         return "http:" + more

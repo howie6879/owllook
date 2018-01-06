@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-import uvloop
 import asyncio
-import time
-from pprint import pprint
 import os
+import time
+import uvloop
+
+from pprint import pprint
 
 os.environ['MODE'] = 'PRO'
 from owllook.fetcher.cache import get_the_latest_chapter, update_all_books

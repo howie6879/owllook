@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import uvloop
 import asyncio
 import os
+import uvloop
 
 os.environ['MODE'] = 'PRO'
 

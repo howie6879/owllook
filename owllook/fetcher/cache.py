@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 import aiohttp
-import asyncio
-import re
 import async_timeout
+import re
 
-from bs4 import BeautifulSoup
 from aiocache.serializers import PickleSerializer
 from aiocache.utils import get_args_dict, get_cache
+from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs, urljoin
 
 from owllook.database.mongodb import MotorBase

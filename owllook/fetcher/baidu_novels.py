@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import asyncio
 import aiohttp
+import arrow
+import asyncio
 import async_timeout
 import re
-import arrow
 
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse

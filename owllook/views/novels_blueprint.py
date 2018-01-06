@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import time
 
-from sanic import Blueprint
-from sanic.response import redirect, html, text, json
 from jinja2 import Environment, PackageLoader, select_autoescape
 from operator import itemgetter
+from sanic import Blueprint
+from sanic.response import redirect, html, text, json
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.function import get_time, get_netloc

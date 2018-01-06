@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-import uvloop
 import asyncio
 import time
+import uvloop
+
 from pprint import pprint
+
 from owllook.fetcher.baidu_novels import baidu_search as search
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())

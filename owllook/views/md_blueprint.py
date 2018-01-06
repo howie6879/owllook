@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+from urllib.parse import urlparse, parse_qs
+
+from jinja2 import Environment, PackageLoader, select_autoescape
 from sanic import Blueprint
 from sanic.response import html, text, redirect
-from jinja2 import Environment, PackageLoader, select_autoescape
-from urllib.parse import urlparse, parse_qs
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.cache import get_the_latest_chapter, cache_owllook_search_ranking, cache_others_search_ranking

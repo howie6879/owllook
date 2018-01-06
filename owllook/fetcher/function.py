@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-import async_timeout
-import random
-import os
 import aiohttp
 import arrow
-import requests
+import async_timeout
 import cchardet
+import os
+import requests
+import random
 
 from urllib.parse import urlparse
 

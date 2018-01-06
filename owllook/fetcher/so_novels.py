@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-import asyncio
 import aiohttp
+import asyncio
 import async_timeout
 
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse
 
 from owllook.fetcher.function import get_random_user_agent
 from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES

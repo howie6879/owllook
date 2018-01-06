@@ -1,21 +1,21 @@
 #!/usr/bin/env python
-import hashlib
 import datetime
+import hashlib
 
 from jinja2 import Environment, PackageLoader, select_autoescape
-from urllib.parse import parse_qs, unquote
 from sanic import Blueprint
 from sanic.response import html, json
-
-try:
-    from ujson import dumps as json_dumps
-except:
-    from json import dumps as json_dumps
+from urllib.parse import parse_qs, unquote
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.function import get_time
 from owllook.utils import get_real_answer
 from owllook.config import CONFIG, LOGGER
+
+try:
+    from ujson import dumps as json_dumps
+except:
+    from json import dumps as json_dumps
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
 

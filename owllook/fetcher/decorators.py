@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from functools import wraps
-from sanic.request import Request
 from sanic import response
+from sanic.request import Request
 
 try:
     from ujson import loads as json_loads

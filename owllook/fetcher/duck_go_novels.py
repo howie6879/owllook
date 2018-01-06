@@ -2,8 +2,8 @@
 """
  Created by howie.hu at 23/11/2017.
 """
-import asyncio
 import aiohttp
+import asyncio
 import async_timeout
 
 from bs4 import BeautifulSoup

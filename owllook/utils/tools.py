@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import uvloop
 import asyncio
+import uvloop
+
 from functools import wraps
 
 

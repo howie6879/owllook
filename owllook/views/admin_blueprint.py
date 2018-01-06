@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-from sanic import Blueprint
-from sanic.response import html, redirect, json
+from urllib.parse import urlparse, parse_qs
+
 from jinja2 import Environment, PackageLoader, select_autoescape
-from urllib.parse import urlparse, parse_qs, unquote
+from sanic import Blueprint
+from sanic.response import html, redirect
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.cache import get_the_latest_chapter

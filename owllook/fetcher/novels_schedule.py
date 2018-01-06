@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import asyncio
-import uvloop
-import schedule
-import time
-import sys
 import os
+import schedule
+import sys
+import time
+import uvloop
 
 os.environ['MODE'] = 'PRO'
 sys.path.append('../../')

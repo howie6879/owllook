@@ -15,5 +15,5 @@ schedule
 gunicorn
 cchardet
 requests
-talonspider>=0.0.5
+talospider
 numpy

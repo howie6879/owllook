@@ -2,7 +2,10 @@
 
 ### 1.说明
 
-网络小说搜索引擎——owllook 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
+网络小说搜索引擎——owllook：
+
+- 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
+- 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
 
 > `owllook`是一个基于其他搜索引擎的垂直小说搜索引擎
 >
@@ -18,7 +21,7 @@
 
 目前采用的是直接在搜索引擎上进行结果检索，我尽量写少量的规则来完成解析，具体见[规则定义](./docs/规则定义.md)，遇到自己喜欢的小说网站，你也可以自己添加解析，`owllook`目前解析了超过 **200+** 网站，追更网站解析了**50+**
 
-有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫模块来做这件事，见 **[talonspider](https://github.com/howie6879/talonspider)**
+有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫框架来做这件事，见 **[talospider](https://github.com/howie6879/talnspider)**
 
 BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计
 
@@ -145,5 +148,7 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - Black：6元
 - 滑稽：5元
 - w.：20元
+- 包子.：6.6元
+- 佚名：200元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
