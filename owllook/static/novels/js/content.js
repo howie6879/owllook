@@ -107,10 +107,16 @@ $(document).ready(function () {
     function ajax_content_init() {
         if (isSupport()) {
             log("支持sessionStorage，将为你开启页面缓存");
-            ajax_task();
-            page_bookmark.bind("click", function () {
-                cache_reset();
-            });
+            search_url = window.location;
+            // 来自书签页面的跳转不进行缓存
+            if (search_url.search.indexOf("from_bookmarks") > 0) {
+                log('来自书签页面的跳转不进行缓存')
+            } else {
+                ajax_task();
+                page_bookmark.bind("click", function () {
+                    cache_reset();
+                });
+            }
         } else {
             //不支持
             return;
@@ -239,56 +245,56 @@ $(document).ready(function () {
     ajax_content_init();
 
 
-	/*
-		2017年12月2日 +触屏滑动切换上一章/下一章。
-	*/
-	//按键事件
-	$(document).keydown(function(event){
-		var e = event || window.event;
-		var k = e.keyCode || e.which;
-		switch(k) {
-			case 39:
-			// right
-				page_btn_next.click();
-				break;
-			case 37:
-			// left
-				page_btn_pre.click();
-				break;
-			case 38:
-			//	up
-				break;
-			case 40:
-			// down
-				break;
-		}
-		return true;
-	});
+    /*
+        2017年12月2日 +触屏滑动切换上一章/下一章。
+    */
+    //按键事件
+    $(document).keydown(function (event) {
+        var e = event || window.event;
+        var k = e.keyCode || e.which;
+        switch (k) {
+            case 39:
+                // right
+                page_btn_next.click();
+                break;
+            case 37:
+                // left
+                page_btn_pre.click();
+                break;
+            case 38:
+                //	up
+                break;
+            case 40:
+                // down
+                break;
+        }
+        return true;
+    });
 
-	// (function(){
-	// 	var startX,startY,endX,endY;
-	// 	var el = document.querySelector("body");
-	// 	//获取点击开始的坐标
-	// 	el.addEventListener("touchstart", function (e){
-	// 		startX = e.touches[0].pageX;
-	// 		startY = e.touches[0].pageY;
-	// 	});
-	// 	//获取点击结束后的坐标
-	// 	el.addEventListener("touchend", function(e){
-	// 		endX = e.changedTouches[0].pageX;
-	// 		endY = e.changedTouches[0].pageY;
-	// 		var x = (endX - startX);
-	// 		var y = (endY - startY);
-	// 		if(Math.abs(x/y)>5&&Math.abs(x)>30){
-	// 			if(x<0){
-	// 				page_btn_next.click();
-	// 			}else{
-	// 				page_btn_pre.click();
-	// 			}
-	// 		}
+    // (function(){
+    // 	var startX,startY,endX,endY;
+    // 	var el = document.querySelector("body");
+    // 	//获取点击开始的坐标
+    // 	el.addEventListener("touchstart", function (e){
+    // 		startX = e.touches[0].pageX;
+    // 		startY = e.touches[0].pageY;
+    // 	});
+    // 	//获取点击结束后的坐标
+    // 	el.addEventListener("touchend", function(e){
+    // 		endX = e.changedTouches[0].pageX;
+    // 		endY = e.changedTouches[0].pageY;
+    // 		var x = (endX - startX);
+    // 		var y = (endY - startY);
+    // 		if(Math.abs(x/y)>5&&Math.abs(x)>30){
+    // 			if(x<0){
+    // 				page_btn_next.click();
+    // 			}else{
+    // 				page_btn_pre.click();
+    // 			}
+    // 		}
     //
-	// 	});
-	// })();
+    // 	});
+    // })();
 });
 
 

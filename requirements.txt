@@ -9,12 +9,12 @@ cchardet
 gunicorn
 html5lib
 Jinja2>=2.9.5
-motor>=1.1
+motor==1.1
 numpy
 requests
 sanic>=0.5.1
 sanic-session>=0.1.2
 schedule
-talospider
+talospider>=0.0.2
 tornado
 uvloop

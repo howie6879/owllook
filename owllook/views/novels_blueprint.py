@@ -197,6 +197,7 @@ async def owllook_content(request):
         novels_name=novels_name)
     motor_db = motor_base.get_db()
     if url == chapter_url:
+        # 阅读到最后章节时候 在数据库中保存最新阅读章节
         if user and is_ajax == "owl_cache":
             owl_referer = request.headers.get('Referer', '').split('owllook_content')[1]
             if owl_referer:
