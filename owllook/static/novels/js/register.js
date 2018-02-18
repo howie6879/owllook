@@ -38,7 +38,6 @@ $(function () {
                     dataType: 'json',
                     success: function (data) {
                         if (data.status == 1) {
-                            alert('注册成功,qq群:591460519');
                             window.location.href = '/';
                         }
                         if (data.status == -1) {
