@@ -50,7 +50,7 @@ gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server
 
 # 方案二
 docker build -t owllook:0.1 .
-# 在dev_owllook.env里面填上数据库配置 数据库ip需要注意 不得填localhost
+# 在dev_owllook.env里面填上数据库配置 数据库ip需要注意 请将连接ip设置为ifconfig显示的ip
 docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 ```
 
@@ -101,27 +101,31 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 ![content](./docs/imgs/content.png)
 
-### 3.License
+### 3.FAQ
+
+**为什么首页榜单为空白？**
+
+这个是根据小说搜索次数显示的，每天刷新一次，使用多了就会有
+
+**小说榜单页面为什么没有内容？**
+
+需要运行`owllook/spiders/spider_console.py`，目前代码中是设定60分钟运行一次，运行的时候请酌情更改
+
+### 4.License
 
 `owllook` is offered under the Apache 2 license.
 
-### 4.感谢
+### 5.感谢
 
 **owllook使用了以下第三方包:**
 
 - sanic：基于Python 3.5+的异步web服务器
-
-- sanic_session：sanic的持续会话插件
-
-- uvloop：sanic默认使用uvloop，替代asyncio本身的loop
 
 - motor：异步的mongodb驱动
 
 - ​Jinja2：基于python的模板引擎
 
 - aiohttp：异步请求
-
-- aiocache：异步缓存，本项目改用了其中的decorator部分，缓存数据库使用redis
 
 - caddy：基于go的web服务器
 
