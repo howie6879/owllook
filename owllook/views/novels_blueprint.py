@@ -299,7 +299,13 @@ async def owllook_content(request):
             LOGGER.exception(e)
             return redirect(book_url)
     else:
-        return text('解析失败或者是没有下一页了，请将失败页面反馈给本站，请重新刷新一次，或者访问源网页：{url}'.format(url=url))
+        if user:
+            is_login = 1
+            user = user
+            return template('parse_error.html', url=url, is_login=is_login, user=user)
+        else:
+            is_login = 0
+            return template('parse_error.html', url=url, is_login=is_login)
 
 
 @novels_bp.route("/register")

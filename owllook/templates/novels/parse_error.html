@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>owllook - 最简洁清新的搜索阅读体验</title>
+<link rel="stylesheet" href="static/novels/css/result.css">
+{% endblock %}
+
+{% block content %}
+{% include "search_bar.html" %}
+<div class="container">
+    <center style="margin-top: 10%">
+        <h3>解析失败或者没有下一页</h3>
+        <h3>点击<a href="/">owllook</a>继续搜索</h3>
+        <h3>如果您觉得是访问出错，请在右下角加群反馈给本站，或者重新刷新一次</h3>
+        <h3>不然请访问源网页：<a href="{{url}}" target="_blank">点这里</a></h3>
+    </center>
+</div>
+{% endblock %}
