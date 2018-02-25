@@ -111,11 +111,8 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 需要运行`owllook/spiders/spider_console.py`，目前代码中是设定60分钟运行一次，运行的时候请酌情更改
 
-### 4.License
 
-`owllook` is offered under the Apache 2 license.
-
-### 5.感谢
+### 4.感谢
 
 **owllook使用了以下第三方包:**
 
@@ -137,23 +134,10 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 [mdui](https://github.com/zdhxiong/mdui )：MDUI 是一个基于 Material Design 的前端框架
 
-**感谢以下捐赠者 ^_^ :**
-- 12hStudy: 5 元
-- 佚名：5元
-- 佚名：50元
-- 路人甲、：100元
-- 盛阿德：20元
-- shine：50元
-- 江黑龙：10元
-- Future：100元
-- Mongol Hun ：20元
-- 佚名：15元
-- 人到中年：100元
-- Black：6元
-- 滑稽：5元
-- w.：20元
-- 包子.：6.6元
-- 佚名：200元
-- 佚名：20元
+**捐赠：**
 
-<img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
+感谢以下捐赠者:，见[捐赠名单](./DONATE.md) ^_^
+
+### 5.License
+
+`owllook` is offered under the Apache 2 license.
