@@ -6,7 +6,7 @@
 """
 from pymongo import MongoClient
 
-from talonspider import Spider, Item, TextField, AttrField
+from talonspider import Spider, Item, TextField, AttrField, Request
 from talospider.utils import get_random_user_agent
 
 
@@ -60,18 +60,27 @@ class QidianNovelsItem(Item):
 
 
 class QidianNovelsSpider(Spider):
-    start_urls = ['https://www.qidian.com/all?page={i}'.format(i=i) for i in range(1, 41645)]
+    start_urls = ['https://www.qidian.com/all?page=1']
     headers = {
         "User-Agent": get_random_user_agent()
     }
+    set_mul = True
     request_config = {
         'RETRIES': 3,
-        'DELAY': 3,
+        'DELAY': 0,
         'TIMEOUT': 10
     }
     all_novels_col = MongoDb().db.all_novels
 
     def parse(self, res):
+        urls = ['https://www.qidian.com/all?page={i}'.format(i=i) for i in range(1, 41645)]
+        for url in urls:
+            headers = {
+                "User-Agent": get_random_user_agent()
+            }
+            yield Request(url, request_config=self.request_config, headers=headers, callback=self.parse_item)
+
+    def parse_item(self, res):
         items_data = QidianNovelsItem.get_items(html=res.html)
         for item in items_data:
             data = {
@@ -84,8 +93,6 @@ class QidianNovelsSpider(Spider):
             if self.all_novels_col.find_one({"novel_name": item.novel_name}) is None:
                 self.all_novels_col.insert_one(data)
                 print(item.novel_name + ' - 抓取成功')
-            else:
-                print(item.novel_name + ' - 已经抓取')
 
 
 if __name__ == '__main__':

@@ -109,7 +109,9 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 **小说榜单页面为什么没有内容？**
 
-需要运行`owllook/spiders/spider_console.py`，目前代码中是设定60分钟运行一次，运行的时候请酌情更改
+需要运行`owllook/spiders/spider_console.py`，
+目前代码中是设定60分钟运行一次，运行的时候请酌情更改，
+`os.environ['MODE'] = 'PRO'` 这段代码也请注释掉
 
 
 ### 4.感谢
@@ -136,7 +138,10 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 **捐赠：**
 
-感谢以下捐赠者:，见[捐赠名单](./DONATE.md) ^_^
+<img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
+
+
+感谢以下捐赠者，具体见[捐赠名单](./DONATE.md) ^_^
 
 ### 5.License
 
