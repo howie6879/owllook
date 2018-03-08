@@ -15,4 +15,5 @@ def update_all():
     return task.result() or None
 
 
-print(update_all())
+if __name__ == '__main__':
+    print(update_all())

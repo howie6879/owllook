@@ -177,6 +177,8 @@ LATEST_RULES = {
     "www.00ksw.org": PLAN_01,
     "www.bqg.cc": PLAN_01,
     "www.biqugezw.com": PLAN_01,
+    "www.bbiquge.com": PLAN_01,
+    "www.aikantxt.la": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -196,6 +198,8 @@ RULES = {
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.bbiquge.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
     'www.biquge.info': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.37zw.net': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
@@ -209,6 +213,8 @@ RULES = {
     'www.00ksw.org': Rules('0', {'class': 'ml_list'}, {'id': 'articlecontent'}),
     # 已解析
     'www.bqge.org': Rules('http://www.bqge.org/', {'class': 'box_con'}, {'id': 'content'}),
+    # 已解析
+    'www.aikantxt.la': Rules('http://www.aikantxt.la/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquzi.com': Rules('http://www.biquzi.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -333,6 +339,8 @@ RULES = {
     'www.xqingdou.net': Rules('http://www.xqingdou.net/', {'class': 'dirconone'}, {'id': 'chapter_content'}),
     # 已解析
     'www.zuowe.com': Rules('http://www.zuowe.com/', {'class': 'book_list'}, {'id': 'htmlContent'}),
+    # 已解析
+    'www.biqugek.com': Rules('1', {'class': 'book_list'}, {'id': 'htmlContent'}),
     # 已解析
     'www.wuyanxia.net': Rules('http://www.wuyanxia.net/', {'class': 'zjlist4'}, {'id': 'htmlContent'}),
     # 已解析
