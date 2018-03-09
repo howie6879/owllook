@@ -4,7 +4,7 @@ import asyncio
 import async_timeout
 
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from owllook.fetcher.function import get_random_user_agent
 from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES

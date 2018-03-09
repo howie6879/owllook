@@ -54,7 +54,7 @@ async def index(request):
 @novels_bp.route("/search", methods=['GET'])
 async def owllook_search(request):
     start = time.time()
-    name = request.args.get('wd', '').strip()
+    name = str(request.args.get('wd', '')).strip()
     novels_keyword = name.split(' ')[0]
     motor_db = motor_base.get_db()
     if not name:
@@ -67,31 +67,48 @@ async def owllook_search(request):
             LOGGER.exception(e)
     # 通过搜索引擎获取检索结果
     parse_result = None
-    for each_engine in ENGINE_PRIORITY:
-        # for bing
-        if each_engine == "bing":
-            novels_name = "{name} 小说 阅读 最新章节".format(name=name)
-            parse_result = await cache_owllook_bing_novels_result(novels_name)
-            if parse_result:
-                break
-        # for 360 so
-        if each_engine == "360":
-            novels_name = "{name} 小说 最新章节".format(name=name)
-            parse_result = await cache_owllook_so_novels_result(novels_name)
-            if parse_result:
-                break
-        # for baidu
-        if each_engine == "baidu":
-            novels_name = 'intitle:{name} 小说 阅读'.format(name=name) if ':baidu' not in name else name.split('baidu')[1]
-            parse_result = await cache_owllook_baidu_novels_result(novels_name)
-            if parse_result:
-                break
-        # for duckduckgo
-        if each_engine == "duck_go":
-            novels_name = '{name} 小说 阅读 最新章节'.format(name=name)
-            parse_result = await cache_owllook_duck_novels_result(novels_name)
-            if parse_result:
-                break
+    if name.startswith('!baidu'):
+        novels_keyword = name.split('baidu')[1].strip()
+        novels_name = 'intitle:{name} 小说 阅读'.format(name=novels_keyword)
+        parse_result = await cache_owllook_baidu_novels_result(novels_name)
+    elif name.startswith('!360'):
+        novels_keyword = name.split('360')[1].strip()
+        novels_name = "{name} 小说 最新章节".format(name=novels_keyword)
+        parse_result = await cache_owllook_so_novels_result(novels_name)
+    elif name.startswith('!bing'):
+        novels_keyword = name.split('bing')[1].strip()
+        novels_name = "{name} 小说 阅读 最新章节".format(name=novels_keyword)
+        parse_result = await cache_owllook_bing_novels_result(novels_name)
+    # elif name.startswith('!duck_go'):
+    #     novels_keyword = name.split('duck_go')[1].strip()
+    #     novels_name = '{name} 小说 阅读 最新章节'.format(name=novels_keyword)
+    #     parse_result = await cache_owllook_duck_novels_result(novels_name)
+    else:
+        for each_engine in ENGINE_PRIORITY:
+            # for bing
+            if each_engine == "bing":
+                novels_name = "{name} 小说 阅读 最新章节".format(name=name)
+                parse_result = await cache_owllook_bing_novels_result(novels_name)
+                if parse_result:
+                    break
+            # for 360 so
+            if each_engine == "360":
+                novels_name = "{name} 小说 最新章节".format(name=name)
+                parse_result = await cache_owllook_so_novels_result(novels_name)
+                if parse_result:
+                    break
+            # for baidu
+            if each_engine == "baidu":
+                novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
+                parse_result = await cache_owllook_baidu_novels_result(novels_name)
+                if parse_result:
+                    break
+            # for duckduckgo
+            if each_engine == "duck_go":
+                novels_name = '{name} 小说 阅读 最新章节'.format(name=name)
+                parse_result = await cache_owllook_duck_novels_result(novels_name)
+                if parse_result:
+                    break
     if parse_result:
         # result_sorted = sorted(
         #     parse_result, reverse=True, key=lambda res: res['timestamp']) if ':baidu' not in name else parse_result

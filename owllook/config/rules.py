@@ -238,6 +238,8 @@ RULES = {
     # 已解析
     'www.biqu6.com': Rules('http://www.biqu6.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
+    'www.zhuaji.org': Rules('0', {'tag': 'dd'}, {'id': 'content'}),
+    # 已解析
     'www.sqsxs.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquge.tv': Rules('http://www.biquge.tv/', {'class': 'box_con'}, {'id': 'content'}),
