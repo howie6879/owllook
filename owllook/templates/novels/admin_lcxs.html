@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>关注 - 粮草小说</title>
+<link rel="stylesheet" href="static/novels/css/result.css">
+{% endblock %}
+
+{% block content %}
+{% include "search_bar.html" %}
+<div class="container">
+    <h3>公众号 - 粮草小说</h3>
+    <table class="table table-striped table-hover" style="margin-bottom: 50px;">
+        <thead>
+        <tr align="center">
+            <th>#</th>
+            <th>名称</th>
+            <th>日期</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzUxMTcxMTk5Nw==&mid=2247483663&idx=1&sn=dfc3567ec7ed35bab39ee0e3dbe3f236&chksm=f96ece9dce19478be084c0149d8c5357064be7b96c06479241608a19ab37b56a18129899c28e#rd" target="_blank">如何优雅地玩转粮草小说？ - 左下角扫一扫关注</a>
+            </td>
+            <td>2018-03-10</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

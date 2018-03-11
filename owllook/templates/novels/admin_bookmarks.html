@@ -12,37 +12,38 @@
     {% if is_bookmark %}
     <table class="table table-striped table-hover" style="margin-bottom: 50px;">
         <thead>
-            <tr align="center">
-                <th>小说名</th>
-                <th>源目录</th>
-                <th>章节名</th>
-                <th>添加时间</th>
-                <th>操作</th>
-            </tr>
+        <tr align="center">
+            <th>小说名</th>
+            <th>源目录</th>
+            <th>章节名</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
         </thead>
         <tbody>
-            {%for item in result%}
-            <tr>
-                <td>
-                    <a href="/search?wd={{item.novels_name}}" target="_blank">{{item.novels_name}}</a>
-                </td>
-                <td>
-                    <a href="/chapter?url={{item.chapter_url}}&novels_name={{item.novels_name}}" target="_blank">查看{{item.novels_name}}源目录</a>
-                </td>
-                <td>
-                    <a href="{{item.bookmark}}&from_bookmarks" target="_blank">{{item.chapter_name}}</a>
-                </td>
-                <td>{{item.add_time}}</td>
-                <th class="del-bookmark">
-                    <a class="bookmark_url" data-value="{{item.bookmark}}" href="javascript:;">删除</a>
-                </th>
-            </tr>
-            {%endfor%}
+        {%for item in result%}
+        <tr>
+            <td>
+                <a href="/search?wd={{item.novels_name}}" target="_blank">{{item.novels_name}}</a>
+            </td>
+            <td>
+                <a href="/chapter?url={{item.chapter_url}}&novels_name={{item.novels_name}}" target="_blank">查看{{item.novels_name}}源目录</a>
+            </td>
+            <td>
+                <a href="{{item.bookmark}}&from_bookmarks" target="_blank">{{item.chapter_name}}</a>
+            </td>
+            <td>{{item.add_time}}</td>
+            <th class="del-bookmark">
+                <a class="bookmark_url" data-value="{{item.bookmark}}" href="javascript:;">删除</a>
+            </th>
+        </tr>
+        {%endfor%}
         </tbody>
     </table>
     {% else %}
     <center>暂无书签数据</center>
     {% endif %}
+    {% include "lcxs_show.html" %}
 
 </div>
 {% endblock %} {% block script %}

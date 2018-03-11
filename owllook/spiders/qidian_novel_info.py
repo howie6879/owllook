@@ -95,6 +95,8 @@ class QidianSpider(Spider):
 
 
 if __name__ == '__main__':
+    import random
+
     # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
     QidianSpider.start_urls = ['http://book.qidian.com/info/1004608738', 'http://book.qidian.com/info/3602691',
                                'http://book.qidian.com/info/3347595', 'http://book.qidian.com/info/1887208']
@@ -106,8 +108,8 @@ if __name__ == '__main__':
         all_urls = []
         all_novels_info_col = QidianSpider.all_novels_info_col
         for each in QidianSpider.all_novels_col.find():
-            if all_novels_info_col.find_one({'name': each['novel_name']}) is None:
-                all_urls.append(each['novel_url'])
+            all_urls.append(each['novel_url'])
+        random.shuffle(all_urls)
 
         QidianSpider.start_urls = all_urls
         QidianSpider.start()

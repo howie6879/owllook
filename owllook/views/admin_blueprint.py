@@ -203,3 +203,14 @@ async def books(request):
             return redirect('/')
     else:
         return redirect('/')
+
+
+@admin_bp.route("/lcxs")
+async def similar_user(request):
+    user = request['session'].get('user', None)
+    if user:
+        return template('admin_lcxs.html',
+                        is_login=1,
+                        user=user)
+    else:
+        return redirect('/')
