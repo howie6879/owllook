@@ -2,7 +2,7 @@
 
 ### 1.说明
 
-网络小说搜索引擎——owllook，公众号[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-10-lcxs.jpg-blog.howie)，有兴趣的话可以关注下：
+网络小说搜索引擎——owllook，公众号[**粮草小说**](![](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie))，有兴趣的话可以关注下：
 
 - 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
 - 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
