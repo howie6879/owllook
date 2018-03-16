@@ -36,22 +36,24 @@ class MongoDb:
         return self._db
 
 
-class QidianNovelInfoItem(Item):
+class ZHNovelInfoItem(Item):
     """
     定义继承自item的Item类
     """
-    novel_name = TextField(css_select='.book-info>h1>em')
-    author = TextField(css_select='a.writer')
+    novel_name = TextField(css_select='div.main div.status h1 a')
+    author = TextField(css_select='div.main div.status div.booksub a')
     # 当提取的值是属性的时候，要定义AttrField
-    cover = AttrField(css_select='a#bookImg>img', attr='src')
-    abstract = TextField(css_select='div.book-intro>p')
-    status = TextField(css_select='p.tag>span.blue')
-    novels_type = TextField(css_select='p.tag>a.red')
-    latest_chapter = TextField(css_select='li.update>div.detail>p.cf>a')
-    latest_chapter_time = TextField(css_select='div.detail>p.cf>em')
+    cover = AttrField(css_select='div.main div.book_cover img', attr='src')
+    abstract = TextField(css_select='div.main div.status div.info_con p')
+    status = AttrField(css_select='div.main div.status h1 em', attr='title')
+    novels_type = TextField(css_select='div.main div.status div.booksub a')
+    novel_chapter_url = AttrField(css_select='div.main div.status div.book_btn span.list a', attr='href')
 
-    def tal_cover(self, cover):
-        return 'http:' + cover
+    def tal_author(self, author):
+        if isinstance(author, list):
+            return author[0].text
+        else:
+            return author
 
     def tal_status(self, status):
         """
@@ -59,20 +61,26 @@ class QidianNovelInfoItem(Item):
         :param ele_tag:
         :return:
         """
-        return '#'.join([i.text for i in status])
+        if isinstance(status, list):
+            return '#'.join([i.get('title').strip().replace('作品', '') for i in status])
+        else:
+            return status
 
     def tal_novels_type(self, novels_type):
-        return '#'.join([i.text for i in novels_type])
+        if isinstance(novels_type, list):
+            try:
+                return novels_type[1].text
+            except:
+                return ''
+        else:
+            return ''
 
-    def tal_latest_chapter_time(self, latest_chapter_time):
-        return latest_chapter_time.replace(u'今天', str(time.strftime("%Y-%m-%d ", time.localtime()))).replace(u'昨日', str(
-            time.strftime("%Y-%m-%d ", time.localtime(time.time() - 24 * 60 * 60))))
 
-
-class QidianNovelInfoSpider(Spider):
+class ZHNovelInfoSpider(Spider):
     start_urls = []
     request_config = {
         'RETRIES': 3,
+        'DELAY': 2,
         'TIMEOUT': 10
     }
     pool_size = 4
@@ -82,13 +90,10 @@ class QidianNovelInfoSpider(Spider):
     all_novels_info_col = MongoDb().db.all_novels_info
 
     def parse(self, res):
-        item_data = QidianNovelInfoItem.get_item(html=res.html)
-        # 这里可以保存获取的item
-        # for python 2.7
-        # import json
-        # item_data = json.dumps(item_data, ensure_ascii=False)
+        item_data = ZHNovelInfoItem.get_item(html=res.html)
+
         item_data['target_url'] = res.url
-        item_data['spider'] = 'qidian'
+        item_data['spider'] = 'zongheng'
         item_data['updated_at'] = time.strftime("%Y-%m-%d %X", time.localtime())
         print('获取 {} 小说信息成功'.format(item_data['novel_name']))
         self.all_novels_info_col.update({'novel_name': item_data['novel_name']}, item_data, upsert=True)
@@ -98,21 +103,19 @@ if __name__ == '__main__':
     import random
 
     # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
-    QidianNovelInfoSpider.start_urls = ['http://book.qidian.com/info/1004608738', 'http://book.qidian.com/info/3602691',
-                               'http://book.qidian.com/info/3347595', 'http://book.qidian.com/info/1887208']
+    ZHNovelInfoSpider.start_urls = ['http://book.zongheng.com/book/547205.html',
+                                    'http://huayu.baidu.com/book/633311.html']
 
-
-    # QidianSpider.start()
 
     def all_novels_info():
         all_urls = []
 
-        for each in QidianNovelInfoSpider.all_novels_col.find():
+        for each in ZHNovelInfoSpider.all_novels_col.find({'spider': 'zongheng'}):
             all_urls.append(each['novel_url'])
         random.shuffle(all_urls)
 
-        QidianNovelInfoSpider.start_urls = all_urls
-        QidianNovelInfoSpider.start()
+        ZHNovelInfoSpider.start_urls = all_urls
+        ZHNovelInfoSpider.start()
 
 
     all_novels_info()
