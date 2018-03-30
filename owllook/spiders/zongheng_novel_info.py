@@ -5,7 +5,7 @@ import time
 from pprint import pprint
 
 from pymongo import MongoClient
-from talonspider import Spider, Item, TextField, AttrField
+from talospider import Spider, Item, TextField, AttrField
 
 
 class MongoDb:
@@ -96,26 +96,28 @@ class ZHNovelInfoSpider(Spider):
         item_data['spider'] = 'zongheng'
         item_data['updated_at'] = time.strftime("%Y-%m-%d %X", time.localtime())
         print('获取 {} 小说信息成功'.format(item_data['novel_name']))
-        self.all_novels_info_col.update({'novel_name': item_data['novel_name']}, item_data, upsert=True)
+        print(item_data)
+        self.all_novels_info_col.update({'novel_name': item_data['novel_name'], 'spider': 'zongheng'}, item_data,
+                                        upsert=True)
 
 
 if __name__ == '__main__':
     import random
 
     # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
-    ZHNovelInfoSpider.start_urls = ['http://book.zongheng.com/book/547205.html',
-                                    'http://huayu.baidu.com/book/633311.html']
+    ZHNovelInfoSpider.start_urls = ['http://book.zongheng.com/book/672340.html']
+    ZHNovelInfoSpider.start()
 
-
-    def all_novels_info():
-        all_urls = []
-
-        for each in ZHNovelInfoSpider.all_novels_col.find({'spider': 'zongheng'}):
-            all_urls.append(each['novel_url'])
-        random.shuffle(all_urls)
-
-        ZHNovelInfoSpider.start_urls = all_urls
-        ZHNovelInfoSpider.start()
-
-
-    all_novels_info()
+    # def all_novels_info():
+    #     all_urls = []
+    #
+    #     for each in ZHNovelInfoSpider.all_novels_col.find({'spider': 'zongheng'}):
+    #         if 'zongheng' in each['novel_url']:
+    #             all_urls.append(each['novel_url'])
+    #     random.shuffle(all_urls)
+    #
+    #     ZHNovelInfoSpider.start_urls = all_urls
+    #     ZHNovelInfoSpider.start()
+    #
+    #
+    # all_novels_info()

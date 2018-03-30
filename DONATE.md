@@ -25,5 +25,9 @@
 - 佚名：200元
 - 佚名：20元
 - lfl44135：5元
+- 佚名：5元
+- ray：68元
+- 起个名字真难：15元
+- 佚名：10元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />

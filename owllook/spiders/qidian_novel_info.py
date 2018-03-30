@@ -5,7 +5,7 @@ import time
 from pprint import pprint
 
 from pymongo import MongoClient
-from talonspider import Spider, Item, TextField, AttrField
+from talospider import Spider, Item, TextField, AttrField
 
 
 class MongoDb:

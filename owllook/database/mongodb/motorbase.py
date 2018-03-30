@@ -79,3 +79,32 @@ class MotorBaseOld:
             self._db = self.client(self.MONGODB['DATABASE'])[self.MONGODB['DATABASE']]
 
         return self._db
+
+
+if __name__ == '__main__':
+    import asyncio
+
+
+    def async_callback(func, **kwargs):
+        """
+        Call the asynchronous function
+        :param func: a async function
+        :param kwargs: params
+        :return: result
+        """
+        loop = asyncio.get_event_loop()
+        task = asyncio.ensure_future(func(**kwargs))
+        loop.run_until_complete(task)
+        return task.result()
+
+
+    motor_base = MotorBase()
+    motor_db = motor_base.get_db()
+
+
+    async def insert(data):
+        print(data)
+        await motor_db.test.save(data)
+
+
+    async_callback(insert, data={'hi': 'owllook'})

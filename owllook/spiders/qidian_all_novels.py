@@ -9,7 +9,7 @@ import time
 
 from pymongo import MongoClient
 
-from talonspider import Spider, Item, TextField, AttrField, Request
+from talospider import Spider, Item, TextField, AttrField, Request
 from talospider.utils import get_random_user_agent
 
 os.environ['MODE'] = 'PRO'
