@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from pymongo import MongoClient
+
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from owllook.config import CONFIG
@@ -77,6 +79,35 @@ class MotorBaseOld:
     def db(self):
         if self._db is None:
             self._db = self.client(self.MONGODB['DATABASE'])[self.MONGODB['DATABASE']]
+
+        return self._db
+
+
+@singleton
+class PyMongoDb:
+    _db = None
+    MONGODB = {
+        'MONGO_HOST': '127.0.0.1',
+        'MONGO_PORT': '',
+        'MONGO_USERNAME': '',
+        'MONGO_PASSWORD': '',
+        'DATABASE': 'owllook'
+    }
+
+    def client(self):
+        # motor
+        self.mongo_uri = 'mongodb://{account}{host}:{port}/'.format(
+            account='{username}:{password}@'.format(
+                username=self.MONGODB['MONGO_USERNAME'],
+                password=self.MONGODB['MONGO_PASSWORD']) if self.MONGODB['MONGO_USERNAME'] else '',
+            host=self.MONGODB['MONGO_HOST'] if self.MONGODB['MONGO_HOST'] else 'localhost',
+            port=self.MONGODB['MONGO_PORT'] if self.MONGODB['MONGO_PORT'] else 27017)
+        return MongoClient(self.mongo_uri)
+
+    @property
+    def db(self):
+        if self._db is None:
+            self._db = self.client()[self.MONGODB['DATABASE']]
 
         return self._db
 

@@ -1,1 +1,1 @@
-from .motorbase import MotorBase, MotorBaseOld
+from .motorbase import MotorBase, MotorBaseOld, PyMongoDb

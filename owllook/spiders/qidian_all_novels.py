@@ -53,7 +53,7 @@ class QidianNovelsItem(Item):
     novel_author_home_url = AttrField(css_select='div.book-mid-info>p.author>a.name', attr='href')
 
     def tal_novel_url(self, novel_url):
-        return 'http:' + novel_url
+        return 'https:' + novel_url
 
     def tal_novel_author(self, novel_author):
         if isinstance(novel_author, list):
@@ -104,6 +104,7 @@ class QidianNovelsSpider(Spider):
                 self.all_novels_col.insert_one(res_dic)
                 async_callback(self.save, res_dic=res_dic)
                 print(item.novel_name + ' - 抓取成功')
+
 
     async def save(self, **kwargs):
         # 存进数据库
