@@ -29,5 +29,9 @@
 - ray：68元
 - 起个名字真难：15元
 - 佚名：10元
+- von：20
+- 小李飞刀：5
+- 皮皮虾：8
+- 乌鸦还是黑的好：10
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />

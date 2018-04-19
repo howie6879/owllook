@@ -77,7 +77,7 @@ async def target_fetch(client, url):
                         text = None
                 return text
         except Exception as e:
-            LOGGER.exception(e)
+            LOGGER.exception(str(e))
             return None
 
 

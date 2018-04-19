@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 import aiohttp
-import async_timeout
+import asyncio
 import re
+import async_timeout
 
-from aiocache.serializers import PickleSerializer
-from aiocache.utils import get_args_dict, get_cache
 from bs4 import BeautifulSoup
+from aiocache.serializers import PickleSerializer
+from aiocache.log import logger
+from aiocache.utils import get_args_dict, get_cache
 from urllib.parse import urlparse, parse_qs, urljoin
 
 from owllook.database.mongodb import MotorBase
@@ -53,14 +55,14 @@ def cached(
                     return await cache_instance.get(cache_key)
 
             except Exception:
-                LOGGER.exception("Unexpected error with %s", cache_instance)
+                logger.exception("Unexpected error with %s", cache_instance)
 
             result = await func(*args, **kwargs)
             if result:
                 try:
                     await cache_instance.set(cache_key, result, ttl=ttl)
                 except Exception:
-                    LOGGER.exception("Unexpected error with %s", cache_instance)
+                    logger.exception("Unexpected error with %s", cache_instance)
 
             return result
 
