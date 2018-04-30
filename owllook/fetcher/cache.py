@@ -179,9 +179,9 @@ async def cache_others_search_ranking(spider='qidian', novel_type='全部类别'
     return item_data
 
 
-async def get_the_latest_chapter(chapter_url, loop=None):
+async def get_the_latest_chapter(chapter_url, loop=None, timeout=15):
     try:
-        with async_timeout.timeout(30):
+        with async_timeout.timeout(timeout):
             url = parse_qs(urlparse(chapter_url).query).get('url', '')
             novels_name = parse_qs(urlparse(chapter_url).query).get('novels_name', '')
             data = None
@@ -192,11 +192,11 @@ async def get_the_latest_chapter(chapter_url, loop=None):
                 if netloc in LATEST_RULES.keys():
                     async with aiohttp.ClientSession(loop=loop) as client:
                         try:
-                            html = await target_fetch(client=client, url=url)
+                            html = await target_fetch(client=client, url=url, timeout=timeout)
                             if html is None:
-                                html = requests_target_fetch(url=url)
+                                html = requests_target_fetch(url=url, timeout=timeout)
                         except TypeError:
-                            html = requests_target_fetch(url=url)
+                            html = requests_target_fetch(url=url, timeout=timeout)
                         except Exception as e:
                             LOGGER.exception(e)
                             return None
@@ -260,7 +260,7 @@ async def get_the_latest_chapter(chapter_url, loop=None):
         return None
 
 
-async def update_all_books(loop):
+async def update_all_books(loop, timeout=15):
     try:
         motor_db = MotorBase().get_db()
         # 获取所有书架链接游标
@@ -275,8 +275,7 @@ async def update_all_books(loop):
                     chapter_url = book_url['book_url']
                     if chapter_url not in already_urls:
                         try:
-                            with async_timeout.timeout(30):
-                                await get_the_latest_chapter(chapter_url, loop)
+                            await get_the_latest_chapter(chapter_url, loop, timeout)
                         except Exception as e:
                             LOGGER.exception(e)
                         already_urls.add(chapter_url)

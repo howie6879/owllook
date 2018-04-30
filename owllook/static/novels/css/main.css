@@ -126,7 +126,7 @@ div.footer > .navbar {
     margin-right: auto;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     .right > span > a {
         margin-left: 5px !important;
         font-size: 12px;

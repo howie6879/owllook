@@ -67,7 +67,7 @@ body {
     display: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 960px) {
     .register {
         width: 100%;
         margin-top: -6%;

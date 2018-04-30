@@ -55,13 +55,13 @@ def get_netloc(url):
     return netloc or None
 
 
-async def target_fetch(client, url):
+async def target_fetch(client, url, timeout=15):
     """
     :param client: aiohttp client
     :param url: target url
     :return: text
     """
-    with async_timeout.timeout(30):
+    with async_timeout.timeout(timeout):
         try:
             headers = {'user-agent': get_random_user_agent()}
             async with client.get(url, headers=headers) as response:
@@ -81,14 +81,14 @@ async def target_fetch(client, url):
             return None
 
 
-def requests_target_fetch(url):
+def requests_target_fetch(url, timeout=15):
     """
     :param url:
     :return:
     """
     try:
         headers = {'user-agent': get_random_user_agent()}
-        response = requests.get(url=url, headers=headers, verify=False)
+        response = requests.get(url=url, headers=headers, verify=False, timeout=timeout)
         response.raise_for_status()
         content = response.content
         charset = cchardet.detect(content)

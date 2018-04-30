@@ -201,7 +201,7 @@ pre {
     display: none !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     .left-bar-list, #cloud-tie-wrapper {
         display: none !important;
     }
