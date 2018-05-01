@@ -22,7 +22,7 @@ def update_all_books_schedule():
 
 
 # python novels_schedule.py
-schedule.every(90).minutes.do(update_all_books_schedule)
+schedule.every(180).minutes.do(update_all_books_schedule)
 
 while True:
     schedule.run_pending()

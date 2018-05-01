@@ -69,10 +69,10 @@ def extract_pre_next_chapter(chapter_url, html):
 
 
 def novels_list(text):
-    rm_list = ['最后一个使徒']
+    rm_list = ['后一个']
     for i in rm_list:
         if i in text:
             return False
         else:
-            pass
+            continue
     return True
