@@ -195,7 +195,7 @@ RULES = {
     # 'www.biqule.com': Rules('www.biqule.com', {'class': 'box_con'},{}),
     # 'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
-    'www.biquwu.cc': Rules('https:www.biquwu.cc', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biquwu.cc': Rules('https://www.biquwu.cc/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -604,7 +604,7 @@ RULES = {
     # 已解析
     'www.tycqxs.com': Rules('http://www.tycqxs.com', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.miaobige.com': Rules('0', {'id': 'readerlists'}, {'id': 'content'}),
+    'www.miaobige.com': Rules('https://www.miaobige.com/', {'id': 'readerlists'}, {'id': 'content'}),
     # 已解析
     'www.dashubao.net': Rules('0', {'class': 'ml_main'}, {'class': 'yd_text2'}),
     # 已解析
