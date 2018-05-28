@@ -4,6 +4,19 @@ import logging
 
 from .rules import *
 
+# os.environ['MODE'] = 'PRO'
+
+
+logging_format = "[%(asctime)s] %(process)d-%(levelname)s "
+logging_format += "%(module)s::%(funcName)s():l%(lineno)d: "
+logging_format += "%(message)s"
+
+logging.basicConfig(
+    format=logging_format,
+    level=logging.DEBUG
+)
+LOGGER = logging.getLogger()
+
 
 def load_config():
     """
@@ -11,6 +24,7 @@ def load_config():
     """
 
     mode = os.environ.get('MODE', 'DEV')
+    LOGGER.info('owllook 启动模式：{}'.format(mode))
     try:
         if mode == 'PRO':
             from .pro_config import ProConfig
@@ -26,13 +40,4 @@ def load_config():
         return Config
 
 
-logging_format = "[%(asctime)s] %(process)d-%(levelname)s "
-logging_format += "%(module)s::%(funcName)s():l%(lineno)d: "
-logging_format += "%(message)s"
-
-logging.basicConfig(
-    format=logging_format,
-    level=logging.DEBUG
-)
-LOGGER = logging.getLogger()
 CONFIG = load_config()

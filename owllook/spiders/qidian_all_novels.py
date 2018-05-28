@@ -4,7 +4,6 @@
  Target URI: https://www.qidian.com/all
         Param:?page=1
 """
-import os
 import time
 
 from pymongo import MongoClient
@@ -12,7 +11,6 @@ from pymongo import MongoClient
 from talospider import Spider, Item, TextField, AttrField, Request
 from talospider.utils import get_random_user_agent
 
-os.environ['MODE'] = 'PRO'
 from owllook.database.mongodb import MotorBaseOld
 from owllook.utils.tools import async_callback
 
@@ -104,7 +102,6 @@ class QidianNovelsSpider(Spider):
                 self.all_novels_col.insert_one(res_dic)
                 async_callback(self.save, res_dic=res_dic)
                 print(item.novel_name + ' - 抓取成功')
-
 
     async def save(self, **kwargs):
         # 存进数据库

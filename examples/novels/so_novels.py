@@ -4,6 +4,7 @@ import time
 import uvloop
 
 from pprint import pprint
+
 from owllook.fetcher.so_novels import so_search as search
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())

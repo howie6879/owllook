@@ -79,10 +79,10 @@ async def owllook_search(request):
         novels_keyword = name.split('bing')[1].strip()
         novels_name = "{name} 小说 阅读 最新章节".format(name=novels_keyword)
         parse_result = await cache_owllook_bing_novels_result(novels_name)
-    # elif name.startswith('!duck_go'):
-    #     novels_keyword = name.split('duck_go')[1].strip()
-    #     novels_name = '{name} 小说 阅读 最新章节'.format(name=novels_keyword)
-    #     parse_result = await cache_owllook_duck_novels_result(novels_name)
+    elif name.startswith('!duck_go'):
+        novels_keyword = name.split('duck_go')[1].strip()
+        novels_name = '{name} 小说 阅读 最新章节'.format(name=novels_keyword)
+        parse_result = await cache_owllook_duck_novels_result(novels_name)
     else:
         for each_engine in ENGINE_PRIORITY:
             # for bing

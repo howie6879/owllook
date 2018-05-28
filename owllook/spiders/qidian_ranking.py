@@ -1,11 +1,9 @@
 #!/usr/bin/env python
-import os
 import time
 
 from talospider import Spider, Item, TextField, AttrField
 from talospider.utils import get_random_user_agent
 
-os.environ['MODE'] = 'PRO'
 from owllook.database.mongodb import MotorBaseOld
 from owllook.utils.tools import async_callback
 

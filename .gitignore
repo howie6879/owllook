@@ -9,7 +9,10 @@ tags
 Caddyfile
 # dir
 __pycache__/
+.cache
+.pytest_cache
 .vscode/
+.idea
 build/
 dist/
 *.egg-info/

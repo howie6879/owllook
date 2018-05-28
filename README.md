@@ -25,36 +25,43 @@
 
 BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计
 
-若觉得还可以，就给个 **star** 吧，详细介绍 [owllook -- 一个简洁的网络小说搜索引擎](http://blog.howie6879.cn/2017/03/10/22/)
-
-**如果您希望在终端下看小说，可以试试这个项目[NIYT](https://github.com/howie6879/NIYT)**
-
 **关于安装：**
 
-请先装好mongo以及redis，然后python环境请确认在python3.5+，不会安装mongo看[这里](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-centos-7)
+请先装好mongo以及redis，不会安装mongo看[这里](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-centos-7)，`owllook`使用`pipenv`管理虚拟环境，所以使用前请确保安装一个`Python3.6`环境（比如我这里环境路径在`/Users/howie/anaconda3/envs/python36/bin/python3.6`），然后安装好`pipenv`
 
 mongo以及redis装好后，进入项目目录，依照步骤执行：
 
 ```shell
-# 首先
+# 下载代码
 git clone https://github.com/howie6879/owllook
 cd owllook
-pip install -r requirements.txt
-cd owllook
+pip install pipenv
+pipenv install --python /Users/howie/anaconda3/envs/python36/bin/python3.6
+# 进入虚拟环境
+pipenv shell
 
 # 方案一
 # 运行：
+cd owllook
 python server.py
 # 或者
 gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server:app
 
-# 方案二
+# 方案二 推荐
 docker build -t owllook:0.1 .
 # 在dev_owllook.env里面填上数据库配置 数据库ip需要注意 请将连接ip设置为ifconfig显示的ip
 docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 ```
 
-#### 1.2.项目进度
+#### 1.2.特性
+
+- 丰富的解析源
+- 界面统一解析
+- 完善的阅读体验
+- 自带爬虫框架，统一爬虫规范
+- owllook终端版 - [NIYT](https://github.com/howie6879/NIYT)
+
+#### 1.3.项目进度
 
 **v0.1.0：**
 
@@ -65,19 +72,19 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 书签
 - 登录
 - 初步兼容手机（后续跟进）
+- 注册（开放注册）
+- 上次阅读记录
+- 最新章节
+- 书友推荐（很基础的推荐）
+- 目录获取
+- 翻页
+- 搜索排行
+- 部分页面重写
+- 章节异步加载 感谢@mscststs
+- 排行榜 - 起点+owllook
 
 **TODO:**
 
-- [x] 注册（开放注册）
-- [x] 上次阅读
-- [x] 最新章节
-- [x] 书友推荐（很基础的推荐）
-- [x] 目录获取
-- [x] 翻页
-- [x] 搜索排行
-- [x] 部分页面重写
-- [x] 章节异步加载 感谢@mscststs
-- [x] 排行榜 - 起点+owllook
 - [ ] 阅读书单
 - [ ] 推荐
 

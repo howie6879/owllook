@@ -1,0 +1,32 @@
+[[source]]
+verify_ssl = true
+name = "pypi"
+url = "https://pypi.python.org/simple"
+
+[requires]
+python_version = "3.6"
+
+[dev-packages]
+
+[packages]
+aioredis = "==0.3.3"
+aiocache = "==0.3.2"
+aiohttp = "*"
+arrow = "*"
+async_timeout = "*"
+asyncio_redis = ">=0.14.3"
+"bs4" = "*"
+cchardet = "*"
+gunicorn = "*"
+"html5lib" = "*"
+"Jinja2" = ">=2.9.5"
+motor = "==1.1"
+numpy = "*"
+requests = "*"
+Sanic = ">=0.5.1"
+sanic_session = ">=0.1.2"
+schedule = "*"
+talospider = ">=0.0.2"
+uvloop = "*"
+pytest = "*"
+pymongo = "*"

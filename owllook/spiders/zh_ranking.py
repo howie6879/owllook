@@ -2,14 +2,12 @@
 """
  Created by howie.hu at 29/11/2017.
 """
-import os
 import time
 
 from pprint import pprint
 from talospider import Spider, Request
 from talospider.utils import get_random_user_agent
 
-os.environ['MODE'] = 'PRO'
 from owllook.database.mongodb import MotorBaseOld
 from owllook.utils.tools import async_callback
 

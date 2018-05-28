@@ -7,7 +7,6 @@ from sanic import Sanic
 from sanic.response import html, redirect
 from sanic_session import RedisSessionInterface
 
-os.environ['MODE'] = 'PRO'
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from owllook.views import admin_bp, api_bp, except_bp, md_bp, novels_bp, operate_bp
 from owllook.database.redis import RedisSession
@@ -52,6 +51,7 @@ async def add_session_to_request(request):
     user_agent = request.headers.get('user-agent', None)
     if user_agent:
         user_ip = request.headers.get('X-Forwarded-For')
+        LOGGER.info('user ip is: {}'.format(user_ip))
         if user_ip in CONFIG.FORBIDDEN:
             return html("<h3>网站正在维护...</h3>")
         if CONFIG.VAL_HOST == 'true':
