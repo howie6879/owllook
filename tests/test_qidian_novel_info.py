@@ -14,6 +14,7 @@ from owllook.spiders.qidian_novel_info import QidianNovelInfoItem
 
 
 def test_qidian_novel_info():
-    item_data = QidianNovelInfoItem.get_item(url='http://book.qidian.com/info/1004608738')
+    url = 'http://book.qidian.com/info/1004608738'
+    item_data = QidianNovelInfoItem.get_item(url=url)
 
     assert item_data['novel_name'] == '圣墟'
