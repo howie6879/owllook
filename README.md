@@ -2,21 +2,15 @@
 
 [![Build Status](https://travis-ci.org/howie6879/owllook.svg?branch=master)](https://travis-ci.org/howie6879/owllook) [![Python](https://img.shields.io/badge/python-3.6%2B-orange.svg)](https://github.com/howie6879/owllook) [![license](https://img.shields.io/github/license/howie6879/owllook.svg)](https://github.com/howie6879/owllook)
 
-owllook目的是让阅读更简单、优雅，让每位读者都有舒适的阅读体验：
+`owllook`是一个基于其他搜索引擎构建的垂直小说搜索引擎，owllook目的是让阅读更简单、优雅，让每位读者都有舒适的阅读体验，如**搜书、阅读、收藏、追更、推荐等功能**：
 
 - 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
 - 公众号：[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie)，有兴趣的话可以关注下
 - 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
 
-### 1.说明
+**注意**：若将本项目部署并发行，请**声明来源**，本项目纯属**共享学习之用，不得用于商业！**
 
-`owllook`是一个基于其他搜索引擎的垂直小说搜索引擎
-
-> 目标是满足小说爱好者的**搜书、阅读、收藏、追更、推荐等功能**
->
-> 若将本项目部署并发行，请**声明来源**，本项目纯属**共享学习之用，不得用于商业！**
-
-#### 1.1.项目介绍
+### Overview
 
 `owllook`使用了mongodb储存了用户使用过程中的产生的基本信息，诸如注册信息、搜索小说信息、收藏小说数据等，对于某些必要的缓存，则利用redis进行缓存处理，如小说缓存、session缓存，注意，对于限制数据：都将在24小时删除
 
@@ -28,7 +22,7 @@ owllook目的是让阅读更简单、优雅，让每位读者都有舒适的阅�
 
 BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计
 
-**关于安装：**
+#### Installation
 
 请先装好mongo以及redis，不会安装mongo看[这里](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-centos-7)，`owllook`使用`pipenv`管理虚拟环境，所以使用前请确保安装一个`Python3.6`环境（比如我这里环境路径在`/Users/howie/anaconda3/envs/python36/bin/python3.6`），然后安装好`pipenv`
 
@@ -56,18 +50,11 @@ docker build -t owllook:0.1 .
 docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 ```
 
-#### 1.2.特性
+#### Features
 
 - 丰富的解析源
 - 界面统一解析
 - 完善的阅读体验
-- 自带爬虫框架，统一爬虫规范
-- owllook终端版 - [NIYT](https://github.com/howie6879/NIYT)
-
-#### 1.3.项目进度
-
-**v0.1.0：**
-
 - 小说的基本搜索解析功能
 - 搜索记录
 - 缓存
@@ -85,13 +72,15 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 部分页面重写
 - 章节异步加载 感谢@mscststs
 - 排行榜 - 起点+owllook
+- 自带爬虫框架，统一爬虫规范 - [talospider](https://github.com/howie6879/talospider)
+- owllook终端版 - [NIYT](https://github.com/howie6879/NIYT)
 
-**TODO:**
+#### TODO
 
 - [ ] 阅读书单
 - [ ] 推荐
 
-### 2.效果图
+### Screenshots
 
 下面是一些截图展示，具体效果图请看[这里](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)：
 
@@ -111,7 +100,7 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 ![content](./docs/imgs/content.png)
 
-### 3.FAQ
+### FAQ
 
 **为什么首页榜单为空白？**
 
@@ -123,8 +112,7 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 目前代码中是设定60分钟运行一次，运行的时候请酌情更改，
 `os.environ['MODE'] = 'PRO'` 这段代码也请注释掉
 
-
-### 4.感谢
+### Reference
 
 **owllook使用了以下第三方包:**
 
@@ -138,13 +126,18 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 - caddy：基于go的web服务器
 
-  …...更多见requirements.txt，感谢开发者。
+  …...更多见Pipfile，感谢开发者
 
 **web框架：**
 
-[bootstrap](https://github.com/twbs/bootstrap)：Sleek, intuitive, and powerful front-end framework for faster and easier web development. 
+- [bootstrap](https://github.com/twbs/bootstrap)：Sleek, intuitive, and powerful front-end framework for faster and easier web development. 
+- [mdui](https://github.com/zdhxiong/mdui )：MDUI 是一个基于 Material Design 的前端框架
 
-[mdui](https://github.com/zdhxiong/mdui )：MDUI 是一个基于 Material Design 的前端框架
+### License
+
+`owllook` is offered under the Apache 2 license.
+
+### Donate
 
 **捐赠：**
 
@@ -152,7 +145,3 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 
 感谢以下捐赠者，具体见[捐赠名单](./DONATE.md) ^_^
-
-### 5.License
-
-`owllook` is offered under the Apache 2 license.
