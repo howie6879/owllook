@@ -1,14 +1,17 @@
-<img src="./owllook/static/novels/img/logo_home.png" alt="chapter" align=center />
+## owllook - 在线小说搜索引擎
+
+[![Build Status](https://travis-ci.org/howie6879/owllook.svg?branch=master)](https://travis-ci.org/howie6879/owllook) [![Python](https://img.shields.io/badge/python-3.6%2B-orange.svg)](https://github.com/howie6879/owllook) [![license](https://img.shields.io/github/license/howie6879/owllook.svg)](https://github.com/howie6879/owllook)
+
+owllook目的是让阅读更简单、优雅，让每位读者都有舒适的阅读体验：
+
+- 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
+- 公众号：[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie)，有兴趣的话可以关注下
+- 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
 
 ### 1.说明
 
-网络小说搜索引擎——owllook，公众号[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie)，有兴趣的话可以关注下：
+`owllook`是一个基于其他搜索引擎的垂直小说搜索引擎
 
-- 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
-- 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
-
-> `owllook`是一个基于其他搜索引擎的垂直小说搜索引擎
->
 > 目标是满足小说爱好者的**搜书、阅读、收藏、追更、推荐等功能**
 >
 > 若将本项目部署并发行，请**声明来源**，本项目纯属**共享学习之用，不得用于商业！**
