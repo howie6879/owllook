@@ -52,10 +52,10 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 #### Features
 
+- 多搜索源
 - 丰富的解析源
 - 界面统一解析
 - 完善的阅读体验
-- 小说的基本搜索解析功能
 - 搜索记录
 - 缓存
 - 书架
@@ -65,20 +65,21 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 注册（开放注册）
 - 上次阅读记录
 - 最新章节
-- 书友推荐（很基础的推荐）
+- 书友推荐（简单地基于相似度进行推荐）
 - 目录获取
 - 翻页
 - 搜索排行
-- 部分页面重写
-- 章节异步加载 感谢@mscststs
+- 章节异步加载 感谢@[mscststs](https://github.com/mscststs)
 - 排行榜 - 起点+owllook
 - 自带爬虫框架，统一爬虫规范 - [talospider](https://github.com/howie6879/talospider)
 - owllook终端版 - [NIYT](https://github.com/howie6879/NIYT)
 
 #### TODO
 
+- [ ] 评分
 - [ ] 阅读书单
 - [ ] 推荐
+- [ ] 小说圈 - 小说界的消息
 
 ### Screenshots
 

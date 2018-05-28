@@ -7,8 +7,8 @@ from owllook.fetcher.extract_novels import extract_chapters
 from owllook.fetcher.function import get_time, get_netloc
 from owllook.fetcher.decorators import authenticator, auth_params, response_handle
 from owllook.fetcher import UniResponse, ResponseField
-from owllook.fetcher.cache import cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, \
-    cache_owllook_novels_chapter
+from owllook.fetcher.cache import cache_owllook_novels_chapter
+from owllook.fetcher.novels_tools import get_novels_info
 from owllook.config import LOGGER
 
 api_bp = Blueprint('api_blueprint', url_prefix='api')
@@ -26,7 +26,7 @@ async def owl_bd_novels(request, name):
     name = unquote(name)
     novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
     try:
-        res = await cache_owllook_baidu_novels_result(novels_name)
+        res = await get_novels_info(class_name='baidu', novels_name=novels_name)
         parse_result = []
         if res:
             parse_result = [i for i in res if i]
@@ -80,7 +80,7 @@ async def owl_so_novels(request, name):
     name = unquote(name)
     novels_name = '{name} 小说 免费阅读'.format(name=name)
     try:
-        res = await cache_owllook_so_novels_result(novels_name)
+        res = await get_novels_info(class_name='baidu', novels_name=novels_name)
         parse_result = []
         if res:
             parse_result = [i for i in res if i]

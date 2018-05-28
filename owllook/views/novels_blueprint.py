@@ -6,13 +6,13 @@ from operator import itemgetter
 from sanic import Blueprint
 from sanic.response import redirect, html, text, json
 
-from owllook.database.mongodb import MotorBase
-from owllook.fetcher.function import get_time, get_netloc
-from owllook.utils import ver_question
-from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
-    cache_owllook_baidu_novels_result, cache_owllook_so_novels_result, cache_owllook_search_ranking, \
-    cache_owllook_bing_novels_result, cache_owllook_duck_novels_result
 from owllook.config import RULES, LOGGER, REPLACE_RULES, ENGINE_PRIORITY, CONFIG
+from owllook.database.mongodb import MotorBase
+from owllook.fetcher.cache import cache_owllook_novels_content, cache_owllook_novels_chapter, \
+    cache_owllook_search_ranking
+from owllook.fetcher.function import get_time, get_netloc
+from owllook.fetcher.novels_tools import get_novels_info
+from owllook.utils import ver_question
 
 novels_bp = Blueprint('novels_blueprint')
 novels_bp.static('/static/novels', CONFIG.BASE_DIR + '/static/novels')
@@ -270,43 +270,43 @@ async def owllook_search(request):
     if name.startswith('!baidu'):
         novels_keyword = name.split('baidu')[1].strip()
         novels_name = 'intitle:{name} 小说 阅读'.format(name=novels_keyword)
-        parse_result = await cache_owllook_baidu_novels_result(novels_name)
+        parse_result = await get_novels_info(class_name='baidu', novels_name=novels_name)
     elif name.startswith('!360'):
         novels_keyword = name.split('360')[1].strip()
         novels_name = "{name} 小说 最新章节".format(name=novels_keyword)
-        parse_result = await cache_owllook_so_novels_result(novels_name)
+        parse_result = await get_novels_info(class_name='so', novels_name=novels_name)
     elif name.startswith('!bing'):
         novels_keyword = name.split('bing')[1].strip()
         novels_name = "{name} 小说 阅读 最新章节".format(name=novels_keyword)
-        parse_result = await cache_owllook_bing_novels_result(novels_name)
+        parse_result = await get_novels_info(class_name='bing', novels_name=novels_name)
     elif name.startswith('!duck_go'):
         novels_keyword = name.split('duck_go')[1].strip()
         novels_name = '{name} 小说 阅读 最新章节'.format(name=novels_keyword)
-        parse_result = await cache_owllook_duck_novels_result(novels_name)
+        parse_result = await get_novels_info(class_name='duck_go', novels_name=novels_name)
     else:
         for each_engine in ENGINE_PRIORITY:
             # for bing
             if each_engine == "bing":
                 novels_name = "{name} 小说 阅读 最新章节".format(name=name)
-                parse_result = await cache_owllook_bing_novels_result(novels_name)
+                parse_result = await get_novels_info(class_name='bing', novels_name=novels_name)
                 if parse_result:
                     break
             # for 360 so
             if each_engine == "360":
                 novels_name = "{name} 小说 最新章节".format(name=name)
-                parse_result = await cache_owllook_so_novels_result(novels_name)
+                parse_result = await get_novels_info(class_name='so', novels_name=novels_name)
                 if parse_result:
                     break
             # for baidu
             if each_engine == "baidu":
                 novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
-                parse_result = await cache_owllook_baidu_novels_result(novels_name)
+                parse_result = await get_novels_info(class_name='baidu', novels_name=novels_name)
                 if parse_result:
                     break
             # for duckduckgo
             if each_engine == "duck_go":
                 novels_name = '{name} 小说 阅读 最新章节'.format(name=name)
-                parse_result = await cache_owllook_duck_novels_result(novels_name)
+                parse_result = await get_novels_info(class_name='duck_go', novels_name=novels_name)
                 if parse_result:
                     break
     if parse_result:
