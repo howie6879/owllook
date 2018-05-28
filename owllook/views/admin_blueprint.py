@@ -35,88 +35,6 @@ def template(tpl, **kwargs):
     return html(template.render(kwargs))
 
 
-@admin_bp.route("/similar_user")
-async def similar_user(request):
-    user = request['session'].get('user', None)
-    if user:
-        try:
-            motor_db = motor_base.get_db()
-            similar_info = await motor_db.user_recommend.find_one({'user': user})
-            if similar_info:
-                similar_user = similar_info['similar_user'][:20]
-                user_tag = similar_info['user_tag']
-                updated_at = similar_info['updated_at']
-                return template('similar_user.html',
-                                title='与' + user + '相似的书友',
-                                is_login=1,
-                                is_similar=1,
-                                user=user,
-                                similar_user=similar_user,
-                                user_tag=user_tag,
-                                updated_at=updated_at)
-            else:
-                return template('similar_user.html',
-                                title='与' + user + '相似的书友',
-                                is_login=1,
-                                is_similar=0,
-                                user=user)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
-    else:
-        return redirect('/')
-
-
-@admin_bp.route("/search_user")
-async def search_user(request):
-    user = request['session'].get('user', None)
-    name = request.args.get('ss', None)
-    if user and name:
-        try:
-            motor_db = motor_base.get_db()
-            data = await motor_db.user_message.find_one({'user': name})
-            books_url = data.get('books_url', None) if data else None
-            if books_url:
-                result = []
-                for i in books_url:
-                    item_result = {}
-                    book_url = i.get('book_url', None)
-                    last_read_url = i.get("last_read_url", "")
-                    book_query = parse_qs(urlparse(book_url).query)
-                    last_read_chapter_name = parse_qs(last_read_url).get('name', ['暂无'])[0]
-                    item_result['novels_name'] = book_query.get('novels_name', '')[0] if book_query.get(
-                        'novels_name', '') else ''
-                    item_result['book_url'] = book_url
-                    latest_data = await motor_db.latest_chapter.find_one({'owllook_chapter_url': book_url})
-                    if latest_data:
-                        item_result['latest_chapter_name'] = latest_data['data']['latest_chapter_name']
-                        item_result['owllook_content_url'] = latest_data['data']['owllook_content_url']
-                    else:
-                        get_latest_data = await get_the_latest_chapter(book_url) or {}
-                        item_result['latest_chapter_name'] = get_latest_data.get('latest_chapter_name', '暂未获取，请反馈')
-                        item_result['owllook_content_url'] = get_latest_data.get('owllook_content_url', '')
-                    item_result['add_time'] = i.get('add_time', '')
-                    item_result["last_read_url"] = last_read_url if last_read_url else book_url
-                    item_result["last_read_chapter_name"] = last_read_chapter_name
-                    result.append(item_result)
-                return template('search_user.html', title='{name}的书架 - owllook'.format(name=name),
-                                is_login=1,
-                                user=user,
-                                username=name,
-                                is_bookmark=1,
-                                result=result[::-1])
-            else:
-                return template('search_user.html', title='{name}的书架 - owllook'.format(name=name),
-                                is_login=1,
-                                user=user,
-                                is_bookmark=0)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
-    else:
-        return redirect('/')
-
-
 @admin_bp.route("/bookmarks")
 async def bookmarks(request):
     user = request['session'].get('user', None)
@@ -206,11 +124,93 @@ async def books(request):
 
 
 @admin_bp.route("/lcxs")
-async def similar_user(request):
+async def lcxs(request):
     user = request['session'].get('user', None)
     if user:
         return template('admin_lcxs.html',
                         is_login=1,
                         user=user)
+    else:
+        return redirect('/')
+
+
+@admin_bp.route("/search_user")
+async def search_user(request):
+    user = request['session'].get('user', None)
+    name = request.args.get('ss', None)
+    if user and name:
+        try:
+            motor_db = motor_base.get_db()
+            data = await motor_db.user_message.find_one({'user': name})
+            books_url = data.get('books_url', None) if data else None
+            if books_url:
+                result = []
+                for i in books_url:
+                    item_result = {}
+                    book_url = i.get('book_url', None)
+                    last_read_url = i.get("last_read_url", "")
+                    book_query = parse_qs(urlparse(book_url).query)
+                    last_read_chapter_name = parse_qs(last_read_url).get('name', ['暂无'])[0]
+                    item_result['novels_name'] = book_query.get('novels_name', '')[0] if book_query.get(
+                        'novels_name', '') else ''
+                    item_result['book_url'] = book_url
+                    latest_data = await motor_db.latest_chapter.find_one({'owllook_chapter_url': book_url})
+                    if latest_data:
+                        item_result['latest_chapter_name'] = latest_data['data']['latest_chapter_name']
+                        item_result['owllook_content_url'] = latest_data['data']['owllook_content_url']
+                    else:
+                        get_latest_data = await get_the_latest_chapter(book_url) or {}
+                        item_result['latest_chapter_name'] = get_latest_data.get('latest_chapter_name', '暂未获取，请反馈')
+                        item_result['owllook_content_url'] = get_latest_data.get('owllook_content_url', '')
+                    item_result['add_time'] = i.get('add_time', '')
+                    item_result["last_read_url"] = last_read_url if last_read_url else book_url
+                    item_result["last_read_chapter_name"] = last_read_chapter_name
+                    result.append(item_result)
+                return template('search_user.html', title='{name}的书架 - owllook'.format(name=name),
+                                is_login=1,
+                                user=user,
+                                username=name,
+                                is_bookmark=1,
+                                result=result[::-1])
+            else:
+                return template('search_user.html', title='{name}的书架 - owllook'.format(name=name),
+                                is_login=1,
+                                user=user,
+                                is_bookmark=0)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+@admin_bp.route("/similar_user")
+async def similar_user(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            motor_db = motor_base.get_db()
+            similar_info = await motor_db.user_recommend.find_one({'user': user})
+            if similar_info:
+                similar_user = similar_info['similar_user'][:20]
+                user_tag = similar_info['user_tag']
+                updated_at = similar_info['updated_at']
+                return template('similar_user.html',
+                                title='与' + user + '相似的书友',
+                                is_login=1,
+                                is_similar=1,
+                                user=user,
+                                similar_user=similar_user,
+                                user_tag=user_tag,
+                                updated_at=updated_at)
+            else:
+                return template('similar_user.html',
+                                title='与' + user + '相似的书友',
+                                is_login=1,
+                                is_similar=0,
+                                user=user)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
     else:
         return redirect('/')

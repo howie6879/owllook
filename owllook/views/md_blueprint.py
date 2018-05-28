@@ -35,19 +35,26 @@ def template(tpl, **kwargs):
     return html(template.render(kwargs))
 
 
-@md_bp.route("/")
-async def index(request):
+@md_bp.route("/setting")
+async def admin_setting(request):
     user = request['session'].get('user', None)
-    novels_head = ['#', '小说名', '搜索次数']
-    first_type_title = "搜索排行"
-    first_type = []
-    search_ranking = await cache_owllook_search_ranking()
     if user:
-        return template('index.html', title='owllook', is_login=1, user=user, search_ranking=search_ranking,
-                        first_type=first_type, first_type_title=first_type_title, novels_head=novels_head, is_owl=1)
+        try:
+            motor_db = motor_base.get_db()
+            data = await motor_db.user.find_one({'user': user})
+            if data:
+                return template('admin_setting.html', title='{user}的设置 - owllook'.format(user=user),
+                                is_login=1,
+                                user=user,
+                                register_time=data['register_time'],
+                                email=data.get('email', '请尽快绑定邮箱'))
+            else:
+                return text('未知错误')
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
     else:
-        return template('index.html', title='owllook', is_login=0, search_ranking=search_ranking, first_type=first_type,
-                        first_type_title=first_type_title, novels_head=novels_head, is_owl=1)
+        return redirect('/')
 
 
 @md_bp.route("/zh_bd_novels")
@@ -79,53 +86,60 @@ async def bd_novels(request):
                         novels_head=novels_head)
 
 
-@md_bp.route("/qidian")
-async def qidian(request):
+@md_bp.route("/book_list")
+async def book_list(request):
     user = request['session'].get('user', None)
-    novels_type = request.args.get('type', '全部类别').strip()
-    first_type_title = "全部类别"
-    first_type = [
-        '玄幻',
-        '奇幻',
-        '武侠',
-        '仙侠',
-        '都市',
-        '职场',
-        '军事',
-        '历史',
-        '游戏',
-        '体育',
-        '科幻',
-        '灵异',
-        '二次元',
-    ]
-    if novels_type in first_type:
-        novels_head = [novels_type]
-    elif novels_type == first_type_title:
-        novels_head = ['#']
-    else:
-        return redirect('qidian')
-    search_ranking = await cache_others_search_ranking(spider='qidian', novel_type=novels_type)
-    title = "owllook - 起点小说榜单"
     if user:
-        return template('index.html',
-                        title=title,
-                        is_login=1,
-                        is_qidian=1,
-                        user=user,
-                        search_ranking=search_ranking,
-                        first_type=first_type,
-                        first_type_title=first_type_title,
-                        novels_head=novels_head)
+        try:
+            return template('admin_book_list.html', title='{user}的书单 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
     else:
-        return template('index.html',
-                        title=title,
-                        is_login=0,
-                        is_qidian=1,
-                        search_ranking=search_ranking,
-                        first_type=first_type,
-                        first_type_title=first_type_title,
-                        novels_head=novels_head)
+        return redirect('/')
+
+
+@md_bp.route("/bookmarks")
+async def bookmarks(request):
+    user = request['session'].get('user', None)
+    if user:
+        try:
+            motor_db = motor_base.get_db()
+            data = await motor_db.user_message.find_one({'user': user})
+            if data:
+                # 获取所有书签
+                bookmarks = data.get('bookmarks', None)
+                if bookmarks:
+                    result = []
+                    for i in bookmarks:
+                        item_result = {}
+                        bookmark = i.get('bookmark', None)
+                        query = parse_qs(urlparse(bookmark).query)
+                        item_result['novels_name'] = query.get('novels_name', '')[0] if query.get('novels_name',
+                                                                                                  '') else ''
+                        item_result['chapter_name'] = query.get(
+                            'name', '')[0] if query.get('name', '') else ''
+                        item_result['chapter_url'] = query.get('chapter_url', '')[0] if query.get('chapter_url',
+                                                                                                  '') else ''
+                        item_result['bookmark'] = bookmark
+                        item_result['add_time'] = i.get('add_time', '')
+                        result.append(item_result)
+                    return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
+                                    is_login=1,
+                                    user=user,
+                                    is_bookmark=1,
+                                    result=result[::-1])
+            return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
+                            is_login=1,
+                            user=user,
+                            is_bookmark=0)
+        except Exception as e:
+            LOGGER.error(e)
+            return redirect('/')
+    else:
+        return redirect('/')
 
 
 @md_bp.route("/books")
@@ -179,92 +193,19 @@ async def books(request):
         return redirect('/')
 
 
-@md_bp.route("/similar_user")
-async def similar_user(request):
+@md_bp.route("/")
+async def index(request):
     user = request['session'].get('user', None)
+    novels_head = ['#', '小说名', '搜索次数']
+    first_type_title = "搜索排行"
+    first_type = []
+    search_ranking = await cache_owllook_search_ranking()
     if user:
-        try:
-            motor_db = motor_base.get_db()
-            similar_info = await motor_db.user_recommend.find_one({'user': user})
-            if similar_info:
-                similar_user = similar_info['similar_user'][:20]
-                user_tag = similar_info['user_tag']
-                updated_at = similar_info['updated_at']
-                return template('similar_user.html',
-                                title='与' + user + '相似的书友',
-                                is_login=1,
-                                is_similar=1,
-                                user=user,
-                                similar_user=similar_user,
-                                user_tag=user_tag,
-                                updated_at=updated_at)
-            else:
-                return template('similar_user.html',
-                                title='与' + user + '相似的书友',
-                                is_login=1,
-                                is_similar=0,
-                                user=user)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
+        return template('index.html', title='owllook', is_login=1, user=user, search_ranking=search_ranking,
+                        first_type=first_type, first_type_title=first_type_title, novels_head=novels_head, is_owl=1)
     else:
-        return redirect('/')
-
-
-@md_bp.route("/bookmarks")
-async def bookmarks(request):
-    user = request['session'].get('user', None)
-    if user:
-        try:
-            motor_db = motor_base.get_db()
-            data = await motor_db.user_message.find_one({'user': user})
-            if data:
-                # 获取所有书签
-                bookmarks = data.get('bookmarks', None)
-                if bookmarks:
-                    result = []
-                    for i in bookmarks:
-                        item_result = {}
-                        bookmark = i.get('bookmark', None)
-                        query = parse_qs(urlparse(bookmark).query)
-                        item_result['novels_name'] = query.get('novels_name', '')[0] if query.get('novels_name',
-                                                                                                  '') else ''
-                        item_result['chapter_name'] = query.get(
-                            'name', '')[0] if query.get('name', '') else ''
-                        item_result['chapter_url'] = query.get('chapter_url', '')[0] if query.get('chapter_url',
-                                                                                                  '') else ''
-                        item_result['bookmark'] = bookmark
-                        item_result['add_time'] = i.get('add_time', '')
-                        result.append(item_result)
-                    return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
-                                    is_login=1,
-                                    user=user,
-                                    is_bookmark=1,
-                                    result=result[::-1])
-            return template('admin_bookmarks.html', title='{user}的书签 - owllook'.format(user=user),
-                            is_login=1,
-                            user=user,
-                            is_bookmark=0)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
-    else:
-        return redirect('/')
-
-
-@md_bp.route("/book_list")
-async def book_list(request):
-    user = request['session'].get('user', None)
-    if user:
-        try:
-            return template('admin_book_list.html', title='{user}的书单 - owllook'.format(user=user),
-                            is_login=1,
-                            user=user)
-        except Exception as e:
-            LOGGER.error(e)
-            return redirect('/')
-    else:
-        return redirect('/')
+        return template('index.html', title='owllook', is_login=0, search_ranking=search_ranking, first_type=first_type,
+                        first_type_title=first_type_title, novels_head=novels_head, is_owl=1)
 
 
 @md_bp.route("/noti_book")
@@ -295,21 +236,80 @@ async def noti_book(request):
         return redirect('/')
 
 
-@md_bp.route("/setting")
-async def admin_setting(request):
+@md_bp.route("/qidian")
+async def qidian(request):
+    user = request['session'].get('user', None)
+    novels_type = request.args.get('type', '全部类别').strip()
+    first_type_title = "全部类别"
+    first_type = [
+        '玄幻',
+        '奇幻',
+        '武侠',
+        '仙侠',
+        '都市',
+        '职场',
+        '军事',
+        '历史',
+        '游戏',
+        '体育',
+        '科幻',
+        '灵异',
+        '二次元',
+    ]
+    if novels_type in first_type:
+        novels_head = [novels_type]
+    elif novels_type == first_type_title:
+        novels_head = ['#']
+    else:
+        return redirect('qidian')
+    search_ranking = await cache_others_search_ranking(spider='qidian', novel_type=novels_type)
+    title = "owllook - 起点小说榜单"
+    if user:
+        return template('index.html',
+                        title=title,
+                        is_login=1,
+                        is_qidian=1,
+                        user=user,
+                        search_ranking=search_ranking,
+                        first_type=first_type,
+                        first_type_title=first_type_title,
+                        novels_head=novels_head)
+    else:
+        return template('index.html',
+                        title=title,
+                        is_login=0,
+                        is_qidian=1,
+                        search_ranking=search_ranking,
+                        first_type=first_type,
+                        first_type_title=first_type_title,
+                        novels_head=novels_head)
+
+
+@md_bp.route("/similar_user")
+async def similar_user(request):
     user = request['session'].get('user', None)
     if user:
         try:
             motor_db = motor_base.get_db()
-            data = await motor_db.user.find_one({'user': user})
-            if data:
-                return template('admin_setting.html', title='{user}的设置 - owllook'.format(user=user),
+            similar_info = await motor_db.user_recommend.find_one({'user': user})
+            if similar_info:
+                similar_user = similar_info['similar_user'][:20]
+                user_tag = similar_info['user_tag']
+                updated_at = similar_info['updated_at']
+                return template('similar_user.html',
+                                title='与' + user + '相似的书友',
                                 is_login=1,
+                                is_similar=1,
                                 user=user,
-                                register_time=data['register_time'],
-                                email=data.get('email', '请尽快绑定邮箱'))
+                                similar_user=similar_user,
+                                user_tag=user_tag,
+                                updated_at=updated_at)
             else:
-                return text('未知错误')
+                return template('similar_user.html',
+                                title='与' + user + '相似的书友',
+                                is_login=1,
+                                is_similar=0,
+                                user=user)
         except Exception as e:
             LOGGER.error(e)
             return redirect('/')

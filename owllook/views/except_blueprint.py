@@ -28,7 +28,7 @@ def ignore_404(request, exception):
 
 
 @except_bp.exception(ServerError)
-async def test(request, exception):
+async def server_error(request, exception):
     return json(
         {
             "exception": "{}".format(exception),

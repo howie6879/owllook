@@ -8,6 +8,7 @@ from sanic.response import html, redirect
 from sanic_session import RedisSessionInterface
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from owllook.views import admin_bp, api_bp, except_bp, md_bp, novels_bp, operate_bp
 from owllook.database.redis import RedisSession
 from owllook.config import LOGGER, CONFIG
@@ -78,8 +79,8 @@ async def save_session(request, response):
     elif request.path == '/register':
         try:
             response.cookies['reg_index'] = str(request['session']['index'][0])
-        except KeyError:
-            pass
+        except KeyError as e:
+            LOGGER.error(e)
 
 
 if __name__ == "__main__":
