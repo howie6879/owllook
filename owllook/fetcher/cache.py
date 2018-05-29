@@ -14,7 +14,7 @@ from urllib.parse import urlparse, parse_qs, urljoin
 
 from owllook.database.mongodb import MotorBase
 from owllook.fetcher.decorators import cached
-from owllook.fetcher.function import target_fetch, get_time, requests_target_fetch
+from owllook.fetcher.function import target_fetch, get_time, get_html_by_requests, get_random_user_agent
 from owllook.fetcher.extract_novels import extract_pre_next_chapter
 from owllook.config import RULES, LATEST_RULES, LOGGER
 
@@ -22,7 +22,8 @@ from owllook.config import RULES, LATEST_RULES, LOGGER
 @cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_content(url, netloc):
     async with aiohttp.ClientSession() as client:
-        html = await target_fetch(client=client, url=url)
+        headers = await get_random_user_agent()
+        html = await target_fetch(client=client, headers=headers, url=url)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
             selector = RULES[netloc].content_selector
@@ -63,7 +64,8 @@ async def cache_owllook_novels_content(url, netloc):
 @cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_chapter(url, netloc):
     async with aiohttp.ClientSession() as client:
-        html = await target_fetch(client=client, url=url)
+        headers = await get_random_user_agent()
+        html = await target_fetch(client=client, headers=headers, url=url)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
             selector = RULES[netloc].chapter_selector
@@ -111,12 +113,13 @@ async def get_the_latest_chapter(chapter_url, loop=None, timeout=15):
                 netloc = urlparse(url).netloc
                 if netloc in LATEST_RULES.keys():
                     async with aiohttp.ClientSession(loop=loop) as client:
+                        headers = await get_random_user_agent()
                         try:
-                            html = await target_fetch(client=client, url=url, timeout=timeout)
+                            html = await target_fetch(client=client, url=url, headers=headers, timeout=timeout)
                             if html is None:
-                                html = requests_target_fetch(url=url, timeout=timeout)
+                                html = get_html_by_requests(url=url, headers=headers, timeout=timeout)
                         except TypeError:
-                            html = requests_target_fetch(url=url, timeout=timeout)
+                            html = get_html_by_requests(url=url, headers=headers, timeout=timeout)
                         except Exception as e:
                             LOGGER.exception(e)
                             return None

@@ -65,7 +65,7 @@ class SoNovels(BaseNovels):
         url = self.config.SO_URL
         async with aiohttp.ClientSession() as client:
             headers = {
-                'User-Agent': get_random_user_agent(),
+                'User-Agent': await get_random_user_agent(),
                 'Referer': "http://www.so.com/haosou.html?src=home"
             }
             params = {'ie': 'utf-8', 'src': 'noscript_home', 'shb': 1, 'q': novels_name, }
@@ -80,6 +80,7 @@ class SoNovels(BaseNovels):
                 return res
             else:
                 return []
+
 
 @cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def start(novels_name):

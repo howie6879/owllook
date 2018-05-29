@@ -14,7 +14,7 @@ async def fetch(client, url, novels_name):
     with async_timeout.timeout(20):
         try:
             headers = {
-                'User-Agent': get_random_user_agent(),
+                'User-Agent': await get_random_user_agent(),
                 'Referer': "http://www.so.com/haosou.html?src=home"
             }
             params = {'ie': 'utf-8', 'src': 'noscript_home', 'shb': 1, 'q': novels_name, }

@@ -15,7 +15,7 @@ from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES
 async def fetch(client, url, name, is_web):
     with async_timeout.timeout(15):
         try:
-            headers = {'user-agent': get_random_user_agent()}
+            headers = {'user-agent': await get_random_user_agent()}
             if is_web:
                 params = {'wd': name, 'ie': 'utf-8', 'rn': CONFIG.BAIDU_RN, 'vf_bl': 1}
             else:
@@ -36,7 +36,7 @@ async def fetch(client, url, name, is_web):
 async def get_real_url(client, url):
     with async_timeout.timeout(5):
         try:
-            headers = {'user-agent': get_random_user_agent()}
+            headers = {'user-agent': await get_random_user_agent()}
             async with client.head(url, headers=headers, allow_redirects=True) as response:
                 assert response.status == 200
                 LOGGER.info('Parse url: {}'.format(response.url))

@@ -63,7 +63,7 @@ class BaiduNovels(BaseNovels):
         """
         with async_timeout.timeout(5):
             try:
-                headers = {'user-agent': get_random_user_agent()}
+                headers = {'user-agent': await get_random_user_agent()}
                 async with client.head(url, headers=headers, allow_redirects=True) as response:
                     self.logger.info('Parse url: {}'.format(response.url))
                     url = response.url if response.url else None
@@ -80,7 +80,7 @@ class BaiduNovels(BaseNovels):
         url = self.config.URL_PC
         async with aiohttp.ClientSession() as client:
             params = {'wd': novels_name, 'ie': 'utf-8', 'rn': self.config.BAIDU_RN, 'vf_bl': 1}
-            headers = {'user-agent': get_random_user_agent()}
+            headers = {'user-agent': await get_random_user_agent()}
             html = await self.fetch_url(client=client, url=url, params=params, headers=headers)
             if html:
                 soup = BeautifulSoup(html, 'html5lib')

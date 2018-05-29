@@ -60,7 +60,7 @@ class DuckGoNovels(BaseNovels):
         url = self.config.DUCKGO_URL
         async with aiohttp.ClientSession() as client:
             headers = {
-                'user-agent': get_random_user_agent(),
+                'user-agent': await get_random_user_agent(),
                 'referer': "https://duckduckgo.com/"
             }
             params = {'q': novels_name}
@@ -75,6 +75,7 @@ class DuckGoNovels(BaseNovels):
                 return res
             else:
                 return []
+
 
 @cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def start(novels_name):

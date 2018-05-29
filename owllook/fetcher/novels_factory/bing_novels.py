@@ -56,7 +56,7 @@ class BingNovels(BaseNovels):
         url = self.config.BY_URL
         async with aiohttp.ClientSession() as client:
             headers = {
-                'user-agent': get_random_user_agent(),
+                'user-agent': await get_random_user_agent(),
                 'referer': "https://www.bing.com/"
             }
             params = {'q': novels_name, 'ensearch': 0}

@@ -17,7 +17,7 @@ async def fetch(client, url, novels_name):
     with async_timeout.timeout(20):
         try:
             headers = {
-                'user-agent': get_random_user_agent(),
+                'user-agent': await get_random_user_agent(),
                 'referer': "https://duckduckgo.com/"
             }
             params = {'q': novels_name}
