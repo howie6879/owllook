@@ -22,7 +22,9 @@ from owllook.config import RULES, LATEST_RULES, LOGGER
 @cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_content(url, netloc):
     async with aiohttp.ClientSession() as client:
-        headers = await get_random_user_agent()
+        headers = {
+            'user-agent': await get_random_user_agent()
+        }
         html = await target_fetch(client=client, headers=headers, url=url)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
@@ -64,7 +66,9 @@ async def cache_owllook_novels_content(url, netloc):
 @cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_chapter(url, netloc):
     async with aiohttp.ClientSession() as client:
-        headers = await get_random_user_agent()
+        headers = {
+            'user-agent': await get_random_user_agent()
+        }
         html = await target_fetch(client=client, headers=headers, url=url)
         if html:
             soup = BeautifulSoup(html, 'html5lib')
@@ -113,7 +117,9 @@ async def get_the_latest_chapter(chapter_url, loop=None, timeout=15):
                 netloc = urlparse(url).netloc
                 if netloc in LATEST_RULES.keys():
                     async with aiohttp.ClientSession(loop=loop) as client:
-                        headers = await get_random_user_agent()
+                        headers = {
+                            'user-agent': await get_random_user_agent()
+                        }
                         try:
                             html = await target_fetch(client=client, url=url, headers=headers, timeout=timeout)
                             if html is None:
