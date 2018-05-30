@@ -132,7 +132,12 @@ $(document).ready(function () {
                 //若未缓存
                 window.location.href = page_btn_pre.attr("href");
             } else {
-                load(page_btn_pre.attr("href"));
+                try {
+                    load(page_btn_pre.attr("href"));
+                } catch (err) {
+                    window.location.href = page_btn_pre.attr("href");
+                }
+
             }
         });
         page_btn_next.unbind("click");
@@ -142,7 +147,12 @@ $(document).ready(function () {
                 //若未缓存
                 window.location.href = page_btn_next.attr("href");
             } else {
-                load(page_btn_next.attr("href"));
+                try {
+                    load(page_btn_next.attr("href"));
+                } catch (err) {
+                    window.location.href = page_btn_next.attr("href");
+                }
+
             }
         });
     }

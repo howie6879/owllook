@@ -319,7 +319,7 @@ RULES = {
     # 已解析
     'www.biquguo.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.woquge.com': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
+    'www.woquge.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.zhonghuawuxia.com': Rules('1', {'class': 'list'}, {'id': 'content'}),
     # 已解析

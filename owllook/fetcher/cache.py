@@ -53,7 +53,7 @@ async def cache_owllook_novels_content(url, netloc):
                 next_chapter = extract_pre_next_chapter(chapter_url=url, html=str(soup))
                 content = [str(i) for i in content]
                 data = {
-                    'content': ''.join(content),
+                    'content': str(''.join(content)),
                     'next_chapter': next_chapter,
                     'title': title
                 }
@@ -166,7 +166,7 @@ async def get_the_latest_chapter(chapter_url, loop=None, timeout=15):
                                 latest_chapter_name = latest_chapter_soup[0].get('title', None)
                         if latest_chapter_name and latest_chapter_url:
                             time_current = get_time()
-                            print(latest_chapter_url)
+                            # print(latest_chapter_url)
                             data = {
                                 "latest_chapter_name": latest_chapter_name,
                                 "latest_chapter_url": latest_chapter_url,

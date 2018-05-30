@@ -49,8 +49,8 @@ def extract_pre_next_chapter(chapter_url, html):
     next_chapter = OrderedDict()
     try:
         # 参考https://greasyfork.org/zh-CN/scripts/292-my-novel-reader
-        next_reg = r'(<a\s+.*?>.*[上前下后][一]?[页张个篇章节步].*?</a>)'
-        judge_reg = r'[上前下后][一]?[页张个篇章节步]'
+        next_reg = r'(<a\s+.*?>.*[第上前下后][一]?[0-9]{0,6}?[页张个篇章节步].*?</a>)'
+        judge_reg = r'[第上前下后][一]?[0-9]{0,6}?[页张个篇章节步]'
         # 这里同样需要利用bs再次解析
         next_res = re.findall(next_reg, html.replace('<<', '').replace('>>', ''), re.I)
         str_next_res = '\n'.join(next_res)
