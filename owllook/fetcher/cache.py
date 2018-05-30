@@ -79,7 +79,8 @@ async def cache_owllook_novels_chapter(url, netloc):
                 content = soup.find_all(class_=selector['class'])
             else:
                 content = soup.find_all(selector.get('tag'))
-            return str(content) if content else None
+            # 防止章节被display:none
+            return str(content).replace('style', '') if content else None
         return None
 
 

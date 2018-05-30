@@ -423,7 +423,7 @@ RULES = {
     # 已解析
     'www.abocms.cn': Rules('http://www.abocms.cn', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.liewen.cc': Rules('http://www.liewen.cc', {'class': 'box_con'}, {'id': 'content'}),
+    'www.liewen.cc': Rules('https://www.liewen.cc', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.heiyange.com': Rules('http://www.heiyange.com', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
