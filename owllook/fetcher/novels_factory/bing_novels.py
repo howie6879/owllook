@@ -2,8 +2,6 @@
 """
  Created by howie.hu at 2018/5/28.
 """
-
-import aiohttp
 import asyncio
 
 from aiocache.serializers import PickleSerializer
@@ -20,7 +18,7 @@ class BingNovels(BaseNovels):
     def __init__(self):
         super(BingNovels, self).__init__()
 
-    async def data_extraction(self, client, html):
+    async def data_extraction(self, html):
         """
         小说信息抓取函数
         :return:
@@ -54,23 +52,22 @@ class BingNovels(BaseNovels):
         :return:
         """
         url = self.config.BY_URL
-        async with aiohttp.ClientSession() as client:
-            headers = {
-                'user-agent': await get_random_user_agent(),
-                'referer': "https://www.bing.com/"
-            }
-            params = {'q': novels_name, 'ensearch': 0}
-            html = await self.fetch_url(client=client, url=url, params=params, headers=headers)
-            if html:
-                soup = BeautifulSoup(html, 'html5lib')
-                result = soup.find_all(class_='b_algo')
-                extra_tasks = [self.data_extraction(client=client, html=i) for i in result]
-                tasks = [asyncio.ensure_future(i) for i in extra_tasks]
-                done_list, pending_list = await asyncio.wait(tasks)
-                res = [task.result() for task in done_list if task.result()]
-                return res
-            else:
-                return []
+        headers = {
+            'user-agent': await get_random_user_agent(),
+            'referer': "https://www.bing.com/"
+        }
+        params = {'q': novels_name, 'ensearch': 0}
+        html = await self.fetch_url(url=url, params=params, headers=headers)
+        if html:
+            soup = BeautifulSoup(html, 'html5lib')
+            result = soup.find_all(class_='b_algo')
+            extra_tasks = [self.data_extraction(html=i) for i in result]
+            tasks = [asyncio.ensure_future(i) for i in extra_tasks]
+            done_list, pending_list = await asyncio.wait(tasks)
+            res = [task.result() for task in done_list if task.result()]
+            return res
+        else:
+            return []
 
 
 @cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")

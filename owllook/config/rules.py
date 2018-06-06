@@ -30,7 +30,8 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
                 "product.dangdang.com", "www.chuiyao.com", "novel.slieny.com", "www.bilibili.com", "donghua.dmzj.com",
                 "www.yaojingweiba.com", "www.qb5200.com", "www.520tingshu.com", "www.567zw.com", "www.zjrxz.com",
                 "v.qq.com", "blog.sina.com.cn", "www.hackhome.com", "news.fznews.com.cn", "www.jingyu.com",
-                "news.so.com", "www.sodu3.com", "vipreader.qidian.com", "www.mozhua9.com", "www.iqiyi.com"]
+                "news.so.com", "www.sodu3.com", "vipreader.qidian.com", "www.mozhua9.com", "www.iqiyi.com",
+                "xs.sogou.com"]
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {

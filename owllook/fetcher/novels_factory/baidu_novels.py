@@ -2,7 +2,6 @@
 """
  Created by howie.hu at 2018/5/28.
 """
-
 import aiohttp
 import asyncio
 import async_timeout
@@ -21,14 +20,14 @@ class BaiduNovels(BaseNovels):
     def __init__(self):
         super(BaiduNovels, self).__init__()
 
-    async def data_extraction(self, client, html):
+    async def data_extraction(self, html):
         """
         小说信息抓取函数
         :return:
         """
         try:
             url = html.select('h3.t a')[0].get('href', None)
-            real_url = await self.get_real_url(client=client, url=url) if url else None
+            real_url = await self.get_real_url(url=url) if url else None
             if real_url:
                 real_str_url = str(real_url)
                 netloc = urlparse(real_str_url).netloc
@@ -54,20 +53,20 @@ class BaiduNovels(BaseNovels):
             self.logger.exception(e)
             return None
 
-    async def get_real_url(self, client, url):
+    async def get_real_url(self, url):
         """
         获取百度搜索结果真实url
-        :param client:
         :param url:
         :return:
         """
         with async_timeout.timeout(5):
             try:
-                headers = {'user-agent': await get_random_user_agent()}
-                async with client.head(url, headers=headers, allow_redirects=True) as response:
-                    self.logger.info('Parse url: {}'.format(response.url))
-                    url = response.url if response.url else None
-                    return url
+                async with aiohttp.ClientSession() as client:
+                    headers = {'user-agent': await get_random_user_agent()}
+                    async with client.head(url, headers=headers, allow_redirects=True) as response:
+                        self.logger.info('Parse url: {}'.format(response.url))
+                        url = response.url if response.url else None
+                        return url
             except Exception as e:
                 self.logger.exception(e)
                 return None
@@ -78,20 +77,19 @@ class BaiduNovels(BaseNovels):
         :return:
         """
         url = self.config.URL_PC
-        async with aiohttp.ClientSession() as client:
-            params = {'wd': novels_name, 'ie': 'utf-8', 'rn': self.config.BAIDU_RN, 'vf_bl': 1}
-            headers = {'user-agent': await get_random_user_agent()}
-            html = await self.fetch_url(client=client, url=url, params=params, headers=headers)
-            if html:
-                soup = BeautifulSoup(html, 'html5lib')
-                result = soup.find_all(class_='result')
-                extra_tasks = [self.data_extraction(client=client, html=i) for i in result]
-                tasks = [asyncio.ensure_future(i) for i in extra_tasks]
-                done_list, pending_list = await asyncio.wait(tasks)
-                res = [task.result() for task in done_list if task.result()]
-                return res
-            else:
-                return []
+        params = {'wd': novels_name, 'ie': 'utf-8', 'rn': self.config.BAIDU_RN, 'vf_bl': 1}
+        headers = {'user-agent': await get_random_user_agent()}
+        html = await self.fetch_url(url=url, params=params, headers=headers)
+        if html:
+            soup = BeautifulSoup(html, 'html5lib')
+            result = soup.find_all(class_='result')
+            extra_tasks = [self.data_extraction(html=i) for i in result]
+            tasks = [asyncio.ensure_future(i) for i in extra_tasks]
+            done_list, pending_list = await asyncio.wait(tasks)
+            res = [task.result() for task in done_list if task.result()]
+            return res
+        else:
+            return []
 
 
 @cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
