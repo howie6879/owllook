@@ -61,26 +61,26 @@ def get_netloc(url):
     return netloc or None
 
 
-async def target_fetch(client, url, headers, timeout=15):
+async def target_fetch(url, headers, timeout=15):
     """
-    :param client: aiohttp client
     :param url: target url
     :return: text
     """
     with async_timeout.timeout(timeout):
         try:
-            async with client.get(url, headers=headers) as response:
-                assert response.status == 200
-                LOGGER.info('Task url: {}'.format(response.url))
-                try:
-                    text = await response.text()
-                except:
+            async with aiohttp.ClientSession() as client:
+                async with client.get(url, headers=headers) as response:
+                    assert response.status == 200
+                    LOGGER.info('Task url: {}'.format(response.url))
                     try:
-                        text = await response.read()
-                    except aiohttp.ServerDisconnectedError as e:
-                        LOGGER.exception(e)
-                        text = None
-                return text
+                        text = await response.text()
+                    except:
+                        try:
+                            text = await response.read()
+                        except aiohttp.ServerDisconnectedError as e:
+                            LOGGER.exception(e)
+                            text = None
+                    return text
         except Exception as e:
             LOGGER.exception(str(e))
             return None

@@ -257,7 +257,7 @@ RULES = {
     # 已解析
     # 'www.txtwan.com': Rules('http://www.txtwan.com/', {'id': 'chapterList'}, {'id': 'txt'}),
     # 已解析
-    'www.biqugexsw.com': Rules('http://www.biqugexsw.com/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biqugexsw.com': Rules('http://www.biqugexsw.com/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
     'www.kuxiaoshuo.com': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
