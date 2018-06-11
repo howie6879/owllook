@@ -136,13 +136,16 @@ async def get_the_latest_chapter(chapter_url, timeout=15):
                     if LATEST_RULES[netloc].plan:
                         meta_value = LATEST_RULES[netloc].meta_value
                         latest_chapter_name = soup.select(
-                            'meta[property="{0}"]'.format(meta_value["latest_chapter_name"]))
+                            'meta[property="{0}"]'.format(meta_value["latest_chapter_name"])) or soup.select(
+                            'meta[name="{0}"]'.format(meta_value["latest_chapter_name"]))
+
                         latest_chapter_name = latest_chapter_name[0].get('content',
                                                                          None) if latest_chapter_name else None
                         latest_chapter_url = soup.select(
-                            'meta[property="{0}"]'.format(meta_value["latest_chapter_url"]))
-                        latest_chapter_url = urljoin(url, latest_chapter_url[0].get('content',
-                                                                                    None)) if latest_chapter_url else None
+                            'meta[property="{0}"]'.format(meta_value["latest_chapter_url"])) or soup.select(
+                            'meta[name="{0}"]'.format(meta_value["latest_chapter_url"]))
+                        latest_chapter_url = urljoin(chapter_url, latest_chapter_url[0].get('content',
+                                                                                            None)) if latest_chapter_url else None
                     else:
                         selector = LATEST_RULES[netloc].selector
                         content_url = selector.get('content_url')
