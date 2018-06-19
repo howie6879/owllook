@@ -393,7 +393,7 @@ RULES = {
     # 已解析
     'www.263zw.com': Rules('1', {'class': 'chapter'}, {'id': 'chapterContent'}),
     # 已解析
-    'www.biquge5.com': Rules('1', {'id': 'chapterslist'}, {'id': 'content'}),
+    'www.biquge5.com': Rules('1', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.yooread.com': Rules('http://www.yooread.com', {'id': 'chapterList'}, {'tag': 'p'}),
     # 已解析
