@@ -401,7 +401,7 @@ RULES = {
     # 已解析
     'www.kanshuhai.com': Rules('0', {'id': 'book'}, {'id': 'content'}),
     # 已解析
-    'www.bequge.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    'www.bequge.com': Rules('https://www.bequge.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析  请求失败
     # 'www.biquge5200.com': Rules('1', {'id': 'list'}, {'id': 'content'}),
     # 已解析
