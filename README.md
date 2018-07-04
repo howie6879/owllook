@@ -8,6 +8,12 @@
 - 公众号：[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie)，有兴趣的话可以关注下
 - 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
 
+衍生项目：
+
+- 终端看小说： [NIYT](https://github.com/howie6879/NIYT)
+- 小说监控工具：[owllook_gui](https://github.com/howie6879/owllook_gui)
+- 小说接口：[owllook_api](https://github.com/howie6879/owllook_api)
+
 **注意**：若将本项目部署并发行，请**声明来源**，本项目纯属**共享学习之用，不得用于商业！**
 
 ### Overview
@@ -91,7 +97,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 章节异步加载 感谢@[mscststs](https://github.com/mscststs)
 - 排行榜 - 起点+owllook
 - 自带爬虫框架，统一爬虫规范 - [talospider](https://github.com/howie6879/talospider)
-- owllook终端版 - [NIYT](https://github.com/howie6879/NIYT)
 
 #### TODO
 

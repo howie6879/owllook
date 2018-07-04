@@ -20,7 +20,7 @@ class QidianHonorItem(Item):
 
 
 class QidianHonorSpider(Spider):
-    start_urls = ['https://book.qidian.com/honor/1009704712']
+    start_urls = ['https://book.qidian.com/honor/1009531496']
     headers = {
         "User-Agent": get_random_user_agent()
     }
@@ -47,7 +47,20 @@ class QidianHonorSpider(Spider):
                 rec_list.append(data)
             else:
                 other_list.append(data)
+        print('点击荣誉\n')
+        for i in click_list:
+            print(str(i.get('honor_time')) + " - " + str(i.get('honor_text')))
+
+        print('收藏荣誉\n')
+        for i in col_list:
+            print(str(i.get('honor_time')) + " - " + str(i.get('honor_text')))
+
+        print('推荐票荣誉\n')
         for i in rec_list:
+            print(str(i.get('honor_time')) + " - " + str(i.get('honor_text')))
+
+        print('强推荣誉\n')
+        for i in other_list:
             print(str(i.get('honor_time')) + " - " + str(i.get('honor_text')))
 
 
