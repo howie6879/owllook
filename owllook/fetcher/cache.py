@@ -8,7 +8,7 @@ import aiohttp
 import async_timeout
 
 from bs4 import BeautifulSoup
-from aiocache.serializers import PickleSerializer
+from aiocache.serializers import PickleSerializer,JsonSerializer
 
 from urllib.parse import urlparse, parse_qs, urljoin
 
@@ -82,7 +82,7 @@ async def cache_owllook_novels_chapter(url, netloc):
     return None
 
 
-@cached(ttl=10800, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
+@cached(ttl=10800, key_from_attr='search_ranking', serializer=JsonSerializer(), namespace="ranking")
 async def cache_owllook_search_ranking():
     motor_db = MotorBase().get_db()
     keyword_cursor = motor_db.search_records.find(
@@ -97,7 +97,7 @@ async def cache_owllook_search_ranking():
     return result
 
 
-@cached(ttl=3600, key_from_attr='search_ranking', serializer=PickleSerializer(), namespace="ranking")
+@cached(ttl=3600, key_from_attr='search_ranking', serializer=JsonSerializer(), namespace="ranking")
 async def cache_others_search_ranking(spider='qidian', novel_type='全部类别'):
     motor_db = MotorBase().get_db()
     item_data = await motor_db.novels_ranking.find_one({'spider': spider, 'type': novel_type}, {'data': 1, '_id': 0})
