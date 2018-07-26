@@ -172,6 +172,7 @@ LATEST_RULES = {
     "www.biqugexsw.com": PLAN_01,
     "www.biqu6.com": PLAN_01,
     "www.xiuxs.com": PLAN_01,
+    "www.booktxt.net": PLAN_01,
     "www.biqule.com": PLAN_01,
     "www.biquzi.com": PLAN_01,
     "www.biquku.la": PLAN_01,
@@ -201,7 +202,7 @@ RULES = {
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     'www.biquwu.cc': Rules('https://www.biquwu.cc/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.biqugex.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biqugex.com': Rules('http://www.biqugex.com/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
     'www.bbiquge.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
