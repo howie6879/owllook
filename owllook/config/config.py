@@ -21,6 +21,10 @@ class Config():
         AUTHOR_LATEST_COUNT=5,
     )
 
+    SCHEDULED_DICT = dict(
+        SPIDER_INTERVAL=int(os.getenv('SPIDER_INTERVAL', 60)),
+    )
+
     # Engine config
     URL_PHONE = 'https://m.baidu.com/s'
     URL_PC = 'http://www.baidu.com/s'

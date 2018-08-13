@@ -37,5 +37,6 @@
 - 键盘侠：20元
 - 佚名：12元
 - 过客：5元
+- 周洲：10元
 
 <img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />

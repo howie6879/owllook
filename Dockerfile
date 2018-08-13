@@ -17,4 +17,4 @@ COPY . ${APP_ROOT}
 WORKDIR ${APP_ROOT}/owllook/
 RUN find . -name "*.pyc" -delete
 # 启动
-CMD ["pipenv","run","gunicorn","-c","config/dev_gunicorn.py","--worker-class","sanic.worker.GunicornWorker","server:app"]
+CMD ["pipenv","run","python","owllook/run.py"]
