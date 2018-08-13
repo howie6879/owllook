@@ -8,7 +8,7 @@ import schedule
 import sys
 import time
 
-os.environ['MODE'] = 'PRO'
+# os.environ['MODE'] = 'PRO'
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from owllook.config import CONFIG
