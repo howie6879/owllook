@@ -17,4 +17,4 @@ COPY . ${APP_ROOT}
 WORKDIR ${APP_ROOT}/owllook/
 RUN find . -name "*.pyc" -delete
 # 启动
-CMD ["pipenv","run","python","owllook/run.py"]
+CMD ["pipenv","run","python","run.py"]

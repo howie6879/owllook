@@ -19,3 +19,4 @@ dist/
 mdui.css
 mdui.js
 owllook.env
+test_extractor.py

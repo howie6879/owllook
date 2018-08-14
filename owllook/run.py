@@ -8,8 +8,9 @@ import subprocess
 if __name__ == '__main__':
     # os.environ['MODE'] = 'PRO'
     servers = [
-        ["pipenv", "run", "python", "owllook/server.py"],
-        ["pipenv", "run", "python", "owllook/scheduled_task.py"]
+        ["pipenv", "run", "gunicorn", "-c", "config/gunicorn.py", "--worker-class", "sanic.worker.GunicornWorker",
+         "server:app"],
+        ["pipenv", "run", "python", "scheduled_task.py"]
     ]
     procs = []
     for server in servers:

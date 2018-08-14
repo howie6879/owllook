@@ -1,7 +1,7 @@
 [[source]]
 verify_ssl = true
 name = "pypi"
-url = "https://pypi.python.org/simple"
+url = "https://pypi.douban.com/simple/"
 
 [requires]
 python_version = "3.6"
@@ -31,3 +31,4 @@ uvloop = "*"
 pytest = "*"
 pymongo = "*"
 aiofiles = "*"
+pyquery = "*"
