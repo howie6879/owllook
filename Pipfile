@@ -1,7 +1,7 @@
 [[source]]
 verify_ssl = true
 name = "pypi"
-url = "https://pypi.python.com/simple/"
+url = "https://pypi.python.org/simple/"
 
 [requires]
 python_version = "3.6"
