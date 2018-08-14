@@ -1,6 +1,11 @@
 [[source]]
 verify_ssl = true
 name = "pypi"
+url = "https://pypi.python.org/simple"
+
+[[source]]
+verify_ssl = true
+name = "douban"
 url = "https://pypi.douban.com/simple/"
 
 [requires]
