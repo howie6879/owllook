@@ -4,6 +4,7 @@ import os
 WORKERS = os.getenv('WORKERS', 2)
 TIMEOUT = os.getenv('TIMEOUT', 60)
 
+bind = '0.0.0.0:8001'
 backlog = 2048
 
 workers = WORKERS
