@@ -29,6 +29,5 @@ def refresh_task(spider_interval):
 
 
 if __name__ == '__main__':
-    start_spider()
     spider_interval = CONFIG.SCHEDULED_DICT['SPIDER_INTERVAL']
     refresh_task(spider_interval=spider_interval)

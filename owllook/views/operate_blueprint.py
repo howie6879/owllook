@@ -13,8 +13,10 @@ from owllook.utils import get_real_answer
 from owllook.config import CONFIG, LOGGER
 
 try:
+    from ujson import loads as json_loads
     from ujson import dumps as json_dumps
 except:
+    from json import loads as json_loads
     from json import dumps as json_dumps
 
 operate_bp = Blueprint('operate_blueprint', url_prefix='operate')
@@ -374,8 +376,8 @@ async def owllook_register(request):
     pwd = register_data.get('pwd', [None])[0]
     email = register_data.get('email', [None])[0]
     answer = register_data.get('answer', [None])[0]
-    reg_index = request.cookies['reg_index']
-    if user and pwd and email and answer and reg_index:
+    reg_index = request.cookies.get('reg_index')
+    if user and pwd and email and answer and reg_index and len(user) > 5:
         motor_db = motor_base.get_db()
         is_exist = await motor_db.user.find_one({'user': user})
         if not is_exist:
@@ -399,3 +401,16 @@ async def owllook_register(request):
             return json({'status': -1})
     else:
         return json({'status': 0})
+
+    # post_data = json_loads(str(request.body, encoding='utf-8'))
+    # pass_first = hashlib.md5((CONFIG.WEBSITE["TOKEN"] + post_data['pwd']).encode("utf-8")).hexdigest()
+    # password = hashlib.md5(pass_first.encode("utf-8")).hexdigest()
+    # time = get_time()
+    # data = {
+    #     "user": post_data['user'],
+    #     "password": password,
+    #     "email": post_data['email'],
+    #     "register_time": time,
+    # }
+    # motor_db = motor_base.get_db()
+    # await motor_db.user.save(data)
