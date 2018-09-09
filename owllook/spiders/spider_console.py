@@ -11,8 +11,8 @@ from owllook.spiders import QidianRankingSpider, BdNovelSpider
 
 
 def start_spider():
-    QidianRankingSpider().start()
-    BdNovelSpider().start()
+    QidianRankingSpider.start()
+    BdNovelSpider.start()
 
 
 # python novels_schedule.py

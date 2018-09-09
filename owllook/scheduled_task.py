@@ -16,8 +16,8 @@ from owllook.spiders import QidianRankingSpider, BdNovelSpider
 
 
 def start_spider():
-    QidianRankingSpider().start()
-    BdNovelSpider().start()
+    QidianRankingSpider.start()
+    BdNovelSpider.start()
 
 
 def refresh_task(spider_interval):

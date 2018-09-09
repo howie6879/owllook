@@ -2,11 +2,11 @@
 """
  Created by howie.hu at 29/11/2017.
 """
+import asyncio
 import time
 
-from pprint import pprint
-from talospider import Spider, Request
-from talospider.utils import get_random_user_agent
+from aspider import Spider, Request
+from aspider.utils import get_random_user_agent
 
 from owllook.database.mongodb import MotorBaseOld
 from owllook.utils.tools import async_callback
@@ -14,20 +14,15 @@ from owllook.utils.tools import async_callback
 
 class BdNovelSpider(Spider):
     start_urls = ['http://book.zongheng.com/api/rank/getZongHengRankList.htm?rankType=1&pageNum=1&pageSize=20']
-    set_mul = True
+
     headers = {
-        "User-Agent": get_random_user_agent()
+        "User-Agent": asyncio.get_event_loop().run_until_complete(get_random_user_agent())
     }
+    concurrency = 3
+    res_type = 'json'
 
-    def start_request(self):
-        for url in self.start_urls:
-            yield Request(url=url,
-                          request_config=getattr(self, 'request_config'),
-                          headers=getattr(self, 'headers', None),
-                          callback=self.parse, file_type="json")
-
-    def parse(self, res):
-        data = res.html
+    async def parse(self, res):
+        data = res.body
         result = []
         res_dic = {}
         if data:
@@ -43,11 +38,9 @@ class BdNovelSpider(Spider):
             res_dic['target_url'] = res.url
             res_dic['type'] = "全部类别"
             res_dic['spider'] = "zh_bd_novels"
-        async_callback(self.save, res_dic=res_dic)
+        await self.save(res_dic)
 
-    async def save(self, **kwargs):
-        # 存进数据库
-        res_dic = kwargs.get('res_dic')
+    async def save(self, res_dic):
         try:
             motor_db = MotorBaseOld().db
             await motor_db.novels_ranking.update_one({
