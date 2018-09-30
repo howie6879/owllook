@@ -56,8 +56,11 @@
             <a href="/md/qidian"><span class="rank-list mdui-chip-title">起点小说榜单</span></a>
         </div>
         <div class="mdui-chip">
-            <a href="/md/zh_bd_novels"><span class="rank-list mdui-chip-title">纵横百度月票榜</span></a>
+            <a href="/md/zongheng"><span class="rank-list mdui-chip-title">纵横人气榜</span></a>
         </div>
+        <!--<div class="mdui-chip">-->
+            <!--<a href="/md/zh_bd_novels"><span class="rank-list mdui-chip-title">纵横百度月票榜</span></a>-->
+        <!--</div>-->
     </div>
     <div class="mdui-divider" style="margin-top: 1%;"></div>
     <div class="mdui-typo" style="margin-top: 1%">
@@ -66,6 +69,8 @@
             <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
             {% elif is_qidian %}
             <span class="mdui-chip-title mdui-text-color-red"><a href="/md/qidian?type={{first_type_title}}">{{first_type_title}}</a></span>
+            {% elif is_zh %}
+            <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
             {% elif is_bd %}
             <span class="mdui-chip-title mdui-text-color-red">{{first_type_title}}</span>
             {% else %}
@@ -99,7 +104,7 @@
             {%endfor%}
             </tbody>
         </table>
-        {% elif is_qidian %}
+        {% elif is_qidian_model %}
         {%for each_ranking in search_ranking.data%}
         <table class="mdui-table mdui-col-sm-12 mdui-col-md-4 mdui-col-lg-3" style="margin-bottom: 50px;">
             <thead>

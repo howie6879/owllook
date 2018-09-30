@@ -4,9 +4,10 @@
 """
 from functools import wraps
 
+from sanic import response
+
 from aiocache.log import logger
 from aiocache.utils import get_args_dict, get_cache
-from sanic import response
 from sanic.request import Request
 
 try:

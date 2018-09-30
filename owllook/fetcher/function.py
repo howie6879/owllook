@@ -3,14 +3,15 @@
  Created by howie.hu at 2018/5/28.
 """
 
+import os
+import random
+
 import aiofiles
 import aiohttp
 import arrow
 import async_timeout
 import cchardet
-import os
 import requests
-import random
 
 from urllib.parse import urlparse
 

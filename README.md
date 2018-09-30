@@ -6,7 +6,7 @@
 
 - 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
 - 公众号：[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie)，有兴趣的话可以关注下
-- 博客介绍：[http://blog.howie6879.cn/post/22/](http://blog.howie6879.cn/post/22/)
+- 博客介绍：[https://www.howie6879.cn/post/22/](https://www.howie6879.cn/post/22/)
 
 衍生项目：
 
@@ -96,7 +96,7 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 搜索排行
 - 章节异步加载 感谢@[mscststs](https://github.com/mscststs)
 - 排行榜 - 起点+owllook
-- 自带爬虫框架，统一爬虫规范 - [talospider](https://github.com/howie6879/talospider)
+- 自带爬虫框架，统一爬虫规范，对爬虫感兴趣的可以看看 - [aspider](https://github.com/howie6879/aspider)
 
 #### TODO
 

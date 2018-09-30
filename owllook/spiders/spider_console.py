@@ -7,12 +7,12 @@ import time
 os.environ['MODE'] = 'PRO'
 sys.path.append('../../')
 
-from owllook.spiders import QidianRankingSpider, BdNovelSpider
+from owllook.spiders import QidianRankingSpider, ZHRankingSpider
 
 
 def start_spider():
     QidianRankingSpider.start()
-    BdNovelSpider.start()
+    ZHRankingSpider.start()
 
 
 # python novels_schedule.py

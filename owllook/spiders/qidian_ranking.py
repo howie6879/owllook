@@ -3,10 +3,9 @@ import asyncio
 import time
 
 from aspider import Spider, Item, TextField, AttrField
-from aspider.utils import get_random_user_agent
 
 from owllook.database.mongodb import MotorBaseOld
-from owllook.utils.tools import async_callback
+from owllook.fetcher.function import get_random_user_agent
 
 
 class RankingItem(Item):
@@ -53,7 +52,7 @@ class QidianRankingSpider(Spider):
     }
 
     async def parse(self, res):
-        items_data = await RankingItem.get_items(html_etree=res.e_html)
+        items_data = await RankingItem.get_items(html=res.html)
         result = []
         res_dic = {}
         for item in items_data:

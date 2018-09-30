@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-from pymongo import MongoClient
+import asyncio
 
+from pymongo import MongoClient
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from owllook.config import CONFIG
@@ -17,8 +18,9 @@ class MotorBase:
     _collection = {}
     MONGODB = CONFIG.MONGODB
 
-    def __init__(self):
+    def __init__(self, loop=None):
         self.motor_uri = ''
+        self.loop = loop or asyncio.get_event_loop()
 
     def client(self, db):
         # motor
@@ -29,7 +31,7 @@ class MotorBase:
             host=self.MONGODB['MONGO_HOST'] if self.MONGODB['MONGO_HOST'] else 'localhost',
             port=self.MONGODB['MONGO_PORT'] if self.MONGODB['MONGO_PORT'] else 27017,
             database=db)
-        return AsyncIOMotorClient(self.motor_uri)
+        return AsyncIOMotorClient(self.motor_uri, io_loop=self.loop)
 
     def get_db(self, db=MONGODB['DATABASE']):
         """
@@ -113,9 +115,6 @@ class PyMongoDb:
 
 
 if __name__ == '__main__':
-    import asyncio
-
-
     def async_callback(func, **kwargs):
         """
         Call the asynchronous function

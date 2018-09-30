@@ -12,12 +12,12 @@ import time
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from owllook.config import CONFIG
-from owllook.spiders import QidianRankingSpider, BdNovelSpider
+from owllook.spiders import QidianRankingSpider, ZHRankingSpider
 
 
 def start_spider():
     QidianRankingSpider.start()
-    BdNovelSpider.start()
+    ZHRankingSpider.start()
 
 
 def refresh_task(spider_interval):

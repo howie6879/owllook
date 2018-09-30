@@ -269,6 +269,7 @@ async def qidian(request):
                         title=title,
                         is_login=1,
                         is_qidian=1,
+                        is_qidian_model=1,
                         user=user,
                         search_ranking=search_ranking,
                         first_type=first_type,
@@ -279,6 +280,7 @@ async def qidian(request):
                         title=title,
                         is_login=0,
                         is_qidian=1,
+                        is_qidian_model=1,
                         search_ranking=search_ranking,
                         first_type=first_type,
                         first_type_title=first_type_title,
@@ -315,3 +317,40 @@ async def similar_user(request):
             return redirect('/')
     else:
         return redirect('/')
+
+
+@md_bp.route("/zongheng")
+async def zongheng(request):
+    user = request['session'].get('user', None)
+    novels_type = request.args.get('type', '人气榜单').strip()
+    first_type_title = "人气榜单"
+    first_type = []
+    if novels_type in first_type:
+        novels_head = [novels_type]
+    elif novels_type == first_type_title:
+        novels_head = ['#']
+    else:
+        return redirect('zongheng')
+    search_ranking = await cache_others_search_ranking(spider='zongheng', novel_type=novels_type)
+    print(search_ranking)
+    title = "owllook - 纵横小说人气榜单"
+    if user:
+        return template('index.html',
+                        title=title,
+                        is_login=1,
+                        is_zh=1,
+                        is_qidian_model=1,
+                        user=user,
+                        search_ranking=search_ranking,
+                        first_type=first_type,
+                        first_type_title=first_type_title,
+                        novels_head=novels_head)
+    else:
+        return template('index.html',
+                        title=title,
+                        is_login=0,
+                        is_qidian_model=1,
+                        search_ranking=search_ranking,
+                        first_type=first_type,
+                        first_type_title=first_type_title,
+                        novels_head=novels_head)

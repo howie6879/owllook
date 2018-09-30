@@ -9,6 +9,5 @@ python:
 install:
   - pip install pipenv
   - pipenv install
-  - pipenv install pyppeteer
 
 script: pipenv run  pytest tests/
