@@ -101,7 +101,7 @@ LATEST_RULES = {
     "www.263zw.com": PLAN_01,
     "www.3qzone.com": PLAN_01,
     "wwww.yooread.com": PLAN_01,
-    "www.suimeng.la": PLAN_01,
+    # "www.suimeng.la": PLAN_01,
     "www.bequge.com": PLAN_01,
     "www.biquku.co": PLAN_01,
     "www.xbqge.com": PLAN_01,
@@ -292,7 +292,7 @@ RULES = {
     # 已解析
     'www.baquge.tw': Rules('http://www.baquge.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.biqudu.com': Rules('http://www.biqudu.com/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biqudu.com': Rules('https://www.biqudu.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biqugeg.com': Rules('http://www.biqugeg.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -362,7 +362,7 @@ RULES = {
     # 已解析
     'www.5ccc.net': Rules('0', {'class': 'acss'}, {'id': 'content'}),
     # 已解析
-    'www.suimeng.la': Rules('0', {'class': 'acss'}, {'id': 'ccontent'}),
+    # 'www.suimeng.la': Rules('0', {'class': 'acss'}, {'id': 'ccontent'}),
     # 已解析
     'www.bqg5200.com': Rules('http://www.bqg5200.com/', {'id': 'readerlist'}, {'id': 'content'}),
     # 已解析
@@ -570,7 +570,7 @@ RULES = {
     # 已解析
     'www.cilook.net': Rules('0', {'id': 'cl_content'}, {'id': 'content'}),
     # 已解析
-    'www.baoliny.com': Rules('1', {'class': 'readerListShow'}, {'id': 'content'}),
+    'www.baoliny.com': Rules('http://www.baoliny.com/', {'class': 'readerListShow'}, {'id': 'content'}),
     # 已解析
     'www.biquge.tw': Rules('http://www.biquge.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
@@ -578,7 +578,7 @@ RULES = {
     # 已解析
     'www.06sy.com': Rules('http://www.06sy.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.biqumo.com': Rules('http://www.biqumo.com/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biqumo.com': Rules('https://www.biqumo.com/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
     'www.kanshuzhe.com': Rules('http://www.kanshuzhe.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析

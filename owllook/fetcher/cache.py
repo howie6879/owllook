@@ -62,7 +62,7 @@ async def cache_owllook_novels_content(url, netloc):
     return None
 
 
-# @cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
+@cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
 async def cache_owllook_novels_chapter(url, netloc):
     headers = {
         'user-agent': await get_random_user_agent()
