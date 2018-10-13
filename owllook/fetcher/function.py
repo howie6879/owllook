@@ -70,7 +70,7 @@ async def target_fetch(url, headers, timeout=15):
     with async_timeout.timeout(timeout):
         try:
             async with aiohttp.ClientSession() as client:
-                async with client.get(url, headers=headers, verify_ssl=False) as response:
+                async with client.get(url, headers=headers) as response:
                     assert response.status == 200
                     LOGGER.info('Task url: {}'.format(response.url))
                     try:
