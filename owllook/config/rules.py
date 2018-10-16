@@ -251,6 +251,8 @@ RULES = {
     'www.biquge.tv': Rules('http://www.biquge.tv/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquta.com': Rules('https://www.biquta.com/', {'class': 'box_con'}, {'id': 'content'}),
+    # # 已解析
+    'www.xbiquge.la': Rules('http://www.xbiquge.la/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biquge.cm': Rules('http://www.biquge.cm/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
