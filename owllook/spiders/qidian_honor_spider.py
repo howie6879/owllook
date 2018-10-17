@@ -7,10 +7,9 @@
   - 收藏
   - 点击
 """
-from pprint import pprint
 
-from talospider import Spider, Item, TextField, AttrField, Request
-from talospider.utils import get_random_user_agent
+from ruia import Spider, Item, TextField
+from ruia_ua import middleware
 
 
 class QidianHonorItem(Item):
@@ -21,18 +20,15 @@ class QidianHonorItem(Item):
 
 class QidianHonorSpider(Spider):
     start_urls = ['https://book.qidian.com/honor/1009531496']
-    headers = {
-        "User-Agent": get_random_user_agent()
-    }
-    set_mul = True
+
     request_config = {
         'RETRIES': 3,
         'DELAY': 0,
         'TIMEOUT': 10
     }
 
-    def parse(self, res):
-        items_data = QidianHonorItem.get_items(html=res.html)
+    async def parse(self, res):
+        items_data = await QidianHonorItem.get_items(html=res.html)
         click_list, col_list, rec_list, other_list = [], [], [], []
         for item in items_data:
             data = {
@@ -65,4 +61,4 @@ class QidianHonorSpider(Spider):
 
 
 if __name__ == '__main__':
-    QidianHonorSpider.start()
+    QidianHonorSpider.start(middleware=middleware)

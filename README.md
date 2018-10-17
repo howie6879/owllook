@@ -24,7 +24,7 @@
 
 目前采用的是直接在搜索引擎上进行结果检索，我尽量写少量的规则来完成解析，具体见[规则定义](./docs/规则定义.md)，遇到自己喜欢的小说网站，你也可以自己添加解析，`owllook`目前解析了超过 **200+** 网站，追更网站解析了**50+**
 
-有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫框架来做这件事，见 **[aspider](https://github.com/howie6879/aspider)**
+有一些地方需要用到爬虫，比如说排行榜，一些书籍信息等，我不想动用重量级爬虫框架来写，于是我在owllook里面编写了一个很轻量的爬虫框架来做这件事，见 **[ruia](https://github.com/howie6879/ruia)**
 
 BTW，sanic写界面确实不是很方便，至于为什么写这个，一是想利用`sanic`尽量做成异步服务，二是想就此练习下推荐系统，顺便作为毕业设计
 
@@ -96,7 +96,7 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 - 搜索排行
 - 章节异步加载 感谢@[mscststs](https://github.com/mscststs)
 - 排行榜 - 起点+owllook
-- 自带爬虫框架，统一爬虫规范，对爬虫感兴趣的可以看看 - [aspider](https://github.com/howie6879/aspider)
+- 自带爬虫框架，统一爬虫规范，对爬虫感兴趣的可以看看 - [ruia](https://github.com/howie6879/ruia)
 
 #### TODO
 

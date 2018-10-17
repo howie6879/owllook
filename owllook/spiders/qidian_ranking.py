@@ -2,10 +2,10 @@
 import asyncio
 import time
 
-from aspider import Spider, Item, TextField, AttrField
+from ruia import Spider, Item, TextField, AttrField
+from ruia_ua import middleware
 
 from owllook.database.mongodb import MotorBaseOld
-from owllook.fetcher.function import get_random_user_agent
 
 
 class RankingItem(Item):
@@ -30,9 +30,6 @@ class NameItem(Item):
 class QidianRankingSpider(Spider):
     start_urls = ["http://r.qidian.com/?chn=" + str(url) for url in [-1, 21, 1, 2, 22, 4, 15, 6, 5, 7, 8, 9, 10, 12]]
 
-    headers = {
-        "User-Agent": asyncio.get_event_loop().run_until_complete(get_random_user_agent())
-    }
     concurrency = 3
     qidian_type = {
         '-1': '全部类别',
@@ -96,4 +93,4 @@ class QidianRankingSpider(Spider):
 
 
 if __name__ == '__main__':
-    QidianRankingSpider.start()
+    QidianRankingSpider.start(middleware=middleware)

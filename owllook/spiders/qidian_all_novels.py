@@ -4,43 +4,27 @@
  Target URI: https://www.qidian.com/all
         Param:?page=1
 """
+import asyncio
+import os
 import time
 
-from pymongo import MongoClient
+from ruia import Spider, Item, TextField, AttrField
+from ruia_ua import middleware as ua_middleware
 
-from talospider import Spider, Item, TextField, AttrField, Request
-from talospider.utils import get_random_user_agent
+# os.environ['MODE'] = 'PRO'
 
-from owllook.database.mongodb import MotorBaseOld
-from owllook.utils.tools import async_callback
+from owllook.database.mongodb import MotorBase
+from owllook.spiders.middlewares import owl_middleware
 
+try:
+    import uvloop
 
-class MongoDb:
-    _db = None
-    MONGODB = {
-        'MONGO_HOST': '127.0.0.1',
-        'MONGO_PORT': '',
-        'MONGO_USERNAME': '',
-        'MONGO_PASSWORD': '',
-        'DATABASE': 'owllook'
-    }
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+except ImportError:
+    pass
 
-    def client(self):
-        # motor
-        self.mongo_uri = 'mongodb://{account}{host}:{port}/'.format(
-            account='{username}:{password}@'.format(
-                username=self.MONGODB['MONGO_USERNAME'],
-                password=self.MONGODB['MONGO_PASSWORD']) if self.MONGODB['MONGO_USERNAME'] else '',
-            host=self.MONGODB['MONGO_HOST'] if self.MONGODB['MONGO_HOST'] else 'localhost',
-            port=self.MONGODB['MONGO_PORT'] if self.MONGODB['MONGO_PORT'] else 27017)
-        return MongoClient(self.mongo_uri)
-
-    @property
-    def db(self):
-        if self._db is None:
-            self._db = self.client()[self.MONGODB['DATABASE']]
-
-        return self._db
+loop = asyncio.get_event_loop()
+asyncio.set_event_loop(loop)
 
 
 class QidianNovelsItem(Item):
@@ -50,44 +34,34 @@ class QidianNovelsItem(Item):
     novel_author = TextField(css_select='div.book-mid-info>p.author>a.name')
     novel_author_home_url = AttrField(css_select='div.book-mid-info>p.author>a.name', attr='href')
 
-    def tal_novel_url(self, novel_url):
+    async def clean_novel_url(self, novel_url):
         return 'https:' + novel_url
 
-    def tal_novel_author(self, novel_author):
+    async def clean_novel_author(self, novel_author):
         if isinstance(novel_author, list):
             novel_author = novel_author[0].text
         return novel_author
 
-    def tal_novel_author_home_url(self, novel_author_home_url):
+    async def clean_novel_author_home_url(self, novel_author_home_url):
         if isinstance(novel_author_home_url, list):
             novel_author_home_url = novel_author_home_url[0].get('href').strip()
-        return 'http:' + novel_author_home_url
+        return 'https:' + novel_author_home_url
 
 
 class QidianNovelsSpider(Spider):
-    start_urls = ['https://www.qidian.com/all?page=1']
-    headers = {
-        "User-Agent": get_random_user_agent()
-    }
-    set_mul = True
+    # start_urls = ['https://www.qidian.com/all?page=1']
+
     request_config = {
-        'RETRIES': 3,
+        'RETRIES': 8,
         'DELAY': 0,
-        'TIMEOUT': 10
+        'TIMEOUT': 3
     }
-    all_novels_col = MongoDb().db.all_novels
+    concurrency = 50
+    motor_db = MotorBase(loop=loop).get_db()
 
-    def parse(self, res):
-        # 41645
-        urls = ['https://www.qidian.com/all?page={i}'.format(i=i) for i in range(1, 41645)]
-        for url in urls:
-            headers = {
-                "User-Agent": get_random_user_agent()
-            }
-            yield Request(url, request_config=self.request_config, headers=headers, callback=self.parse_item)
-
-    def parse_item(self, res):
-        items_data = QidianNovelsItem.get_items(html=res.html)
+    async def parse(self, res):
+        items_data = await QidianNovelsItem.get_items(html=res.html)
+        tasks = []
         for item in items_data:
             res_dic = {
                 'novel_url': item.novel_url,
@@ -97,25 +71,39 @@ class QidianNovelsSpider(Spider):
                 'spider': 'qidian',
                 'updated_at': time.strftime("%Y-%m-%d %X", time.localtime()),
             }
-            if self.all_novels_col.find_one(
-                    {"novel_name": item.novel_name, 'novel_author': item.novel_author}) is None:
-                self.all_novels_col.insert_one(res_dic)
-                async_callback(self.save, res_dic=res_dic)
-                print(item.novel_name + ' - 抓取成功')
+            tasks.append(asyncio.ensure_future(self.save(res_dic)))
 
-    async def save(self, **kwargs):
+        good_nums = 0
+        if tasks:
+            done_list, pending_list = await asyncio.wait(tasks)
+            for task in done_list:
+                if task.result():
+                    good_nums += 1
+        print(f"共{len(tasks)}本小说，抓取成功{good_nums}本")
+
+    async def save(self, res_dic):
         # 存进数据库
-        res_dic = kwargs.get('res_dic')
         try:
-            motor_db = MotorBaseOld().db
-            await motor_db.all_novels.update_one({
-                'novel_url': res_dic['novel_url'], 'novel_author': res_dic['novel_name']},
+            await self.motor_db.all_novels.update_one(
+                {'novel_url': res_dic['novel_url'], 'novel_name': res_dic['novel_name']},
                 {'$set': res_dic},
                 upsert=True)
+            print(res_dic['novel_name'] + ' - 抓取成功')
+            return True
         except Exception as e:
             self.logger.exception(e)
+            return False
 
 
 if __name__ == '__main__':
-    # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
-    QidianNovelsSpider.start()
+    # 51793
+    for page in range(0, 519):
+        print(f"正在爬取第{page}页")
+        start_page = page * 100
+        end_page = start_page + 100
+        if end_page > 51793:
+            end_page = 51793
+        QidianNovelsSpider.start_urls = ['https://www.qidian.com/all?page={i}'.format(i=i) for i in
+                                         range(start_page, end_page)]
+        # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
+        QidianNovelsSpider.start(loop=loop, middleware=[ua_middleware, owl_middleware], close_event_loop=False)

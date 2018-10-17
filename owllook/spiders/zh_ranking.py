@@ -2,13 +2,12 @@
 """
  Created by howie.hu at 29/11/2017.
 """
-import asyncio
 import time
 
-from aspider import AttrField, Item, Spider, TextField
+from ruia import AttrField, Item, Spider, TextField
+from ruia_ua import middleware
 
 from owllook.database.mongodb import MotorBaseOld
-from owllook.fetcher.function import get_random_user_agent
 
 
 class RankingItem(Item):
@@ -26,9 +25,6 @@ class NameItem(Item):
 class ZHRankingSpider(Spider):
     start_urls = ['http://book.zongheng.com/rank.html']
 
-    headers = {
-        "User-Agent": asyncio.get_event_loop().run_until_complete(get_random_user_agent())
-    }
     concurrency = 3
 
     async def parse(self, res):
@@ -59,6 +55,7 @@ class ZHRankingSpider(Spider):
         res_dic['target_url'] = res.url
         res_dic['type'] = "人气榜单"
         res_dic['spider'] = "zongheng"
+        print(res_dic)
         await self.save(res_dic)
 
     async def save(self, res_dic):
@@ -78,4 +75,4 @@ class ZHRankingSpider(Spider):
 
 
 if __name__ == '__main__':
-    ZHRankingSpider.start()
+    ZHRankingSpider.start(middleware=middleware)
