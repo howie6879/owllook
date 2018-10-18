@@ -31,6 +31,10 @@ class ZHNovelsItem(Item):
     novel_name = TextField(css_select='div.bookinfo div.bookname a')
     novel_author = TextField(css_select='div.bookilnk a:nth-child(1)')
     novel_author_home_url = AttrField(css_select='div.bookilnk a:nth-child(1)', attr='href')
+    novel_type = TextField(css_select='div.bookilnk a:nth-child(2)')
+    novel_cover = AttrField(css_select='div.bookimg img', attr='src')
+    novel_abstract = TextField(css_select='div.bookintro')
+    novel_latest_chapter = TextField(css_select='div.bookupdate a')
 
     # def tal_novel_url(self, novel_url):
     # return 'http:' + novel_url
@@ -55,9 +59,9 @@ class ZHNovelsSpider(Spider):
     request_config = {
         'RETRIES': 8,
         'DELAY': 0,
-        'TIMEOUT': 5
+        'TIMEOUT': 3
     }
-    concurrency = 100
+    concurrency = 60
     motor_db = MotorBase(loop=loop).get_db()
 
     async def parse(self, res):
@@ -70,6 +74,10 @@ class ZHNovelsSpider(Spider):
                     'novel_name': item.novel_name,
                     'novel_author': item.novel_author,
                     'novel_author_home_url': item.novel_author_home_url,
+                    'novel_type': item.novel_type,
+                    'novel_cover': item.novel_cover,
+                    'novel_abstract': item.novel_abstract,
+                    'novel_latest_chapter': item.novel_latest_chapter,
                     'spider': 'zongheng',
                     'updated_at': time.strftime("%Y-%m-%d %X", time.localtime()),
                 }
@@ -116,4 +124,4 @@ if __name__ == '__main__':
                                      i in
                                      range(start_page, end_page)]
         # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
-        ZHNovelsSpider.start(loop=loop,middleware=[ua_middleware, owl_middleware], close_event_loop=False)
+        ZHNovelsSpider.start(loop=loop, middleware=[ua_middleware, owl_middleware], close_event_loop=False)

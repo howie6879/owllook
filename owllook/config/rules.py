@@ -282,7 +282,7 @@ RULES = {
     # 已解析
     'www.kxs7.com': Rules('http://www.kxs7.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.biqudao.com': Rules('http://www.biqudao.com/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.biqudao.com': Rules('https://www.biqudao.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.nuomi9.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析

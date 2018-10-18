@@ -33,6 +33,11 @@ class QidianNovelsItem(Item):
     novel_name = TextField(css_select='div.book-mid-info>h4')
     novel_author = TextField(css_select='div.book-mid-info>p.author>a.name')
     novel_author_home_url = AttrField(css_select='div.book-mid-info>p.author>a.name', attr='href')
+    novel_type = TextField(css_select='div.book-mid-info > p.author > a:nth-child(4)')
+    novel_cover = AttrField(css_select='div.book-img-box img', attr='src')
+    novel_abstract = TextField(css_select='div.book-mid-info p.intro')
+
+    # novel_latest_chapter = TextField(css_select='div.bookupdate a')
 
     async def clean_novel_url(self, novel_url):
         return 'https:' + novel_url
@@ -47,16 +52,19 @@ class QidianNovelsItem(Item):
             novel_author_home_url = novel_author_home_url[0].get('href').strip()
         return 'https:' + novel_author_home_url
 
+    async def clean_novel_cover(self, novel_cover):
+        return 'https:' + novel_cover
+
 
 class QidianNovelsSpider(Spider):
     # start_urls = ['https://www.qidian.com/all?page=1']
 
     request_config = {
-        'RETRIES': 8,
+        'RETRIES': 10,
         'DELAY': 0,
         'TIMEOUT': 3
     }
-    concurrency = 50
+    concurrency = 100
     motor_db = MotorBase(loop=loop).get_db()
 
     async def parse(self, res):
@@ -68,6 +76,9 @@ class QidianNovelsSpider(Spider):
                 'novel_name': item.novel_name,
                 'novel_author': item.novel_author,
                 'novel_author_home_url': item.novel_author_home_url,
+                'novel_type': item.novel_type,
+                'novel_cover': item.novel_cover,
+                'novel_abstract': item.novel_abstract,
                 'spider': 'qidian',
                 'updated_at': time.strftime("%Y-%m-%d %X", time.localtime()),
             }
@@ -97,7 +108,7 @@ class QidianNovelsSpider(Spider):
 
 if __name__ == '__main__':
     # 51793
-    for page in range(0, 519):
+    for page in range(133, 519):
         print(f"正在爬取第{page}页")
         start_page = page * 100
         end_page = start_page + 100

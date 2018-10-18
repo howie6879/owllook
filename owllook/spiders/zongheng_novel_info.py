@@ -1,14 +1,26 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
+import asyncio
 import time
 
 from pprint import pprint
 
 from ruia import Spider, Item, TextField, AttrField
 
-from ruia_ua import middleware
+from ruia_ua import middleware as ua_middleware
 
-from owllook.database.mongodb import MotorBaseOld
+from owllook.database.mongodb import MotorBase
+from owllook.spiders.middlewares import owl_middleware
+
+try:
+    import uvloop
+
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+except ImportError:
+    pass
+
+loop = asyncio.get_event_loop()
+asyncio.set_event_loop(loop)
 
 
 class ZHNovelInfoItem(Item):
@@ -58,6 +70,7 @@ class ZHNovelInfoSpider(Spider):
         'DELAY': 2,
         'TIMEOUT': 10
     }
+    motor_db = MotorBase(loop=loop).get_db()
 
     async def parse(self, res):
         item = await ZHNovelInfoItem.get_item(html=res.html)
@@ -77,8 +90,7 @@ class ZHNovelInfoSpider(Spider):
 
         print('获取 {} 小说信息成功'.format(item_data['novel_name']))
         print(item_data)
-        motor_db = MotorBaseOld().db
-        await motor_db.all_novels_info.update_one(
+        await self.motor_db.all_novels_info.update_one(
             {'novel_name': item_data['novel_name'], 'spider': 'zongheng'},
             {'$set': item_data},
             upsert=True)
@@ -89,7 +101,7 @@ if __name__ == '__main__':
 
     # 其他多item示例：https://gist.github.com/howie6879/3ef4168159e5047d42d86cb7fb706a2f
     ZHNovelInfoSpider.start_urls = ['http://book.zongheng.com/book/672340.html']
-    ZHNovelInfoSpider.start(middleware=middleware)
+    ZHNovelInfoSpider.start(middleware=[ua_middleware, owl_middleware])
 
     # def all_novels_info():
     #     all_urls = []

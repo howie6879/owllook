@@ -4,6 +4,7 @@
 """
 
 import asyncio
+import random
 
 from ruia import Request
 
@@ -11,7 +12,9 @@ from owllook.config import CONFIG
 
 
 async def get_proxy_ip(valid: int = 1) -> str:
+    # random_server = ['http://0.0.0.0:8662/']
     proxy_server = CONFIG.REMOTE_SERVER.get('proxy_server')
+    # proxy_server = random_server[random.randint(0, 1)]
     kwargs = {
         'json': {
             "act_id": 504,
@@ -30,3 +33,4 @@ async def get_proxy_ip(valid: int = 1) -> str:
 
 if __name__ == '__main__':
     print(asyncio.get_event_loop().run_until_complete(get_proxy_ip()))
+
