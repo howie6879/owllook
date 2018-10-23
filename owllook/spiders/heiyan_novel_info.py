@@ -6,11 +6,10 @@ import time
 
 from pprint import pprint
 
-from talospider import Spider, Item, TextField, AttrField
-from talospider.utils import get_random_user_agent
+from ruia import Spider, Item, TextField, AttrField
+from ruia_ua import middleware as ua_middleware
 
-from owllook.database.mongodb import PyMongoDb, MotorBase
-from owllook.utils.tools import async_callback
+from owllook.database.mongodb import MotorBase
 
 
 class HYNovelInfoItem(Item):
@@ -37,20 +36,20 @@ class HYNovelInfoItem(Item):
     # latest_chapter = ''
     # novel_chapter_url = AttrField(css_select='div#voteList a.index', attr='href')
 
-    def tal_cover(self, cover):
+    async def clean_cover(self, cover):
         if 'https' in cover:
             return cover
         else:
             return cover.replace('http', 'https')
 
-    def tal_novels_type(self, novels_type):
+    async def clean_novels_type(self, novels_type):
         types_dict = {
             '社会': '都市'
         }
         print(types_dict.get(str(novels_type).strip(), novels_type))
         return types_dict.get(str(novels_type).strip(), novels_type)
 
-    def tal_latest_chapter_time(self, latest_chapter_time):
+    async def clean_latest_chapter_time(self, latest_chapter_time):
         return latest_chapter_time.replace(u'今天', str(time.strftime("%Y-%m-%d ", time.localtime()))).replace(u'昨日', str(
             time.strftime("%Y-%m-%d ", time.localtime(time.time() - 24 * 60 * 60))))
 
@@ -62,27 +61,30 @@ class HYNovelInfoSpider(Spider):
         'TIMEOUT': 10
     }
 
-    headers = {
-        "User-Agent": get_random_user_agent()
-    }
+    async def parse(self, res):
+        self.motor_db = MotorBase(loop=self.loop).get_db()
+        item = await HYNovelInfoItem.get_item(html=res.html)
 
-    all_novels_col = PyMongoDb().db.all_novels
-    all_novels_info_col = PyMongoDb().db.all_novels_info
+        item_data = {
+            'novel_name': item.novel_name,
+            'author': item.author,
+            'cover': item.cover,
+            'abstract': item.abstract,
+            'status': item.status,
+            'novels_type': item.novels_type,
+            'novel_chapter_url': item.novel_chapter_url,
+            'latest_chapter': item.latest_chapter,
+            'latest_chapter_time': item.latest_chapter_time,
+            'spider': 'heiyan',
+            'target_url': res.url,
+            'updated_at': time.strftime("%Y-%m-%d %X", time.localtime())
+        }
 
-    def parse(self, res):
-        item_data = HYNovelInfoItem.get_item(html=res.html)
-        item_data['target_url'] = res.url
-        item_data['spider'] = 'heiyan'
-        item_data['updated_at'] = time.strftime("%Y-%m-%d %X", time.localtime())
         print('获取 {} 小说信息成功'.format(item_data['novel_name']))
-        print(item_data)
-        self.all_novels_info_col.update({'novel_name': item_data['novel_name'], 'spider': 'heiyan'}, item_data,
-                                        upsert=True)
-        async_callback(self.save, res_dic=item_data)
+        await self.save(res_dic=item_data)
 
-    async def save(self, **kwargs):
+    async def save(self, res_dic):
         # 存进数据库
-        res_dic = kwargs.get('res_dic')
         try:
             motor_db = MotorBase().get_db()
             await motor_db.all_novels_info.update_one({
@@ -97,4 +99,4 @@ if __name__ == '__main__':
     HYNovelInfoSpider.start_urls = ['http://www.heiyan.com/book/62599']
     # HYNovelInfoSpider.start_urls = [each.get('novel_url', '') for each in search_author('火星引力', 'qidian')]
     print(HYNovelInfoSpider.start_urls)
-    HYNovelInfoSpider.start()
+    HYNovelInfoSpider.start(middleware=ua_middleware)

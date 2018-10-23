@@ -17,7 +17,7 @@ async def get_proxy_ip(valid: int = 1) -> str:
     # proxy_server = random_server[random.randint(0, 1)]
     kwargs = {
         'json': {
-            "act_id": 504,
+            "act_id": 1704,
             "version": "1.0",
             "data": {
                 "valid": 1
@@ -33,4 +33,3 @@ async def get_proxy_ip(valid: int = 1) -> str:
 
 if __name__ == '__main__':
     print(asyncio.get_event_loop().run_until_complete(get_proxy_ip()))
-

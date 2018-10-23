@@ -60,11 +60,11 @@ class QidianNovelsSpider(Spider):
     # start_urls = ['https://www.qidian.com/all?page=1']
 
     request_config = {
-        'RETRIES': 10,
+        'RETRIES': 15,
         'DELAY': 0,
         'TIMEOUT': 3
     }
-    concurrency = 100
+    concurrency = 20
     motor_db = MotorBase(loop=loop).get_db()
 
     async def parse(self, res):
@@ -108,7 +108,7 @@ class QidianNovelsSpider(Spider):
 
 if __name__ == '__main__':
     # 51793
-    for page in range(133, 519):
+    for page in range(248, 519):
         print(f"正在爬取第{page}页")
         start_page = page * 100
         end_page = start_page + 100

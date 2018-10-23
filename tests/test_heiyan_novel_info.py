@@ -2,6 +2,7 @@
 """
  Created by howie.hu at 2018/5/28.
 """
+import asyncio
 import os
 import sys
 
@@ -43,6 +44,6 @@ HTML = """
 
 def test_heiyan_novel_info():
     url = 'http://www.heiyan.com/book/62599'
-    item_data = HYNovelInfoItem.get_item(html=HTML)
+    item_data = asyncio.get_event_loop().run_until_complete(HYNovelInfoItem.get_item(html=HTML))
 
-    assert item_data['novel_name'] == '神仙微信群'
+    assert item_data.novel_name == '神仙微信群'
