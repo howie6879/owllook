@@ -41,5 +41,11 @@
 - 佚名：6元
 - non-secure：26.66元
 - 佚名：8.88元
+- *生：18.80元
+- *杨：15元            
+- *.：5元
+- *鸣：15元
+- D*y：4.98元
 
-<img src="http://oe7yjec8x.bkt.clouddn.com/howie/2017-01-25-wx.png" width = "400" height = "400" alt="donate" align=center />
+<img src="https://ws1.sinaimg.cn/large/007i3XCUgy1fydjg9e5fsj30lq0lmgoj.jpg" width = "400" height = "400" alt="donate" align=center />
+

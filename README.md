@@ -166,7 +166,9 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 **捐赠：**
 
-<img src="https://i.loli.net/2018/11/03/5bdce64307d19.png" width = "400" height = "400" alt="donate" align=center />
+> 美酒加咖啡，我只要喝一杯～
+
+<img src="https://ws1.sinaimg.cn/large/007i3XCUgy1fydjg9e5fsj30lq0lmgoj.jpg" width = "400" height = "400" alt="donate" align=center />
 
 
 感谢以下捐赠者，具体见[捐赠名单](./DONATE.md) ^_^
