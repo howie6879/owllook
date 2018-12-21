@@ -55,7 +55,6 @@ class ZHRankingSpider(Spider):
         res_dic['target_url'] = res.url
         res_dic['type'] = "人气榜单"
         res_dic['spider'] = "zongheng"
-        print(res_dic)
         await self.save(res_dic)
 
     async def save(self, res_dic):
