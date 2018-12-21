@@ -5,7 +5,7 @@
 `owllook`是一个基于其他搜索引擎构建的垂直小说搜索引擎，owllook目的是让阅读更简单、优雅，让每位读者都有舒适的阅读体验，如**搜书、阅读、收藏、追更、推荐等功能**：
 
 - 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
-- 公众号：[**粮草小说**](http://oe7yjec8x.bkt.clouddn.com/howie/2018-03-13-%E7%B2%AE%E8%8D%89%E5%B0%8F%E8%AF%B4.jpg-blog.howie)，有兴趣的话可以关注下
+- 公众号：[**粮草小说**](hhttps://www.owllook.net/static/novels/img/lcxs_show.jpg)，有兴趣的话可以关注下
 - 博客介绍：[https://www.howie6879.cn/post/22/](https://www.howie6879.cn/post/22/)
 
 衍生项目：
