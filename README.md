@@ -132,6 +132,17 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 这个是根据小说搜索次数显示的，每天刷新一次，使用多了就会有
 
+**为什么会出现302跳转？**
+
+为了防止直接运行服务被恶意域名绑定，所以作出如下修改：
+
+```shell
+vim config/config.py
+# 将 true 改为 false
+VAL_HOST = os.getenv('VAL_HOST', 'true')
+VAL_HOST = os.getenv('VAL_HOST', 'false')
+```
+
 **小说榜单页面为什么没有内容？**
 
 需要运行`owllook/spiders/spider_console.py`，
