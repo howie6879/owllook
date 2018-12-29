@@ -9,6 +9,8 @@ class DevConfig(Config):
     Dev config for owllook
     """
 
+    VAL_HOST = os.getenv('VAL_HOST', 'false')
+
     # Database config
     REDIS_DICT = dict(
         IS_CACHE=True,
