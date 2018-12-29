@@ -6,7 +6,7 @@
 
 - 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
 - 公众号：[**粮草小说**](https://www.owllook.net/static/novels/img/lcxs_show.jpg)，有兴趣的话可以关注下
-- 博客介绍：[https://www.howie6879.cn/post/22/](https://www.howie6879.cn/post/22/)
+- 详细安装介绍：[详细安装介绍](https://mp.weixin.qq.com/s/0CqLiKsyDQ-pVmeo3R-UlA)
 - 个人公众号：[老胡的储物柜](https://ws1.sinaimg.cn/large/007i3XCUgy1fyamp8ip6cj309k09kdfs.jpg)
 
 衍生项目：
@@ -108,9 +108,17 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 
 ### Screenshots
 
-下面是一些截图展示，具体效果图请看[这里](http://oe7yjec8x.bkt.clouddn.com/howie/2017-03-08-owllook.gif)：
+首页:
 
-2017-07-29更新
+![](https://ws1.sinaimg.cn/large/007i3XCUgy1fynmmhyim2j31hc0r140i.jpg)
+
+搜索：
+
+![](https://ws1.sinaimg.cn/large/007i3XCUgy1fynmkbqzf3j31h70qz42y.jpg)
+
+榜单：
+
+![](https://ws1.sinaimg.cn/large/007i3XCUgy1fynmdwg8tpj31gv0qt42e.jpg)
 
 书架：
 
@@ -119,8 +127,6 @@ docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
 目录解析页：
 
 ![demo](./docs/imgs/chapter.png)
-
-
 
 阅读：
 
