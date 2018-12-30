@@ -184,6 +184,7 @@ LATEST_RULES = {
     "www.biquge.com.tw": PLAN_01,
     "www.xxbiquge.com": PLAN_01,
     "www.biquwo.com": PLAN_01,
+    "www.ixs.cc": PLAN_01,
 
     # 其他规则
     "www.50331.net": LatestRules(
@@ -628,6 +629,7 @@ RULES = {
     'www.tsxsw.com': Rules('0', {'class': 'bdsub'}, {'id': 'contents'}),
     # 已解析
     'www.ymoxuan.com': Rules('1', {'class': 'mulu'}, {'id': 'content'}),
+    'www.ixs.cc': Rules('https:', {'class': 'mulu'}, {'id': 'content'}),
     # 已解析
     'zetianjiba.net': Rules('1', {'class': 'bg'}, {'class': 'content'}),
     # 已解析
