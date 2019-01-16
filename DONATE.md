@@ -47,6 +47,9 @@
 - *鸣：15元
 - D*y：4.98元
 - *剑：30元
+- 快乐就好：20元
+- *曦：1元
+- 痴想集：100元
 
 <img src="https://ws1.sinaimg.cn/large/007i3XCUgy1fydjg9e5fsj30lq0lmgoj.jpg" width = "400" height = "400" alt="donate" align=center />
 
