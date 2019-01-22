@@ -33,10 +33,17 @@ class Novels(object):
         connection = pymongo.MongoClient(_mongo_uri)
         db = connection[MONGODB_DB]
         self.collection = db[MONGODB_COLLECTION]
+        self.result_dict = dict()
 
     def search_name(self, name):
+        if name in self.result_dict:
+            return self.result_dict[name] if self.result_dict[name] else False
         result = self.collection.find_one({'novel_name': name})
-        return result if result else False
+        if not result:
+            self.result_dict[name] = False
+            return False
+        self.result_dict[name] = {'author': result['author'], 'novels_type': result['novels_type'].split('#')}
+        return self.result_dict[name]
 
 
 async def get_tag():
@@ -56,10 +63,8 @@ async def get_tag():
                     all_user[user + '_novels'].append(novels_name)
                     novels_info = novels.search_name(novels_name)
                     if novels_info:
-                        novels_type = novels_info['novels_type'].split('#')
-                        author = novels_info['author']
-                        all_user[user + '_author'].append(author)
-                        all_user[user + '_tag'].extend(novels_type)
+                        all_user[user + '_author'].append(novels_info['author'])
+                        all_user[user + '_tag'].extend(novels_info['novels_type'])
                 data = {
                     'user_novels': all_user[user + '_novels'],
                     'user_tag': all_user[user + '_tag'],
