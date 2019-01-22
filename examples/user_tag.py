@@ -18,7 +18,7 @@ MONGODB_PORT = 27017
 MONGODB_USERNAME = ""
 MONGODB_PASSWORD = ""
 MONGODB_DB = "owllook"
-MONGODB_COLLECTION = "all_books"
+MONGODB_COLLECTION = "all_novels_info"
 
 
 class Novels(object):
@@ -35,7 +35,7 @@ class Novels(object):
         self.collection = db[MONGODB_COLLECTION]
 
     def search_name(self, name):
-        result = self.collection.find_one({'name': name})
+        result = self.collection.find_one({'novel_name': name})
         return result if result else False
 
 
@@ -47,12 +47,9 @@ async def get_tag():
     async for document in books_url_cursor:
         if document:
             books_url = document.get('books_url', None)
+            user = document['user']
             if books_url:
-                all_user = {}
-                user = document['user']
-                all_user[user + '_novels'] = []
-                all_user[user + '_tag'] = []
-                all_user[user + '_author'] = []
+                all_user = {user + '_novels': [], user + '_tag': [], user + '_author': []}
                 for book_url in books_url:
                     chapter_url = book_url['book_url']
                     novels_name = parse_qs(urlparse(chapter_url).query).get('novels_name', '')[0]
