@@ -319,7 +319,7 @@ RULES = {
     # 已解析
     'www.xs52.com': Rules('0', {'id': 'chapter_list'}, {'id': 'text_c'}),
     # 已解析
-    'www.xs.la': Rules('http://www.xs.la/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.xs.la': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.23xsw.cc': Rules('http://www.23xsw.cc/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
