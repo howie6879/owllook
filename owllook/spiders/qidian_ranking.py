@@ -10,25 +10,24 @@ from owllook.database.mongodb import MotorBaseOld
 
 class RankingItem(Item):
     target_item = TextField(css_select='.rank-list')
-    ranking_title = AttrField(css_select='h3.wrap-title', attr='html')
+    ranking_title = TextField(css_select='h3.wrap-title')
     more = AttrField(css_select='h3>a.more', attr='href')
-    book_list = TextField(css_select='div.book-list>ul>li')
+    book_list = TextField(
+        css_select='div.book-list>ul>li div h4>a,a.name', many=True)
 
     async def clean_ranking_title(self, ranking_title):
-        if isinstance(ranking_title, list):
-            return ranking_title[0].text
+        if "更多" in ranking_title:
+            return ranking_title.split("更多")[0]
+        else:
+            return ranking_title
 
     async def clean_more(self, more):
         return "http:" + more
 
 
-class NameItem(Item):
-    top_name = TextField(css_select='h4>a')
-    other_name = TextField(css_select='a.name')
-
-
 class QidianRankingSpider(Spider):
-    start_urls = ["http://r.qidian.com/?chn=" + str(url) for url in [-1, 21, 1, 2, 22, 4, 15, 6, 5, 7, 8, 9, 10, 12]]
+    start_urls = ["http://r.qidian.com/?chn=" +
+                  str(url) for url in [-1, 21, 1, 2, 22, 4, 15, 6, 5, 7, 8, 9, 10, 12]]
 
     concurrency = 3
     qidian_type = {
@@ -49,18 +48,15 @@ class QidianRankingSpider(Spider):
     }
 
     async def parse(self, res):
-        items_data = await RankingItem.get_items(html=res.html)
         result = []
         res_dic = {}
-        for item in items_data:
-            each_book_list = []
+        async for item in RankingItem.get_items(html=res.html):
             # 只取排名前十的书籍数据
-            for index, value in enumerate(item.book_list[:10]):
-                item_data = await NameItem.get_item(html_etree=value)
-                name = item_data.top_name or item_data.other_name
+            each_book_list = []
+            for index, name in enumerate(item.book_list[:10]):
                 each_book_list.append({
                     'num': index + 1,
-                    'name': name
+                    'name': name,
                 })
             data = {
                 'title': item.ranking_title,
@@ -69,6 +65,7 @@ class QidianRankingSpider(Spider):
                 'updated_at': time.strftime("%Y-%m-%d %X", time.localtime()),
             }
             result.append(data)
+
         res_dic['data'] = result
         res_dic['target_url'] = res.url
         res_dic['type'] = self.qidian_type.get(res.url.split('=')[-1])

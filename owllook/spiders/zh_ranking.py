@@ -14,12 +14,8 @@ class RankingItem(Item):
     target_item = TextField(css_select='div.rank_i_p_list')
     ranking_title = TextField(css_select='div.rank_i_p_tit')
     more = AttrField(css_select='div.rank_i_more a', attr='href')
-    book_list = TextField(css_select='div.rank_i_p_list>div.rank_i_li')
-
-
-class NameItem(Item):
-    top_name = TextField(css_select='div.rank_i_bname a.rank_i_l_a_book')
-    other_name = TextField(css_select='div.rank_i_bname a')
+    book_list = TextField(
+        css_select='div.rank_i_bname a:first-child', many=True)
 
 
 class ZHRankingSpider(Spider):
@@ -31,17 +27,13 @@ class ZHRankingSpider(Spider):
         result = []
         res_dic = {}
 
-        items_data = await RankingItem.get_items(html=res.html)
-
-        for item in items_data:
-            each_book_list = []
+        async for item in RankingItem.get_items(html=res.html):
             # 只取排名前十的书籍数据
-            for index, value in enumerate(item.book_list[:10]):
-                item_data = await NameItem.get_item(html_etree=value)
-                name = item_data.top_name or item_data.other_name
+            each_book_list = []
+            for index, name in enumerate(item.book_list[:10]):
                 each_book_list.append({
                     'num': index + 1,
-                    'name': name
+                    'name': name,
                 })
             data = {
                 'title': item.ranking_title,
