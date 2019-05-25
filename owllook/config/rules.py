@@ -187,11 +187,11 @@ LATEST_RULES = {
     "www.ixs.cc": PLAN_01,
 
     # 其他规则
-    "www.50331.net": LatestRules(
-        False,
-        None,
-        {'content_url': "http://www.50331.net/", 'tag': 'span.zzjie a'}
-    )
+    # "www.50331.net": LatestRules(
+    #     False,
+    #     None,
+    #     {'content_url': "http://www.50331.net/", 'tag': 'span.zzjie a'}
+    # )
 }
 
 RULES = {
@@ -356,7 +356,7 @@ RULES = {
     # 已解析
     'www.wuyanxia.net': Rules('http://www.wuyanxia.net/', {'class': 'zjlist4'}, {'id': 'htmlContent'}),
     # 已解析
-    'www.50331.net': Rules('http://www.50331.net/', {'id': 'main'}, {'class': 'zhang-txt-nei-rong'}),
+    'www.50331.net': Rules('http://www.50331.net/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
     'www.wenxuemi.com': Rules('http://www.wenxuemi.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
