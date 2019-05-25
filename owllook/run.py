@@ -6,7 +6,7 @@ import os
 import subprocess
 
 if __name__ == '__main__':
-    # os.environ['MODE'] = 'PRO'
+    os.environ['MODE'] = 'PRO'
     servers = [
         ["pipenv", "run", "gunicorn", "-c", "config/dev_gunicorn.py", "--worker-class", "sanic.worker.GunicornWorker",
          "server:app"],

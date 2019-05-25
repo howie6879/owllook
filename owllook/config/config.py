@@ -22,7 +22,8 @@ class Config():
     )
 
     SCHEDULED_DICT = dict(
-        SPIDER_INTERVAL=int(os.getenv('SPIDER_INTERVAL', 60)),
+        SPIDER_INTERVAL=int(os.getenv('SPIDER_INTERVAL', 120)),
+        NOVELS_INTERVAL=int(os.getenv('SPIDER_INTERVAL', 180)),
     )
 
     # Engine config
