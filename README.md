@@ -40,6 +40,7 @@ mongo以及redis装好后，进入项目目录，依照步骤执行：
 git clone https://github.com/howie6879/owllook
 cd owllook
 pip install pipenv
+# 请先提前创建好Python3.6环境
 pipenv install --python /Users/howie/anaconda3/envs/python36/bin/python3.6
 # 进入虚拟环境
 pipenv shell

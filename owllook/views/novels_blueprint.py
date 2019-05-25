@@ -140,7 +140,7 @@ async def owllook_content(request):
                 novels_name=novels_name
             )
             # 破坏广告链接
-            content = str(content).strip('[]Jjs,').replace('http', 'hs')
+            content = str(content).strip('[]Jjs,').replace('http', 'hs').replace('.js', '').replace('();', '')
             if user:
                 bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
                 book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})

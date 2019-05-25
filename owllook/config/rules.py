@@ -202,6 +202,7 @@ RULES = {
     # 'www.lingdiankanshu.com': Rules('www.lingdiankanshu.com', {'class': 'box_con'}, {}),
     # 'www.hhlwx.com': Rules('www.hhlwx.co', {'class': 'chapterlist'},{}),
     'www.biquwu.cc': Rules('https://www.biquwu.cc/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.quyuege.com': Rules('0', {'class': 'mod-article-list'}, {'class': 'page-content'}),
     # 已解析
     'www.biqugex.com': Rules('http://www.biqugex.com/', {'class': 'listmain'}, {'id': 'content'}),
     # 已解析
