@@ -124,7 +124,7 @@ async def owllook_content(request):
                     {'$set': {'books_url.$.last_read_url': latest_read}})
         return redirect(book_url)
     content_url = RULES[netloc].content_url
-    content_data = await cache_owllook_novels_content(url=url, netloc=netloc)
+    content_data = await cache_owllook_novels_content(url=url, chapter_url=chapter_url,netloc=netloc)
     if content_data:
         try:
             content = content_data.get('content', '获取失败')

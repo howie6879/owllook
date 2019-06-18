@@ -90,8 +90,11 @@
     </div>
     <div class="pre_next">
         {% for v in next_chapter%}
-
-        <a href="/owllook_content?url={{next_chapter[v]}}&chapter_url={{chapter_url}}&novels_name={{novels_name}}"
+        {% if next_chapter[v] %}
+            <a href="/owllook_content?url={{next_chapter[v]}}&chapter_url={{chapter_url}}&novels_name={{novels_name}}"
+        {% else %}
+            <a href="/chapter?url={{chapter_url}}&novels_name={{novels_name}}"
+        {% endif %}
            class="btn btn-default">
             {{v}}
         </a>
