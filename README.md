@@ -1,10 +1,10 @@
 ## owllook - 在线小说搜索引擎
 
-[![Build Status](https://travis-ci.org/howie6879/owllook.svg?branch=master)](https://travis-ci.org/howie6879/owllook) [![Python3.6+](https://img.shields.io/badge/python-3.6%2B-orange.svg)](https://github.com/howie6879/owllook) [![license](https://img.shields.io/github/license/howie6879/owllook.svg)](https://github.com/howie6879/owllook)
+ [![Python3.6+](https://img.shields.io/badge/python-3.6%2B-orange.svg)](https://github.com/howie6879/owllook) [![license](https://img.shields.io/github/license/howie6879/owllook.svg)](https://github.com/howie6879/owllook)
 
 `owllook`是一个基于其他搜索引擎构建的垂直小说搜索引擎，owllook目的是让阅读更简单、优雅，让每位读者都有舒适的阅读体验，如**搜书、阅读、收藏、追更、推荐等功能**：
 
-- 演示网址：[https://www.owllook.net/](https://www.owllook.net/)
+- ~~演示网址~~：[https://www.owllook.net/](https://www.owllook.net/)
 - 公众号：[**粮草小说**](https://www.owllook.net/static/novels/img/lcxs_show.jpg)，有兴趣的话可以关注下
 - 详细安装介绍：[详细安装介绍](https://mp.weixin.qq.com/s/0CqLiKsyDQ-pVmeo3R-UlA)
 - 个人公众号：[老胡的储物柜](https://ws1.sinaimg.cn/large/007i3XCUgy1fyamp8ip6cj309k09kdfs.jpg)
