@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    image: howie6879/owllook
+    command: pipenv run gunicorn -c owllook/config/gunicorn.py --worker-class sanic.worker.GunicornWorker owllook.server:app
+    ports:
+     - "8001:8001"
+    volumes:
+     - .:/owllook

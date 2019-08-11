@@ -41,40 +41,24 @@ git clone https://github.com/howie6879/owllook
 cd owllook
 pip install pipenv
 # 请先提前创建好Python3.6环境
-pipenv install --python /Users/howie/anaconda3/envs/python36/bin/python3.6
+pipenv install --python /Users/howie/anaconda3/envs/python36/bin/python3.6 --skip-lock
 # 进入虚拟环境
 pipenv shell
+
+# 先配置好相关数据库配置，具体看`config/dev_config.py`
 
 # 方案一
 # 运行：
 cd owllook
-python server.py
-# 或者
-gunicorn --bind 127.0.0.1:8001 --worker-class sanic.worker.GunicornWorker server:app
+pipenv run gunicorn -c owllook/config/gunicorn.py --worker-class sanic.worker.GunicornWorker owllook.server:app
 
 # 方案二 推荐 
-# 直接下载镜像
-docker pull howie6879/owllook
-# 创建dev_owllook.env文件
-vim dev_owllook.env
-# 写入一些环境变量
-# start ===============
-# 需要设置就填写  不需要就删掉
-MODE=DEV
-REDIS_ENDPOINT= ip
-REDIS_PORT= port
-REDIS_PASSWORD=''
-MONGO_HOST= ip
-MONGO_PORT= port
-MONGO_USERNAME=''
-MONGO_PASSWORD=''
-# end ===============
-# 运行 在dev_owllook.env里面填上数据库配置 数据库ip需要注意 请将连接ip设置为ifconfig显示的ip
-docker run --env-file ./dev_owllook.env -d -p 8001:8001 howie6879/owllook:latest
-# 也可以自己打包
-docker build -t owllook:0.1 .
-# 运行
-docker run --env-file ./dev_owllook.env -d -p 8001:8001 owllook:0.1
+# 安装docker并打包镜像
+docker build -t howie6879/owllook .
+# 实际运行
+docker-compose up -d
+# 退出
+docker-compose down
 ```
 
 #### Features

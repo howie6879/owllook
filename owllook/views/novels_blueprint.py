@@ -31,7 +31,7 @@ def close_connection(novels_bp, loop):
 
 # jinjia2 config
 env = Environment(
-    loader=PackageLoader('views.novels_blueprint', '../templates/novels'),
+    loader=PackageLoader('owllook.views.novels_blueprint', '../templates/novels'),
     autoescape=select_autoescape(['html', 'xml', 'tpl']))
 
 

@@ -35,7 +35,7 @@ def close_connection(operate_bp, loop):
 
 # jinjia2 config
 env = Environment(
-    loader=PackageLoader('views.operate_blueprint', '../templates/operate'),
+    loader=PackageLoader('owllook.views.operate_blueprint', '../templates/operate'),
     autoescape=select_autoescape(['html', 'xml', 'tpl']))
 
 

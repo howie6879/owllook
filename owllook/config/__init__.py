@@ -20,7 +20,7 @@ def load_config():
     Load a config class
     """
 
-    # os.environ['MODE'] = 'PRO'
+    os.environ['MODE'] = 'PRO'
     mode = os.environ.get('MODE', 'DEV')
     LOGGER.info('owllook 启动模式：{}'.format(mode))
     try:

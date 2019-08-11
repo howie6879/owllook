@@ -62,7 +62,7 @@ REPLACE_RULES = {
 }
 
 # 搜索引擎检索优先级
-ENGINE_PRIORITY = ['360', 'baidu', 'bing', 'duck_go']
+ENGINE_PRIORITY = ['baidu', '360', 'bing', 'duck_go']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')
