@@ -171,7 +171,7 @@ VAL_HOST = os.getenv('VAL_HOST', 'false')
 
 > 美酒加咖啡，我只要喝一杯～
 
-<img src="https://ws1.sinaimg.cn/large/007i3XCUgy1fydjg9e5fsj30lq0lmgoj.jpg" width = "400" height = "400" alt="donate" align=center />
+<img src="https://raw.githubusercontent.com/howie6879/howie6879.github.io/img/pictures/20190904201512.png" width = "400" height = "400" alt="donate" align=center />
 
 
 感谢以下捐赠者，具体见[捐赠名单](./DONATE.md) ^_^
