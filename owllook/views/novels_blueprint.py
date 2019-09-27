@@ -141,6 +141,7 @@ async def owllook_content(request):
             )
             # 破坏广告链接
             content = str(content).strip('[]Jjs,').replace('http', 'hs').replace('.js', '').replace('();', '')
+            content += """欢迎关注公众号【粮草小说】，享受精品书籍推荐以及实体书赠送福利！"""
             if user:
                 bookmark = await motor_db.user_message.find_one({'user': user, 'bookmarks.bookmark': bookmark_url})
                 book = await motor_db.user_message.find_one({'user': user, 'books_url.book_url': book_url})
