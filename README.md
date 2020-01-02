@@ -7,7 +7,9 @@
 - ~~演示网址~~：[https://www.owllook.net/](https://www.owllook.net/)
 - 公众号：[**粮草小说**](https://www.owllook.net/static/novels/img/lcxs_show.jpg)，有兴趣的话可以关注下
 - 详细安装介绍：[详细安装介绍](https://mp.weixin.qq.com/s/0CqLiKsyDQ-pVmeo3R-UlA)
-- 个人公众号：[老胡的储物柜](https://ws1.sinaimg.cn/large/007i3XCUgy1fyamp8ip6cj309k09kdfs.jpg)
+- 个人公众号：[老胡的储物柜](https://raw.githubusercontent.com/howie6879/howie6879.github.io/img/pictures/20190529083905.png)
+
+<div align=center><img width="400" height="400" src="https://raw.githubusercontent.com/howie6879/howie6879.github.io/img/pictures/20190529083905.png" /></div>
 
 衍生项目：
 
