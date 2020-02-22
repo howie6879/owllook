@@ -34,7 +34,7 @@ class SoNovels(BaseNovels):
 
             # 针对不同的请进行url的提取
             if "www.so.com/link?m=" in url:
-                url = html.select('h3 a')[0].get('data-url', None)
+                url = html.select('h3 a')[0].get('data-mdurl', None)
             if "www.so.com/link?url=" in url:
                 url = parse_qs(urlparse(url).query).get('url', None)
                 url = url[0] if url else None
