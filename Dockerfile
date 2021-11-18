@@ -1,5 +1,5 @@
 # 基于python3.6镜像来构建owllook镜像
-FROM python:3.6
+FROM python:3.9
 MAINTAINER howie6879 <howie6879@gmail.com>
 ENV TIME_ZONE=Asia/Shanghai
 RUN echo "${TIME_ZONE}" > /etc/timezone \
