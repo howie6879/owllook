@@ -20,7 +20,7 @@ from owllook.config import RULES, LATEST_RULES, LOGGER
 
 
 @cached(ttl=300, key_from_attr='url', serializer=PickleSerializer(), namespace="main")
-async def cache_owllook_novels_content(url, netloc):
+async def cache_owllook_novels_content(url, chapter_url,netloc):
     headers = {
         'user-agent': await get_random_user_agent()
     }
@@ -51,7 +51,7 @@ async def cache_owllook_novels_content(url, netloc):
             #     title = title.split('_')[0]
             # elif "-" in title:
             #     title = title.split('-')[0]
-            next_chapter = extract_pre_next_chapter(chapter_url=url, html=str(soup))
+            next_chapter = extract_pre_next_chapter(url=url, chapter_url=chapter_url, html=str(soup))
             content = [str(i) for i in content]
             data = {
                 'content': str(''.join(content)),

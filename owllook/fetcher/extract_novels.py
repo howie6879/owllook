@@ -39,7 +39,7 @@ def extract_chapters(chapters_url, html):
     return chapters_sorted
 
 
-def extract_pre_next_chapter(chapter_url, html):
+def extract_pre_next_chapter(url, chapter_url, html):
     """
     获取单章节上一页下一页
     :param chapter_url: 
@@ -63,6 +63,9 @@ def extract_pre_next_chapter(chapter_url, html):
                 # is_ok = is_chapter(text)
                 if is_next:
                     url = urljoin(chapter_url, link.get('href')) or ''
+                    regex = re.compile("^http://|^https://")
+                    if regex.sub('', chapter_url) == regex.sub('', url):
+                        url = False
                     next_chapter[text[:5]] = url
 
         # nextDic = [{v[0]: v[1]} for v in sorted(next_chapter.items(), key=lambda d: d[1])]
