@@ -9,7 +9,7 @@
 - 详细安装介绍：[详细安装介绍](https://mp.weixin.qq.com/s/0CqLiKsyDQ-pVmeo3R-UlA)
 - 个人公众号：[老胡的储物柜](https://raw.githubusercontent.com/howie6879/howie6879.github.io/img/pictures/20190529083905.png)
 
-<div align=center><img src="https://img.turingark.com/wechat_howie.png"  width="85%" alt="img" /></div>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/howie6879/weekly/src/statics/wechat.jpeg"  width="85%" alt="img" /></div>
 
 衍生项目：
 
